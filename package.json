@@ -10,14 +10,19 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@sentry/browser": "^4.0.0-beta.12",
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
+        "moment": "^2.22.2",
         "popper.js": "^1.12",
+        "raven-js": "^3.26.4",
         "tailwindcss": "^0.6.4",
-        "vue": "^2.5.7"
+        "vue": "^2.5.17",
+        "vue-router": "^3.0.1",
+        "vuex": "^3.0.1"
     }
 }
