@@ -71,6 +71,36 @@ class UserAdministrationTest extends TestCase
     }
 
     /** @test */
+    public function unauthorized_user_cannot_delete_a_user()
+    {
+        $this->signIn();
+
+        $user = factory(User::class)->create();
+
+        $this->deleteJson("api/users/{$user->id}")
+            ->assertStatus(403);
+
+        $this->assertDatabaseHas('users', $user->toArray());
+        $this->assertNull($user->fresh()->deleted_at);
+    }
+
+    /** @test */
+    public function authorized_user_can_delete_a_user()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('delete-users');
+        $this->signIn($sign_in_user);
+
+        $user = factory(User::class)->create();
+
+        $this->deleteJson("api/users/{$user->id}")
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('users', $user->toArray());
+        $this->assertNotNull($user->fresh()->deleted_at);
+    }
+
+    /** @test */
     public function username_cannot_change()
     {
         $sign_in_user = factory(User::class)->create();
