@@ -115,4 +115,32 @@ class UserAdministrationTest extends TestCase
 
         $this->assertDatabaseMissing('users', $user->toArray());
     }
+
+    /** @test */
+    public function unauthorized_user_cannot_reset_a_user_password()
+    {
+        $this->signIn();
+
+        $user = factory(User::class)->create(['password' => bcrypt('12345678')]);
+
+        $this->putJson("api/users/{$user->id}/password/reset", [
+            'password' => '87654321',
+            'password_confirmation' => '87654321',
+        ])->assertStatus(403);
+    }
+
+    /** @test */
+    public function authorized_user_can_reset_a_user_password()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('reset-password-users');
+        $this->signIn($sign_in_user);
+
+        $user = factory(User::class)->create(['password' => bcrypt('12345678')]);
+
+        $this->putJson("api/users/{$user->id}/password/reset", [
+            'password' => '87654321',
+            'password_confirmation' => '87654321',
+        ])->assertStatus(200);
+    }
 }
