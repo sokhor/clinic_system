@@ -1,0 +1,1 @@
+C:30:"PHPUnit\Runner\TestResultCache":312:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:6:{s:38:"unauthorized_user_cannot_create_a_user";d:3.697;s:33:"authorized_user_can_create_a_user";d:0.67;s:36:"unauthorized_user_cannot_edit_a_user";d:0.118;s:31:"authorized_user_can_edit_a_user";d:0.523;s:22:"username_cannot_change";d:0.065;s:13:"testBasicTest";d:0.048;}}}
