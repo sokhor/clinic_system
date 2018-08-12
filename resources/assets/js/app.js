@@ -1,5 +1,7 @@
 require('./bootstrap');
 import Vue from 'vue';
+import router from './router';
+import Application from './components/Application.vue';
 
 Vue.component(
     'passport-clients',
@@ -17,5 +19,7 @@ Vue.component(
 );
 
 const app = new Vue({
-    el: '#vue-application'
+    el: '#application',
+    router,
+    render: h => h(Application)
 });

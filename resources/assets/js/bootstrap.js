@@ -1,6 +1,6 @@
-window._ = require('lodash');
-window.Popper = require('popper.js').default;
-window.moment = require('moment');
+// window._ = require('lodash');
+// window.Popper = require('popper.js').default;
+// window.moment = require('moment');
 
 // import Echo from 'laravel-echo'
 

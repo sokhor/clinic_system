@@ -1,3 +1,3 @@
 <?php
 
-Route::view('/{any}', 'welcome')->where('any', '.*');
+Route::view('/{any}', 'app')->where('any', '.*');
