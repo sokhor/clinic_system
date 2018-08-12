@@ -8,5 +8,5 @@ mix.js('resources/assets/js/app.js', 'public/js')
   postCss: [ tailwindcss('./tailwind.js') ],
 })
 .webpackConfig({
-  output: { chunkFilename: 'js/chunks/[name].[chunkhash].js', publicPath: '/' }
+  output: { chunkFilename: 'js/chunks/[name].js', publicPath: '/' }
 });

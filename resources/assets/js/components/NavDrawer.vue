@@ -1,9 +1,9 @@
 <template>
-  <div>Footer</div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'NavDrawer'
 }
 </script>

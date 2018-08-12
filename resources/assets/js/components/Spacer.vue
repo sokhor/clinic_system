@@ -1,9 +1,9 @@
 <template>
-  <div>Sidebar</div>
+  <div class="flex-auto"></div>
 </template>
 
 <script>
 export default {
-  name: 'Sidebar'
+  name: 'Spacer'
 }
 </script>
