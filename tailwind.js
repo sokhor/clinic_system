@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 /*
 
 Tailwind - The Utility-First CSS Framework
@@ -930,6 +932,25 @@ module.exports = {
       // center: true,
       // padding: '1rem',
     }),
+    function({e, addUtilities }) {
+      const order = {
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5,
+      }
+
+      const orderUtilities = _.map(order, (value, key) => {
+        return {
+          [`.${e(`order-${key}`)}`]: {
+            order: `${value}`
+          }
+        }
+      })
+
+      addUtilities(orderUtilities, ['responsive'])
+    }
   ],
 
 
