@@ -1,4 +1,6 @@
 module.exports = {
+  baseUrl: '/',
+  productionSourceMap: false,
   css: {
     loaderOptions: {
       postcss: {
