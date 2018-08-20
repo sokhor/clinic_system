@@ -1,0 +1,211 @@
+<template>
+  <transition name="slide-fade">
+    <div class="drawer bg-grey-dark-blue relative">
+      <SidebarHeader/>
+      <SidebarForm/>
+      <nav class="drawer-nav text-white">
+        <div slot="header"></div>
+        <ul class="nav list-reset">
+          <template v-for="(item, index) in navItems">
+            <template v-if="item.title">
+              <SidebarNavTitle :name="item.name" :classes="item.class" :wrapper="item.wrapper"/>
+            </template>
+            <template v-else-if="item.divider">
+              <SidebarNavDivider :classes="item.class"/>
+            </template>
+            <template v-else>
+              <template v-if="item.children">
+                <!-- First level dropdown -->
+                <SidebarNavDropdown :name="item.name" :url="item.url" :icon="item.icon">
+                  <template v-for="(childL1, index) in item.children">
+                    <template v-if="childL1.children">
+                      <!-- Second level dropdown -->
+                      <SidebarNavDropdown :name="childL1.name" :url="childL1.url" :icon="childL1.icon">
+                        <li class="nav-item" v-for="(childL2, index) in childL1.children">
+                          <SidebarNavLink :name="childL2.name" :url="childL2.url" :icon="childL2.icon" :badge="childL2.badge" :variant="item.variant"/>
+                        </li>
+                      </SidebarNavDropdown>
+                    </template>
+                    <template v-else>
+                      <SidebarNavItem :classes="item.class">
+                        <SidebarNavLink :name="childL1.name" :url="childL1.url" :icon="childL1.icon" :badge="childL1.badge" :variant="item.variant"/>
+                      </SidebarNavItem>
+                    </template>
+                  </template>
+                </SidebarNavDropdown>
+              </template>
+              <template v-else>
+                <SidebarNavItem :classes="item.class">
+                  <SidebarNavLink :name="item.name" :url="item.url" :icon="item.icon" :badge="item.badge" :variant="item.variant"/>
+                </SidebarNavItem>
+              </template>
+            </template>
+          </template>
+        </ul>
+        <slot></slot>
+      </nav>
+      <SidebarFooter/>
+      <SidebarMinimizer/>
+    </div>
+  </transition>
+</template>
+<script>
+import SidebarFooter from './SidebarFooter'
+import SidebarForm from './SidebarForm'
+import SidebarHeader from './SidebarHeader'
+import SidebarMinimizer from './SidebarMinimizer'
+import SidebarNavDivider from './SidebarNavDivider'
+import SidebarNavDropdown from './SidebarNavDropdown'
+import SidebarNavLink from './SidebarNavLink'
+import SidebarNavTitle from './SidebarNavTitle'
+import SidebarNavItem from './SidebarNavItem'
+export default {
+  name: 'sidebar',
+  components: {
+    SidebarFooter,
+    SidebarForm,
+    SidebarHeader,
+    SidebarMinimizer,
+    SidebarNavDivider,
+    SidebarNavDropdown,
+    SidebarNavLink,
+    SidebarNavTitle,
+    SidebarNavItem
+  },
+  data() {
+    return  {
+      navItems: [
+        {
+          name: 'Dashboard',
+          url: '/dashboard',
+          icon: 'fas fa-tachometer-alt',
+          badge: {
+            variant: 'primary',
+            text: 'NEW'
+          }
+        },
+        {
+          title: true,
+          name: 'Theme',
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
+          name: 'Colors',
+          url: '/theme/colors',
+          icon: 'fas fa-map-marker'
+        },
+        {
+          name: 'Typography',
+          url: '/theme/typography',
+          icon: 'fas fa-map-marker'
+        },
+        {
+          title: true,
+          name: 'Components',
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
+          name: 'Base',
+          url: '/base',
+          icon: 'fas fa-map-marker',
+          children: [
+            {
+              name: 'Breadcrumbs',
+              url: '/base/breadcrumbs',
+              icon: 'fas fa-map-marker'
+            },
+            {
+              name: 'Cards',
+              url: '/base/cards',
+              icon: 'fas fa-map-marker'
+            },
+          ]
+        },
+        {
+          name: 'Buttons',
+          url: '/buttons',
+          icon: 'fas fa-map-marker',
+          children: [
+            {
+              name: 'Standard Buttons',
+              url: '/buttons/standard-buttons',
+              icon: 'fas fa-map-marker'
+            },
+            {
+              name: 'Button Groups',
+              url: '/buttons/button-groups',
+              icon: 'fas fa-map-marker'
+            },
+            {
+              name: 'Dropdowns',
+              url: '/buttons/dropdowns',
+              icon: 'fas fa-map-marker'
+            },
+          ]
+        },
+        {
+          title: true,
+          name: 'Label',
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
+          name: 'Label danger',
+          icon: 'fa fa-circle text-danger',
+          class: '',
+          label: {
+            variant: 'danger',
+            class: ''
+          }
+        },
+        {
+          name: 'Label info',
+          icon: 'fa fa-circle text-info',
+          label: {
+            variant: 'info'
+          }
+        },
+        {
+          name: 'Label warning',
+          icon: 'fa fa-circle text-warning',
+          label: {
+            variant: 'warning'
+          }
+        }
+      ]
+    }
+  },
+  methods: {
+    handleClick (e) {
+      e.preventDefault()
+      e.target.parentElement.classList.toggle('open')
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.drawer {
+  min-width: 200px;
+}
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s ease;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(-100%);
+}
+</style>
