@@ -3,7 +3,7 @@
     <AppHeader/>
     <div class="flex-grow flex">
       <NavDrawer v-show="drawer"/>
-      <div>
+      <div class="p-4 w-full h-full">
         <router-view></router-view>
       </div>
     </div>
@@ -12,8 +12,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import AppHeader from './Header.vue';
-import NavDrawer from './NavDrawer/NavDrawer.vue';
+import AppHeader from './layouts/Header.vue';
+import NavDrawer from './layouts/NavDrawer/NavDrawer.vue';
 
 export default {
   name: 'App',

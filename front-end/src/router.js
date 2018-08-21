@@ -9,15 +9,15 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "dashboard",
       component: () =>
-        import(/* webpackChunkName: "dashboard" */ "./views/Dashboard.vue")
+        import(/* webpackChunkName: "dashboard" */ "./pages/Dashboard.vue")
     },
     {
-      path: "/about",
-      name: "about",
+      path: "/user",
+      name: "user",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "user" */ "./pages/user")
     }
   ]
 });

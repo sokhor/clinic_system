@@ -77,7 +77,7 @@ export default {
       navItems: [
         {
           name: 'Dashboard',
-          url: '/dashboard',
+          url: '/',
           icon: 'fas fa-tachometer-alt',
           badge: {
             variant: 'primary',
@@ -86,7 +86,7 @@ export default {
         },
         {
           title: true,
-          name: 'Theme',
+          name: 'Administration',
           class: '',
           wrapper: {
             element: '',
@@ -94,95 +94,10 @@ export default {
           }
         },
         {
-          name: 'Colors',
-          url: '/theme/colors',
-          icon: 'fas fa-map-marker'
+          name: 'User',
+          url: '/user',
+          icon: 'fas fa-user'
         },
-        {
-          name: 'Typography',
-          url: '/theme/typography',
-          icon: 'fas fa-map-marker'
-        },
-        {
-          title: true,
-          name: 'Components',
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
-        },
-        {
-          name: 'Base',
-          url: '/base',
-          icon: 'fas fa-map-marker',
-          children: [
-            {
-              name: 'Breadcrumbs',
-              url: '/base/breadcrumbs',
-              icon: 'fas fa-map-marker'
-            },
-            {
-              name: 'Cards',
-              url: '/base/cards',
-              icon: 'fas fa-map-marker'
-            },
-          ]
-        },
-        {
-          name: 'Buttons',
-          url: '/buttons',
-          icon: 'fas fa-map-marker',
-          children: [
-            {
-              name: 'Standard Buttons',
-              url: '/buttons/standard-buttons',
-              icon: 'fas fa-map-marker'
-            },
-            {
-              name: 'Button Groups',
-              url: '/buttons/button-groups',
-              icon: 'fas fa-map-marker'
-            },
-            {
-              name: 'Dropdowns',
-              url: '/buttons/dropdowns',
-              icon: 'fas fa-map-marker'
-            },
-          ]
-        },
-        {
-          title: true,
-          name: 'Label',
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
-        },
-        {
-          name: 'Label danger',
-          icon: 'fa fa-circle text-danger',
-          class: '',
-          label: {
-            variant: 'danger',
-            class: ''
-          }
-        },
-        {
-          name: 'Label info',
-          icon: 'fa fa-circle text-info',
-          label: {
-            variant: 'info'
-          }
-        },
-        {
-          name: 'Label warning',
-          icon: 'fa fa-circle text-warning',
-          label: {
-            variant: 'warning'
-          }
-        }
       ]
     }
   },
