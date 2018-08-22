@@ -57,4 +57,17 @@ class AuthenticationTest extends TestCase
             'error' => 'Unauthenticated',
         ]);
     }
+
+    /** @test */
+    public function it_require_username_and_password()
+    {
+        $user = factory(User::class)->create([
+            'username' => 'user1',
+            'password' => bcrypt('secret'),
+        ]);
+
+        $this->postJson('api/login', ['username' => '', 'password' => ''])
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJsonValidationErrors(['username', 'password']);
+    }
 }

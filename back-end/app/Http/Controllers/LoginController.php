@@ -17,6 +17,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
         if(!($user = $this->hasValidCredentials($request)))
         {
             return response()->json(['error' => 'Unauthenticated'], 401);
