@@ -70,4 +70,23 @@ class AuthenticationTest extends TestCase
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonValidationErrors(['username', 'password']);
     }
+
+    /** @test */
+    public function inactive_user_attempt_login_failed()
+    {
+        factory(User::class)->create([
+            'username' => 'user1',
+            'password' => bcrypt('secret'),
+            'active' => false,
+        ]);
+
+        $this->postJson('api/login', [
+            'username' => 'user1',
+            'password' => 'secret',
+        ])
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        ->assertJson([
+            'error' => 'Invalid credentials',
+        ]);
+    }
 }
