@@ -52,9 +52,9 @@ class AuthenticationTest extends TestCase
             'username' => 'user1',
             'password' => 'wrong-secret',
         ])
-        ->assertStatus(Response::HTTP_UNAUTHORIZED)
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJson([
-            'error' => 'Unauthenticated',
+            'error' => 'Invalid credentials',
         ]);
     }
 
