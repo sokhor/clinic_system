@@ -23,7 +23,7 @@ class AuthenticationTest extends TestCase
         ]);
         $client = Client::where('password_client', 1)->first();
 
-        $this->post('/oauth/token', [
+        $this->postJson('/oauth/token', [
             'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,

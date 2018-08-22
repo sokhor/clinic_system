@@ -24,7 +24,7 @@ class AuthenticationTest extends TestCase
         $client = Client::where('password_client', 1)->first();
         $client->update(['user_id' => $user->id]);
 
-        $this->post('api/login', [
+        $this->postJson('api/login', [
             'username' => 'user1',
             'password' => 'secret',
         ])
@@ -48,7 +48,7 @@ class AuthenticationTest extends TestCase
         $client = Client::where('password_client', 1)->first();
         $client->update(['user_id' => $user->id]);
 
-        $this->post('api/login', [
+        $this->postJson('api/login', [
             'username' => 'user1',
             'password' => 'wrong-secret',
         ])
