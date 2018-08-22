@@ -16,7 +16,6 @@ class AuthenticationTest extends TestCase
     /** @test */
     public function user_attempt_login_success()
     {
-        $this->withoutExceptionHandling();
         $this->artisan('passport:client', ['--password' => true, '--no-interaction' => true]);
         $user = factory(User::class)->create([
             'username' => 'user1',
@@ -35,6 +34,27 @@ class AuthenticationTest extends TestCase
             'expires_in',
             'access_token',
             'refresh_token',
+        ]);
+    }
+
+    /** @test */
+    public function user_attempt_login_failed()
+    {
+        $this->artisan('passport:client', ['--password' => true, '--no-interaction' => true]);
+        $user = factory(User::class)->create([
+            'username' => 'user1',
+            'password' => bcrypt('secret'),
+        ]);
+        $client = Client::where('password_client', 1)->first();
+        $client->update(['user_id' => $user->id]);
+
+        $this->post('api/login', [
+            'username' => 'user1',
+            'password' => 'wrong-secret',
+        ])
+        ->assertStatus(Response::HTTP_UNAUTHORIZED)
+        ->assertJson([
+            'error' => 'Unauthenticated',
         ]);
     }
 }

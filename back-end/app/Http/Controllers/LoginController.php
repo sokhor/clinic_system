@@ -17,7 +17,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if(is_null($user = $this->hasValidCredentials($request)))
+        if(!($user = $this->hasValidCredentials($request)))
         {
             return response()->json(['error' => 'Unauthenticated'], 401);
         }
