@@ -1,12 +1,17 @@
 <template>
   <div class="flex flex-col h-screen bg-grey-lighter">
-    <AppHeader/>
-    <div class="flex-grow flex">
-      <NavDrawer v-show="drawer"/>
-      <div class="p-4 w-full h-full">
-        <router-view></router-view>
+    <template v-if="false">
+      <AppHeader/>
+      <div class="flex-grow flex">
+        <NavDrawer v-show="drawer"/>
+        <div class="p-4 w-full h-full">
+          <router-view></router-view>
+        </div>
       </div>
-    </div>
+    </template>
+    <template v-if="true">
+      <router-view></router-view>
+    </template>
   </div>
 </template>
 

@@ -1,23 +1,29 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "dashboard",
+      path: '/login',
+      name: 'login',
       component: () =>
-        import(/* webpackChunkName: "dashboard" */ "./pages/Dashboard.vue")
+        import(/* webpackChunkName: 'login' */ './pages/login.vue')
     },
     {
-      path: "/user",
-      name: "user",
+      path: '/',
+      name: 'dashboard',
       component: () =>
-        import(/* webpackChunkName: "user" */ "./pages/user")
+        import(/* webpackChunkName: 'dashboard' */ './pages/Dashboard.vue')
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: () =>
+        import(/* webpackChunkName: 'user' */ './pages/user')
     }
   ]
 });
