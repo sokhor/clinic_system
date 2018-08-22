@@ -5,6 +5,7 @@ module.exports = {
     loaderOptions: {
       postcss: {
         plugins: [
+          require('postcss-import'),
           require("tailwindcss")("./tailwind.js")
         ]
       }
