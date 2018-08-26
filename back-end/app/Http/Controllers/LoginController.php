@@ -24,7 +24,7 @@ class LoginController extends Controller
 
         if(!($user = $this->hasValidCredentials($request)))
         {
-            return response()->json(['error' => 'Invalid credentials'], 422);
+            return response()->json(['invalid_credentials' => 'Invalid credentials'], 422);
         }
 
         $token = $this->retrieveAccessToken($user, $request);

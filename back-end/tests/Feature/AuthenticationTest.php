@@ -54,7 +54,7 @@ class AuthenticationTest extends TestCase
         ])
         ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJson([
-            'error' => 'Invalid credentials',
+            'invalid_credentials' => 'Invalid credentials',
         ]);
     }
 
@@ -86,7 +86,7 @@ class AuthenticationTest extends TestCase
         ])
         ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
         ->assertJson([
-            'error' => 'Invalid credentials',
+            'invalid_credentials' => 'Invalid credentials',
         ]);
     }
 }
