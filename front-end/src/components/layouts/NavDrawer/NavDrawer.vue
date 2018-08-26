@@ -50,17 +50,17 @@
   </transition>
 </template>
 <script>
-import SidebarFooter from './SidebarFooter'
-import SidebarForm from './SidebarForm'
-import SidebarHeader from './SidebarHeader'
-import SidebarMinimizer from './SidebarMinimizer'
-import SidebarNavDivider from './SidebarNavDivider'
-import SidebarNavDropdown from './SidebarNavDropdown'
-import SidebarNavLink from './SidebarNavLink'
-import SidebarNavTitle from './SidebarNavTitle'
-import SidebarNavItem from './SidebarNavItem'
+import SidebarFooter from "./SidebarFooter";
+import SidebarForm from "./SidebarForm";
+import SidebarHeader from "./SidebarHeader";
+import SidebarMinimizer from "./SidebarMinimizer";
+import SidebarNavDivider from "./SidebarNavDivider";
+import SidebarNavDropdown from "./SidebarNavDropdown";
+import SidebarNavLink from "./SidebarNavLink";
+import SidebarNavTitle from "./SidebarNavTitle";
+import SidebarNavItem from "./SidebarNavItem";
 export default {
-  name: 'sidebar',
+  name: "sidebar",
   components: {
     SidebarFooter,
     SidebarForm,
@@ -73,41 +73,41 @@ export default {
     SidebarNavItem
   },
   data() {
-    return  {
+    return {
       navItems: [
         {
-          name: 'Dashboard',
-          url: '/',
-          icon: 'fas fa-tachometer-alt',
+          name: "Dashboard",
+          url: "/",
+          icon: "fas fa-tachometer-alt",
           badge: {
-            variant: 'primary',
-            text: 'NEW'
+            variant: "primary",
+            text: "NEW"
           }
         },
         {
           title: true,
-          name: 'Administration',
-          class: '',
+          name: "Administration",
+          class: "",
           wrapper: {
-            element: '',
+            element: "",
             attributes: {}
           }
         },
         {
-          name: 'User',
-          url: '/user',
-          icon: 'fas fa-user'
-        },
+          name: "User",
+          url: "/user",
+          icon: "fas fa-user"
+        }
       ]
-    }
+    };
   },
   methods: {
-    handleClick (e) {
-      e.preventDefault()
-      e.target.parentElement.classList.toggle('open')
+    handleClick(e) {
+      e.preventDefault();
+      e.target.parentElement.classList.toggle("open");
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -115,12 +115,13 @@ export default {
   min-width: 200px;
 }
 .slide-fade-enter-active {
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 .slide-fade-leave-active {
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter,
+.slide-fade-leave-to {
   transform: translateX(-100%);
 }
 </style>
