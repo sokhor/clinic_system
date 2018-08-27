@@ -16,11 +16,11 @@ export default {
   props: {
     name: {
       type: String,
-      default: ""
+      default: ''
     },
     classes: {
       type: String,
-      default: ""
+      default: ''
     },
     wrapper: {
       type: Object,
@@ -29,11 +29,11 @@ export default {
   },
   computed: {
     classList() {
-      return ["nav-title", ...this.itemClasses];
+      return ['nav-title', ...this.itemClasses]
     },
     itemClasses() {
-      return this.classes ? this.classes.split(" ") : "";
+      return this.classes ? this.classes.split(' ') : ''
     }
   }
-};
+}
 </script>

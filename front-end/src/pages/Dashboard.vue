@@ -4,6 +4,6 @@
 
 <script>
 export default {
-  name: "Dashboard"
-};
+  name: 'Dashboard1'
+}
 </script>

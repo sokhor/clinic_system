@@ -14,28 +14,28 @@ export default {
   props: {
     name: {
       type: String,
-      default: ""
+      default: ''
     },
     url: {
       type: String,
-      default: ""
+      default: ''
     },
     icon: {
       type: String,
-      default: ""
+      default: ''
     }
   },
   data() {
     return {
       dropdownOpen: false
-    };
+    }
   },
   methods: {
     handleClick() {
-      this.dropdownOpen = !this.dropdownOpen;
+      this.dropdownOpen = !this.dropdownOpen
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -53,7 +53,7 @@ export default {
         height: 8px;
         padding: 0;
         margin-top: -4px;
-        content: "";
+        content: '';
         background-image: url(data:image/svg+xml;charset=utf8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMSAxNCc+PHBhdGggZmlsbD0nIzczODE4ZicgZD0nTTkuMTQ4IDIuMzUybC00LjE0OCA0LjE0OCA0LjE0OCA0LjE0OHEwLjE0OCAwLjE0OCAwLjE0OCAwLjM1MnQtMC4xNDggMC4zNTJsLTEuMjk3IDEuMjk3cS0wLjE0OCAwLjE0OC0wLjM1MiAwLjE0OHQtMC4zNTItMC4xNDhsLTUuNzk3LTUuNzk3cS0wLjE0OC0wLjE0OC0wLjE0OC0wLjM1MnQwLjE0OC0wLjM1Mmw1Ljc5Ny01Ljc5N3EwLjE0OC0wLjE0OCAwLjM1Mi0wLjE0OHQwLjM1MiAwLjE0OGwxLjI5NyAxLjI5N3EwLjE0OCAwLjE0OCAwLjE0OCAwLjM1MnQtMC4xNDggMC4zNTJ6Jy8+PC9zdmc+);
         background-repeat: no-repeat;
         background-position: 50%;

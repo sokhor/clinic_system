@@ -8,47 +8,47 @@
 
 <script>
 export default {
-  name: "Alert",
+  name: 'Alert',
   props: {
     type: {
       type: String,
-      default: ""
+      default: ''
     }
   },
   computed: {
     classList() {
-      if (this.type.toLowerCase().trim() === "danger") {
+      if (this.type.toLowerCase().trim() === 'danger') {
         return {
-          "bg-red-lightest": true,
-          "border-red": true,
-          "text-red-dark": true
-        };
-      } else if (this.type.toLowerCase().trim() === "warning") {
+          'bg-red-lightest': true,
+          'border-red': true,
+          'text-red-dark': true
+        }
+      } else if (this.type.toLowerCase().trim() === 'warning') {
         return {
-          "bg-orange-lightest": true,
-          "border-orange": true,
-          "text-orange-dark": true
-        };
-      } else if (this.type.toLowerCase().trim() === "info") {
+          'bg-orange-lightest': true,
+          'border-orange': true,
+          'text-orange-dark': true
+        }
+      } else if (this.type.toLowerCase().trim() === 'info') {
         return {
-          "bg-blue-lightest": true,
-          "border-blue": true,
-          "text-blue-dark": true
-        };
-      } else if (this.type.toLowerCase().trim() === "success") {
+          'bg-blue-lightest': true,
+          'border-blue': true,
+          'text-blue-dark': true
+        }
+      } else if (this.type.toLowerCase().trim() === 'success') {
         return {
-          "bg-green-lightest": true,
-          "border-green": true,
-          "text-green-dark": true
-        };
+          'bg-green-lightest': true,
+          'border-green': true,
+          'text-green-dark': true
+        }
       } else {
         return {
-          "bg-grey-lightest": true,
-          "border-grey": true,
-          "text-grey-dark": true
-        };
+          'bg-grey-lightest': true,
+          'border-grey': true,
+          'text-grey-dark': true
+        }
       }
     }
   }
-};
+}
 </script>

@@ -16,19 +16,19 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import AppHeader from "./layouts/Header.vue";
-import NavDrawer from "./layouts/NavDrawer/NavDrawer.vue";
+import { mapState, mapGetters } from 'vuex'
+import AppHeader from './layouts/Header.vue'
+import NavDrawer from './layouts/NavDrawer/NavDrawer.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     AppHeader,
     NavDrawer
   },
   computed: {
-    ...mapState(["drawer"]),
-    ...mapGetters(["isAuthenticated"])
+    ...mapState(['drawer']),
+    ...mapGetters(['isAuthenticated'])
   }
-};
+}
 </script>

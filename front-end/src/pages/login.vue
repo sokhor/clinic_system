@@ -44,24 +44,24 @@
 </template>
 
 <script>
-import { required } from "vuelidate/lib/validators";
-import httpClient from "../http-client";
-import Alert from "../components/common/alert.vue";
-import Waiting from "../components/common/waiting.vue";
+import { required } from 'vuelidate/lib/validators'
+import httpClient from '../http-client'
+import Alert from '../components/common/alert.vue'
+import Waiting from '../components/common/waiting.vue'
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     Alert,
     Waiting
   },
   data() {
     return {
-      username: "",
-      password: "",
-      invalidCredential: "",
+      username: '',
+      password: '',
+      invalidCredential: '',
       loggingIn: false
-    };
+    }
   },
   validations: {
     username: { required },
@@ -69,46 +69,46 @@ export default {
   },
   computed: {
     usernameErrors() {
-      const errors = [];
-      if (!this.$v.username.$dirty) return errors;
-      !this.$v.username.required && errors.push("Required");
-      return errors;
+      const errors = []
+      if (!this.$v.username.$dirty) return errors
+      !this.$v.username.required && errors.push('Required')
+      return errors
     },
     passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Required");
-      return errors;
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push('Required')
+      return errors
     }
   },
   methods: {
     postLogin() {
-      this.validateInput();
+      this.validateInput()
 
-      this.loggingIn = true;
+      this.loggingIn = true
 
       httpClient
-        .post("api/login", {
+        .post('api/login', {
           username: this.username,
           password: this.password
         })
         .then(response => {
-          this.loggingIn = false;
-          this.$store.commit("SET_AUTHENTICATION", response.data);
-          this.$router.push("/");
+          this.loggingIn = false
+          this.$store.commit('SET_AUTHENTICATION', response.data)
+          this.$router.push('/')
         })
         .catch(error => {
-          this.loggingIn = false;
-          this.invalidCredential = error.response.data.invalid_credentials;
-        });
+          this.loggingIn = false
+          this.invalidCredential = error.response.data.invalid_credentials
+        })
     },
     validateInput() {
-      this.$v.$touch();
+      this.$v.$touch()
 
       if (this.$v.$error) {
-        throw "Validation failed";
+        throw 'Validation failed'
       }
     }
   }
-};
+}
 </script>

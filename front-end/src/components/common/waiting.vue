@@ -18,6 +18,6 @@
 
 <script>
 export default {
-  name: "waiting"
-};
+  name: 'waiting'
+}
 </script>

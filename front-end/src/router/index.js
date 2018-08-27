@@ -1,30 +1,30 @@
-import Vue from "vue";
-import Router from "vue-router";
-import store from "../store";
-import routes from "./routes";
+import Vue from 'vue'
+import Router from 'vue-router'
+import store from '../store'
+import routes from './routes'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const router = new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
-});
+})
 
 router.beforeEach((to, from, next) => {
-  if (to.path != "/login") {
+  if (to.path != '/login') {
     if (store.getters.isAuthenticated) {
-      next();
+      next()
     } else {
-      next("login");
+      next('login')
     }
   } else {
     if (store.getters.isAuthenticated) {
-      next(from.path);
+      next(from.path)
     } else {
-      next();
+      next()
     }
   }
-});
+})
 
-export default router;
+export default router
