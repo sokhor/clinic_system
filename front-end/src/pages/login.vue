@@ -45,7 +45,6 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import httpClient from '../http-client'
 import Alert from '../components/common/alert.vue'
 import Waiting from '../components/common/waiting.vue'
 
@@ -87,14 +86,13 @@ export default {
 
       this.loggingIn = true
 
-      httpClient
-        .post('api/login', {
+      this.$store
+        .dispatch('auth/logIn', {
           username: this.username,
           password: this.password
         })
-        .then(response => {
+        .then(() => {
           this.loggingIn = false
-          this.$store.commit('SET_AUTHENTICATION', response.data)
           this.$router.push('/')
         })
         .catch(error => {

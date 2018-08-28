@@ -10,11 +10,11 @@ const getClient = (baseUrl = process.env.VUE_APP_API_URL) => {
     }
   }
 
-  if (store.getters['isAuthenticated']) {
-    options.headers = {
-      Authorization: `Bearer ${store.getters['accessToken']}`
-    }
-  }
+  // if (store.getters['auth/isAuthenticated']) {
+  //   options.headers = {
+  //     Authorization: `Bearer ${store.getters['auth/accessToken']}`
+  //   }
+  // }
 
   const client = axios.create(options)
 

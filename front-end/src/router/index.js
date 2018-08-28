@@ -13,13 +13,13 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.path != '/login') {
-    if (store.getters.isAuthenticated) {
+    if (store.getters['auth/isAuthenticated']) {
       next()
     } else {
       next('login')
     }
   } else {
-    if (store.getters.isAuthenticated) {
+    if (store.getters['auth/isAuthenticated']) {
       next(from.path)
     } else {
       next()

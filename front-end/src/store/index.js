@@ -1,37 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
+// import createPersistedState from 'vuex-persistedstate'
+import modules from './modules'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
-    drawer: true,
-    auth: {
-      tokenType: '',
-      accessToken: '',
-      refreshToken: '',
-      expiresIn: '',
-      authenticated: false
-    }
-  },
-  getters: {
-    isAuthenticated: state => {
-      return state.auth.authenticated
-    }
+    drawer: true
   },
   mutations: {
     toggleNavigation(state) {
       state.drawer = !state.drawer
-    },
-    SET_AUTHENTICATION(state, auth) {
-      state.auth.tokenType = auth.token_type
-      state.auth.accessToken = auth.access_token
-      state.auth.refreshToken = auth.refresh_token
-      state.auth.expiresIn = auth.expires_in
-      state.auth.authenticated = true
     }
   },
-  actions: {},
-  plugins: [createPersistedState()]
+  modules
+  // plugins: [createPersistedState()]
 })
+
+// Automatically run the `init` action for every module, if one exists.
+for (const moduleName of Object.keys(modules)) {
+  if (modules[moduleName].actions && modules[moduleName].actions.init) {
+    store.dispatch(`${moduleName}/init`)
+  }
+}
+
+export default store

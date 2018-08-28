@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     ...mapState(['drawer']),
-    ...mapGetters(['isAuthenticated'])
+    ...mapGetters('auth', ['isAuthenticated'])
   }
 }
 </script>
