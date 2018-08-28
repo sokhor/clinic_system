@@ -6,6 +6,7 @@ use League\OAuth2\Server\AuthorizationServer;
 use Zend\Diactoros\Response as Psr7Response;
 use Zend\Diactoros\ServerRequest;
 use Illuminate\Http\Request;
+use App\Http\Resources\AuthenticatedUserResource;
 use App\User;
 use Auth;
 
@@ -33,7 +34,7 @@ class LoginController extends Controller
         $token = $this->retrieveAccessToken($user, $request);
         $user = $this->setAuthenticatedUser($user);
 
-        return response()->json($token, 200);
+        return new AuthenticatedUserResource(compact('user', 'token'));
     }
 
     protected function retrieveAccessToken(User $user, Request $request)
@@ -50,7 +51,7 @@ class LoginController extends Controller
                 'scope' => '',
             ]),
             new Psr7Response
-        )->getBody()->__toString(), true);
+        )->getBody()->__toString());
     }
 
     protected function hasValidCredentials(Request $request)
