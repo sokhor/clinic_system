@@ -7,6 +7,7 @@ use Zend\Diactoros\Response as Psr7Response;
 use Zend\Diactoros\ServerRequest;
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -30,6 +31,7 @@ class LoginController extends Controller
         }
 
         $token = $this->retrieveAccessToken($user, $request);
+        $user = $this->setAuthenticatedUser($user);
 
         return response()->json($token, 200);
     }
@@ -58,6 +60,13 @@ class LoginController extends Controller
                 ->first();
 
         return ! is_null($user) && app('hash')->check($request->password, $user->password) ? $user : false;
+    }
+
+    protected function setAuthenticatedUser(User $user)
+    {
+        Auth::setUser($user);
+
+        return Auth::user();
     }
 
     public function logout(Request $request)
