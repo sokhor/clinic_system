@@ -1,2 +1,6 @@
 @import "tailwind";
 @import "form-control.scss";
+
+.bg-page-background {
+    background-color: #f0f5f8;
+}

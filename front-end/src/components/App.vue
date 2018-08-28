@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen bg-grey-lighter">
+  <div class="flex flex-col h-screen bg-page-background">
     <template v-if="isAuthenticated">
       <AppHeader/>
       <div class="flex-grow flex">
