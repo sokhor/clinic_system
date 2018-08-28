@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use League\OAuth2\Server\AuthorizationServer;
+use Zend\Diactoros\Response as Psr7Response;
+use Zend\Diactoros\ServerRequest;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use App\User;
 
 class LoginController extends Controller
 {
-    protected $client;
+    protected $server;
 
-    public function __construct(Client $client)
+    public function __construct(AuthorizationServer $server)
     {
-        $this->client = $client;
+        $this->server = $server;
     }
 
     public function login(Request $request)
@@ -36,18 +38,17 @@ class LoginController extends Controller
     {
         $client = $user->clients->first();
 
-        $response = $this->client->post(url('oauth/token'), [
-            'form_params' => [
+        return json_decode($this->server->respondToAccessTokenRequest(
+            (new ServerRequest)->withParsedBody([
                 'grant_type' => 'password',
                 'client_id' => $client->id,
                 'client_secret' => $client->secret,
                 'username' => $request->username,
                 'password' => $request->password,
                 'scope' => '',
-            ],
-        ]);
-
-        return json_decode((string) $response->getBody(), true);
+            ]),
+            new Psr7Response
+        )->getBody()->__toString(), true);
     }
 
     protected function hasValidCredentials(Request $request)

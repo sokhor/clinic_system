@@ -89,4 +89,10 @@ class AuthenticationTest extends TestCase
             'invalid_credentials' => 'Invalid credentials',
         ]);
     }
+
+    // /** @test */
+    // public function it_revoke_auth_token_after_logout()
+    // {
+
+    // }
 }
