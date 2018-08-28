@@ -90,9 +90,30 @@ class AuthenticationTest extends TestCase
         ]);
     }
 
-    // /** @test */
-    // public function it_revoke_auth_token_after_logout()
-    // {
+    /** @test */
+    public function it_revoke_auth_token_after_logout()
+    {
+        $this->artisan('passport:client', ['--password' => true, '--no-interaction' => true]);
+        $user = factory(User::class)->create([
+            'username' => 'user1',
+            'password' => bcrypt('secret'),
+        ]);
+        $client = Client::where('password_client', 1)->first();
+        $client->update(['user_id' => $user->id]);
 
-    // }
+        // Attempt to login for the purpose generating access token.
+        $response = $this->postJson('api/login', [
+            'username' => 'user1',
+            'password' => 'secret',
+        ]);
+
+        // Set authenticated user
+        $user->withAccessToken($user->fresh()->tokens()->where('revoked', false)->first());
+        app('auth')->guard('api')->setUser($user);
+        app('auth')->shouldUse('api');
+
+        // Test logout end-point
+        $this->getJson('api/logout')->assertStatus(202);
+        $this->assertNotNull($user->fresh()->tokens()->where('revoked', true)->first());
+    }
 }

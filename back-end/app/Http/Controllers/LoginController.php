@@ -59,4 +59,11 @@ class LoginController extends Controller
 
         return ! is_null($user) && app('hash')->check($request->password, $user->password) ? $user : false;
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+
+        return response(null, 202);
+    }
 }
