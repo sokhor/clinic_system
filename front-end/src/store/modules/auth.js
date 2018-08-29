@@ -1,12 +1,6 @@
 import httpClient from '../../http-client'
 
 export const state = {
-  // tokenType: '',
-  // accessToken: '',
-  // refreshToken: '',
-  // expiresIn: '',
-  // authenticated: false
-
   currentUser: getSavedState('auth.currentUser')
 }
 
@@ -15,19 +9,11 @@ export const getters = {
     return !!state.currentUser
   },
   accessToken(state) {
-    return state.currentUser !== null ? state.currentUser.accessToken : ''
+    return state.currentUser !== null ? state.currentUser.access_token : ''
   }
 }
 
 export const mutations = {
-  // SET_AUTHENTICATION(state, auth) {
-  //   state.tokenType = auth.token_type
-  //   state.accessToken = auth.access_token
-  //   state.refreshToken = auth.refresh_token
-  //   state.expiresIn = auth.expires_in
-  //   state.authenticated = true
-  // }
-
   SET_CURRENT_USER(state, newValue) {
     state.currentUser = newValue
     saveState('auth.currentUser', newValue)
@@ -36,27 +22,27 @@ export const mutations = {
 
 export const actions = {
   init({ dispatch }) {
-    dispatch('validate')
+    // dispatch('validate')
   },
-  validate({ commit, state }) {
-    if (!state.currentUser) return Promise.resolve(null)
+  // validate({ commit, state }) {
+  //   if (!state.currentUser) return Promise.resolve(null)
 
-    return httpClient
-      .get('/api/login')
-      .then(response => {
-        const user = response.data
-        commit('SET_CURRENT_USER', user)
-        return user
-      })
-      .catch(error => {
-        if (error.response.status === 401) {
-          commit('SET_CURRENT_USER', null)
-        }
-        return null
-      })
-  },
+  //   return httpClient
+  //     .get('/api/authenticated')
+  //     .then(response => {
+  //       const user = response.data
+  //       commit('SET_CURRENT_USER', user)
+  //       return user
+  //     })
+  //     .catch(error => {
+  //       if (error.response.status === 401) {
+  //         commit('SET_CURRENT_USER', null)
+  //       }
+  //       return null
+  //     })
+  // },
   logIn({ commit, dispatch, getters }, { username, password } = {}) {
-    if (getters.loggedIn) return dispatch('validate')
+    // if (getters.loggedIn) return dispatch('validate')
 
     return httpClient
       .post('/api/login', { username, password })
