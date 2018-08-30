@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import client from '@/http-client'
 
 export default {
   name: 'User',
@@ -41,15 +41,8 @@ export default {
   },
   methods: {
     fetchUser() {
-      axios.get('/api/users', {
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Authorization': `Bearer ${this.$store.getters['auth/accessToken']}`
-        }
-      })
-      .then(response => {
+      client.get('/api/users').then(response => {
         this.users = response.data.data
-        console.log('bonnak 2')
       })
     }
   }
