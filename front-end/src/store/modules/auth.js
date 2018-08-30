@@ -21,7 +21,7 @@ export const mutations = {
 }
 
 export const actions = {
-  init({ dispatch }) {
+  init(/* { dispatch } */) {
     // dispatch('validate')
   },
   // validate({ commit, state }) {
@@ -41,7 +41,7 @@ export const actions = {
   //       return null
   //     })
   // },
-  logIn({ commit, dispatch, getters }, { username, password } = {}) {
+  logIn({ commit } /*, dispatch, getters */, { username, password } = {}) {
     // if (getters.loggedIn) return dispatch('validate')
 
     return httpClient
