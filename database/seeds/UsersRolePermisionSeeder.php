@@ -17,10 +17,11 @@ class UsersRolePermisionSeeder extends Seeder
         App\User::truncate();
         $user = factory(App\User::class)->create([
             'username' => 'superadmin',
-            'email' => 'nak2bo@gmail.com',
+            'email' => 'superadmin@example.com',
         ]);
 
         Bouncer::allow($user)->everything();
+        Bouncer::ability()->firstOrCreate(['name' => 'views-users', 'title' => 'View users']);
         Bouncer::ability()->firstOrCreate(['name' => 'create-users', 'title' => 'Create users']);
         Bouncer::ability()->firstOrCreate(['name' => 'edit-users', 'title' => 'Edit users']);
         Bouncer::ability()->firstOrCreate(['name' => 'delete-users', 'title' => 'Delete users']);

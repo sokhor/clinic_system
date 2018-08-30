@@ -143,4 +143,71 @@ class UserAdministrationTest extends TestCase
             'password_confirmation' => '87654321',
         ])->assertStatus(200);
     }
+
+    /** @test */
+    public function authorize_user_can_fetch_users()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('view-users');
+        $this->signIn($sign_in_user);
+
+        factory(User::class, 2)->create();
+
+        $this->getJson('api/users')
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'username',
+                        'email',
+                    ],
+                ],
+            ]);
+    }
+
+    /** @test */
+    public function unauthorize_user_cannot_fetch_users()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $this->signIn($sign_in_user);
+
+        factory(User::class, 2)->create();
+
+        $this->getJson('api/users')
+            ->assertStatus(403)
+            ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
+    public function authorize_user_can_view_a_user()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('view-users');
+        $this->signIn($sign_in_user);
+
+        $user = factory(User::class)->create(['id' => 10]);
+
+        $response = $this->getJson("api/users/$user->id")
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'username',
+                'email',
+            ]);
+    }
+
+    /** @test */
+    public function unauthorize_user_cannot_view_a_user()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $this->signIn($sign_in_user);
+
+        $user = factory(User::class)->create();
+
+        $this->getJson("api/users/$user->id")
+            ->assertStatus(403)
+            ->assertJsonMissing([
+                'username',
+                'email',
+            ]);
+    }
 }

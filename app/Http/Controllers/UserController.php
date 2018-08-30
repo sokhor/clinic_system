@@ -3,12 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Http\Requests\ViewUserRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\DeleteUserRequest;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
+    public function index(ViewUserRequest $request)
+    {
+        return UserResource::collection(User::paginate());
+    }
+
+    public function show(ViewUserRequest $request, User $user)
+    {
+        return new UserResource($user);
+    }
+
     public function store(CreateUserRequest $request)
     {
         User::create(array_merge($request->all(), [
