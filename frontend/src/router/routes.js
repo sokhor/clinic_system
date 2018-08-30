@@ -17,12 +17,12 @@ export default [
       )
   },
   {
-    path: '/user',
-    name: 'user',
+    path: '/users',
+    name: 'users',
     meta: {
       authRequired: true
     },
-    component: () => import(/* webpackChunkName: "user" */ '@/pages/user')
+    component: () => import(/* webpackChunkName: "user" */ '@/pages/users')
   }
 ]
 

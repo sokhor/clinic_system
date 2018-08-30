@@ -94,8 +94,8 @@ export default {
           }
         },
         {
-          name: 'User',
-          url: '/user',
+          name: 'Users',
+          url: '/users',
           icon: 'fas fa-user'
         }
       ]
