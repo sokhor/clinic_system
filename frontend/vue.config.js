@@ -13,7 +13,7 @@ module.exports = {
   lintOnSave: undefined,
   // // proxy API requests to Valet during development
   devServer: {
-    proxy: 'http://clinic.test'
+    proxy: process.env.NODE_ENV === 'production' ? 'http://178.128.27.210' : 'http://clinic.test'
   },
 
   // output built static files to Laravel's public dir.
