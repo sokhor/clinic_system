@@ -2,7 +2,7 @@ import axios from 'axios'
 // import sentry from '@sentry/browser';
 import store from './store'
 
-const getClient = (baseUrl = process.env.VUE_APP_API_URL) => {
+const getClient = (baseUrl = null) => {
   const options = {
     baseURL: baseUrl,
     headers: {
