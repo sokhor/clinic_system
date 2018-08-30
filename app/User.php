@@ -18,6 +18,10 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    protected $casts = [
+        'active' => 'bool',
+    ];
+
     public function findForPassport($username)
     {
         return $this->where('username', $username)->first();
