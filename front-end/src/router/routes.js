@@ -3,7 +3,7 @@ export default [
     path: '/login',
     name: 'login',
     component: () =>
-      lazyLoadView(import(/* webpackChunkName: "login" */ '../pages/login.vue'))
+      lazyLoadView(import(/* webpackChunkName: "login" */ '@/pages/login.vue'))
   },
   {
     path: '/',
@@ -13,7 +13,7 @@ export default [
     },
     component: () =>
       lazyLoadView(
-        import(/* webpackChunkName: "dashboard" */ '../pages/Dashboard.vue')
+        import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
       )
   },
   {
@@ -22,15 +22,15 @@ export default [
     meta: {
       authRequired: true
     },
-    component: () => import(/* webpackChunkName: "user" */ '../pages/user')
+    component: () => import(/* webpackChunkName: "user" */ '@/pages/user')
   }
 ]
 
 function lazyLoadView(AsyncView) {
   const AsyncHandler = () => ({
     component: AsyncView,
-    loading: require('./views/loading.vue').default,
-    error: require('./views/timeout.vue').default,
+    loading: require('@/pages/loading.vue').default,
+    error: require('@/pages/timeout.vue').default,
     delay: 400,
     timeout: 10000
   })
