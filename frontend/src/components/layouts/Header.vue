@@ -1,11 +1,11 @@
 <template>
-  <header class="header flex items-center bg-white border-b border-grey h-14">
+  <header class="header flex items-center bg-blue-dark border-b border-blue-darker h-14">
     <div class="inline-block md:pl-8 md:pr-10 order-2 md:order-1 flex-auto md:flex-none text-center">
       <router-link to="/">
         <img src="../../assets/logo.svg" width="89" class="inline-block">
       </router-link>
     </div>
-    <button type="button" @click="toggleNavigation" class="flex items-center text-grey-dark ml-4 md:ml-0 focus:outline-none order-1 md:order-2">
+    <button type="button" @click="toggleNavigation" class="flex items-center text-white ml-4 md:ml-0 focus:outline-none order-1 md:order-2">
       <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <title>Menu</title>
         <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>

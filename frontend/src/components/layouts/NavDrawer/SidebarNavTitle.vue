@@ -1,5 +1,5 @@
 <template>
-  <li class="px-4 py-3 text-xs text-silver font-bold uppercase" :class="classList">
+  <li class="px-4 py-3 text-xs text-grey-darker font-bold uppercase" :class="classList">
     <template v-if="wrapper && wrapper.element">
       <component v-bind:is="wrapper.element" v-bind="wrapper.attributes">
         {{name}}

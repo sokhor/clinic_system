@@ -1,13 +1,13 @@
 <template>
   <div v-if="isExternalLink">
-    <a :href="url" :class="classList" class="group block no-underline px-4 py-3 text-white text-sm font-hairline hover:text-white hover:bg-blue">
-      <i :class="icon" class="inline-block w-6 text-grey-darker text-sm group-hover:text-white"></i> {{name}}
+    <a :href="url" :class="classList" class="group block no-underline px-4 py-3 text-grey-darkest text-sm font-hairline hover:text-white hover:bg-blue">
+      <i :class="icon" class="inline-block w-6 text-grey-darkest text-sm group-hover:text-white"></i> {{name}}
       <b-badge v-if="badge && badge.text" :variant="badge.variant">{{badge.text}}</b-badge>
     </a>
   </div>
   <div v-else>
-    <router-link :to="url" :class="classList" class="group block no-underline px-4 py-3 text-white text-sm font-hairline hover:text-white hover:bg-blue">
-      <i :class="icon" class="inline-block w-6 text-grey-darker text-sm group-hover:text-white"></i> {{name}}
+    <router-link :to="url" :class="classList" class="group block no-underline px-4 py-3 text-grey-darkest text-sm font-hairline hover:text-white hover:bg-blue">
+      <i :class="icon" class="inline-block w-6 text-grey-darkest text-sm group-hover:text-white"></i> {{name}}
       <!-- <b-badge v-if="badge && badge.text" :variant="badge.variant">{{badge.text}}</b-badge> -->
     </router-link>
   </div>

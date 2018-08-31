@@ -1,9 +1,9 @@
 <template>
   <transition name="slide-fade">
-    <div class="drawer bg-grey-dark-blue relative">
+    <div class="drawer relative bg-white shadow">
       <SidebarHeader/>
       <SidebarForm/>
-      <nav class="drawer-nav text-white">
+      <nav class="drawer-nav text-grey-dark">
         <div slot="header"></div>
         <ul class="nav list-reset">
           <template v-for="(item, index) in navItems">
