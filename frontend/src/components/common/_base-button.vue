@@ -3,21 +3,9 @@ export default {
   functional: true,
   name: 'BaseButton',
   props: {
-    default: {
-      type: Boolean,
-      default: true
-    },
-    primary: {
-      type: Boolean,
-      default: false
-    },
-    accent: {
-      type: Boolean,
-      default: false
-    },
-    danger: {
-      type: Boolean,
-      default: false
+    color: {
+      type: String,
+      default: 'default'
     },
     waiting: {
       type: Boolean,
@@ -32,24 +20,18 @@ export default {
       )
     }
 
-    let color = 'default'
-    if (context.props.primary) {
-      color = 'primary'
-    } else if (context.props.accent) {
-      color = 'accent'
-    } else if (context.props.danger) {
-      color = 'danger'
-    }
-
     return createElement(
       'button',
       {
         class: {
           'py-2 px-4 rounded focus:outline-none focus:shadow-outline': true,
-          'bg-grey-light hover:bg-grey': color === 'default',
-          'bg-blue text-white': color === 'primary',
-          'bg-green text-white': color === 'accent',
-          'bg-red text-white': color === 'danger'
+          'bg-grey-light hover:bg-grey': context.props.color === 'default',
+          'bg-blue text-white': context.props.color === 'primary',
+          'bg-green text-white': context.props.color === 'accent',
+          'bg-green text-white': context.props.color === 'success',
+          'bg-red text-white': context.props.color === 'danger',
+          'bg-yellow text-white': context.props.color === 'warning',
+          'bg-blue-light text-white': context.props.color === 'info'
         },
         attrs: context.props,
         on: context.listeners
