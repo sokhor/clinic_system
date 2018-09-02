@@ -50,7 +50,9 @@ export default {
           'bg-blue text-white': color === 'primary',
           'bg-green text-white': color === 'accent',
           'bg-red text-white': color === 'danger'
-        }
+        },
+        attrs: context.props,
+        on: context.listeners
       },
       children
     )
