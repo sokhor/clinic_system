@@ -12,7 +12,7 @@
 }
 </style>
 
-<template>
+<template functional>
     <span class="fas fa-spinner spin" aria-hidden="true"></span>
 </template>
 
