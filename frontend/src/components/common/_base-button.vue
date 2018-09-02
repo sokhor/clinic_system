@@ -25,7 +25,7 @@ export default {
     }
   },
   render(createElement, context) {
-    let children = [createElement('slot', 'Button')]
+    let children = [context.children]
     if (context.props.waiting) {
       children.unshift(
         createElement('span', { class: 'fas fa-spinner spinning mr-2' })
