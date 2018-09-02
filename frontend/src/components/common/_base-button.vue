@@ -1,13 +1,13 @@
 <script>
-const classColorScheme = ({ flat = false, colorType = 'default' }) =>  {
+const classColorScheme = ({ flat = false, colorType = 'default' }) => {
   let colorScheme = {}
 
-  if(flat) {
+  if (flat) {
     colorScheme = Object.assign({}, colorScheme, {
       'text-grey hover:text-grey-light': colorType === 'default',
       'text-blue hover:text-blue-light': colorType === 'primary',
-      'text-green hover:text-green-light': colorType === 'accent',
-      'text-green hover:text-green-light': colorType === 'success',
+      'text-green hover:text-green-light':
+        colorType === 'accent' || colorType === 'success',
       'text-red hover:text-red-light': colorType === 'danger',
       'text-yellow hover:text-yellow-light': colorType === 'warning',
       'text-blue-light hover:text-blue-lighter': colorType === 'info'
@@ -28,16 +28,16 @@ const classColorScheme = ({ flat = false, colorType = 'default' }) =>  {
   return colorScheme
 }
 
-const classSize = ({ size = 'md', flat = false}) => {
-  if(flat) {
+const classSize = ({ size = 'md', flat = false }) => {
+  if (flat) {
     return ''
   }
 
-  if(size === 'sm') {
+  if (size === 'sm') {
     return 'px-4 py-2'
-  } else if(size === 'md') {
+  } else if (size === 'md') {
     return 'px-5 py-3'
-  } else if(size === 'lg') {
+  } else if (size === 'lg') {
     return 'px-6 py-4'
   }
 }
@@ -83,9 +83,18 @@ export default {
       {
         class: [
           'focus:outline-none',
-          classColorScheme({flat: context.props.flat, colorType: context.props.color}),
+          classColorScheme({
+            flat: context.props.flat,
+            colorType: context.props.color
+          }),
           classSize({
-            size: context.props.lg ? 'lg' : (context.props.md ? 'md' : (context.props.sm ? 'sm' : undefined)),
+            size: context.props.lg
+              ? 'lg'
+              : context.props.md
+                ? 'md'
+                : context.props.sm
+                  ? 'sm'
+                  : undefined,
             flat: context.props.flat
           }),
           context.data.staticClass
