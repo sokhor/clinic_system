@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">Users</h1>
-      <base-button color="accent">Create</base-button>
+      <base-button color="accent" @click="$router.push('/users/create')">Create</base-button>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>
@@ -36,7 +36,7 @@
 import client from '@/http-client'
 
 export default {
-  name: 'User',
+  name: 'Users',
   data() {
     return {
       users: [],

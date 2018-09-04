@@ -22,7 +22,16 @@ export default [
     meta: {
       authRequired: true
     },
-    component: () => import(/* webpackChunkName: "user" */ '@/pages/users')
+    component: () => import(/* webpackChunkName: "users" */ '@/pages/users')
+  },
+  {
+    path: '/users/create',
+    name: 'users-create',
+    meta: {
+      authRequired: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "users-create" */ '@/pages/users/form.vue')
   }
 ]
 
