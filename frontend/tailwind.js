@@ -332,7 +332,8 @@ module.exports = {
   backgroundSize: {
     auto: 'auto',
     cover: 'cover',
-    contain: 'contain'
+    contain: 'contain',
+    '50%': '50%'
   },
 
   /*
@@ -713,6 +714,7 @@ module.exports = {
   */
 
   zIndex: {
+    '-1': -1,
     auto: 'auto',
     '0': 0,
     '10': 10,
