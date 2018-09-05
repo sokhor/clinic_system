@@ -1,27 +1,27 @@
-let glob = require('glob-all')
-let PurgecssPlugin = require('purgecss-webpack-plugin')
-const path = require('path')
+// let glob = require('glob-all')
+// let PurgecssPlugin = require('purgecss-webpack-plugin')
+// const path = require('path')
 
-class TailwindExtractor {
-  static extract(content) {
-    return content.match(/[A-Za-z0-9-_:/]+/g) || []
-  }
-}
+// class TailwindExtractor {
+//   static extract(content) {
+//     return content.match(/[A-Za-z0-9-_:/]+/g) || []
+//   }
+// }
 
 module.exports = {
-  configureWebpack: {
-    plugins: [
-      new PurgecssPlugin({
-        paths: glob.sync([path.join(__dirname, './**/*.vue')]),
-        extractors: [
-          {
-            extractor: TailwindExtractor,
-            extensions: ['html', 'js', 'php', 'vue']
-          }
-        ]
-      })
-    ]
-  },
+  // configureWebpack: {
+  //   plugins: [
+  //     new PurgecssPlugin({
+  //       paths: glob.sync([path.join(__dirname, './**/*.vue')]),
+  //       extractors: [
+  //         {
+  //           extractor: TailwindExtractor,
+  //           extensions: ['html', 'js', 'php', 'vue']
+  //         }
+  //       ]
+  //     })
+  //   ]
+  // },
   productionSourceMap: false,
   css: {
     loaderOptions: {
