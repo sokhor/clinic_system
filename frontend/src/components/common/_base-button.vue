@@ -68,6 +68,10 @@ export default {
     waiting: {
       type: Boolean,
       default: false
+    },
+    title: {
+      type: String,
+      default: undefined
     }
   },
   render(createElement, context) {
