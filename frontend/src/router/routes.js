@@ -41,7 +41,7 @@ export default [
     props: route => ({ user: route.params.user })
   },
   {
-    path: 'users/:id/password/reset',
+    path: '/users/:id/password/reset',
     name: 'users-reset-password',
     meta: {
       authRequired: true
