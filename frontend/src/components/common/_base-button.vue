@@ -72,6 +72,10 @@ export default {
     title: {
       type: String,
       default: undefined
+    },
+    type: {
+      type: String,
+      default: 'button'
     }
   },
   render(createElement, context) {
