@@ -54,7 +54,10 @@ export default {
       this.$store.dispatch('users/fetchUsers')
     },
     edit(user) {
-      this.$router.push(`/users/${user.id}/edit`)
+      this.$router.push({
+        name: 'users-edit',
+        params: { id: user.id, user: user }
+      })
     }
   }
 }

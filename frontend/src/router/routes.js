@@ -2,8 +2,7 @@ export default [
   {
     path: '/login',
     name: 'login',
-    component: () =>
-      lazyLoadView(import(/* webpackChunkName: "login" */ '@/pages/login.vue'))
+    component: () => import(/* webpackChunkName: "login" */ '@/pages/login.vue')
   },
   {
     path: '/',
@@ -12,9 +11,7 @@ export default [
       authRequired: true
     },
     component: () =>
-      lazyLoadView(
-        import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
-      )
+      import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
   },
   {
     path: '/users',
@@ -32,22 +29,32 @@ export default [
     },
     component: () =>
       import(/* webpackChunkName: "users-create" */ '@/pages/users/form.vue')
+  },
+  {
+    path: '/users/:id/edit',
+    name: 'users-edit',
+    meta: {
+      authRequired: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "users-edit" */ '@/pages/users/form.vue'),
+    props: route => ({ user: route.params.user })
   }
 ]
 
-function lazyLoadView(AsyncView) {
-  const AsyncHandler = () => ({
-    component: AsyncView,
-    loading: require('@/pages/loading.vue').default,
-    error: require('@/pages/timeout.vue').default,
-    delay: 400,
-    timeout: 10000
-  })
+// function lazyLoadView(AsyncView) {
+//   const AsyncHandler = () => ({
+//     component: AsyncView,
+//     loading: require('@/pages/loading.vue').default,
+//     error: require('@/pages/timeout.vue').default,
+//     delay: 200,
+//     timeout: 10000
+//   })
 
-  return Promise.resolve({
-    functional: true,
-    render(h, { data, children }) {
-      return h(AsyncHandler, data, children)
-    }
-  })
-}
+//   return Promise.resolve({
+//     functional: true,
+//     render(h, { data, children }) {
+//       return h(AsyncHandler, data, children)
+//     }
+//   })
+// }

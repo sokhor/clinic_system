@@ -1,7 +1,9 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Create User</h1>
+      <h1 class="inline text-grey-darkest text-xl font-bold">
+        <router-link class="text-blue hover:text-blue-light" to="/users"><i class="fas fa-arrow-left"></i></router-link> / {{ isEditForm ? 'Edit User' : 'Create User' }}
+      </h1>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <form @submit.prevent="save">
@@ -15,13 +17,14 @@
               v-model="form.username"
               type="text"
               @input="$v.form.username.$touch()"
+              :disabled="isEditForm"
             />
             <span class="block text-xs italic text-red" v-if="usernameErrors.length > 0">
               {{ usernameErrors[0] }}
             </span>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey">
+        <div class="flex items-baseline p-4 border-b border-white-grey" v-if="!isEditForm">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Password
           </label>
@@ -37,7 +40,7 @@
             </span>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey">
+        <div class="flex items-baseline p-4 border-b border-white-grey" v-if="!isEditForm">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Password Again
           </label>
@@ -73,7 +76,7 @@
           <base-checkbox v-model="form.active">Active</base-checkbox>
         </div>
         <div class="flex items-center justify-end p-4">
-          <base-button color="primary" :waiting="saving">Create User</base-button>
+          <base-button color="primary" :waiting="saving">Save change</base-button>
         </div>
       </form>
     </div>
@@ -81,10 +84,16 @@
 </template>
 
 <script>
-import { required, email, sameAs } from 'vuelidate/lib/validators'
+import { required, requiredIf, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'CreateUser',
+  name: 'UserForm',
+  props: {
+    user: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
       form: {
@@ -100,8 +109,12 @@ export default {
   validations: {
     form: {
       username: { required },
-      password: { required },
-      password_confirmation: { required, sameAsPassword: sameAs('password') },
+      password: {
+        required: requiredIf(function() {
+          return !this.isEditForm
+        })
+      },
+      password_confirmation: { sameAsPassword: sameAs('password') },
       email: { email }
     }
   },
@@ -121,8 +134,8 @@ export default {
     passwordConfirmationErrors() {
       const errors = []
       if (!this.$v.form.password_confirmation.$dirty) return errors
-      !this.$v.form.password_confirmation.required && errors.push('Required')
-      !this.$v.form.password_confirmation.sameAsPassword && errors.push('Password mismatch')
+      !this.$v.form.password_confirmation.sameAsPassword &&
+        errors.push('Password mismatch')
       return errors
     },
     emailErrors() {
@@ -130,19 +143,35 @@ export default {
       if (!this.$v.form.email.$dirty) return errors
       !this.$v.form.email.email && errors.push('Invalid email')
       return errors
+    },
+    isEditForm() {
+      return this.user !== null
+    }
+  },
+  created() {
+    if (this.isEditForm) {
+      for (let key in this.form) {
+        this.form[key] = this.user[key]
+      }
     }
   },
   methods: {
     async save() {
       this.$v.$touch()
-      if(this.$v.$error) {
+      if (this.$v.$error) {
         throw 'Validation failed'
       }
 
       this.saving = true
       try {
-        await this.$store.dispatch('users/createUser', this.form)
-        this.$router.push('/users')
+        if (this.isEditForm) {
+          await this.$store.dispatch(
+            'users/updateUser',
+            Object.assign(this.form, { id: this.user.id })
+          )
+        } else {
+          await this.$store.dispatch('users/createUser', this.form)
+        }
       } catch (e) {}
       this.saving = false
     }
