@@ -1,4 +1,4 @@
-import './assets/styles/main.css'
+import './styles/main.css'
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import App from './components/App.vue'

@@ -1,6 +1,7 @@
 @import "tailwind";
 @import "form-control.scss";
 @import "animate";
+@import "nprogress";
 
 .bg-page-background {
     @apply bg-white-grey;
