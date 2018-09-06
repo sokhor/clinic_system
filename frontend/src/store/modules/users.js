@@ -38,5 +38,12 @@ export const actions = {
     return httpClient.delete(`/api/users/${user.id}`).then(response => {
       return response.data
     })
+  },
+  resetUserPassword({}, { id, password, password_confirmation }) {
+    return httpClient
+      .put(`/api/users/${id}/password/reset`, { password, password_confirmation })
+      .then(response => {
+        return response.data
+      })
   }
 }

@@ -39,6 +39,16 @@ export default [
     component: () =>
       import(/* webpackChunkName: "users-edit" */ '@/pages/users/form.vue'),
     props: route => ({ user: route.params.user })
+  },
+  {
+    path: 'users/:id/password/reset',
+    name: 'users-reset-password',
+    meta: {
+      authRequired: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "users-edit" */ '@/pages/users/form-reset-password.vue'),
+    props: route => ({ user: route.params.user })
   }
 ]
 

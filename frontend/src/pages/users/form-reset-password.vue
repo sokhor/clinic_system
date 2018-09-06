@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/users"><i class="fas fa-arrow-left"></i></router-link> / {{ isEditForm ? 'Edit User' : 'Create User' }}
+        <router-link class="text-blue hover:text-blue-light" to="/users"><i class="fas fa-arrow-left"></i></router-link> / User Reset Password
       </h1>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
@@ -11,20 +11,9 @@
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Username
           </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.username"
-              type="text"
-              @input="$v.form.username.$touch()"
-              :disabled="isEditForm"
-            />
-            <span class="block text-xs italic text-red" v-if="usernameErrors.length > 0">
-              {{ usernameErrors[0] }}
-            </span>
-          </div>
+          <span class="w-2/5">{{ user.username }}</span>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey" v-if="!isEditForm">
+        <div class="flex items-baseline p-4 border-b border-white-grey">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Password
           </label>
@@ -40,7 +29,7 @@
             </span>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey" v-if="!isEditForm">
+        <div class="flex items-baseline p-4 border-b border-white-grey">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Password Again
           </label>
@@ -55,25 +44,6 @@
               {{ passwordConfirmationErrors[0] }}
             </span>
           </div>
-        </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Email
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.email"
-              type="email"
-            />
-            <span class="block text-xs italic text-red" v-if="emailErrors.length > 0">
-              {{ emailErrors[0] }}
-            </span>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5"></label>
-          <base-checkbox v-model="form.active">Active</base-checkbox>
         </div>
         <div class="flex items-center justify-end p-4">
           <base-button color="primary" :waiting="saving" type="submit">Save change</base-button>
@@ -97,34 +67,19 @@ export default {
   data() {
     return {
       form: {
-        username: '',
         password: '',
-        password_confirmation: '',
-        email: '',
-        active: true
+        password_confirmation: ''
       },
       saving: false
     }
   },
   validations: {
     form: {
-      username: { required },
-      password: {
-        required: requiredIf(function() {
-          return !this.isEditForm
-        })
-      },
-      password_confirmation: { sameAsPassword: sameAs('password') },
-      email: { email }
+      password: { required },
+      password_confirmation: { sameAsPassword: sameAs('password') }
     }
   },
   computed: {
-    usernameErrors() {
-      const errors = []
-      if (!this.$v.form.username.$dirty) return errors
-      !this.$v.form.username.required && errors.push('Required')
-      return errors
-    },
     passwordErrors() {
       const errors = []
       if (!this.$v.form.password.$dirty) return errors
@@ -137,22 +92,6 @@ export default {
       !this.$v.form.password_confirmation.sameAsPassword &&
         errors.push('Password mismatch')
       return errors
-    },
-    emailErrors() {
-      const errors = []
-      if (!this.$v.form.email.$dirty) return errors
-      !this.$v.form.email.email && errors.push('Invalid email')
-      return errors
-    },
-    isEditForm() {
-      return this.user !== null
-    }
-  },
-  created() {
-    if (this.isEditForm) {
-      for (let key in this.form) {
-        this.form[key] = this.user[key]
-      }
     }
   },
   methods: {
@@ -164,14 +103,10 @@ export default {
 
       this.saving = true
       try {
-        if (this.isEditForm) {
-          await this.$store.dispatch(
-            'users/updateUser',
-            Object.assign(this.form, { id: this.user.id })
-          )
-        } else {
-          await this.$store.dispatch('users/createUser', this.form)
-        }
+        await this.$store.dispatch(
+          'users/resetUserPassword',
+          Object.assign(this.form, { id: this.user.id })
+        )
       } catch (e) {}
       this.saving = false
     }
