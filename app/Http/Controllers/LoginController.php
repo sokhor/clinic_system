@@ -28,10 +28,14 @@ class LoginController extends Controller
 
         if(!($user = $this->hasValidCredentials($request)))
         {
-            return response()->json(['invalid_credentials' => 'Invalid credentials'], 422);
+            return response()->json(['message' => 'Invalid credentials'], 422);
         }
 
-        $token = $this->retrieveAccessToken($user, $request);
+        if(!($token = $this->retrieveAccessToken($user, $request)))
+        {
+            return response()->json(['message' => 'This user is unauthorized'], 422);
+        }
+
         $user = $this->setAuthenticatedUser($user);
 
         return new AuthenticatedUserResource(compact('user', 'token'));
@@ -39,7 +43,10 @@ class LoginController extends Controller
 
     protected function retrieveAccessToken(User $user, Request $request)
     {
-        $client = $user->clients->first();
+        if(is_null($client = $user->clients->first()))
+        {
+            return false;
+        }
 
         return json_decode($this->server->respondToAccessTokenRequest(
             (new ServerRequest)->withParsedBody([
