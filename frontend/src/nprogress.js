@@ -31,7 +31,7 @@ export default class NProgress {
       if (this.requestsCompleted >= this.requestsTotal) {
         this.setComplete()
       } else {
-        nprogress.set((this.requestsCompleted / this.requestsTotal) - 0.1)
+        nprogress.set(this.requestsCompleted / this.requestsTotal - 0.1)
       }
     }, this.latencyThreshold + 50)
   }

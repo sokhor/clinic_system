@@ -5,7 +5,7 @@ import NProgress from '@/nprogress'
 
 const nprogress = new NProgress()
 
-const getClient = (baseUrl = null) => {
+const getClient = ({ baseUrl = null, showProgressBar = false } = {}) => {
   const options = {
     baseURL: baseUrl,
     headers: {
@@ -23,7 +23,10 @@ const getClient = (baseUrl = null) => {
 
   client.interceptors.request.use(
     requestConfig => {
-      nprogress.initProgress()
+      if (showProgressBar) {
+        nprogress.initProgress()
+      }
+
       return requestConfig
     },
     requestError => {
@@ -34,14 +37,21 @@ const getClient = (baseUrl = null) => {
 
   client.interceptors.response.use(
     response => {
-      nprogress.increase()
+      if (showProgressBar) {
+        nprogress.increase()
+      }
+
       return response
     },
     error => {
       if (error.response.status >= 500) {
         // sentry.captureException(error);
       }
-      nprogress.increase()
+
+      if (showProgressBar) {
+        nprogress.increase()
+      }
+
       return Promise.reject(error)
     }
   )
@@ -49,102 +59,45 @@ const getClient = (baseUrl = null) => {
   return client
 }
 
-class HttpClient {
-  constructor(baseUrl = null) {
-    this.client = getClient(baseUrl)
-  }
-
-  get(url, conf = {}) {
-    return this.client
-      .get(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-
-  delete(url, conf = {}) {
-    return this.client
-      .delete(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-
-  head(url, conf = {}) {
-    return this.client
-      .head(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-
-  options(url, conf = {}) {
-    return this.client
-      .options(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-
-  post(url, data = {}, conf = {}) {
-    return this.client
-      .post(url, data, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-
-  put(url, data = {}, conf = {}) {
-    return this.client
-      .put(url, data, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-
-  patch(url, data = {}, conf = {}) {
-    return this.client
-      .patch(url, data, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  }
-}
-
-export { HttpClient }
-
 export default {
-  get(url, conf = {}) {
-    return getClient()
+  get(url, conf = {}, options = {}) {
+    return getClient(options)
       .get(url, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
   },
-  delete(url, conf = {}) {
-    return getClient()
+  delete(url, conf = {}, options = {}) {
+    return getClient(options)
       .delete(url, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
   },
-  head(url, conf = {}) {
-    return getClient()
+  head(url, conf = {}, options = {}) {
+    return getClient(options)
       .head(url, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
   },
-  options(url, conf = {}) {
-    return getClient()
+  options(url, conf = {}, options = {}) {
+    return getClient(options)
       .options(url, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
   },
-  post(url, data = {}, conf = {}) {
-    return getClient()
+  post(url, data = {}, conf = {}, options = {}) {
+    return getClient(options)
       .post(url, data, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
   },
-  put(url, data = {}, conf = {}) {
-    return getClient()
+  put(url, data = {}, conf = {}, options = {}) {
+    return getClient(options)
       .put(url, data, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
   },
-  patch(url, data = {}, conf = {}) {
-    return getClient()
+  patch(url, data = {}, conf = {}, options = {}) {
+    return getClient(options)
       .patch(url, data, conf)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error))
