@@ -1,6 +1,9 @@
 import axios from 'axios'
 // import sentry from '@sentry/browser';
 import store from './store'
+import NProgress from '@/nprogress'
+
+const nprogress = new NProgress()
 
 const getClient = (baseUrl = null) => {
   const options = {
@@ -19,21 +22,26 @@ const getClient = (baseUrl = null) => {
   const client = axios.create(options)
 
   client.interceptors.request.use(
-    requestConfig => requestConfig,
+    requestConfig => {
+      nprogress.initProgress()
+      return requestConfig
+    },
     requestError => {
       // sentry.captureException(requestError);
-
       return Promise.reject(requestError)
     }
   )
 
   client.interceptors.response.use(
-    response => response,
+    response => {
+      nprogress.increase()
+      return response
+    },
     error => {
       if (error.response.status >= 500) {
         // sentry.captureException(error);
       }
-
+      nprogress.increase()
       return Promise.reject(error)
     }
   )

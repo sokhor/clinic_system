@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import NProgress from 'nprogress/nprogress'
 import store from '../store'
 import routes from './routes'
 
@@ -37,17 +36,6 @@ router.beforeEach((routeTo, routeFrom, next) => {
   function redirectToLogin() {
     next({ name: 'login', query: { redirectFrom: routeTo.fullPath } })
   }
-})
-
-router.beforeResolve((routeTo, routeFrom, next) => {
-  if (routeFrom.name) {
-    NProgress.start()
-  }
-  next()
-})
-
-router.afterEach((/*routeTo, routeFrom */) => {
-  NProgress.done()
 })
 
 export default router
