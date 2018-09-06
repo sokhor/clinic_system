@@ -22,7 +22,7 @@
             <base-td>{{ user.active }}</base-td>
             <base-td>{{ user.created_at }}</base-td>
             <base-td class="flex">
-              <base-button class="mr-2" flat color="primary" @click="edit"><i class="fas fa-edit"></i></base-button>
+              <base-button class="mr-2" flat color="primary" @click="edit(user)"><i class="fas fa-edit"></i></base-button>
               <base-button flat color="danger"><i class="fas fa-trash"></i></base-button>
             </base-td>
           </base-tr>
@@ -33,26 +33,29 @@
 </template>
 
 <script>
-import client from '@/http-client'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Users',
   data() {
     return {
-      users: [],
-      loading: false
+      // users: [],
+      // loading: false
     }
   },
+  computed: {
+    ...mapState('users', ['users'])
+  },
   created() {
-    this.fetchUser()
+    this.fetchUsers()
   },
   methods: {
-    fetchUser() {
-      client.get('/api/users').then(response => {
-        this.users = response.data.data
-      })
+    fetchUsers() {
+      this.$store.dispatch('users/fetchUsers')
     },
-    edit() {}
+    edit(user) {
+      this.$router.push(`/users/${user.id}/edit`)
+    }
   }
 }
 </script>
