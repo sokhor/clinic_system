@@ -199,8 +199,10 @@ class UserAdministrationTest extends TestCase
         $response = $this->getJson("api/users/$user->id")
             ->assertStatus(200)
             ->assertJsonStructure([
-                'username',
-                'email',
+                'data' => [
+                    'username',
+                    'email',
+                ],
             ]);
     }
 

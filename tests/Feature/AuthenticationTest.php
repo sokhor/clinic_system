@@ -30,10 +30,12 @@ class AuthenticationTest extends TestCase
         ])
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure([
-            'token_type',
-            'expires_in',
-            'access_token',
-            'refresh_token',
+            'data' => [
+                'token_type',
+                'expires_in',
+                'access_token',
+                'refresh_token',
+            ],
         ]);
     }
 

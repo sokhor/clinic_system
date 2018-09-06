@@ -47,7 +47,7 @@ export const actions = {
     return httpClient
       .post('/api/login', { username, password })
       .then(response => {
-        const user = response.data
+        const user = response.data.data
         commit('SET_CURRENT_USER', user)
         return user
       })
