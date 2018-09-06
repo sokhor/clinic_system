@@ -45,8 +45,8 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import Alert from '../components/common/alert.vue'
-import Waiting from '../components/common/waiting.vue'
+import Alert from '../components/alert.vue'
+import Waiting from '../components/waiting.vue'
 
 export default {
   name: 'Login',
