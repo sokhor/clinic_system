@@ -9,7 +9,10 @@ export const getters = {}
 
 export const mutations = {
   RECEIVE_USERS(state, users) {
-    state.users = users.data
+    state.users = []
+    users.data.forEach(user => {
+      state.users.push(Object.assign(user, { _deleting: false }))
+    })
   }
 }
 
@@ -28,6 +31,11 @@ export const actions = {
   },
   updateUser({}, user) {
     return httpClient.put(`/api/users/${user.id}`, user).then(response => {
+      return response.data
+    })
+  },
+  deleteUser({}, user) {
+    return httpClient.delete(`/api/users/${user.id}`).then(response => {
       return response.data
     })
   }

@@ -22,8 +22,13 @@
             <base-td>{{ user.active }}</base-td>
             <base-td>{{ user.created_at }}</base-td>
             <base-td class="flex">
-              <base-button class="mr-2" flat color="primary" @click="edit(user)"><i class="fas fa-edit"></i></base-button>
-              <base-button flat color="danger"><i class="fas fa-trash"></i></base-button>
+              <base-button class="mr-2" flat color="primary" @click="edit(user)">
+                <i class="fas fa-edit"></i>
+              </base-button>
+              <base-button flat color="danger" @click="deleteUser(user)">
+                <waiting v-if="user._deleting"></waiting>
+                <i class="fas fa-trash" v-else></i>
+              </base-button>
             </base-td>
           </base-tr>
         </base-tbody>
@@ -34,15 +39,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import Waiting from '@/components/waiting.vue'
 
 export default {
   name: 'Users',
-  data() {
-    return {
-      // users: [],
-      // loading: false
-    }
-  },
+  components: { Waiting },
   computed: {
     ...mapState('users', ['users'])
   },
@@ -58,6 +59,14 @@ export default {
         name: 'users-edit',
         params: { id: user.id, user: user }
       })
+    },
+    async deleteUser(user) { console.log('del')
+      user._deleting = true
+      try {
+        await this.$store.dispatch('users/deleteUser', user)
+        this.fetchUsers()
+      } catch(e) {}
+      user._deleting = false
     }
   }
 }
