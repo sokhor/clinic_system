@@ -179,6 +179,15 @@ class UserAdministrationTest extends TestCase
     }
 
     /** @test */
+    public function super_admin_never_show_to_the_public()
+    {
+        $this->signInSuperAdmin();
+
+        $this->getJson('api/users')
+            ->assertJsonMissing(['username' => 'superadmin']);
+    }
+
+    /** @test */
     public function authorize_user_can_view_a_user()
     {
         $sign_in_user = factory(User::class)->create();

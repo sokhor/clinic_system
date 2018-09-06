@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index(ViewUserRequest $request)
     {
-        return UserResource::collection(User::paginate());
+        return UserResource::collection(User::withoutSuperAdmin()->paginate());
     }
 
     public function show(ViewUserRequest $request, User $user)

@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Passport\Passport;
+use Bouncer;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -21,6 +22,7 @@ abstract class TestCase extends BaseTestCase
     protected function signInSuperAdmin($admin = null)
     {
         $admin = $admin ?: factory(\App\User::class)->create(['username' => 'superadmin']);
+        Bouncer::allow($admin)->everything();
 
         Passport::actingAs($admin);
 
