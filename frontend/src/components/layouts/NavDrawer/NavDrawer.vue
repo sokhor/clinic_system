@@ -94,6 +94,11 @@ export default {
           }
         },
         {
+          name: 'Passport',
+          url: '/passport',
+          icon: 'fas fa-passport'
+        },
+        {
           name: 'Users',
           url: '/users',
           icon: 'fas fa-user'

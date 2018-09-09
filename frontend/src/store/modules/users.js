@@ -41,7 +41,10 @@ export const actions = {
   },
   resetUserPassword({}, { id, password, password_confirmation }) {
     return httpClient
-      .put(`/api/users/${id}/password/reset`, { password, password_confirmation })
+      .put(`/api/users/${id}/password/reset`, {
+        password,
+        password_confirmation
+      })
       .then(response => {
         return response.data
       })
