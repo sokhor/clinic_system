@@ -2,7 +2,7 @@
   <div>
     <div class="w-full flex flex-row items-center justify-between p-3 mb-3 border-b border-white-grey">
       <h4 class="inline text-grey-darkest text-base font-bold">Create Client</h4>
-      <base-button flat><i class="fas fa-times"></i></base-button>
+      <base-button flat @click="$emit('close')"><i class="fas fa-times"></i></base-button>
     </div>
     <base-alert type="success" class="mx-4" v-if="isSuccess === true">
       <p>{{ alertMessage }}</p>
@@ -51,7 +51,7 @@
       </div>
       <div class="flex items-center justify-end p-4">
         <base-button color="primary" :waiting="saving" type="submit">
-          {{ form.id === null ? 'Create' : 'Save Change' }}
+          Create
         </base-button>
       </div>
     </form>
@@ -64,12 +64,10 @@ import { required, url } from 'vuelidate/lib/validators'
 import { flatten, toArray } from 'lodash'
 
 export default {
-  name: 'ClientForm',
-  props: ['client'],
+  name: 'ClientCreate',
   data() {
     return {
       form: {
-        id: null,
         name: '',
         redirect: ''
       },
@@ -100,15 +98,8 @@ export default {
       return errors
     }
   },
-  created() {
-    if(this.client !== undefined) {
-      this.form.id = this.client.id
-      this.form.name = this.client.name
-      this.form.redirect = this.client.redirect
-    }
-  },
   methods: {
-    ...mapActions('passport', ['createClient', 'updateClient']),
+    ...mapActions('passport', ['createClient']),
     async save() {
       this.$v.$touch()
       if (this.$v.$error) {
@@ -117,18 +108,14 @@ export default {
 
       this.saving = true
       try {
-        if (this.form.id === null) {
-          await this.createClient(this.form)
-        } else {
-          await this.updateClient(this.form)
-        }
+        await this.createClient(this.form)
 
         this.form.name = ''
         this.form.redirect = ''
         this.$v.$reset()
 
         this.isSuccess = true
-        this.alertMessage = this.form.id === null ? 'A new client has created successfully' : 'Client has updated successfully'
+        this.alertMessage = 'A new client has created successfully'
         this.errors = []
       } catch (data) {
         this.isSuccess = false

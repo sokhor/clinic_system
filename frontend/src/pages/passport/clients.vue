@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">OAuth Clients</h1>
-      <base-button color="accent" @click="showClientForm">Create</base-button>
+      <base-button color="accent" @click="showNewForm()">Create</base-button>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>
@@ -29,9 +29,8 @@
               <base-button class="mr-2" flat color="primary" title="Edit client" @click="showClientForm(client)">
                 <i class="fas fa-edit"></i>
               </base-button>
-              <base-button flat color="danger" title="Delete client" @click="deleteClient(client)">
-                <waiting v-if="client._deleting"></waiting>
-                <i class="fas fa-trash" v-else></i>
+              <base-button flat color="danger" :waiting="client._deleting" title="Delete client" @click="deleteClient(client)">
+                <i class="fas fa-trash" v-if="!client._deleting"></i>
               </base-button>
             </base-td>
           </base-tr>
@@ -42,12 +41,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import ClientForm from './client-form.vue'
+import { mapState } from 'vuex'
+import ClientCreate from './client-create.vue'
+import ClientEdit from './client-edit.vue'
 
 export default {
   name: 'Clients',
-  components: { ClientForm },
+  components: { ClientCreate, ClientEdit },
   computed: {
     ...mapState('passport', ['clients'])
   },
@@ -55,13 +55,21 @@ export default {
     this.$store.dispatch('passport/fetchClients')
   },
   methods: {
-    ...mapActions('passport', ['deleteClient']),
-    showClientForm(client = undefined) {
-      this.$modal.show(
-        ClientForm,
-        { client: client },
-        { height: 'auto' }
-      )
+    showNewForm() {
+      this.$modal.show(ClientCreate, {}, { height: 'auto' })
+    },
+    showClientForm(client) {
+      this.$modal.show(ClientEdit, { client: client }, { height: 'auto' })
+    },
+    async deleteClient(client) {
+      if (!(await this.$confirmDelete('Are you sure to delete?'))) {
+        return
+      }
+
+      client._deleting = true
+      this.$store.dispatch('passport/deleteClient', client).then(() => {
+        client._deleting = false
+      })
     }
   }
 }
