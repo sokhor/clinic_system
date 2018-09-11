@@ -12,6 +12,7 @@
     <template v-if="!isAuthenticated">
       <router-view></router-view>
     </template>
+    <dialogs-wrapper tag="div"/>
   </div>
 </template>
 

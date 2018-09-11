@@ -6,11 +6,13 @@ import App from './components/App.vue'
 import router from './router'
 import store from './store'
 import './components/common'
+import { ModalDialog } from './plugins'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
 Vue.use(vmodal, { dynamic: true, injectModalsContainer: true })
+Vue.use(ModalDialog)
 
 new Vue({
   router,

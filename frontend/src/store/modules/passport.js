@@ -19,16 +19,14 @@ export const mutations = {
   UPDATE_CLIENT(state, updatedClient) {
     let client = state.clients.find(c => c.id == updatedClient.id)
 
-    if(client === undefined)
-      return
+    if (client === undefined) return
 
     client = Object.assign(client, updatedClient, { _deleting: false })
   },
   DELETE_CLIENT(state, deletedClient) {
     let client = state.clients.find(c => c.id == deletedClient.id)
 
-    if(client === undefined)
-      return
+    if (client === undefined) return
 
     state.clients.splice(state.clients.indexOf(client), 1)
   }
@@ -65,13 +63,14 @@ export const actions = {
         return Promise.reject(error.response.data)
       })
   },
-  deleteClient({}, client) {
-    return httpClient.delete(`/auth/clients/${client.id}`)
-    .then(response => {
-      commit('DELETE_CLIENT', response.data)
-        return Promise.resolve(response.data)
-    })
-    .catch(error => {
+  deleteClient({ commit }, client) {
+    return httpClient
+      .delete(`/oauth/clients/${client.id}`)
+      .then(response => {
+        commit('DELETE_CLIENT', client)
+        return Promise.resolve(client)
+      })
+      .catch(error => {
         return Promise.reject(error.response.data)
       })
   }

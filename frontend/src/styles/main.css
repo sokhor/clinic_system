@@ -4,5 +4,10 @@
 @import "nprogress";
 
 .bg-page-background {
-    @apply bg-white-grey;
+  @apply bg-white-grey;
+}
+
+.dialog-mask {
+  @apply fixed pin flex justify-center items-center;
+  background-color: rgba(0, 0, 0, 0.33);
 }
