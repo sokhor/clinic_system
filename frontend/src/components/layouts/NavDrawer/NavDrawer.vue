@@ -93,11 +93,11 @@ export default {
             attributes: {}
           }
         },
-        {
-          name: 'Passport',
-          url: '/passport',
-          icon: 'fas fa-passport'
-        },
+        // {
+        //   name: 'Passport',
+        //   url: '/passport',
+        //   icon: 'fas fa-passport'
+        // },
         {
           name: 'Users',
           url: '/users',

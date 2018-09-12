@@ -15,7 +15,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
   },
-  ...user,
+  ...user
 ]
 
 // function lazyLoadView(AsyncView) {
