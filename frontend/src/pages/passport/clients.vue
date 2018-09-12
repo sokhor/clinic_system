@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">OAuth Clients</h1>
-      <base-button color="accent" @click="showNewForm()">Create</base-button>
+      <base-button color="accent" @click="showNewForm()">Create New Client</base-button>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>

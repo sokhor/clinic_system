@@ -1,5 +1,4 @@
 import user from './user'
-import passport from './passport'
 
 export default [
   {
@@ -17,7 +16,6 @@ export default [
       import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
   },
   ...user,
-  ...passport
 ]
 
 // function lazyLoadView(AsyncView) {

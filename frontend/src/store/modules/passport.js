@@ -1,7 +1,9 @@
 import httpClient from '@/http-client'
 
 export const state = {
-  clients: []
+  clients: [],
+  tokens: [],
+  personalTokens: []
 }
 
 export const getters = {}
@@ -29,6 +31,21 @@ export const mutations = {
     if (client === undefined) return
 
     state.clients.splice(state.clients.indexOf(client), 1)
+  },
+  RECEIVE_TOKENS(state, tokens) {
+    state.tokens = []
+    tokens.forEach(token => {
+      state.tokens.push(Object.assign(token, { _revoking: false }))
+    })
+  },
+  RECEIVE_PERSONAL_TOKENS(state, personalTokens) {
+    state.personalTokens = []
+    personalTokens.forEach(personalToken => {
+      state.personalTokens.push(Object.assign(personalToken, { _revoking: false }))
+    })
+  },
+  ADD_NEW_PERSONAL_TOKEN(state, personalToken) {
+    state.personalTokens.push(Object.assign(personalToken, { _revoking: false }))
   }
 }
 
@@ -73,5 +90,36 @@ export const actions = {
       .catch(error => {
         return Promise.reject(error.response.data)
       })
+  },
+  fetchTokens({ commit }) {
+    return httpClient
+      .get('/oauth/tokens')
+      .then(response => {
+        commit('RECEIVE_TOKENS', response.data)
+        return response.data
+      });
+  },
+  revokeAuthorizedToken(token) {
+    return httpClient
+      .delete('/oauth/tokens/' + token.id)
+      .then(response => {
+          return response.data
+      })
+  },
+  fetchPersonalTokens({ commit }) {
+    return httpClient
+    .get('/oauth/personal-access-tokens')
+                        .then(response => {
+                            commit('RECEIVE_PERSONAL_TOKENS', response.data)
+        return response.data
+                        })
+  },
+  createPersonalToken({ commit }, form) {
+    return httpClient
+    .post('/oauth/personal-access-tokens', form)
+                        .then(response => {
+                            commit('ADD_NEW_PERSONAL_TOKEN', response.data.token)
+                            return response.data
+                        })
   }
 }
