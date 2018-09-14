@@ -43,10 +43,12 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-checkbox absolute block w-4 h-4 rounded cursor-pointer select-none bg-grey pin-l"
+          class="box-checkbox absolute block w-4 h-4 rounded cursor-pointer select-none pin-l border bg-white-grey-lighter"
           onClick={event => event.target.previousSibling.click()}
         />
-        <label class="relative mb-0">{context.children}</label>
+        <label class="relative mb-0 whitespace-no-wrap">
+          {context.children}
+        </label>
       </div>
     )
   }
