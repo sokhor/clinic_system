@@ -22,7 +22,10 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
-        return response(new RoleResource(Bouncer::role()->firstOrCreate($request->all())), 201);
+        return response(new RoleResource(Bouncer::role()->firstOrCreate([
+            'name' => kebab_case($request->role_name),
+            'title' => ($request->role_name),
+        ])), 201);
     }
 
     /**
@@ -35,8 +38,8 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, Role $role)
     {
-        $role->name = $request->name;
-        $role->title = $request->title;
+        $role->name = kebab_case($request->role_name);
+        $role->title = $request->role_name;
 
         $role->save();
 
@@ -46,7 +49,7 @@ class RoleController extends Controller
     /**
      * Get roles.
      *
-     * @param  \App\Http\Requests\oleViewRequest $request
+     * @param  \App\Http\Requests\RoleViewRequest $request
      *
      * @return \Illuminate\Http\Response
      */

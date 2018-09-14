@@ -26,6 +26,10 @@ class UsersRolePermisionSeeder extends Seeder
         Bouncer::ability()->firstOrCreate(['name' => 'edit-users', 'title' => 'Edit users']);
         Bouncer::ability()->firstOrCreate(['name' => 'delete-users', 'title' => 'Delete users']);
         Bouncer::ability()->firstOrCreate(['name' => 'reset-password-users', 'title' => 'Reset users password']);
+        Bouncer::ability()->firstOrCreate(['name' => 'view-roles', 'title' => 'View Roles']);
+        Bouncer::ability()->firstOrCreate(['name' => 'create-roles', 'title' => 'Create Roles']);
+        Bouncer::ability()->firstOrCreate(['name' => 'edit-roles', 'title' => 'Edit Roles']);
+        Bouncer::ability()->firstOrCreate(['name' => 'delete-roles', 'title' => 'Delete Roles']);
 
         Artisan::call('passport:client', ['--password' => true, '--no-interaction' => true]);
 

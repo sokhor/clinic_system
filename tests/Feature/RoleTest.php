@@ -19,15 +19,13 @@ class RoleTest extends TestCase
         $sign_in_user->allow('create-roles');
         $this->signIn($sign_in_user);
 
-        $role = [
-            'name' => 'role-name',
-            'title' => 'Role name',
-        ];
-
-        $this->postJson('api/roles', $role)
+        $this->postJson('api/roles', ['role_name' => 'Role name'])
             ->assertStatus(201);
 
-        $this->assertDatabaseHas('roles', $role);
+        $this->assertDatabaseHas('roles', [
+            'name' => 'role-name',
+            'title' => 'Role name',
+        ]);
     }
 
     /** @test */
@@ -35,15 +33,13 @@ class RoleTest extends TestCase
     {
         $this->signIn();
 
-        $role = [
-            'name' => 'role-name',
-            'title' => 'Role name',
-        ];
-
-        $this->postJson('api/roles', $role)
+        $this->postJson('api/roles', ['role_name' => 'Role name'])
             ->assertStatus(403);
 
-        $this->assertDatabaseMissing('roles', $role);
+        $this->assertDatabaseMissing('roles', [
+            'name' => 'role-name',
+            'title' => 'Role name',
+        ]);
     }
     /** @test */
     function authorized_user_edit_role()
@@ -58,8 +54,7 @@ class RoleTest extends TestCase
         ]);
 
         $this->putJson('api/roles/' . $role->id, [
-            'name' => 'role-new-name',
-            'title' => 'Role new name',
+            'role_name' => 'Role new name',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('roles', [
@@ -80,8 +75,7 @@ class RoleTest extends TestCase
         ]);
 
         $this->putJson('api/roles/' . $role->id, [
-            'name' => 'role-new-name',
-            'title' => 'Role new name',
+            'role_name' => 'Role new name',
         ])->assertStatus(403);
 
         $this->assertDatabaseMissing('roles', [
@@ -101,7 +95,7 @@ class RoleTest extends TestCase
 
         $this->postJson('api/roles', [])
             ->assertStatus(422)
-            ->assertJsonValidationErrors(['name', 'title']);
+            ->assertJsonValidationErrors(['role_name']);
 
         $role = Bouncer::role()->create([
             'name' => 'role-name',
@@ -110,7 +104,7 @@ class RoleTest extends TestCase
 
         $this->putJson('api/roles/' . $role->id , [])
             ->assertStatus(422)
-            ->assertJsonValidationErrors(['name', 'title']);
+            ->assertJsonValidationErrors(['role_name']);
     }
 
     /** @test */
@@ -196,5 +190,28 @@ class RoleTest extends TestCase
             ->assertStatus(403);
 
         $this->assertDatabaseHas('roles', $role->toArray());
+    }
+
+    /** @test */
+    function it_has_no_duplicate_role_name()
+    {$this->withoutExceptionhandling();
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('create-roles');
+        $this->signIn($sign_in_user);
+
+        Bouncer::role()->create([
+            'name' => 'role-name',
+            'title' => 'Role name',
+        ]);
+
+        $this->postJson('api/roles', ['role_name' => 'Role name'])
+            ->assertStatus(201);
+
+        $roles = Bouncer::role()->where([
+            'name' => 'role-name',
+            'title' => 'Role name',
+        ])->get();
+
+        $this->assertCount(1, $roles);
     }
 }
