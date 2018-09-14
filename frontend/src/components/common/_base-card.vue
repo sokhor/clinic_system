@@ -8,7 +8,7 @@ export default {
         class="w-full bg-white shadow rounded overflow-hidden"
         {...{ class: context.data.staticClass }}
       >
-        { context.children }
+        {context.children}
       </div>
     )
   }

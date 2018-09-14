@@ -1,4 +1,5 @@
 import user from './user'
+import role from './role'
 
 export default [
   {
@@ -15,6 +16,7 @@ export default [
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
   },
+  ...role,
   ...user
 ]
 

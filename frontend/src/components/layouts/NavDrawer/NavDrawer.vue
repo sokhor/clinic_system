@@ -99,6 +99,11 @@ export default {
         //   icon: 'fas fa-passport'
         // },
         {
+          name: 'Roles',
+          url: '/roles',
+          icon: 'fas fa-user-tie'
+        },
+        {
           name: 'Users',
           url: '/users',
           icon: 'fas fa-user'
