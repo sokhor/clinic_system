@@ -22,10 +22,15 @@ class RoleController extends Controller
      */
     public function store(RoleCreateRequest $request)
     {
-        return response(new RoleResource(Bouncer::role()->firstOrCreate([
+        $role = Bouncer::role()->firstOrCreate([
             'name' => kebab_case($request->role_name),
             'title' => ($request->role_name),
-        ])), 201);
+        ]);
+
+        foreach($request->abilities as $ability) {
+            Bouncer::allow($role->name)->to($ability);
+        }
+        return response(new RoleResource($role), 201);
     }
 
     /**
@@ -43,6 +48,10 @@ class RoleController extends Controller
 
         $role->save();
 
+        foreach($request->abilities as $ability) {
+            Bouncer::allow($role->name)->to($ability);
+        }
+
         return new RoleResource($role->fresh());
     }
 
@@ -55,7 +64,7 @@ class RoleController extends Controller
      */
     public function index(RoleViewRequest $request)
     {
-        return RoleResource::collection(Role::paginate());
+        return RoleResource::collection(Role::with('abilities')->paginate());
     }
 
     /**
@@ -70,6 +79,11 @@ class RoleController extends Controller
     {
         $role->delete();
 
+        return new RoleResource($role);
+    }
+
+    public function show(Role $role)
+    {
         return new RoleResource($role);
     }
 }

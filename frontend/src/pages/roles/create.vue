@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/roles"><i class="fas fa-arrow-left"></i></router-link> / {{ isEditForm ? 'Edit Role' : 'Create Role' }}
+        <router-link class="text-blue hover:text-blue-light" to="/roles"><i class="fas fa-arrow-left"></i></router-link> / Create Role
       </h1>
     </div>
     <BaseCard>
@@ -25,29 +25,32 @@
         </div>
         <div class="flex items-center justify-end p-4">
           <base-button color="primary" :waiting="saving" type="submit">
-            {{ isEditForm ? 'Save Change' : 'Create' }}
+            Create
           </base-button>
         </div>
       </form>
     </BaseCard>
+    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6 mt-6">
+      <h1 class="inline text-grey-darkest text-xl font-bold">
+        Permissions
+      </h1>
+    </div>
+    <Permissions @input="setAbilities"/>
   </div>
 </template>
 
 <script>
 import { required } from 'vuelidate/lib/validators'
+import Permissions from './permissions.vue'
 
 export default {
-  name: 'RoleForm',
-  props: {
-    role: {
-      type: Object,
-      default: null
-    }
-  },
+  name: 'RoleCreate',
+  components: { Permissions },
   data() {
     return {
       form: {
-        role_name: ''
+        role_name: '',
+        abilities: []
       },
       saving: false
     }
@@ -63,14 +66,6 @@ export default {
       if (!this.$v.form.role_name.$dirty) return errors
       !this.$v.form.role_name.required && errors.push('Required')
       return errors
-    },
-    isEditForm() {
-      return this.role !== null
-    }
-  },
-  created() {
-    if (this.isEditForm) {
-      this.form.role_name = this.role.title
     }
   },
   methods: {
@@ -82,18 +77,12 @@ export default {
 
       this.saving = true
       try {
-        if (this.isEditForm) {
-          await this.$store.dispatch(
-            'roles/updateRole',
-            Object.assign(this.form, { id: this.role.id })
-          )
-
-          this.$router.push('/roles')
-        } else {
-          await this.$store.dispatch('roles/createRole', this.form)
-        }
+        await this.$store.dispatch('roles/createRole', this.form)
       } catch (e) {}
       this.saving = false
+    },
+    setAbilities(abilities) {
+      this.form.abilities = abilities
     }
   }
 }

@@ -1,3 +1,5 @@
+import store from '@/store'
+
 export default [
   {
     path: '/roles',
@@ -14,7 +16,11 @@ export default [
       authRequired: true
     },
     component: () =>
-      import(/* webpackChunkName: "roles-create" */ '@/pages/roles/form.vue')
+      import(/* webpackChunkName: "roles-create" */ '@/pages/roles/create.vue'),
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch('abilities/fetchAbilities')
+      next()
+    }
   },
   {
     path: '/roles/:id/edit',
@@ -23,7 +29,11 @@ export default [
       authRequired: true
     },
     component: () =>
-      import(/* webpackChunkName: "roles-edit" */ '@/pages/roles/form.vue'),
-    props: route => ({ role: route.params.role })
+      import(/* webpackChunkName: "roles-edit" */ '@/pages/roles/edit.vue'),
+    props: route => ({ role: route.params.role }),
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch('abilities/fetchAbilities')
+      next()
+    }
   }
 ]

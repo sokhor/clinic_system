@@ -23,6 +23,13 @@ export const actions = {
         commit('RECEIVE_ROLES', response.data)
       })
   },
+  fetchRole({}, id) {
+    return httpClient
+      .get(`/api/roles/${id}`, {}, { showProgressBar: true })
+      .then(response => {
+        return response.data
+      })
+  },
   createRole({}, role) {
     return httpClient.post('/api/roles', role).then(response => {
       return response.data
