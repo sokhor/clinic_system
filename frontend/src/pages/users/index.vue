@@ -2,41 +2,46 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">Users</h1>
-      <base-button color="accent" @click="$router.push('/users/create')">Create</base-button>
+      <BaseButton color="accent" @click="$router.push('/users/create')">Create</BaseButton>
     </div>
-    <div class="w-full bg-white shadow rounded overflow-hidden">
-      <base-table>
-        <base-thead>
-          <base-th>Id</base-th>
-          <base-th>Username</base-th>
-          <base-th>Email</base-th>
-          <base-th>Active</base-th>
-          <base-th>Created At</base-th>
-          <base-th class="w-1"></base-th>
-        </base-thead>
-        <base-tbody>
-          <base-tr v-for="user in users" :key="user.id">
-            <base-td>{{ user.id }}</base-td>
-            <base-td>{{ user.username }}</base-td>
-            <base-td>{{ user.email }}</base-td>
-            <base-td>{{ user.active }}</base-td>
-            <base-td>{{ user.created_at }}</base-td>
-            <base-td class="flex">
-              <base-button class="mr-2" flat color="primary" title="Edit user" @click="edit(user)">
+    <BaseCard>
+      <BaseTable>
+        <BaseThead>
+          <BaseTh>Id</BaseTh>
+          <BaseTh>Username</BaseTh>
+          <BaseTh>Email</BaseTh>
+          <BaseTh>Active</BaseTh>
+          <BaseTh>Created At</BaseTh>
+          <BaseTh class="w-1"></BaseTh>
+        </BaseThead>
+        <BaseTbody>
+          <BaseTr v-for="user in users" :key="user.id">
+            <BaseTd>{{ user.id }}</BaseTd>
+            <BaseTd>{{ user.username }}</BaseTd>
+            <BaseTd>{{ user.email }}</BaseTd>
+            <BaseTd>
+              <div class="w-3 h-3 bg-green rounded-full border-2 border-green-lighter" v-if="user.active"></div>
+              <div class="w-3 h-3 bg-red rounded-full border-2 border-red-lighter" v-else></div>
+            </BaseTd>
+            <BaseTd>{{ user.created_at }}</BaseTd>
+            <BaseTd class="flex">
+              <BaseButton class="mr-2" flat color="primary" title="View user" @click="show(user)">
+                <i class="fas fa-eye"></i>
+              </BaseButton>
+              <BaseButton class="mr-2" flat color="primary" title="Edit user" @click="edit(user)">
                 <i class="fas fa-edit"></i>
-              </base-button>
-              <base-button class="mr-2" flat color="primary" title="Reset password" @click="resetPassword(user)">
+              </BaseButton>
+              <BaseButton class="mr-2" flat color="primary" title="Reset password" @click="resetPassword(user)">
                 <i class="fas fa-key"></i>
-              </base-button>
-              <base-button flat color="danger" title="Delete user" @click="deleteUser(user)">
-                <waiting v-if="user._deleting"></waiting>
-                <i class="fas fa-trash" v-else></i>
-              </base-button>
-            </base-td>
-          </base-tr>
-        </base-tbody>
-      </base-table>
-    </div>
+              </BaseButton>
+              <BaseButton flat color="danger" title="Delete user" :waiting="user._deleting" @click="deleteUser(user)">
+                <i class="fas fa-trash" v-if="!user._deleting"></i>
+              </BaseButton>
+            </BaseTd>
+          </BaseTr>
+        </BaseTbody>
+      </BaseTable>
+    </BaseCard>
   </div>
 </template>
 
@@ -70,13 +75,18 @@ export default {
       })
     },
     async deleteUser(user) {
-      console.log('del')
       user._deleting = true
       try {
         await this.$store.dispatch('users/deleteUser', user)
         this.fetchUsers()
       } catch (e) {}
       user._deleting = false
+    },
+    show(user) {
+      this.$router.push({
+        name: 'users-show',
+        params: { id: user.id, user: user }
+      })
     }
   }
 }
