@@ -36,9 +36,9 @@ const classSize = ({ size = 'md', flat = false }) => {
   if (size === 'sm') {
     return 'px-4 py-2'
   } else if (size === 'md') {
-    return 'px-5 py-3'
+    return 'px-6 py-3'
   } else if (size === 'lg') {
-    return 'px-6 py-4'
+    return 'px-8 py-4'
   }
 }
 export default {
