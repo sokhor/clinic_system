@@ -82,8 +82,16 @@ class RoleController extends Controller
         return new RoleResource($role);
     }
 
-    public function show(Role $role)
+    /**
+     * Show role.
+     *
+     * @param  RoleViewRequest $request
+     * @param  unsigned integer         $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(RoleViewRequest $request, $id)
     {
-        return new RoleResource($role);
+        return new RoleResource(Role::with('abilities')->whereId($id)->first());
     }
 }
