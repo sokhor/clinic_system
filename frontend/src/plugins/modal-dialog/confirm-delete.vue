@@ -11,8 +11,8 @@
       <span>{{ content }}</span>
     </div>
     <footer class="flex items-center justify-end p-3">
-      <base-button color="danger" @click="$close(yesValue)" class="mr-2">{{ yes }}</base-button>
-      <base-button color="primary" @click="$close(noValue)">{{ no }}</base-button>
+      <base-button flat color="primary" @click="$close(noValue)" class="px-5">{{ no }}</base-button>
+      <base-button color="danger" @click="$close(yesValue)" class="ml-2">{{ yes }}</base-button>
     </footer>
   </div>
 </template>
