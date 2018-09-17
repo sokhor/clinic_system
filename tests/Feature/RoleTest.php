@@ -169,6 +169,44 @@ class RoleTest extends TestCase
     }
 
     /** @test */
+    function it_show_role()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('view-roles');
+        $this->signIn($sign_in_user);
+
+        $role = Bouncer::role()->create([
+            'name' => 'role-name-1',
+            'title' => 'Role name-1',
+        ]);
+
+        $this->getJson('api/roles/' . $role->id)
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'name',
+                    'title',
+                    'abilities',
+                ],
+            ]);
+    }
+
+    /** @test */
+    function it_cannot_show_role()
+    {
+        $this->signIn();
+
+        $role = Bouncer::role()->create([
+            'name' => 'role-name-1',
+            'title' => 'Role name-1',
+        ]);
+
+        $this->getJson('api/roles/' . $role->id)
+            ->assertStatus(403)
+            ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
     function it_delete_role()
     {
         $sign_in_user = factory(User::class)->create();
@@ -206,7 +244,6 @@ class RoleTest extends TestCase
 
     /** @test */
     function it_has_no_duplicate_role_name()
-    {$this->withoutExceptionhandling();
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('create-roles');
