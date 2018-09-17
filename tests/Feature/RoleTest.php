@@ -12,6 +12,14 @@ class RoleTest extends TestCase
 {
     use RefreshDatabase;
 
+    function setup()
+    {
+        parent::setup();
+
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-1', 'title' => 'Role test 1']);
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-2', 'title' => 'Role test 2']);
+    }
+
     /** @test */
     function authorized_user_create_a_role()
     {
@@ -19,8 +27,10 @@ class RoleTest extends TestCase
         $sign_in_user->allow('create-roles');
         $this->signIn($sign_in_user);
 
-        $this->postJson('api/roles', ['role_name' => 'Role name'])
-            ->assertStatus(201);
+        $this->postJson('api/roles', [
+            'role_name' => 'Role name',
+            'abilities' => ['role-test-1', 'role-test-2'],
+        ])->assertStatus(201);
 
         $this->assertDatabaseHas('roles', [
             'name' => 'role-name',
@@ -55,6 +65,7 @@ class RoleTest extends TestCase
 
         $this->putJson('api/roles/' . $role->id, [
             'role_name' => 'Role new name',
+            'abilities' => ['role-test-1', 'role-test-2'],
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('roles', [
@@ -131,6 +142,7 @@ class RoleTest extends TestCase
                     '*' => [
                         'name',
                         'title',
+                        'abilities',
                     ],
                 ],
             ]);
@@ -195,6 +207,7 @@ class RoleTest extends TestCase
     /** @test */
     function it_has_no_duplicate_role_name()
     {$this->withoutExceptionhandling();
+    {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('create-roles');
         $this->signIn($sign_in_user);
@@ -204,8 +217,10 @@ class RoleTest extends TestCase
             'title' => 'Role name',
         ]);
 
-        $this->postJson('api/roles', ['role_name' => 'Role name'])
-            ->assertStatus(201);
+        $this->postJson('api/roles', [
+            'role_name' => 'Role name',
+            'abilities' => [],
+        ])->assertStatus(201);
 
         $roles = Bouncer::role()->where([
             'name' => 'role-name',
