@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use Bouncer;
 
 class UserAdministrationTest extends TestCase
 {
@@ -220,5 +221,41 @@ class UserAdministrationTest extends TestCase
                 'username',
                 'email',
             ]);
+    }
+
+    /** @test */
+    function attach_user_roles()
+    {$this->withoutExceptionHandling();
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('attach-roles-users');
+        $this->signIn($sign_in_user);
+
+        $user = factory(User::class)->create();
+
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-1', 'title' => 'Role test 1']);
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-2', 'title' => 'Role test 2']);
+
+        $this->postJson("api/users/$user->id/roles", [
+            'roles' => ['role-test-1', 'role-test-2']
+        ])->assertStatus(201);
+
+        $this->assertCount(2, $user->fresh()->roles);
+    }
+
+    /** @test */
+    function cannot_attach_user_roles()
+    {
+        $this->signIn();
+
+        $user = factory(User::class)->create();
+
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-1', 'title' => 'Role test 1']);
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-2', 'title' => 'Role test 2']);
+
+        $this->postJson("api/users/$user->id/roles", [
+            'roles' => ['role-test-1', 'role-test-2']
+        ])->assertStatus(403);
+
+        $this->assertCount(0, $user->fresh()->roles);
     }
 }

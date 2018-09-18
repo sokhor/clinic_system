@@ -16,11 +16,12 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchRoles({ commit }) {
+  fetchRoles({ commit }, { noPaging } = {}) {
     return httpClient
-      .get('/api/roles', {}, { showProgressBar: true })
+      .get('/api/roles', { params: { noPaging } }, { showProgressBar: true })
       .then(response => {
         commit('RECEIVE_ROLES', response.data)
+        return response.data
       })
   },
   fetchRole({}, id) {

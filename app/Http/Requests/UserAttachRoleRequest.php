@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class UserAttachRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('edit-users');
+        return auth()->user()->can('attach-roles-users');
     }
 
     /**
@@ -23,9 +23,6 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'email' => 'unique:users,email,' . $this->id,
-            'password' => 'sometimes|required',
-        ];
+        return [];
     }
 }

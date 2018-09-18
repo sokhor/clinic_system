@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteUserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class DeleteUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('delete-users');
+        return auth()->user()->can('edit-users');
     }
 
     /**
@@ -24,7 +24,8 @@ class DeleteUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'unique:users,email,' . $this->id,
+            'password' => 'sometimes|required',
         ];
     }
 }

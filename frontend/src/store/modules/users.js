@@ -1,8 +1,7 @@
 import httpClient from '@/http-client'
 
 export const state = {
-  users: [],
-  editUser: null
+  users: []
 }
 
 export const getters = {}
@@ -23,6 +22,11 @@ export const actions = {
       .then(response => {
         commit('RECEIVE_USERS', response.data)
       })
+  },
+  getUser({}, id) {
+    return httpClient
+      .get(`/api/users/${id}`, {}, { showProgressBar: true })
+      .then(response => response.data)
   },
   createUser({}, user) {
     return httpClient.post('/api/users', user).then(response => {
@@ -45,6 +49,13 @@ export const actions = {
         password,
         password_confirmation
       })
+      .then(response => {
+        return response.data
+      })
+  },
+  attachRoles({}, { user, roles }) {
+    return httpClient
+      .post(`/api/users/${user.id}/roles`, { roles })
       .then(response => {
         return response.data
       })

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Http\Requests\ViewUserRequest;
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\DeleteUserRequest;
+use App\Http\Requests\UserViewRequest;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserDeleteRequest;
+use App\Http\Requests\UserAttachRoleRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\RoleResource;
+use Bouncer;
 
 class UserController extends Controller
 {
@@ -18,7 +21,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ViewUserRequest $request)
+    public function index(UserViewRequest $request)
     {
         return UserResource::collection(User::withoutSuperAdmin()->paginate());
     }
@@ -27,13 +30,13 @@ class UserController extends Controller
      * show user.
      *
      * @param  \App\Http\Requests\ViewUserRequest $request
-     * @param  \App\User            $user
+     * @param  uinteger           $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(ViewUserRequest $request, User $user)
+    public function show(UserViewRequest $request, $id)
     {
-        return new UserResource($user);
+        return new UserResource(User::with('roles')->withoutSuperAdmin()->find($id));
     }
 
     /**
@@ -43,7 +46,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUserRequest $request)
+    public function store(UserCreateRequest $request)
     {
         User::create(array_merge($request->all(), [
             'password' => bcrypt($request->password)
@@ -60,7 +63,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
         $user->update($request->except(['id', 'username', 'password']));
 
@@ -75,10 +78,17 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DeleteUserRequest $request, User $user)
+    public function destroy(UserDeleteRequest $request, User $user)
     {
         $user->delete();
 
         return response()->json(['message' => 'Delete successfully']);
+    }
+
+    public function attachRoles(UserAttachRoleRequest $request, User $user)
+    {
+        Bouncer::assign($request->roles)->to($user);
+
+        return response()->json(new RoleResource($user->fresh()->roles), 201);
     }
 }

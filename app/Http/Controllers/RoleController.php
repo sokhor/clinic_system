@@ -64,6 +64,10 @@ class RoleController extends Controller
      */
     public function index(RoleViewRequest $request)
     {
+        if($request->noPaging) {
+            return RoleResource::collection(Role::with('abilities')->get());
+        }
+
         return RoleResource::collection(Role::with('abilities')->paginate());
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ViewUserRequest extends FormRequest
+class UserDeleteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ViewUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('view-users');
+        return auth()->user()->can('delete-users');
     }
 
     /**
@@ -23,6 +23,8 @@ class ViewUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            //
+        ];
     }
 }
