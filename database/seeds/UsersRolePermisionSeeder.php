@@ -26,6 +26,7 @@ class UsersRolePermisionSeeder extends Seeder
         Bouncer::ability()->firstOrCreate(['name' => 'edit-users', 'title' => 'Edit users']);
         Bouncer::ability()->firstOrCreate(['name' => 'delete-users', 'title' => 'Delete users']);
         Bouncer::ability()->firstOrCreate(['name' => 'reset-password-users', 'title' => 'Reset password users']);
+        Bouncer::ability()->firstOrCreate(['name' => 'attach-roles-users', 'title' => 'Attach users roles']);
         Bouncer::ability()->firstOrCreate(['name' => 'view-roles', 'title' => 'View roles']);
         Bouncer::ability()->firstOrCreate(['name' => 'create-roles', 'title' => 'Create roles']);
         Bouncer::ability()->firstOrCreate(['name' => 'edit-roles', 'title' => 'Edit roles']);
