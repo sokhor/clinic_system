@@ -16,7 +16,17 @@ export default [
       authRequired: true
     },
     component: () =>
-      import(/* webpackChunkName: "users-create" */ '@/pages/users/form.vue')
+      import(/* webpackChunkName: "users-create" */ '@/pages/users/create.vue')
+  },
+  {
+    path: '/users/:id/edit',
+    name: 'users-edit',
+    meta: {
+      authRequired: true
+    },
+    component: () =>
+      import(/* webpackChunkName: "users-edit" */ '@/pages/users/edit.vue'),
+    props: route => ({ user: route.params.user })
   },
   {
     path: '/users/:id',
@@ -26,16 +36,6 @@ export default [
     },
     component: () =>
       import(/* webpackChunkName: "users-show" */ '@/pages/users/show.vue'),
-    props: route => ({ user: route.params.user })
-  },
-  {
-    path: '/users/:id/edit',
-    name: 'users-edit',
-    meta: {
-      authRequired: true
-    },
-    component: () =>
-      import(/* webpackChunkName: "users-edit" */ '@/pages/users/form.vue'),
     props: route => ({ user: route.params.user })
   },
   {

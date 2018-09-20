@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">Users</h1>
-      <BaseButton color="accent" @click="$router.push('/users/create')">Create</BaseButton>
+      <BaseButton color="accent" @click="$router.push('/users/create')">Create User</BaseButton>
     </div>
     <BaseCard>
       <BaseTable>
@@ -47,11 +47,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import Waiting from '@/components/waiting.vue'
 
 export default {
   name: 'Users',
-  components: { Waiting },
   computed: {
     ...mapState('users', ['users'])
   },
@@ -75,6 +73,10 @@ export default {
       })
     },
     async deleteUser(user) {
+      if (!(await this.$confirmDelete('Are you sure to delete?'))) {
+        return
+      }
+
       user._deleting = true
       try {
         await this.$store.dispatch('users/deleteUser', user)

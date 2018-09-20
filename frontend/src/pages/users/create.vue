@@ -2,10 +2,10 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/users"><i class="fas fa-arrow-left"></i></router-link> / {{ isEditForm ? 'Edit User' : 'Create User' }}
+        <router-link class="text-blue hover:text-blue-light" to="/users"><i class="fas fa-arrow-left"></i></router-link> / Create User
       </h1>
     </div>
-    <div class="w-full bg-white shadow rounded overflow-hidden">
+    <BaseCard>
       <form @submit.prevent="save">
         <div class="flex items-baseline p-4 border-b border-white-grey">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
@@ -17,14 +17,13 @@
               v-model="form.username"
               type="text"
               @input="$v.form.username.$touch()"
-              :disabled="isEditForm"
             />
             <span class="block text-xs italic text-red" v-if="usernameErrors.length > 0">
               {{ usernameErrors[0] }}
             </span>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey" v-if="!isEditForm">
+        <div class="flex items-baseline p-4 border-b border-white-grey">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Password
           </label>
@@ -40,7 +39,7 @@
             </span>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey" v-if="!isEditForm">
+        <div class="flex items-baseline p-4 border-b border-white-grey">
           <label class="block text-grey-darker text-sm font-bold w-1/5">
             Password Again
           </label>
@@ -73,13 +72,13 @@
         </div>
         <div class="flex items-baseline p-4 border-b border-white-grey">
           <label class="block text-grey-darker text-sm font-bold w-1/5"></label>
-          <base-checkbox v-model="form.active">Active</base-checkbox>
+          <BaseCheckbox v-model="form.active">Active</BaseCheckbox>
         </div>
         <div class="flex items-center justify-end p-4">
-          <base-button color="primary" :waiting="saving" type="submit">Save change</base-button>
+          <BaseButton color="primary" :waiting="saving" type="submit">Create</BaseButton>
         </div>
       </form>
-    </div>
+    </BaseCard>
   </div>
 </template>
 
@@ -87,7 +86,7 @@
 import { required, requiredIf, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'UserForm',
+  name: 'UserCreate',
   props: {
     user: {
       type: Object,
@@ -143,16 +142,6 @@ export default {
       if (!this.$v.form.email.$dirty) return errors
       !this.$v.form.email.email && errors.push('Invalid email')
       return errors
-    },
-    isEditForm() {
-      return this.user !== null
-    }
-  },
-  created() {
-    if (this.isEditForm) {
-      for (let key in this.form) {
-        this.form[key] = this.user[key]
-      }
     }
   },
   methods: {
@@ -164,14 +153,8 @@ export default {
 
       this.saving = true
       try {
-        if (this.isEditForm) {
-          await this.$store.dispatch(
-            'users/updateUser',
-            Object.assign(this.form, { id: this.user.id })
-          )
-        } else {
-          await this.$store.dispatch('users/createUser', this.form)
-        }
+        await this.$store.dispatch('users/createUser', this.form)
+        this.$router.push('/users')
       } catch (e) {}
       this.saving = false
     }
