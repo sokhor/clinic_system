@@ -59,5 +59,12 @@ export const actions = {
       .then(response => {
         return response.data
       })
+  },
+  detachRoles({}, { userId, roles }) {
+    return httpClient
+      .put(`/api/users/${userId}/roles`, { roles })
+      .then(response => {
+        return response.data
+      })
   }
 }

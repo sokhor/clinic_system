@@ -8,6 +8,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserDeleteRequest;
 use App\Http\Requests\UserAttachRoleRequest;
+use App\Http\Requests\UserDetachRoleRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\RoleResource;
 use Bouncer;
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index(UserViewRequest $request)
     {
-        return UserResource::collection(User::withoutSuperAdmin()->paginate());
+        return UserResource::collection(User::withoutSuperAdmin()->with('roles')->paginate());
     }
 
     /**
@@ -85,10 +86,33 @@ class UserController extends Controller
         return response()->json(['message' => 'Delete successfully']);
     }
 
+    /**
+     * Attach user's roles
+     *
+     * @param  \App\Http\Requests\UserAttachRoleRequest $request
+     * @param  \App\User                  $user
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function attachRoles(UserAttachRoleRequest $request, User $user)
     {
         Bouncer::assign($request->roles)->to($user);
 
         return response()->json(new RoleResource($user->fresh()->roles), 201);
+    }
+
+    /**
+     * Detach user's roles
+     *
+     * @param  \App\Http\Requests\UserDettachRoleRequest $request
+     * @param  \App\User                   $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function detachRoles(UserDetachRoleRequest $request, User $user)
+    {
+        Bouncer::retract($request->roles)->from($user);
+
+        return response()->json(new RoleResource($user->fresh()->roles));
     }
 }

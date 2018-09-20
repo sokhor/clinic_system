@@ -93,7 +93,7 @@ export default {
       this.saving = false
     },
     goUserDetails() {
-      this.$router.push({ name: 'users-show', params: { id: this.user.id, user: this.user }})
+      this.$router.push({ name: 'users-show' })
     }
   }
 }

@@ -225,7 +225,7 @@ class UserAdministrationTest extends TestCase
 
     /** @test */
     function attach_user_roles()
-    {$this->withoutExceptionHandling();
+    {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('attach-roles-users');
         $this->signIn($sign_in_user);
@@ -257,5 +257,43 @@ class UserAdministrationTest extends TestCase
         ])->assertStatus(403);
 
         $this->assertCount(0, $user->fresh()->roles);
+    }
+
+    /** @test */
+    function detach_user_roles()
+    {
+        $sign_in_user = factory(User::class)->create();
+        $sign_in_user->allow('detach-roles-users');
+        $this->signIn($sign_in_user);
+
+        $user = factory(User::class)->create();
+
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-1', 'title' => 'Role test 1']);
+        Bouncer::assign('role-test-1')->to($user);
+
+        $this->assertCount(1, $user->fresh()->roles);
+
+        $this->putJson("api/users/$user->id/roles", [
+            'roles' => ['role-test-1']
+        ])->assertStatus(200);
+
+        $this->assertCount(0, $user->fresh()->roles);
+    }
+
+    /** @test */
+    function cannot_detach_user_roles()
+    {
+        $this->signIn();
+
+        $user = factory(User::class)->create();
+
+        Bouncer::ability()->firstOrCreate(['name' => 'role-test-1', 'title' => 'Role test 1']);
+        Bouncer::assign('role-test-1')->to($user);
+
+        $this->putJson("api/users/$user->id/roles", [
+            'roles' => ['role-test-1']
+        ])->assertStatus(403);
+
+        $this->assertCount(1, $user->fresh()->roles);
     }
 }
