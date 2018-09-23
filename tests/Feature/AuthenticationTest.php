@@ -115,7 +115,7 @@ class AuthenticationTest extends TestCase
         app('auth')->shouldUse('api');
 
         // Test logout end-point
-        $this->getJson('api/logout')->assertStatus(202);
+        $this->postJson('api/logout')->assertStatus(200);
         $this->assertNotNull($user->fresh()->tokens()->where('revoked', true)->first());
     }
 }

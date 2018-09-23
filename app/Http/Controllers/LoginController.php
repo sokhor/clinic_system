@@ -81,6 +81,6 @@ class LoginController extends Controller
     {
         $request->user()->token()->revoke();
 
-        return response(null, 202);
+        return response(null, 200);
     }
 }

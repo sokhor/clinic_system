@@ -14,12 +14,21 @@
     <div class="flex-auto order-3 hidden md:inline-block"></div>
     <ul class="list-reset pr-4 order-5">
       <li>
-        <button type="button" class="focus:outline-none">
-          <img src="../../assets/user.png" alt="Avatar" class="rounded-full h-10">
-        </button>
-        <!-- <div aria-labelledby="__BVID__39__BV_button_" class="dropdown-menu dropdown-menu-right">
-          <a role="menuitem" href="#" target="_self" class="dropdown-item"><i class="fa fa-lock"></i> Logout</a>
-        </div> -->
+        <BaseDropDown>
+          <BaseButton flat class="focus:outline-none text-xl">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5">
+              <circle cx="16" cy="7.5" r="7.4"/>
+              <path d="M16,18C7.7,18,1,24.3,1,32h30C31,24.3,24.3,18,16,18z"/>
+            </svg>
+          </BaseButton>
+          <ul class="list-reset" slot="dropdown-items">
+            <li class="whitespace-no-wrap">
+              <a href="#" class="no-underline text-grey-darkest" @click.prevent="logOut">
+                <i class="fas fa-sign-out-alt"></i> Signout
+              </a>
+            </li>
+          </ul>
+        </BaseDropDown>
       </li>
     </ul>
   </header>
@@ -31,7 +40,12 @@ import { mapMutations } from 'vuex'
 export default {
   name: 'Header',
   methods: {
-    ...mapMutations(['toggleNavigation'])
+    ...mapMutations(['toggleNavigation']),
+    async logOut() {
+      await this.$store.dispatch('auth/logOut')
+
+      this.$router.push('/login')
+    }
   }
 }
 </script>

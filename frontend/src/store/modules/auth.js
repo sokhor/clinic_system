@@ -53,7 +53,13 @@ export const actions = {
       })
   },
   logOut({ commit }) {
-    commit('SET_CURRENT_USER', null)
+    return httpClient
+      .post('/api/logout', {},  {}, { showProgressBar: true })
+      .then(response => {
+        commit('SET_CURRENT_USER', null)
+        return response.data
+      })
+
   }
 }
 
