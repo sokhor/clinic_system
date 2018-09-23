@@ -38,6 +38,9 @@ class UserAdministrationTest extends TestCase
             ->assertStatus(201);
 
         $this->assertDatabaseHas('users', $user->toArray());
+
+        $user = User::where('username', $user->username)->first();
+        $this->assertCount(1, $user->clients);
     }
 
      /** @test */

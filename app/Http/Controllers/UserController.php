@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Laravel\Passport\ClientRepository;
 use App\User;
 use App\Http\Requests\UserViewRequest;
 use App\Http\Requests\UserCreateRequest;
@@ -15,6 +16,13 @@ use Bouncer;
 
 class UserController extends Controller
 {
+    protected $client;
+
+    public function __construct(ClientRepository $client)
+    {
+        $this->client = $client;
+    }
+
     /**
      * Get users.
      *
@@ -49,11 +57,13 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        User::create(array_merge($request->all(), [
+        $user = User::create(array_merge($request->all(), [
             'password' => bcrypt($request->password)
         ]));
 
-        return response()->json(['message' => 'Create successfully'], 201);
+        $this->client->create($user->id, $user->username, '', false, true);
+
+        return response()->json(new UserResource($user), 201);
     }
 
     /**
@@ -68,7 +78,7 @@ class UserController extends Controller
     {
         $user->update($request->except(['id', 'username', 'password']));
 
-        return response()->json(['message' => 'Update successfully']);
+        return response()->json(new UserResource($user->fresh()));
     }
 
     /**
@@ -83,7 +93,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response()->json(['message' => 'Delete successfully']);
+        return response()->json(new UserResource($user->fresh()));
     }
 
     /**
