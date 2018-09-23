@@ -24,26 +24,21 @@ export const actions = {
   init(/* { dispatch } */) {
     // dispatch('validate')
   },
-  // validate({ commit, state }) {
-  //   if (!state.currentUser) return Promise.resolve(null)
+  validate({ commit, state }) {
+    return httpClient
+      .get('/api/authenticated')
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        if (error.response.status === 401) {
+          commit('SET_CURRENT_USER', null)
+        }
 
-  //   return httpClient
-  //     .get('/api/authenticated')
-  //     .then(response => {
-  //       const user = response.data
-  //       commit('SET_CURRENT_USER', user)
-  //       return user
-  //     })
-  //     .catch(error => {
-  //       if (error.response.status === 401) {
-  //         commit('SET_CURRENT_USER', null)
-  //       }
-  //       return null
-  //     })
-  // },
-  logIn({ commit } /*, dispatch, getters */, { username, password } = {}) {
-    // if (getters.loggedIn) return dispatch('validate')
-
+        return Promise.reject(error.response)
+      })
+  },
+  logIn({ commit }, { username, password } = {}) {
     return httpClient
       .post('/api/login', { username, password })
       .then(response => {
@@ -54,12 +49,11 @@ export const actions = {
   },
   logOut({ commit }) {
     return httpClient
-      .post('/api/logout', {},  {}, { showProgressBar: true })
+      .post('/api/logout', {}, {}, { showProgressBar: true })
       .then(response => {
         commit('SET_CURRENT_USER', null)
         return response.data
       })
-
   }
 }
 

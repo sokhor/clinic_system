@@ -30,6 +30,20 @@ export default {
   computed: {
     ...mapState(['drawer']),
     ...mapGetters('auth', ['isAuthenticated'])
+  },
+  created() {
+    this.validateAuth()
+  },
+  methods: {
+    validateAuth() {
+      if (this.isAuthenticated) {
+        this.$store.dispatch('auth/validate').catch(response => {
+          if (response.status === 401) {
+            this.$router.push('/login')
+          }
+        })
+      }
+    }
   }
 }
 </script>

@@ -1,6 +1,7 @@
 <?php
 Route::post('login', 'LoginController@login');
 Route::post('logout', 'LoginController@logout')->middleware('auth');
+Route::get('authenticated', 'LoginController@authenticated')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::put('users/{user}/password/reset', 'UserPasswordResetController@update');

@@ -1,7 +1,8 @@
 import axios from 'axios'
 // import sentry from '@sentry/browser';
-import store from './store'
 import NProgress from '@/nprogress'
+import router from '@/router'
+import store from '@/store'
 
 const nprogress = new NProgress()
 
@@ -46,6 +47,11 @@ const getClient = ({ baseUrl = null, showProgressBar = false } = {}) => {
     error => {
       if (error.response.status >= 500) {
         // sentry.captureException(error);
+      }
+
+      if (error.response.status === 401) {
+        store.commit('auth/SET_CURRENT_USER', null)
+        router.push('/login')
       }
 
       if (showProgressBar) {

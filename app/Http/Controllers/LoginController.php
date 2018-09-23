@@ -83,4 +83,14 @@ class LoginController extends Controller
 
         return response(null, 200);
     }
+
+    /**
+     * Check if user is authenticated
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function authenticated()
+    {
+        return response(request()->user());
+    }
 }
