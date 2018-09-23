@@ -18,6 +18,11 @@ class UserController extends Controller
 {
     protected $client;
 
+    /**
+     * Instantiate instance.
+     *
+     * @param \Laravel\Passport\ClientRepository $client [description]
+     */
     public function __construct(ClientRepository $client)
     {
         $this->client = $client;

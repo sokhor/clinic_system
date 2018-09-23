@@ -51,7 +51,7 @@ export default {
           modifiers: {
             preventOverflow: {
               boundariesElement: document.querySelector('body')
-            },
+            }
           }
         })
       } else {
