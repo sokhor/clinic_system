@@ -89,7 +89,10 @@ export default {
         })
 
         this.goUserDetails()
-      } catch (e) {}
+        this.$toasted.success('Role attached successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       this.saving = false
     },
     goUserDetails() {

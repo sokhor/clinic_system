@@ -136,7 +136,10 @@ export default {
           Object.assign(this.form, { id: this.user.id })
         )
         this.$router.push('/users')
-      } catch (e) {}
+        this.$toasted.success('Save change user successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       this.saving = false
     }
   }

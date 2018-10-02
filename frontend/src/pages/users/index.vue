@@ -81,7 +81,10 @@ export default {
       try {
         await this.$store.dispatch('users/deleteUser', user)
         this.fetchUsers()
-      } catch (e) {}
+        this.$toasted.success('User deleted successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       user._deleting = false
     },
     show(user) {

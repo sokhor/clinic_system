@@ -46,7 +46,7 @@
           </div>
         </div>
         <div class="flex items-center justify-end p-4">
-          <base-button color="primary" :waiting="saving" type="submit">Save change</base-button>
+          <base-button color="primary" :waiting="saving" type="submit">Reset</base-button>
         </div>
       </form>
     </div>
@@ -107,7 +107,11 @@ export default {
           'users/resetUserPassword',
           Object.assign(this.form, { id: this.user.id })
         )
-      } catch (e) {}
+        this.$router.push('/users')
+        this.$toasted.success('Password reset successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       this.saving = false
     }
   }

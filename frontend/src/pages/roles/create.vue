@@ -78,7 +78,11 @@ export default {
       this.saving = true
       try {
         await this.$store.dispatch('roles/createRole', this.form)
-      } catch (e) {}
+        this.$router.push('/roles')
+        this.$toasted.success('Role created successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       this.saving = false
     },
     setAbilities(abilities) {

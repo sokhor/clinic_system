@@ -68,7 +68,10 @@ export default {
       try {
         await this.$store.dispatch('roles/deleteRole', role)
         this.fetchRoles()
-      } catch (e) {}
+        this.$toasted.success('Role deleted successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       role._deleting = false
     }
   }

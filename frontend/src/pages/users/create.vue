@@ -155,7 +155,10 @@ export default {
       try {
         await this.$store.dispatch('users/createUser', this.form)
         this.$router.push('/users')
-      } catch (e) {}
+        this.$toasted.success('User created successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       this.saving = false
     }
   }

@@ -107,7 +107,10 @@ export default {
           Object.assign(this.form, { id: this.role.id })
         )
         this.$router.push('/roles')
-      } catch (e) {}
+        this.$toasted.success('Role saved change successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       this.saving = false
     },
     setAbilities(abilities) {
