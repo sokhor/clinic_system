@@ -41,7 +41,10 @@ export default {
           roles: [role.name]
         })
         this.userRoles.splice(this.userRoles.indexOf(role), 1)
-      } catch (e) {}
+        this.$toasted.success('Role detached successfully')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
       role._deleting = false
     }
   }
