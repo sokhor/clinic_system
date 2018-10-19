@@ -69,4 +69,44 @@ class WardTest extends TestCase
 
         $this->assertDatabaseMissing('wards', $ward->toArray());
     }
+
+    /** @test */
+    function it_edit_a_ward()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('update-wards');
+        $this->signIn($user);
+
+        $ward = factory(Ward::class)->create();
+
+        $this->putJson('api/wards/' . $ward->id, [
+            'name_kh' => 'កខគ',
+            'name_en' => 'ward-1',
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('wards', [
+            'id' => $ward->id,
+            'name_kh' => 'កខគ',
+            'name_en' => 'ward-1',
+        ]);
+    }
+
+    /** @test */
+    function it_no_permission_edit_a_ward()
+    {
+        $this->signIn();
+
+        $ward = factory(Ward::class)->create();
+
+        $this->putJson('api/wards/' . $ward->id, [
+            'name_kh' => 'កខគ',
+            'name_en' => 'ward-1',
+        ])->assertStatus(403);
+
+        $this->assertDatabaseMissing('wards', [
+            'id' => $ward->id,
+            'name_kh' => 'កខគ',
+            'name_en' => 'ward-1',
+        ]);
+    }
 }
