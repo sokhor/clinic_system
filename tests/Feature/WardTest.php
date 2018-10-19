@@ -39,6 +39,34 @@ class WardTest extends TestCase
 
         $this->getJson('api/wards')
             ->assertStatus(403)
-            ->assertJsonMissing(['data']);;
+            ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
+    function it_create_a_ward()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('create-wards');
+        $this->signIn($user);
+
+        $ward = factory(Ward::class)->make();
+
+        $this->postJson('api/wards', $ward->toArray())
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas('wards', $ward->toArray());
+    }
+
+    /** @test */
+    function it_no_permission_to_create_a_ward()
+    {
+        $this->signIn();
+
+        $ward = factory(Ward::class)->make();
+
+        $this->postJson('api/wards', $ward->toArray())
+            ->assertStatus(403);
+
+        $this->assertDatabaseMissing('wards', $ward->toArray());
     }
 }
