@@ -33,7 +33,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_no_permision_to_fetch_wards()
+    function it_not_allow_to_fetch_wards()
     {
         $this->signIn();
 
@@ -58,7 +58,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_no_permission_to_create_a_ward()
+    function it_not_allow_to_create_a_ward()
     {
         $this->signIn();
 
@@ -92,7 +92,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_no_permission_edit_a_ward()
+    function it_not_allow_to_edit_a_ward()
     {
         $this->signIn();
 
@@ -108,5 +108,35 @@ class WardTest extends TestCase
             'name_kh' => 'កខគ',
             'name_en' => 'ward-1',
         ]);
+    }
+
+    /** @test */
+    function it_delete_a_ward()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('delete-wards');
+        $this->signIn($user);
+
+        $ward = factory(Ward::class)->create();
+
+        $this->assertDatabaseHas('wards', $ward->toArray());
+
+        $this->deleteJson('api/wards/' . $ward->id)
+            ->assertStatus(200);
+
+        $this->assertDatabaseMissing('wards', $ward->toArray());
+    }
+
+    /** @test */
+    function it_not_allow_to_delete_a_ward()
+    {
+        $this->signIn();
+
+        $ward = factory(Ward::class)->create();
+
+        $this->deleteJson('api/wards/' . $ward->id)
+            ->assertStatus(403);
+
+        $this->assertDatabaseHas('wards', $ward->toArray());
     }
 }

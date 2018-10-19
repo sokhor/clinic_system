@@ -4,6 +4,7 @@ namespace App\Place\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Place\Http\Requests\WardCreateRequest;
+use App\Place\Http\Requests\WardDeleteRequest;
 use App\Place\Http\Requests\WardUpdateRequest;
 use App\Place\Http\Requests\WardViewRequest;
 use App\Place\Http\Resources\WardResource;
@@ -44,5 +45,18 @@ class WardController extends Controller
         $ward->update($request->all());
 
         return new WardResource($ward->fresh());
+    }
+
+    /**
+     * Delete a ward.
+     *
+     * @param  \App\Http\Requests\WardDeleteRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(WardDeleteRequest $request, Ward $ward)
+    {
+        $ward->delete();
+
+        return new WardResource($ward);
     }
 }
