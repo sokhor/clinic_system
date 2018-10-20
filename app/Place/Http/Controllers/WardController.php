@@ -20,7 +20,8 @@ class WardController extends Controller
      */
     public function index(WardViewRequest $request)
     {
-        return WardResource::collection(Ward::paginate());
+        return WardResource::collection(Ward::paginate($request->per_page));
+    }
 
     /**
      * Show a ward.
