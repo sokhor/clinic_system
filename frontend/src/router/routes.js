@@ -1,11 +1,12 @@
 import user from './user'
 import role from './role'
+import ward from './ward'
 
 export default [
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '@/pages/login.vue')
+    component: () => import('@/pages/login.vue')
   },
   {
     path: '/',
@@ -13,11 +14,11 @@ export default [
     meta: {
       authRequired: true
     },
-    component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
+    component: () => import('@/pages/Dashboard.vue')
   },
   ...role,
-  ...user
+  ...user,
+  ...ward
 ]
 
 // function lazyLoadView(AsyncView) {

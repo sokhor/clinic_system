@@ -107,6 +107,20 @@ export default {
           name: 'Users',
           url: '/users',
           icon: 'fas fa-user'
+        },
+        {
+          title: true,
+          name: 'Location',
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
+          name: 'Wards',
+          url: '/wards',
+          icon: 'fas fa-plus'
         }
       ]
     }
