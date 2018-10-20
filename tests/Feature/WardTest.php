@@ -43,6 +43,38 @@ class WardTest extends TestCase
     }
 
     /** @test */
+    function it_show_a_ward()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('view-wards');
+        $this->signIn($user);
+
+        $ward = factory(Ward::class)->create();
+
+        $this->getJson("api/wards/{$ward->id}")
+        ->assertStatus(200)
+        ->assertJsonStructure([
+            'data' => [
+                'id',
+                'name_kh',
+                'name_en',
+            ],
+        ]);
+    }
+
+    /** @test */
+    function it_not_allow_to_show_a_ward()
+    {
+        $this->signIn();
+
+        $ward = factory(Ward::class)->create();
+
+        $this->getJson("api/wards/{$ward->id}")
+        ->assertStatus(403)
+        ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
     function it_create_a_ward()
     {
         $user = factory(User::class)->create();

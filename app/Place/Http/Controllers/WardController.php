@@ -21,6 +21,16 @@ class WardController extends Controller
     public function index(WardViewRequest $request)
     {
         return WardResource::collection(Ward::paginate());
+
+    /**
+     * Show a ward.
+     *
+     * @param  \App\Http\Requests\RoleViewRequest $request     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(WardViewRequest $request, Ward $ward)
+    {
+        return new WardResource($ward);
     }
 
     /**
