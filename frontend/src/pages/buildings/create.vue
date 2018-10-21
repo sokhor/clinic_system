@@ -96,7 +96,7 @@ export default {
       this.saving = true
       try {
         await this.$store.dispatch('buildings/store', this.form)
-        this.$toasted.success('Role created successfully')
+        this.$toasted.success('Building created successfully')
         this.$router.push('/buildings')
       } catch (error) {
         this.$toasted.error(error.message)
