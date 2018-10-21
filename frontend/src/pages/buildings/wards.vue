@@ -21,14 +21,15 @@
           <BaseTr v-for="ward in wards" :key="ward.id">
             <BaseTd>{{ ward.name_kh }}</BaseTd>
             <BaseTd>{{ ward.name_en }}</BaseTd>
-            <BaseTd>
+            <BaseTd class="w-1">
               <BaseButton
                 flat
                 color="danger"
                 title="Detach ward"
                 @click="detach(ward)"
+                :waiting="ward._deleting"
               >
-                <i class="fas fa-trash"></i>
+                <i class="fas fa-trash" v-show="!ward._deleting"></i>
               </BaseButton>
             </BaseTd>
           </BaseTr>
@@ -40,6 +41,7 @@
         :wards="wards"
         :buildingId="building.id"
         @attachedSync="onAttachedSync"
+        @close="$modal.hide('wards-modal')"
       />
     </modal>
   </div>
@@ -47,7 +49,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { cloneDeep, flatten } from 'lodash'
+import { flatten } from 'lodash'
 import WardsModal from './wards-modal.vue'
 
 export default {
@@ -56,7 +58,7 @@ export default {
   props: ['building'],
   data() {
     return {
-      wards: cloneDeep(this.building.wards)
+      wards: this.tranformData(this.building.wards)
     }
   },
   created() {
@@ -64,21 +66,25 @@ export default {
   },
   methods: {
     ...mapActions('buildings', ['fetchWards']),
+    tranformData(wards) {
+      return wards.map(w => Object.assign({}, w, { _deleting: false }))
+    },
     showModal() {
       this.$modal.show('wards-modal')
     },
     onAttachedSync(wards) {
       this.$modal.hide('wards-modal')
 
-      this.wards = wards
-      this.$emit('input', this.wards)
+      this.wards = this.tranformData(wards)
+      this.$emit('input', wards)
     },
     async detach(ward) {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
         return
       }
 
-      // this.saving = true
+      ward._deleting = true
+
       try {
         await this.$store.dispatch('buildings/syncWards', {
           id: this.building.id,
@@ -91,9 +97,9 @@ export default {
         this.$emit('input', this.wards)
       } catch (error) {
         this.$toasted.error(error.message)
-        this.wards = cloneDeep(this.building.wards)
       }
-      // this.saving = false
+
+      ward._deleting = false
     }
   }
 }
