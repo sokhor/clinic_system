@@ -73,10 +73,14 @@ export default {
     view(building) {
       this.$router.push({
         name: 'buildings-show',
-        params: { id: building.id, building }
+        params: { id: building.id, buildingProp: building }
       })
     },
     async destroy(building) {
+      if (!(await this.$confirmDelete('Are you sure to delete?'))) {
+        return
+      }
+
       building._deleting = true
       try {
         await this.$store.dispatch('buildings/destroy', building)

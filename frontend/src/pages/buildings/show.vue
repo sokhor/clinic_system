@@ -17,13 +17,14 @@
           <i class="fas fa-edit"></i>
         </BaseButton>
         <BaseButton
-          sm color="danger"
+          sm
+          color="danger"
           title="Delete building"
           :waiting="building._deleting"
           @click="destroy(building)"
           class="ml-2"
         >
-          <i class="fas fa-trash" v-if="!building._deleting"></i>
+          <i class="fas fa-trash" v-show="!building._deleting"></i>
         </BaseButton>
       </div>
     </div>
@@ -65,7 +66,9 @@ export default {
         {},
         { showProgressBar: true }
       )
-      to.params.buildingProp = response.data.data
+      to.params.buildingProp = Object.assign({}, response.data.data, {
+        _deleting: false
+      })
     }
     next()
   },
@@ -88,7 +91,12 @@ export default {
       })
     },
     async destroy(building) {
+      if (!(await this.$confirmDelete('Are you sure to delete?'))) {
+        return
+      }
+
       building._deleting = true
+
       try {
         await this.$store.dispatch('buildings/destroy', building)
         this.$toasted.success('Building deleted successfully')
@@ -96,6 +104,7 @@ export default {
       } catch (error) {
         this.$toasted.error(error.message)
       }
+
       building._deleting = false
     }
   }
