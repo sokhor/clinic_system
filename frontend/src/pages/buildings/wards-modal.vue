@@ -41,7 +41,7 @@ export default {
     ...mapState('buildings', { wardList: 'wards' }),
     availableWards() {
       return this.wardList.filter(w => {
-        return ! this.wards.map(w => w.id).includes(w.id)
+        return !this.wards.map(w => w.id).includes(w.id)
       })
     }
   },
@@ -54,13 +54,16 @@ export default {
           wards: this.selectedWards
         })
         this.$toasted.success('Wards attached successfully')
-        this.$emit('attachedSync', this.wardList.filter(w => this.selectedWards.includes(w.id)))
+        this.$emit(
+          'attachedSync',
+          this.wardList.filter(w => this.selectedWards.includes(w.id))
+        )
       } catch (error) {
         this.$toasted.error(error.message)
         this.selectedWards = this.wards.map(w => w.id)
       }
       this.saving = false
-    },
+    }
   }
 }
 </script>

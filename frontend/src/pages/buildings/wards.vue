@@ -82,7 +82,9 @@ export default {
       try {
         await this.$store.dispatch('buildings/syncWards', {
           id: this.building.id,
-          wards: flatten(this.wards.filter(w => w.id != ward.id).map(ward => ward.id))
+          wards: flatten(
+            this.wards.filter(w => w.id != ward.id).map(ward => ward.id)
+          )
         })
         this.$toasted.success('Wards detached successfully')
         this.wards.splice(this.wards.indexOf(ward), 1)
