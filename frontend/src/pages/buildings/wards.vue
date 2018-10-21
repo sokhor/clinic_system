@@ -18,7 +18,7 @@
           </BaseTr>
         </BaseThead>
         <BaseTbody>
-          <BaseTr v-for="ward in building.wards" :key="ward.id">
+          <BaseTr v-for="ward in wards" :key="ward.id">
             <BaseTd>{{ ward.name_kh }}</BaseTd>
             <BaseTd>{{ ward.name_en }}</BaseTd>
             <BaseTd>
@@ -35,66 +35,43 @@
         </BaseTbody>
       </BaseTable>
     </BaseCard>
-    <modal name="wards-modal">
-      <form @submit.prevent="attachWards">
-        <ul class="list-reset">
-          <li v-for="ward in wardList" :key="ward.id">
-            <BaseCheckbox
-              v-model="wards"
-              :value="ward"
-            >
-              {{ ward.name_en }}
-            </BaseCheckbox>
-          </li>
-        </ul>
-        <div class="flex items-center justify-end p-4">
-          <BaseButton color="primary" :waiting="saving" type="submit">
-            Save change
-          </BaseButton>
-        </div>
-      </form>
+    <modal name="wards-modal" height="auto" :scrollable="true">
+      <WardsModal
+        :wards="wards"
+        :buildingId="building.id"
+        @attachedSync="onAttachedSync"
+      />
     </modal>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import { cloneDeep } from 'lodash'
+import { mapActions } from 'vuex'
+import { cloneDeep, flatten } from 'lodash'
+import WardsModal from './wards-modal.vue'
 
 export default {
   name: 'BuildingWards',
+  components: { WardsModal },
   props: ['building'],
   data() {
     return {
-      wards: cloneDeep(this.building.wards),
-      saving: false,
+      wards: cloneDeep(this.building.wards)
     }
-  },
-  computed: {
-    ...mapState('buildings', { wardList: 'wards' })
   },
   created() {
     this.fetchWards()
   },
   methods: {
-    ...mapActions('buildings', [ 'fetchWards' ]),
+    ...mapActions('buildings', ['fetchWards']),
     showModal() {
       this.$modal.show('wards-modal')
     },
-    async attachWards() {
-      this.saving = true
-      try {
-        await this.$store.dispatch('buildings/syncWards', {
-          id: this.building.id,
-          wards: this.wards
-        })
-        this.$toasted.success('Wards attached successfully')
-        this.$emit('input', this.wards)
-      } catch (error) {
-        this.$toasted.error(error.message)
-        this.wards = cloneDeep(this.building.wards)
-      }
-      this.saving = false
+    onAttachedSync(wards) {
+      this.$modal.hide('wards-modal')
+
+      this.wards = wards
+      this.$emit('input', this.wards)
     },
     async detach(ward) {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
@@ -105,7 +82,7 @@ export default {
       try {
         await this.$store.dispatch('buildings/syncWards', {
           id: this.building.id,
-          wards: this.wards.filter(w => w.id != ward.id)
+          wards: flatten(this.wards.filter(w => w.id != ward.id).map(ward => ward.id))
         })
         this.$toasted.success('Wards detached successfully')
         this.wards.splice(this.wards.indexOf(ward), 1)

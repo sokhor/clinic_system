@@ -1,4 +1,3 @@
-import { flatten } from 'lodash'
 import httpClient from '@/http-client'
 import { baseState, baseMutations } from './_mixin'
 
@@ -68,7 +67,7 @@ export const actions = {
   },
   syncWards({ commit }, { id, wards }) {
     return httpClient
-      .put(`/api/buildings/${id}/wards`, flatten(wards.map(ward => ward.id)))
+      .put(`/api/buildings/${id}/wards`, wards)
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error.response.data))
   }

@@ -28,7 +28,7 @@ class BuildingWardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function attach(BuildingAttachWardRequest $request, $id)
-    {//return response('', 422);
+    {
         $building = Building::findOrFail($id);
 
         $building->wards()->sync($request->all());
