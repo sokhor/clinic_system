@@ -12,6 +12,20 @@ class Building extends Model
         'name_en',
     ];
 
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'deleted' => \App\Place\Events\BuildingDeleted::class,
+    ];
+
+    /**
+     * Building has many wards
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function wards()
     {
         return $this->belongsToMany(Ward::class);
