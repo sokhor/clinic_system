@@ -26,7 +26,11 @@ const onInput = (event, context) => {
     modelValue = event.target.checked
   }
 
-  emitInputEvent(modelValue, event)
+  if (Array.isArray(emitInputEvent)) {
+    return emitInputEvent.forEach(e => e(modelValue, event))
+  }
+
+  return emitInputEvent(modelValue, event)
 }
 
 export default {
