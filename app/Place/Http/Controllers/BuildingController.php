@@ -8,7 +8,9 @@ use App\Place\Http\Requests\BuildingDeleteRequest;
 use App\Place\Http\Requests\BuildingUpdateRequest;
 use App\Place\Http\Requests\BuildingViewRequest;
 use App\Place\Http\Resources\BuildingResource;
+use App\Place\Http\Resources\WardResource;
 use App\Place\Models\Building;
+use App\Place\Models\Ward;
 
 class BuildingController extends Controller
 {
@@ -20,18 +22,23 @@ class BuildingController extends Controller
      */
     public function index(BuildingViewRequest $request)
     {
-        return BuildingResource::collection(Building::paginate($request->per_page));
+        return BuildingResource::collection(
+            Building::with('wards')->paginate($request->per_page)
+        );
     }
 
     /**
      * Show a building.
      *
-     * @param  \App\Http\Requests\BuildingViewRequest $request     *
+     * @param  \App\Http\Requests\BuildingViewRequest $request
+     * @param  integer $id
      * @return \Illuminate\Http\Response
      */
-    public function show(BuildingViewRequest $request, Building $Building)
+    public function show(BuildingViewRequest $request, $id)
     {
-        return new BuildingResource($Building);
+        $building = Building::with('wards')->findOrFail($id);
+
+        return new BuildingResource($building);
     }
 
     /**
@@ -54,6 +61,8 @@ class BuildingController extends Controller
     public function update(BuildingUpdateRequest $request, Building $building)
     {
         $building->update($request->all());
+
+        $building->wards()->sync($request->wards);
 
         return new BuildingResource($building->fresh());
     }

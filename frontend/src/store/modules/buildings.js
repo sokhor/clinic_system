@@ -1,14 +1,19 @@
+import { flatten } from 'lodash'
 import httpClient from '@/http-client'
 import { baseState, baseMutations } from './_mixin'
 
 export const state = {
-  ...baseState
+  ...baseState,
+  wards: []
 }
 
 export const getters = {}
 
 export const mutations = {
-  ...baseMutations
+  ...baseMutations,
+  WARDS(state, wards) {
+    state.wards = wards
+  }
 }
 
 export const actions = {
@@ -49,6 +54,21 @@ export const actions = {
   destroy({ commit }, building) {
     return httpClient
       .delete(`/api/buildings/${building.id}`)
+      .then(response => Promise.resolve(response.data))
+      .catch(error => Promise.reject(error.response.data))
+  },
+  fetchWards({ commit }) {
+    return httpClient
+      .get('/api/buildings/wards')
+      .then(response => {
+        commit('WARDS', response.data.data)
+        Promise.resolve(response.data)
+      })
+      .catch(error => Promise.reject(error.response.data))
+  },
+  syncWards({ commit }, { id, wards }) {
+    return httpClient
+      .put(`/api/buildings/${id}/wards`, flatten(wards.map(ward => ward.id)))
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error.response.data))
   }

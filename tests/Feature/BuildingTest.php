@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Place\Models\Building;
+use App\Place\Models\Ward;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -29,6 +30,7 @@ class BuildingTest extends TestCase
                     'id',
                     'name_kh',
                     'name_en',
+                    'wards',
                 ],
             ],
         ]);
@@ -62,6 +64,7 @@ class BuildingTest extends TestCase
                 'id',
                 'name_kh',
                 'name_en',
+                'wards',
             ],
         ]);
     }
@@ -174,5 +177,77 @@ class BuildingTest extends TestCase
             ->assertStatus(403);
 
         $this->assertDatabaseHas('buildings', $building->toArray());
+    }
+
+    /** @test */
+    function it_attach_wards_to_a_building()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('attach-wards-buildings');
+        $this->signIn($user);
+
+        $wards = factory(Ward::class, 3)->create();
+        $building = factory(Building::class)->create();
+
+        $this->putJson("api/buildings/{$building->id}/wards", $wards->pluck('id')->toArray())
+        ->assertStatus(200);
+
+        $this->assertCount(3, $building->fresh()->wards);
+    }
+
+    /** @test */
+    function it_not_allow_to_attach_wards_to_a_building()
+    {
+        $this->signIn();
+
+        $wards = factory(Ward::class, 3)->create();
+        $building = factory(Building::class)->create();
+
+        $this->putJson("api/buildings/{$building->id}/wards", $wards->pluck('id')->toArray())
+        ->assertStatus(403);
+
+        $this->assertCount(0, $building->fresh()->wards);
+    }
+
+    /** @test */
+    function it_detach_wards_from_a_building()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('attach-wards-buildings');
+        $this->signIn($user);
+
+        $wards = factory(Ward::class, 3)->create();
+        $building = factory(Building::class)->create();
+
+        $building->wards()->attach($wards->pluck('id'));
+        $this->assertCount(3, $building->fresh()->wards);
+
+        $this->putJson("api/buildings/{$building->id}/wards", [ $wards[0]->id, $wards[2]->id ])
+        ->assertStatus(200);
+
+        $this->assertCount(2, $building->fresh()->wards);
+        $this->assertEquals(
+            [ $wards[0]->id, $wards[2]->id ],
+            $building->fresh()->wards->pluck('id')->toArray()
+        );
+    }
+
+    /** @test */
+    function it_not_allow_to_detach_wards_from_a_building()
+    {
+        $this->signIn();
+
+        $wards = factory(Ward::class, 3)->create();
+        $building = factory(Building::class)->create();
+        $building->wards()->attach($wards->pluck('id'));
+
+        $this->putJson("api/buildings/{$building->id}/wards", [ $wards[0]->id, $wards[2]->id ])
+        ->assertStatus(403);
+
+        $this->assertCount(3, $building->fresh()->wards);
+        $this->assertNotEquals(
+            [ $wards[0]->id, $wards[2]->id ],
+            $building->fresh()->wards->pluck('id')->toArray()
+        );
     }
 }

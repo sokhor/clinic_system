@@ -23,5 +23,14 @@ export default [
     },
     component: () => import('@/pages/buildings/edit.vue'),
     props: route => ({ building: route.params.building })
+  },
+  {
+    path: '/buildings/:id',
+    name: 'buildings-show',
+    meta: {
+      authRequired: true
+    },
+    component: () => import('@/pages/buildings/show.vue'),
+    props: route => ({ buildingProp: route.params.buildingProp })
   }
 ]

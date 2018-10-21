@@ -20,6 +20,15 @@
                 class="mr-2"
                 flat
                 color="primary"
+                title="View ward"
+                @click="view(building)"
+              >
+                <i class="fas fa-eye"></i>
+              </base-button>
+              <base-button
+                class="mr-2"
+                flat
+                color="primary"
                 title="Edit building"
                 @click="edit(building)"
               >
@@ -58,6 +67,12 @@ export default {
     edit(building) {
       this.$router.push({
         name: 'buildings-edit',
+        params: { id: building.id, building }
+      })
+    },
+    view(building) {
+      this.$router.push({
+        name: 'buildings-show',
         params: { id: building.id, building }
       })
     },
