@@ -46,10 +46,10 @@ export const actions = {
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error.response.data))
   },
-  // destroy({ commit }, building) {
-  //   return httpClient
-  //     .delete(`/api/buildings/${building.id}`)
-  //     .then(response => Promise.resolve(response.data))
-  //     .catch(error => Promise.reject(error.response.data))
-  // }
+  destroy({ commit }, building) {
+    return httpClient
+      .delete(`/api/buildings/${building.id}`)
+      .then(response => Promise.resolve(response.data))
+      .catch(error => Promise.reject(error.response.data))
+  }
 }

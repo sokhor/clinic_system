@@ -145,4 +145,34 @@ class BuildingTest extends TestCase
             'name_en' => 'Building 1',
         ]);
     }
+
+    /** @test */
+    function it_delete_a_building()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('delete-buildings');
+        $this->signIn($user);
+
+        $building = factory(Building::class)->create();
+
+        $this->assertDatabaseHas('buildings', $building->toArray());
+
+        $this->deleteJson("api/buildings/{$building->id}")
+            ->assertStatus(200);
+
+        $this->assertDatabaseMissing('buildings', $building->toArray());
+    }
+
+    /** @test */
+    function it_not_allow_to_delete_a_building()
+    {
+        $this->signIn();
+
+        $building = factory(Building::class)->create();
+
+        $this->deleteJson("api/buildings/{$building->id}")
+            ->assertStatus(403);
+
+        $this->assertDatabaseHas('buildings', $building->toArray());
+    }
 }

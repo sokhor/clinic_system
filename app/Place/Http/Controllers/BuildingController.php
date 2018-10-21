@@ -4,6 +4,7 @@ namespace App\Place\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Place\Http\Requests\BuildingCreateRequest;
+use App\Place\Http\Requests\BuildingDeleteRequest;
 use App\Place\Http\Requests\BuildingUpdateRequest;
 use App\Place\Http\Requests\BuildingViewRequest;
 use App\Place\Http\Resources\BuildingResource;
@@ -50,23 +51,23 @@ class BuildingController extends Controller
      * @param  \App\Http\Requests\BuildingUpdateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function update(BuildingUpdateRequest $request, Building $Building)
+    public function update(BuildingUpdateRequest $request, Building $building)
     {
-        $Building->update($request->all());
+        $building->update($request->all());
 
-        return new BuildingResource($Building->fresh());
+        return new BuildingResource($building->fresh());
     }
 
-    // /**
-    //  * Delete a building.
-    //  *
-    //  * @param  \App\Http\Requests\BuildingDeleteRequest $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy(BuildingDeleteRequest $request, Building $Building)
-    // {
-    //     $Building->delete();
+    /**
+     * Delete a building.
+     *
+     * @param  \App\Http\Requests\BuildingDeleteRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(BuildingDeleteRequest $request, Building $building)
+    {
+        $building->delete();
 
-    //     return new BuildingResource($Building);
-    // }
+        return new BuildingResource($building);
+    }
 }
