@@ -40,12 +40,12 @@ export const actions = {
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error.response.data))
   },
-  // update({ commit }, building) {
-  //   return httpClient
-  //     .put(`/api/buildings/${building.id}`, building)
-  //     .then(response => Promise.resolve(response.data))
-  //     .catch(error => Promise.reject(error.response.data))
-  // },
+  update({ commit }, building) {
+    return httpClient
+      .put(`/api/buildings/${building.id}`, building)
+      .then(response => Promise.resolve(response.data))
+      .catch(error => Promise.reject(error.response.data))
+  },
   // destroy({ commit }, building) {
   //   return httpClient
   //     .delete(`/api/buildings/${building.id}`)

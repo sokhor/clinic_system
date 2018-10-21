@@ -4,6 +4,7 @@ namespace App\Place\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Place\Http\Requests\BuildingCreateRequest;
+use App\Place\Http\Requests\BuildingUpdateRequest;
 use App\Place\Http\Requests\BuildingViewRequest;
 use App\Place\Http\Resources\BuildingResource;
 use App\Place\Models\Building;
@@ -43,18 +44,18 @@ class BuildingController extends Controller
         return new BuildingResource(Building::create($request->all()));
     }
 
-    // /**
-    //  * Update a building.
-    //  *
-    //  * @param  \App\Http\Requests\BuildingUpdateRequest $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(BuildingUpdateRequest $request, Building $Building)
-    // {
-    //     $Building->update($request->all());
+    /**
+     * Update a building.
+     *
+     * @param  \App\Http\Requests\BuildingUpdateRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(BuildingUpdateRequest $request, Building $Building)
+    {
+        $Building->update($request->all());
 
-    //     return new BuildingResource($Building->fresh());
-    // }
+        return new BuildingResource($Building->fresh());
+    }
 
     // /**
     //  * Delete a building.

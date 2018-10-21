@@ -105,4 +105,44 @@ class BuildingTest extends TestCase
 
         $this->assertDatabaseMissing('buildings', $building->toArray());
     }
+
+    /** @test */
+    function it_edit_a_building()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('update-buildings');
+        $this->signIn($user);
+
+        $building = factory(Building::class)->create();
+
+        $this->putJson("api/buildings/{$building->id}", [
+            'name_kh' => 'អាគារទី១',
+            'name_en' => 'Building 1',
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('buildings', [
+            'id' => $building->id,
+            'name_kh' => 'អាគារទី១',
+            'name_en' => 'Building 1',
+        ]);
+    }
+
+    /** @test */
+    function it_not_allow_to_edit_a_building()
+    {
+        $this->signIn();
+
+        $building = factory(Building::class)->create();
+
+        $this->putJson("api/buildings/{$building->id}", [
+            'name_kh' => 'អាគារទី១',
+            'name_en' => 'Building 1',
+        ])->assertStatus(403);
+
+        $this->assertDatabaseMissing('buildings', [
+            'id' => $building->id,
+            'name_kh' => 'អាគារទី១',
+            'name_en' => 'Building 1',
+        ]);
+    }
 }
