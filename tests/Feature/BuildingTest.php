@@ -77,4 +77,32 @@ class BuildingTest extends TestCase
         ->assertStatus(403)
         ->assertJsonMissing(['data']);
     }
+
+    /** @test */
+    function it_create_a_building()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('create-buildings');
+        $this->signIn($user);
+
+        $building = factory(Building::class)->make();
+
+        $this->postJson('api/buildings', $building->toArray())
+            ->assertStatus(201);
+
+        $this->assertDatabaseHas('buildings', $building->toArray());
+    }
+
+    /** @test */
+    function it_not_allow_to_create_a_building()
+    {
+        $this->signIn();
+
+        $building = factory(Building::class)->make();
+
+        $this->postJson('api/buildings', $building->toArray())
+            ->assertStatus(403);
+
+        $this->assertDatabaseMissing('buildings', $building->toArray());
+    }
 }

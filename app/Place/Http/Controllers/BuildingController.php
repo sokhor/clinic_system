@@ -3,6 +3,7 @@
 namespace App\Place\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Place\Http\Requests\BuildingCreateRequest;
 use App\Place\Http\Requests\BuildingViewRequest;
 use App\Place\Http\Resources\BuildingResource;
 use App\Place\Models\Building;
@@ -31,16 +32,16 @@ class BuildingController extends Controller
         return new BuildingResource($Building);
     }
 
-    // /**
-    //  * Create a building.
-    //  *
-    //  * @param  \App\Http\Requests\BuildingCreateRequest $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(BuildingCreateRequest $request)
-    // {
-    //     return new BuildingResource(Building::create($request->all()));
-    // }
+    /**
+     * Create a building.
+     *
+     * @param  \App\Http\Requests\BuildingCreateRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(BuildingCreateRequest $request)
+    {
+        return new BuildingResource(Building::create($request->all()));
+    }
 
     // /**
     //  * Update a building.

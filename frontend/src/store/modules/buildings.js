@@ -34,12 +34,12 @@ export const actions = {
         return Promise.reject(error.response.data)
       })
   },
-  // store({ commit }, building) {
-  //   return httpClient
-  //     .post('/api/buildings', building)
-  //     .then(response => Promise.resolve(response.data))
-  //     .catch(error => Promise.reject(error.response.data))
-  // },
+  store({ commit }, building) {
+    return httpClient
+      .post('/api/buildings', building)
+      .then(response => Promise.resolve(response.data))
+      .catch(error => Promise.reject(error.response.data))
+  },
   // update({ commit }, building) {
   //   return httpClient
   //     .put(`/api/buildings/${building.id}`, building)
