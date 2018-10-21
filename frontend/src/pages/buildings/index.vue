@@ -54,7 +54,7 @@ export default {
     this.fetchBuildings()
   },
   methods: {
-    ...mapActions('wards', { fetchBuildings: 'fetchResources' }),
+    ...mapActions('buildings', { fetchBuildings: 'fetchResources' }),
     edit(building) {
       this.$router.push({
         name: 'buildings-edit',
