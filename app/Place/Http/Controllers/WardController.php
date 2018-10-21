@@ -15,7 +15,7 @@ class WardController extends Controller
     /**
      * Get wards.
      *
-     * @param  \App\Http\Requests\RoleViewRequest $request     *
+     * @param  \App\Http\Requests\WardViewRequest $request     *
      * @return \Illuminate\Http\Response
      */
     public function index(WardViewRequest $request)
@@ -26,7 +26,7 @@ class WardController extends Controller
     /**
      * Show a ward.
      *
-     * @param  \App\Http\Requests\RoleViewRequest $request     *
+     * @param  \App\Http\Requests\WardViewRequest $request     *
      * @return \Illuminate\Http\Response
      */
     public function show(WardViewRequest $request, Ward $ward)
