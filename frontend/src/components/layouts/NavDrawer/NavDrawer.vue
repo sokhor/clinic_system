@@ -121,6 +121,11 @@ export default {
           name: 'Wards',
           url: '/wards',
           icon: 'fas fa-plus'
+        },
+        {
+          name: 'Buildings',
+          url: '/buildings',
+          icon: 'fas fa-plus'
         }
       ]
     }
