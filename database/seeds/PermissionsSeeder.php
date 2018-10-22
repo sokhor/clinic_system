@@ -34,6 +34,7 @@ class PermissionsSeeder extends Seeder
         Bouncer::ability()->firstOrCreate(['name' => 'create-buildings', 'title' => 'Create buildings']);
         Bouncer::ability()->firstOrCreate(['name' => 'update-buildings', 'title' => 'Update buildings']);
         Bouncer::ability()->firstOrCreate(['name' => 'delete-buildings', 'title' => 'Delete buildings']);
+        Bouncer::ability()->firstOrCreate(['name' => 'attach-wards-buildings', 'title' => 'Attach wards to buildings']);
 
         Bouncer::ability()->firstOrCreate(['name' => 'view-rooms', 'title' => 'View rooms']);
         Bouncer::ability()->firstOrCreate(['name' => 'create-rooms', 'title' => 'Create rooms']);
