@@ -19,11 +19,13 @@ class BuildingsTableSeeder extends Seeder
         factory(Building::class)->create([
             'name_kh' => 'អគារ៤អា',
             'name_en' => 'House 4A',
+            'code' => '4A',
         ]);
 
         factory(Building::class)->create([
             'name_kh' => 'អគារ២អា',
             'name_en' => 'House 2A',
+            'code' => '2A',
         ]);
     }
 }

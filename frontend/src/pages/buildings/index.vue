@@ -9,12 +9,14 @@
         <base-thead>
           <base-th>Name KH</base-th>
           <base-th>Name EN</base-th>
+          <base-th>Code</base-th>
           <base-th class="w-1"></base-th>
         </base-thead>
         <base-tbody>
           <base-tr v-for="building in buildings" :key="building.id">
             <base-td>{{ building.name_kh }}</base-td>
             <base-td>{{ building.name_en }}</base-td>
+            <base-td>{{ building.code }}</base-td>
             <base-td class="flex">
               <base-button
                 class="mr-2"

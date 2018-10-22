@@ -10,6 +10,7 @@ class Building extends Model
     protected $fillable = [
         'name_kh',
         'name_en',
+        'code',
     ];
 
     /**

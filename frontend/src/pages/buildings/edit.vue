@@ -42,6 +42,18 @@
             </span>
           </div>
         </div>
+        <div class="flex items-baseline p-4 border-b border-white-grey">
+          <label class="block text-grey-darker text-sm font-bold w-1/5">
+            Code
+          </label>
+          <div class="w-2/5">
+            <input
+              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+              v-model="form.code"
+              type="text"
+            />
+          </div>
+        </div>
         <div class="flex items-center justify-end p-4">
           <base-button color="primary" :waiting="saving" type="submit">
             Update
@@ -79,7 +91,8 @@ export default {
       form: {
         id: this.building.id,
         name_kh: this.building.name_kh,
-        name_en: this.building.name_en
+        name_en: this.building.name_en,
+        code: this.building.code
       },
       saving: false
     }

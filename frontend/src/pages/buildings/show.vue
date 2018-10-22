@@ -45,6 +45,14 @@
           {{ building.name_en }}
         </span>
       </div>
+      <div class="flex items-baseline p-4 border-b border-white-grey">
+        <BaseLabel class="w-1/5">
+          Code
+        </BaseLabel>
+        <span class="w-2/5">
+          {{ building.code }}
+        </span>
+      </div>
     </BaseCard>
     <BuildingWards :building="building" @input="wards => building.wards = wards" />
   </div>

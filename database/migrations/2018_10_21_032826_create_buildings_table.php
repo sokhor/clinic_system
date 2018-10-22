@@ -17,6 +17,7 @@ class CreateBuildingsTable extends Migration
             $table->increments('id');
             $table->string('name_kh');
             $table->string('name_en');
+            $table->string('code')->unique()->nullable();
             $table->timestamps();
         });
     }
