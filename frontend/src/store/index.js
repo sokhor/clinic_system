@@ -7,7 +7,19 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    drawer: true
+    drawer: true,
+    floors: {
+      1: 'Ground Floor',
+      2: '1st Floor',
+      3: '2nd Floor',
+      4: '3rd Floor'
+    },
+    roomStatuses: {
+      1: 'Available',
+      2: 'Incomplete',
+      3: 'Reserved',
+      4: 'Full'
+    }
   },
   mutations: {
     toggleNavigation(state) {

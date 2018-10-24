@@ -2,6 +2,7 @@ import user from './user'
 import role from './role'
 import ward from './ward'
 import building from './building'
+import room from './room'
 
 export default [
   {
@@ -20,7 +21,8 @@ export default [
   ...role,
   ...user,
   ...ward,
-  ...building
+  ...building,
+  ...room
 ]
 
 // function lazyLoadView(AsyncView) {
