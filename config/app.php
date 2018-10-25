@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'asia/Phnom_Penh',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,6 +155,7 @@ return [
          * Application Service Providers...
          */
         App\Place\Providers\RouteServiceProvider::class,
+        App\Reception\Providers\ReceptionServiceProvider::class,
 
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
