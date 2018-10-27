@@ -1,10 +1,10 @@
 <?php
 
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 $factory->define(App\Reception\Models\Patient::class, function (Faker $faker) {
     return [
-        'code' => 'PT-' . $faker->unique()->randomNumber(),
         'name_kh' => $faker->firstName,
         'name_en' => $faker->lastName,
         'gender' => $faker->randomElement(['M', 'F']),
@@ -15,5 +15,6 @@ $factory->define(App\Reception\Models\Patient::class, function (Faker $faker) {
         'address' => $faker->address,
         'identity_type' => $faker->randomElement([1, 2, 3]),
         'identity_no' => random_int(1000000, 2000000),
+        'last_visited_at' => Carbon::now(),
     ];
 });

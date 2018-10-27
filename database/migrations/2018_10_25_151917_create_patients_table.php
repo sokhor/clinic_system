@@ -15,7 +15,6 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
             $table->string('name_kh');
             $table->string('name_en');
             $table->char('gender', 1);
@@ -26,7 +25,11 @@ class CreatePatientsTable extends Migration
             $table->string('address')->nullable();
             $table->tinyInteger('identity_type');
             $table->string('identity_no');
+            $table->timestamp('last_visited_at');
+            $table->string('referal')->nullable();
             $table->timestamps();
+
+            $table->unique(['identity_type', 'identity_no']);
         });
     }
 
