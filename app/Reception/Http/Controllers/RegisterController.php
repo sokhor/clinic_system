@@ -3,7 +3,7 @@
 namespace App\Reception\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Place\Http\Requests\PatientCreateRequest;
+use App\Reception\Http\Requests\PatientCreateRequest;
 use App\Reception\Models\Patient;
 use App\Reception\Repositories\PatientRepository;
 use App\Reception\Repositories\QueueRepositroy;
