@@ -18,20 +18,22 @@ class RegistrationTest extends TestCase
     /** @test */
     function it_register_a_new_patient()
     {
-        $this->signIn();
+        $user = factory(User::class)->create();
+        $user->allow('create-patients');
+        $this->signIn($user);
 
         $patient = factory(Patient::class)->make();
-        $appointment = factory(Appointment::class)->make(['patient_id' => null]);
-        $queue = factory(Queue::class)->make(['appointment_id' => null]);
+        $queue = factory(Queue::class)->make([
+            'patient_id' => null,
+            'queue_no' => null
+        ]);
 
         $this->postJson('api/reception/register', array_merge(
             $patient->toArray(),
-            $appointment->toArray(),
             $queue->toArray()
         ))->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
-            'code' => $patient->code,
             'name_kh' => $patient->name_kh,
             'name_en' => $patient->name_en,
             'dob' => $patient->dob,
@@ -42,17 +44,16 @@ class RegistrationTest extends TestCase
             'address' => $patient->address,
             'identity_type' => $patient->identity_type,
             'identity_no' => $patient->identity_no,
+            'last_visited_at' => $patient->last_visited_at,
+            'referal' => $patient->referal,
         ]);
 
         $patient = Patient::first();
 
-        $this->assertDatabaseHas('appointments', [
+        $this->assertDatabaseHas('queues', [
             'patient_id' => $patient->id,
-            'visit_at' => $appointment->visit_at,
-            'referal' => $appointment->referal,
-            'refer_to' => $appointment->refer_to,
-            'type' => $appointment->type,
-            'status' => $appointment->status,
+            'queue_no' => 1,
+            'alive' => true,
         ]);
     }
 
