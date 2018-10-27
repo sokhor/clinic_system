@@ -29,4 +29,13 @@ class PatientRepository
             array_merge($params, [ 'registered_by' => auth()->id() ])
         );
     }
+
+    public function update(Patient $patient, Array $params)
+    {
+        $patient->update(
+            array_merge($params, [ 'registered_by' => auth()->id() ])
+        );
+
+        return $patient->fresh();
+    }
 }

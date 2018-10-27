@@ -105,4 +105,90 @@ class RegistrationTest extends TestCase
             'alive' => true,
         ]);
     }
+
+    /** @test */
+    function it_edit_a_patient()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('update-patients');
+        $this->signIn($user);
+
+        $patient = factory(Patient::class)->create();
+
+        $this->putJson("api/patient/{$patient->id}", array_merge($patient->toArray(), [
+            'name_kh' => 'អ្នកជំងឺ',
+            'name_en' => 'patient edit',
+            'gender' => 'M',
+            'nationality_code' => 'KH',
+            'phone' => '0987654',
+            'identity_type' => 1,
+            'identity_no' => '0786545',
+        ]))
+        ->assertStatus(200);
+
+        $this->assertDatabaseHas('patients', [
+            'id' => $patient->id,
+            'name_kh' => 'អ្នកជំងឺ',
+            'name_en' => 'patient edit',
+            'gender' => 'M',
+            'nationality_code' => 'KH',
+            'phone' => '0987654',
+            'identity_type' => 1,
+            'identity_no' => '0786545',
+        ]);
+    }
+
+    /** @test */
+    function it_not_allow_to_edit_a_patient()
+    {
+        $this->signIn();
+
+        $patient = factory(Patient::class)->create();
+
+        $this->putJson("api/patient/{$patient->id}", array_merge($patient->toArray(), [
+            'name_kh' => 'អ្នកជំងឺ',
+            'name_en' => 'patient edit',
+            'gender' => 'M',
+            'nationality_code' => 'KH',
+            'phone' => '0987654',
+            'identity_type' => 1,
+            'identity_no' => '0786545',
+        ]))
+        ->assertStatus(403);
+
+        $this->assertDatabaseMissing('patients', [
+            'id' => $patient->id,
+            'name_kh' => 'អ្នកជំងឺ',
+            'name_en' => 'patient edit',
+            'gender' => 'M',
+            'nationality_code' => 'KH',
+            'phone' => '0987654',
+            'identity_type' => 1,
+            'identity_no' => '0786545',
+        ]);
+    }
+
+    /** @test */
+    function it_update_a_patient_and_dont_meet_required_fields()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('update-patients');
+        $this->signIn($user);
+
+        $patient = factory(Patient::class)->create();
+
+        $this->putJson("api/patient/{$patient->id}", [])
+        ->assertStatus(422)
+        ->assertJsonValidationErrors([
+            'name_kh',
+            'name_en',
+            'gender',
+            'nationality_code',
+            'phone',
+            'identity_type',
+            'identity_no',
+        ]);
+
+        $this->assertDatabaseHas('patients', $patient->toArray());
+    }
 }
