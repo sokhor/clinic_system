@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
@@ -16,5 +17,6 @@ $factory->define(App\Reception\Models\Patient::class, function (Faker $faker) {
         'identity_type' => $faker->randomElement([1, 2, 3]),
         'identity_no' => random_int(1000000, 2000000),
         'last_visited_at' => Carbon::now(),
+        'registered_by' => function() { return factory(User::class)->create()->id; },
     ];
 });

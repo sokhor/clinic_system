@@ -46,6 +46,7 @@ class RegistrationTest extends TestCase
             'identity_no' => $patient->identity_no,
             'last_visited_at' => $patient->last_visited_at,
             'referal' => $patient->referal,
+            'registered_by' => $user->id,
         ]);
 
         $patient = Patient::first();

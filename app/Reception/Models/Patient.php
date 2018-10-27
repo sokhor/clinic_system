@@ -26,6 +26,7 @@ class Patient extends Model
         'identity_type',
         'identity_no',
         'last_visited_at',
+        'registered_by',
     ];
 
     /**
