@@ -8,7 +8,7 @@ use App\Reception\Models\Patient;
 use App\Reception\Repositories\PatientRepository;
 use App\Reception\Repositories\QueueRepositroy;
 
-class RegisterController extends Controller
+class PatientController extends Controller
 {
     /**
      * Queue repository

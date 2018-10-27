@@ -24,7 +24,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->make();
 
-        $this->postJson('api/reception/register', $patient->toArray())
+        $this->postJson('api/patient', $patient->toArray())
         ->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
@@ -59,7 +59,7 @@ class RegistrationTest extends TestCase
         $user->allow('create-patients');
         $this->signIn($user);
 
-        $this->postJson('api/reception/register', [])
+        $this->postJson('api/patient', [])
         ->assertStatus(422)
         ->assertJsonValidationErrors([
             'name_kh',
@@ -82,7 +82,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->make();
 
-        $this->postJson('api/reception/register', $patient->toArray())
+        $this->postJson('api/patient', $patient->toArray())
         ->assertStatus(403);
 
         $this->assertDatabaseMissing('patients', [
