@@ -16,13 +16,10 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
-            $table->timestamp('visit_at');
-            $table->string('referal')->nullable();
+            $table->timestamp('next_visit_at');
             $table->integer('refer_to')->unsigned()->nullable();
             $table->tinyInteger('type');
             $table->tinyInteger('status');
-            $table->integer('created_by')->unsigned();
-            $table->integer('modified_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

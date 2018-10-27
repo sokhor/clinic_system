@@ -2,7 +2,6 @@
 
 namespace App\Reception\Models;
 
-use App\Reception\Models\Queue;
 use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
@@ -14,13 +13,11 @@ class Appointment extends Model
      */
     protected $fillable = [
         'patient_id',
-        'visit_at',
+        'next_visit_at',
         'referal',
         'refer_to',
         'type',
         'status',
-        'created_by',
-        'modified_by',
     ];
 
     /**
@@ -28,15 +25,5 @@ class Appointment extends Model
      *
      * @var array
      */
-    protected $dates = [ 'visit_at' ];
-
-    /**
-     * Appoint has one queue
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function queue()
-    {
-        return $this->hasOne(Queue::class);
-    }
+    protected $dates = [ 'next_visit_at' ];
 }
