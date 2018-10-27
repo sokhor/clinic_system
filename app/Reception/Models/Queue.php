@@ -13,8 +13,17 @@ class Queue extends Model
      * @return $this
      */
     protected $fillable = [
-        'appointment_id',
+        'patient_id',
         'queue_no',
         'alive',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'alive' => 'bool',
     ];
 }
