@@ -23,15 +23,9 @@ class RegistrationTest extends TestCase
         $this->signIn($user);
 
         $patient = factory(Patient::class)->make();
-        $queue = factory(Queue::class)->make([
-            'patient_id' => null,
-            'queue_no' => null
-        ]);
 
-        $this->postJson('api/reception/register', array_merge(
-            $patient->toArray(),
-            $queue->toArray()
-        ))->assertStatus(201);
+        $this->postJson('api/reception/register', $patient->toArray())
+        ->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
             'name_kh' => $patient->name_kh,
@@ -87,15 +81,9 @@ class RegistrationTest extends TestCase
         $this->signIn();
 
         $patient = factory(Patient::class)->make();
-        $queue = factory(Queue::class)->make([
-            'patient_id' => null,
-            'queue_no' => null
-        ]);
 
-        $this->postJson('api/reception/register', array_merge(
-            $patient->toArray(),
-            $queue->toArray()
-        ))->assertStatus(403);
+        $this->postJson('api/reception/register', $patient->toArray())
+        ->assertStatus(403);
 
         $this->assertDatabaseMissing('patients', [
             'name_kh' => $patient->name_kh,
