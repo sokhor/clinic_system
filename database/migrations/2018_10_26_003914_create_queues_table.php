@@ -15,7 +15,7 @@ class CreateQueuesTable extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('appointment_id')->unsigned();
+            $table->integer('patient_id')->unsigned();
             $table->string('queue_no');
             $table->boolean('alive')->default(true);
             $table->timestamps();
