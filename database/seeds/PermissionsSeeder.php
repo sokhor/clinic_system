@@ -41,6 +41,11 @@ class PermissionsSeeder extends Seeder
         Bouncer::ability()->firstOrCreate(['name' => 'update-rooms', 'title' => 'Update rooms']);
         Bouncer::ability()->firstOrCreate(['name' => 'delete-rooms', 'title' => 'Delete rooms']);
 
+        Bouncer::ability()->firstOrCreate(['name' => 'view-patients', 'title' => 'View patients']);
+        Bouncer::ability()->firstOrCreate(['name' => 'create-patients', 'title' => 'Create patients']);
+        Bouncer::ability()->firstOrCreate(['name' => 'update-patients', 'title' => 'Update patients']);
+        Bouncer::ability()->firstOrCreate(['name' => 'delete-patients', 'title' => 'Delete patients']);
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 }
