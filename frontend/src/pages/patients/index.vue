@@ -12,6 +12,7 @@
           <base-th>Gender</base-th>
           <base-th>Date of Birth</base-th>
           <base-th>Phone</base-th>
+          <base-th>Visited Date</base-th>
           <base-th class="w-1"></base-th>
         </base-thead>
         <base-tbody>
@@ -21,6 +22,7 @@
             <base-td>{{ gender(patient.gender) }}</base-td>
             <base-td>{{ patient.dob }}</base-td>
             <base-td>{{ patient.phone }}</base-td>
+            <base-td>{{ patient.last_visited_at }}</base-td>
             <base-td class="flex">
               <base-button
                 class="mr-2"
