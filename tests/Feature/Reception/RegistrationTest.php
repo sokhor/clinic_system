@@ -275,4 +275,34 @@ class RegistrationTest extends TestCase
         ->assertStatus(403)
         ->assertJsonMissing(['data']);
     }
+
+    /** @test */
+    function it_delete_patients()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('delete-patients');
+        $this->signIn($user);
+
+        $patient = factory(Patient::class)->create();
+
+        $this->deleteJson("api/patients/{$patient->id}")
+        ->assertStatus(200);
+
+        $this->assertDatabaseHas('patients', $patient->fresh()->toArray());
+        $this->assertNotEquals(NULL, $patient->fresh()->deleted_at);
+    }
+
+    /** @test */
+    function it_not_allow_to_delete_patients()
+    {
+        $this->signIn();
+
+        $patient = factory(Patient::class)->create();
+
+        $this->deleteJson("api/patients/{$patient->id}")
+        ->assertStatus(403);
+
+        $this->assertDatabaseHas('patients', $patient->toArray());
+        $this->assertEquals(NULL, $patient->fresh()->deleted_at);
+    }
 }

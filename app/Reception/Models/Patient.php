@@ -5,9 +5,12 @@ namespace App\Reception\Models;
 use App\Reception\Models\Appointment;
 use App\Reception\Models\Queue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {
+    use SoftDeletes;
+
     /**
      * Set the fillable attributes for the model.
      *

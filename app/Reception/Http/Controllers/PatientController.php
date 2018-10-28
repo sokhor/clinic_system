@@ -4,6 +4,7 @@ namespace App\Reception\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Reception\Http\Requests\PatientCreateRequest;
+use App\Reception\Http\Requests\PatientDeleteRequest;
 use App\Reception\Http\Requests\PatientUpdateRequest;
 use App\Reception\Http\Requests\PatientViewRequest;
 use App\Reception\Http\Resources\PatientResource;
@@ -91,5 +92,19 @@ class PatientController extends Controller
         );
 
         return $patient;
+    }
+
+    /**
+     * Delete patients
+     *
+     * @param  \App\Reception\Http\Requests\PatientDeleteRequest $request
+     * @param  \App\Reception\Models\Patient $patient
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(PatientDeleteRequest $request, Patient $patient)
+    {
+        $patient->delete();
+
+        return new PatientResource($patient);
     }
 }

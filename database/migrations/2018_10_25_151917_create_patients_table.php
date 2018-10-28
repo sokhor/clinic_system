@@ -29,6 +29,7 @@ class CreatePatientsTable extends Migration
             $table->string('referal')->nullable();
             $table->integer('registered_by')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['identity_type', 'identity_no']);
         });
