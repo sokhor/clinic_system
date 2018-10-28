@@ -191,4 +191,88 @@ class RegistrationTest extends TestCase
 
         $this->assertDatabaseHas('patients', $patient->toArray());
     }
+
+    /** @test */
+    function it_fetch_patients()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('view-patients');
+        $this->signIn($user);
+
+        factory(Patient::class, 5)->create();
+
+        $this->getJson('api/patients')
+        ->assertStatus(200)
+        ->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'name_kh',
+                    'name_en',
+                    'dob',
+                    'gender',
+                    'nationality_code',
+                    'phone',
+                    'email',
+                    'address',
+                    'identity_type',
+                    'identity_no',
+                    'last_visited_at',
+                    'referal',
+                ],
+            ],
+        ]);
+    }
+
+    /** @test */
+    function it_not_allow_to_fetch_patients()
+    {
+        $this->signIn();
+
+        factory(Patient::class, 5)->create();
+
+        $this->getJson('api/patients')
+        ->assertStatus(403)
+        ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
+    function it_show_a_patient()
+    {
+        $user = factory(User::class)->create();
+        $user->allow('view-patients');
+        $this->signIn($user);
+
+        $patient = factory(Patient::class)->create();
+
+        $this->getJson("api/patients/{$patient->id}")
+        ->assertStatus(200)
+        ->assertJsonStructure([
+            'data' => [
+                'name_kh',
+                'name_en',
+                'dob',
+                'gender',
+                'nationality_code',
+                'phone',
+                'email',
+                'address',
+                'identity_type',
+                'identity_no',
+                'last_visited_at',
+                'referal',
+            ],
+        ]);
+    }
+
+    /** @test */
+    function it_not_allow_to_show_a_patient()
+    {
+        $this->signIn();
+
+        $patient = factory(Patient::class)->create();
+
+        $this->getJson("api/patients/{$patient->id}")
+        ->assertStatus(403)
+        ->assertJsonMissing(['data']);
+    }
 }

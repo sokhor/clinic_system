@@ -5,6 +5,8 @@ namespace App\Reception\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Reception\Http\Requests\PatientCreateRequest;
 use App\Reception\Http\Requests\PatientUpdateRequest;
+use App\Reception\Http\Requests\PatientViewRequest;
+use App\Reception\Http\Resources\PatientResource;
 use App\Reception\Models\Patient;
 use App\Reception\Repositories\PatientRepository;
 use App\Reception\Repositories\QueueRepositroy;
@@ -35,6 +37,29 @@ class PatientController extends Controller
     {
         $this->patient = $patient;
         $this->queue = $queue;
+    }
+
+    /**
+     * Get patients
+     *
+     * @param  \App\Place\Http\Requests\PatientViewRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(PatientViewRequest $request)
+    {
+        return PatientResource::collection(Patient::paginate());
+    }
+
+    /**
+     * Show a patient
+     *
+     * @param  \App\Place\Http\Requests\PatientViewRequest $request
+     * @param  \App\Reception\Models\Patient $patient
+     * @return \Illuminate\Http\Response
+     */
+    public function show(PatientViewRequest $request, Patient $patient)
+    {
+        return new PatientResource($patient);
     }
 
     /**
