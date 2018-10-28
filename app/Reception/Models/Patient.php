@@ -30,6 +30,7 @@ class Patient extends Model
         'identity_no',
         'last_visited_at',
         'registered_by',
+        'referal',
     ];
 
     /**
@@ -38,6 +39,15 @@ class Patient extends Model
      * @var array
      */
     protected $dates = [ 'dob', 'last_visited_at' ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'dob' => 'date:Y-m-d',
+    ];
 
     /**
      * Patient may have many appointments over time
