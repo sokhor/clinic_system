@@ -24,7 +24,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->make();
 
-        $this->postJson('api/patient', $patient->toArray())
+        $this->postJson('api/patients', $patient->toArray())
         ->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
@@ -59,7 +59,7 @@ class RegistrationTest extends TestCase
         $user->allow('create-patients');
         $this->signIn($user);
 
-        $this->postJson('api/patient', [])
+        $this->postJson('api/patients', [])
         ->assertStatus(422)
         ->assertJsonValidationErrors([
             'name_kh',
@@ -82,7 +82,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->make();
 
-        $this->postJson('api/patient', $patient->toArray())
+        $this->postJson('api/patients', $patient->toArray())
         ->assertStatus(403);
 
         $this->assertDatabaseMissing('patients', [
@@ -115,7 +115,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->create();
 
-        $this->putJson("api/patient/{$patient->id}", array_merge($patient->toArray(), [
+        $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
             'name_kh' => 'អ្នកជំងឺ',
             'name_en' => 'patient edit',
             'gender' => 'M',
@@ -145,7 +145,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->create();
 
-        $this->putJson("api/patient/{$patient->id}", array_merge($patient->toArray(), [
+        $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
             'name_kh' => 'អ្នកជំងឺ',
             'name_en' => 'patient edit',
             'gender' => 'M',
@@ -177,7 +177,7 @@ class RegistrationTest extends TestCase
 
         $patient = factory(Patient::class)->create();
 
-        $this->putJson("api/patient/{$patient->id}", [])
+        $this->putJson("api/patients/{$patient->id}", [])
         ->assertStatus(422)
         ->assertJsonValidationErrors([
             'name_kh',

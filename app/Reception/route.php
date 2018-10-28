@@ -1,5 +1,5 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::apiResource('patient', 'PatientController');
+    Route::apiResource('patients', 'PatientController');
 });
