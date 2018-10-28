@@ -48,7 +48,7 @@ class PatientController extends Controller
      */
     public function index(PatientViewRequest $request)
     {
-        return PatientResource::collection(Patient::paginate());
+        return PatientResource::collection(Patient::latest()->paginate());
     }
 
     /**
