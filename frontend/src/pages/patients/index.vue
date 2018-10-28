@@ -7,6 +7,7 @@
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>
         <base-thead>
+          <base-th>ID</base-th>
           <base-th>Name KH</base-th>
           <base-th>Name EN</base-th>
           <base-th>Gender</base-th>
@@ -17,6 +18,7 @@
         </base-thead>
         <base-tbody>
           <base-tr v-for="patient in patients" :key="patient.id">
+            <base-td>{{ patient.id }}</base-td>
             <base-td>{{ patient.name_kh }}</base-td>
             <base-td>{{ patient.name_en }}</base-td>
             <base-td>{{ gender(patient.gender) }}</base-td>
