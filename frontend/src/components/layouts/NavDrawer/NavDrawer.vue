@@ -131,6 +131,20 @@ export default {
           name: 'Room',
           url: '/rooms',
           icon: 'fas fa-plus'
+        },
+        {
+          title: true,
+          name: 'Reception',
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
+          name: 'Patient Registration',
+          url: '/patients',
+          icon: 'fas fa-plus'
         }
       ]
     }

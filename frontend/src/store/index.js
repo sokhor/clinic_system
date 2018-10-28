@@ -21,6 +21,15 @@ const store = new Vuex.Store({
       4: 'Full'
     }
   },
+  getters: {
+    gender: state => gender => {
+      if (gender === 'F') return 'Female'
+
+      if (gender === 'M') return 'Male'
+
+      return ''
+    }
+  },
   mutations: {
     toggleNavigation(state) {
       state.drawer = !state.drawer
