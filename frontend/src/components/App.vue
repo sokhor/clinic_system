@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen bg-page-background">
+  <div class="flex flex-col bg-page-background" :style="{ 'min-height': windowHeight }">
     <template v-if="isAuthenticated">
       <AppHeader/>
       <div class="flex-grow flex">
@@ -27,12 +27,20 @@ export default {
     AppHeader,
     NavDrawer
   },
+  data() {
+    return {
+      windowHeight: null
+    }
+  },
   computed: {
     ...mapState(['drawer']),
     ...mapGetters('auth', ['isAuthenticated'])
   },
   created() {
     this.validateAuth()
+  },
+  mounted() {
+    this.setFullHeight()
   },
   methods: {
     validateAuth() {
@@ -43,6 +51,17 @@ export default {
           }
         })
       }
+    },
+    setFullHeight() {
+      const callBack = event => {
+        this.windowHeight =
+          window.innerHeight > document.body.clientHeight
+            ? window.innerHeight + 'px'
+            : null
+      }
+
+      window.addEventListener('load', callBack)
+      window.addEventListener('resize', callBack)
     }
   }
 }
