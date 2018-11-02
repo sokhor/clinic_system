@@ -1,5 +1,6 @@
 import './styles/main.css'
 import Vue from 'vue'
+import VueRx from 'vue-rx'
 import Vuelidate from 'vuelidate'
 import Vmodal from 'vue-js-modal'
 import App from './components/App.vue'
@@ -10,6 +11,7 @@ import { ModalDialog, Toast } from './plugins'
 
 Vue.config.productionTip = false
 
+Vue.use(VueRx)
 Vue.use(Vuelidate)
 Vue.use(Vmodal, { dynamic: true, injectModalsContainer: true })
 Vue.use(ModalDialog)
