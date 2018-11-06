@@ -4,7 +4,7 @@
 @import "nprogress";
 
 .bg-page-background {
-  @apply bg-white-grey;
+  background-color: #e8e8e8;
 }
 
 .dialog-mask {
