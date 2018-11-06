@@ -1,9 +1,9 @@
 <template>
   <transition name="slide-fade">
-    <div class="drawer relative bg-white shadow">
+    <div class="drawer relative bg-blue-darkest shadow">
       <SidebarHeader/>
       <SidebarForm/>
-      <nav class="drawer-nav text-grey-dark">
+      <nav class="drawer-nav text-white">
         <div slot="header"></div>
         <ul class="nav list-reset">
           <template v-for="(item, index) in navItems">
@@ -110,7 +110,7 @@ export default {
         },
         {
           title: true,
-          name: 'Location',
+          name: 'Setting',
           class: '',
           wrapper: {
             element: '',
@@ -120,17 +120,17 @@ export default {
         {
           name: 'Wards',
           url: '/wards',
-          icon: 'fas fa-plus'
+          icon: 'fas fa-caret-right'
         },
         {
           name: 'Buildings',
           url: '/buildings',
-          icon: 'fas fa-plus'
+          icon: 'fas fa-caret-right'
         },
         {
           name: 'Room',
           url: '/rooms',
-          icon: 'fas fa-plus'
+          icon: 'fas fa-caret-right'
         },
         {
           title: true,
@@ -144,7 +144,12 @@ export default {
         {
           name: 'Patient Registration',
           url: '/patients',
-          icon: 'fas fa-plus'
+          icon: 'fas fa-caret-right'
+        },
+        {
+          name: 'Queues',
+          url: '/queues',
+          icon: 'fas fa-caret-right'
         }
       ]
     }

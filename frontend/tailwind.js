@@ -76,8 +76,8 @@ let colors = {
   'orange-lighter': '#fcd9b6',
   'orange-lightest': '#fff5eb',
 
-  'blue-darkest': '#12283a',
-  'blue-darker': '#1c3d5a',
+  'blue-darkest': '#002231',
+  'blue-darker': '#4b6d7c',
   'blue-dark': '#0588bf', //'#2779bd',
   blue: '#3490dc',
   'blue-light': '#6cb2eb',
