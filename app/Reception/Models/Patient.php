@@ -6,6 +6,7 @@ use App\Reception\Models\Appointment;
 use App\Reception\Models\Queue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Patient extends Model
 {
@@ -50,6 +51,13 @@ class Patient extends Model
     ];
 
     /**
+     * The attributes that should be append.
+     *
+     * @var array
+     */
+    protected $appends = ['age', 'identity_type_text'];
+
+    /**
      * Patient may have many appointments over time
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
@@ -67,5 +75,38 @@ class Patient extends Model
     public function queues()
     {
         return $this->hasOne(Queue::class);
+    }
+
+    /**
+     * Mutate age attribute
+     *
+     * @return int|null
+     */
+    public function getAgeAttribute()
+    {
+        if(is_null($this->attributes['dob'])) {
+            return null;
+        }
+
+        return Carbon::today()->diffInYears(Carbon::createFromFormat('Y-m-d', explode(' ',$this->attributes['dob'])[0]));
+    }
+
+    /**
+     * Mutate identity type into text
+     *
+     * @return string|null
+     */
+    public function getIdentityTypeTextAttribute()
+    {
+        switch ($this->attributes['identity_type']) {
+            case 1:
+                return 'National ID';
+            case 2:
+                return 'Passport';
+            case 3:
+                return 'Driving License';
+            default:
+                return null;
+        }
     }
 }
