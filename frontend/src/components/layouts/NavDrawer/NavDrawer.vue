@@ -142,7 +142,7 @@ export default {
           }
         },
         {
-          name: 'Patient Registration',
+          name: 'Registration',
           url: '/patients',
           icon: 'fas fa-caret-right'
         },

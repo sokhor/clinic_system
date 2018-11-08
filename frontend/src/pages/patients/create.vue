@@ -1,193 +1,183 @@
 <template>
-  <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light mr-2" to="/patients">
-          <i class="fas fa-arrow-left"></i>
-        </router-link>
-        / Create Patient
-      </h1>
-    </div>
-    <BaseCard>
-      <form @submit.prevent="save">
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Name KH
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.name_kh"
-              type="text"
-              @input="$v.form.name_kh.$touch()"
-            />
-            <span class="block text-xs italic text-red" v-if="nameKhErrors.length > 0">
-              {{ nameKhErrors[0] }}
-            </span>
-          </div>
+  <BaseCard>
+    <form @submit.prevent="save" class="p-4">
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Name KH <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.name_kh"
+            type="text"
+            @input="$v.form.name_kh.$touch()"
+          />
+          <span class="block text-xs italic text-red" v-if="nameKhErrors.length > 0">
+            {{ nameKhErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Name EN
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.name_en"
-              type="text"
-              @input="$v.form.name_en.$touch()"
-            />
-            <span class="block text-xs italic text-red" v-if="nameEnErrors.length > 0">
-              {{ nameEnErrors[0] }}
-            </span>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Name EN <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.name_en"
+            type="text"
+            @input="$v.form.name_en.$touch()"
+          />
+          <span class="block text-xs italic text-red" v-if="nameEnErrors.length > 0">
+            {{ nameEnErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Date of Birth
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.dob"
-              type="text"
-            />
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Date of Birth
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.dob"
+            type="text"
+          />
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Gender
-          </label>
-          <div class="w-2/5">
-            <select
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.gender"
-              type="text"
-              @input="$v.form.gender.$touch()"
-            >
-              <option value="">--Choose--</option>
-              <option value="M">Male</option>
-              <option value="F">Female</option>
-            </select>
-            <span class="block text-xs italic text-red" v-if="genderErrors.length > 0">
-              {{ genderErrors[0] }}
-            </span>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Gender <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <select
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.gender"
+            type="text"
+            @input="$v.form.gender.$touch()"
+          >
+            <option value="">--Choose--</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </select>
+          <span class="block text-xs italic text-red" v-if="genderErrors.length > 0">
+            {{ genderErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Nationality
-          </label>
-          <div class="w-2/5">
-            <select
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.nationality_code"
-              type="text"
-              @input="$v.form.nationality_code.$touch()"
-            >
-              <option value="">--Choose--</option>
-              <option value="KH">Cambodian</option>
-            </select>
-            <span class="block text-xs italic text-red" v-if="nationalityCodeErrors.length > 0">
-              {{ nationalityCodeErrors[0] }}
-            </span>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Nationality <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <select
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.nationality_code"
+            type="text"
+            @input="$v.form.nationality_code.$touch()"
+          >
+            <option value="">--Choose--</option>
+            <option value="KH">Cambodian</option>
+          </select>
+          <span class="block text-xs italic text-red" v-if="nationalityCodeErrors.length > 0">
+            {{ nationalityCodeErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Phone
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.phone"
-              type="text"
-              @input="$v.form.phone.$touch()"
-            />
-            <span class="block text-xs italic text-red" v-if="phoneErrors.length > 0">
-              {{ phoneErrors[0] }}
-            </span>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Phone <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.phone"
+            type="text"
+            @input="$v.form.phone.$touch()"
+          />
+          <span class="block text-xs italic text-red" v-if="phoneErrors.length > 0">
+            {{ phoneErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Email
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.email"
-              type="email"
-            />
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Email
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.email"
+            type="email"
+          />
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Address
-          </label>
-          <div class="w-2/5">
-            <textarea
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.address"
-            ></textarea>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Address
+        </label>
+        <div class="mb-4">
+          <textarea
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.address"
+          ></textarea>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Identity Type
-          </label>
-          <div class="w-2/5">
-            <select
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.identity_type"
-              @input="$v.form.identity_type.$touch()"
-            >
-              <option value="">--Choose--</option>
-              <option value="1">National ID</option>
-              <option value="2">Passport</option>
-              <option value="3">Driving License</option>
-            </select>
-            <span class="block text-xs italic text-red" v-if="identityTypeErrors.length > 0">
-              {{ identityTypeErrors[0] }}
-            </span>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Identity Type <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <select
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.identity_type"
+            @input="$v.form.identity_type.$touch()"
+          >
+            <option value="">--Choose--</option>
+            <option value="1">National ID</option>
+            <option value="2">Passport</option>
+            <option value="3">Driving License</option>
+          </select>
+          <span class="block text-xs italic text-red" v-if="identityTypeErrors.length > 0">
+            {{ identityTypeErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Identity No
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.identity_no"
-              type="text"
-              @input="$v.form.identity_no.$touch()"
-            />
-            <span class="block text-xs italic text-red" v-if="identityNoErrors.length > 0">
-              {{ identityNoErrors[0] }}
-            </span>
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Identity No <span class="text-red">*</span>
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.identity_no"
+            type="text"
+            @input="$v.form.identity_no.$touch()"
+          />
+          <span class="block text-xs italic text-red" v-if="identityNoErrors.length > 0">
+            {{ identityNoErrors[0] }}
+          </span>
         </div>
-        <div class="flex items-start p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
-            Referal
-          </label>
-          <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.referal"
-              type="text"
-            />
-          </div>
+      </div>
+      <div>
+        <label class="block text-grey-darker text-sm font-semibold mb-1">
+          Referal
+        </label>
+        <div class="mb-4">
+          <input
+            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            v-model="form.referal"
+            type="text"
+          />
         </div>
-        <div class="flex items-center justify-end p-4">
-          <base-button color="primary" :waiting="saving" type="submit">
-            Create
-          </base-button>
-        </div>
-      </form>
-    </BaseCard>
-  </div>
+      </div>
+      <div class="flex items-center justify-end">
+        <BaseButton color="primary" :waiting="saving" type="submit">
+          Register
+        </BaseButton>
+      </div>
+    </form>
+  </BaseCard>
 </template>
 
 <script>

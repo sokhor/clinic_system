@@ -11,6 +11,7 @@ use App\Reception\Http\Resources\PatientResource;
 use App\Reception\Models\Patient;
 use App\Reception\Repositories\PatientRepository;
 use App\Reception\Repositories\QueueRepositroy;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PatientController extends Controller
 {
@@ -48,7 +49,12 @@ class PatientController extends Controller
      */
     public function index(PatientViewRequest $request)
     {
-        return PatientResource::collection(Patient::latest()->paginate());
+        $patients = QueryBuilder::for(Patient::class)
+            ->allowedFilters('name_en', 'phone', 'identity_no', 'id')
+            ->latest()
+            ->paginate($request->per_page);
+
+        return PatientResource::collection($patients);
     }
 
     /**
@@ -90,6 +96,8 @@ class PatientController extends Controller
             Patient::findOrFail($id),
             $request->all()
         );
+
+        $this->queue->generate($patient);
 
         return $patient;
     }
