@@ -1,5 +1,5 @@
 <template>
-  <table class="table w-full">
+  <table class="table w-full bg-white">
     <slot></slot>
   </table>
 </template>
