@@ -1,5 +1,9 @@
 <script>
-const classColorScheme = ({ flat = false, colorType = 'default' }) => {
+const classColorScheme = ({
+  flat = false,
+  outline = false,
+  colorType = 'default'
+}) => {
   let colorScheme = {}
 
   if (flat) {
@@ -11,6 +15,21 @@ const classColorScheme = ({ flat = false, colorType = 'default' }) => {
       'text-red hover:text-red-light': colorType === 'danger',
       'text-yellow hover:text-yellow-light': colorType === 'warning',
       'text-blue-light hover:text-blue-lighter': colorType === 'info'
+    })
+  } else if (outline) {
+    colorScheme = Object.assign({}, colorScheme, {
+      'text-grey border-2 rounded border-grey hover:text-grey-light hover:border-grey-light':
+        colorType === 'default',
+      'text-blue border-2 rounded border-blue hover:text-blue-light hover:border-blue-light':
+        colorType === 'primary',
+      'text-green border-2 rounded border-green hover:text-green-light hover:border-green-light':
+        colorType === 'accent' || colorType === 'success',
+      'text-red border-2 rounded border-red hover:text-red-light hover:border-red-light':
+        colorType === 'danger',
+      'text-yellow border-2 rounded border-yellow hover:text-yellow-light hover:border-yellow-light':
+        colorType === 'warning',
+      'text-blue-light border-2 rounded border-blue-light hover:text-blue-lighter hover:border-blue-lighter':
+        colorType === 'info'
     })
   } else {
     colorScheme = Object.assign({}, colorScheme, {
@@ -53,6 +72,10 @@ export default {
       type: Boolean,
       default: false
     },
+    outline: {
+      type: Boolean,
+      default: false
+    },
     sm: {
       type: Boolean,
       default: false
@@ -90,9 +113,10 @@ export default {
       'button',
       {
         class: [
-          'focus:outline-none',
+          'focus:outline-none uppercase font-semibold',
           classColorScheme({
             flat: context.props.flat,
+            outline: context.props.outline,
             colorType: context.props.color
           }),
           classSize({
