@@ -33,29 +33,5 @@ export const actions = {
       .catch(error => {
         return Promise.reject(error.response.data)
       })
-  },
-  find({ commit }, id) {
-    return httpClient
-      .get(`/api/queues/${id}`, {}, { showProgressBar: true })
-      .then(response => Promise.resolve(response.data))
-      .catch(error => Promise.reject(error.response.data))
-  },
-  store({ commit }, queue) {
-    return httpClient
-      .post('/api/queues', queue)
-      .then(response => Promise.resolve(response.data))
-      .catch(error => Promise.reject(error.response.data))
-  },
-  update({ commit }, queue) {
-    return httpClient
-      .put(`/api/queues/${queue.id}`, queue)
-      .then(response => Promise.resolve(response.data))
-      .catch(error => Promise.reject(error.response.data))
-  },
-  destroy({ commit }, queue) {
-    return httpClient
-      .delete(`/api/queues/${queue.id}`)
-      .then(response => Promise.resolve(response.data))
-      .catch(error => Promise.reject(error.response.data))
   }
 }
