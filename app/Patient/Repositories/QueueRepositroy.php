@@ -32,7 +32,7 @@ class QueueRepositroy
      */
     public function generate(Patient $patient, $option = [])
     {
-        $queue = Queue::latest()->first();
+        $queue = Queue::whereDate('created_at', today())->latest()->first();
 
         return Queue::create([
             'patient_id' => $patient->id,
