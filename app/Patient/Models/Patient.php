@@ -58,6 +58,21 @@ class Patient extends Model
     protected $appends = ['age', 'identity_type_text'];
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($model) {
+            $model->code = 'PA' . $model->id;
+            $model->save();
+        });
+    }
+
+    /**
      * Patient may have many appointments over time
      *
      * @return Illuminate\Database\Eloquent\Relations\HasMany

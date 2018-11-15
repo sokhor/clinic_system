@@ -23,7 +23,7 @@
       <div class="p-4 flex flex-col justify-between flex-grow leading-normal">
         <div class="mb-2">
           <div class="font-bold text-lg">{{ patient.full_name }}</div>
-          <div class="font-semibold mb-4">#{{ patient.id }}</div>
+          <div class="font-semibold mb-4">{{ patient.code }}</div>
           <div class="text-sm flex">
             <p class="text-grey-darker flex-1">
               <i class="far fa-id-badge inline-block w-4 h-4"></i> {{ patient.identity_no }}
