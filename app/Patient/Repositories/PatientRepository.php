@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Reception\Repositories;
+namespace App\Patient\Repositories;
 
-use App\Reception\Models\Patient;
+use App\Patient\Models\Patient;
 
 class PatientRepository
 {
     /**
      * Patient model
      *
-     * @var \App\Reception\Models\Patient
+     * @var \App\Patient\Models\Patient
      */
     protected $patient;
 
     /**
      * Create a new patient repository instance.
      *
-     * @param \App\Reception\Models\Patient $patient
+     * @param \App\Patient\Models\Patient $patient
      */
     public function __construct(Patient $patient)
     {

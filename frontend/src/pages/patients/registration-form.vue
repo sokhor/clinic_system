@@ -5,34 +5,30 @@
         <div class="w-2/5 p-4">
           <div class="flex items-start mb-3">
             <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-              Name KH
+              Full name
             </label>
             <div class="w-3/5">
               <input
                 class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-                v-model="form.name_kh"
+                v-model="form.full_name"
                 type="text"
-                @input="$v.form.name_kh.$touch()"
+                @input="$v.form.full_name.$touch()"
               />
-              <span class="block text-xs italic text-red" v-if="nameKhErrors.length > 0">
-                {{ nameKhErrors[0] }}
+              <span class="block text-xs italic text-red" v-if="fullNameErrors.length > 0">
+                {{ fullNameErrors[0] }}
               </span>
             </div>
           </div>
           <div class="flex items-start mb-3">
             <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-              Name EN
+              Other Name
             </label>
             <div class="w-3/5">
               <input
                 class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-                v-model="form.name_en"
+                v-model="form.full_name_optional"
                 type="text"
-                @input="$v.form.name_en.$touch()"
               />
-              <span class="block text-xs italic text-red" v-if="nameEnErrors.length > 0">
-                {{ nameEnErrors[0] }}
-              </span>
             </div>
           </div>
           <div class="flex items-start mb-3">
@@ -221,8 +217,8 @@ export default {
     return {
       form: {
         id: '',
-        name_kh: '',
-        name_en: '',
+        full_name: '',
+        full_name_optional: '',
         dob: '',
         gender: '',
         nationality_code: '',
@@ -238,8 +234,7 @@ export default {
   },
   validations: {
     form: {
-      name_kh: { required },
-      name_en: { required },
+      full_name: { required },
       gender: { required },
       nationality_code: { required },
       phone: { required },
@@ -248,16 +243,10 @@ export default {
     }
   },
   computed: {
-    nameKhErrors() {
+    fullNameErrors() {
       const errors = []
-      if (!this.$v.form.name_kh.$dirty) return errors
-      !this.$v.form.name_kh.required && errors.push('Required')
-      return errors
-    },
-    nameEnErrors() {
-      const errors = []
-      if (!this.$v.form.name_en.$dirty) return errors
-      !this.$v.form.name_en.required && errors.push('Required')
+      if (!this.$v.form.full_name.$dirty) return errors
+      !this.$v.form.full_name.required && errors.push('Required')
       return errors
     },
     genderErrors() {
@@ -320,8 +309,8 @@ export default {
       handler(patient) {
         if (isEmpty(patient)) return
         ;(this.form.id = patient.id),
-          (this.form.name_kh = patient.name_kh),
-          (this.form.name_en = patient.name_en),
+          (this.form.full_name = patient.full_name),
+          (this.form.full_name_optional = patient.full_name_optional),
           (this.form.dob = patient.dob),
           (this.form.gender = patient.gender),
           (this.form.nationality_code = patient.nationality_code),

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Reception\Http\Requests;
+namespace App\Patient\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PatientUpdateRequest extends FormRequest
+class PatientCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class PatientUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('update-patients');
+        return auth()->user()->can('create-patients');
     }
 
     /**
@@ -24,8 +24,7 @@ class PatientUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name_kh' => 'required',
-            'name_en' => 'required',
+            'full_name' => 'required',
             'gender' => 'required',
             'nationality_code' => 'required',
             'phone' => 'required',

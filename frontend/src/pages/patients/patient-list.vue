@@ -22,7 +22,7 @@
       </div>
       <div class="p-4 flex flex-col justify-between flex-grow leading-normal">
         <div class="mb-2">
-          <div class="font-bold text-lg">{{ patient.name_en }}</div>
+          <div class="font-bold text-lg">{{ patient.full_name }}</div>
           <div class="font-semibold mb-4">#{{ patient.id }}</div>
           <div class="text-sm flex">
             <p class="text-grey-darker flex-1">

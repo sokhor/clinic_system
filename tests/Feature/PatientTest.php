@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Feature\Reception;
+namespace Tests\Feature;
 
-use App\Reception\Models\Appointment;
-use App\Reception\Models\Patient;
-use App\Reception\Models\Queue;
+use App\Patient\Models\Appointment;
+use App\Patient\Models\Patient;
+use App\Patient\Models\Queue;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
-class RegistrationTest extends TestCase
+class PatientTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -28,8 +28,8 @@ class RegistrationTest extends TestCase
         ->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
-            'name_kh' => $patient->name_kh,
-            'name_en' => $patient->name_en,
+            'full_name' => $patient->full_name,
+            'full_name_optional' => $patient->full_name_optional,
             'dob' => $patient->dob,
             'gender' => $patient->gender,
             'nationality_code' => $patient->nationality_code,
@@ -62,8 +62,7 @@ class RegistrationTest extends TestCase
         $this->postJson('api/patients', [])
         ->assertStatus(422)
         ->assertJsonValidationErrors([
-            'name_kh',
-            'name_en',
+            'full_name',
             'gender',
             'nationality_code',
             'phone',
@@ -86,8 +85,8 @@ class RegistrationTest extends TestCase
         ->assertStatus(403);
 
         $this->assertDatabaseMissing('patients', [
-            'name_kh' => $patient->name_kh,
-            'name_en' => $patient->name_en,
+            'full_name' => $patient->full_name,
+            'full_name_optional' => $patient->full_name_optional,
             'dob' => $patient->dob,
             'gender' => $patient->gender,
             'nationality_code' => $patient->nationality_code,
@@ -116,8 +115,8 @@ class RegistrationTest extends TestCase
         $patient = factory(Patient::class)->create();
 
         $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
-            'name_kh' => 'អ្នកជំងឺ',
-            'name_en' => 'patient edit',
+            'full_name' => 'អ្នកជំងឺ',
+            'full_name_optional' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -128,8 +127,8 @@ class RegistrationTest extends TestCase
 
         $this->assertDatabaseHas('patients', [
             'id' => $patient->id,
-            'name_kh' => 'អ្នកជំងឺ',
-            'name_en' => 'patient edit',
+            'full_name' => 'អ្នកជំងឺ',
+            'full_name_optional' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -146,8 +145,8 @@ class RegistrationTest extends TestCase
         $patient = factory(Patient::class)->create();
 
         $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
-            'name_kh' => 'អ្នកជំងឺ',
-            'name_en' => 'patient edit',
+            'full_name' => 'អ្នកជំងឺ',
+            'full_name_optional' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -158,8 +157,8 @@ class RegistrationTest extends TestCase
 
         $this->assertDatabaseMissing('patients', [
             'id' => $patient->id,
-            'name_kh' => 'អ្នកជំងឺ',
-            'name_en' => 'patient edit',
+            'full_name' => 'អ្នកជំងឺ',
+            'full_name_optional' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -180,8 +179,7 @@ class RegistrationTest extends TestCase
         $this->putJson("api/patients/{$patient->id}", [])
         ->assertStatus(422)
         ->assertJsonValidationErrors([
-            'name_kh',
-            'name_en',
+            'full_name',
             'gender',
             'nationality_code',
             'phone',
@@ -189,7 +187,7 @@ class RegistrationTest extends TestCase
             'identity_no',
         ]);
 
-        $this->assertDatabaseHas('patients', $patient->toArray());
+        $this->assertDatabaseHas('patients', collect($patient)->except(['age', 'identity_type_text'])->toArray());
     }
 
     /** @test */
@@ -206,8 +204,8 @@ class RegistrationTest extends TestCase
         ->assertJsonStructure([
             'data' => [
                 '*' => [
-                    'name_kh',
-                    'name_en',
+                    'full_name',
+                    'full_name_optional',
                     'dob',
                     'gender',
                     'nationality_code',
@@ -248,8 +246,8 @@ class RegistrationTest extends TestCase
         ->assertStatus(200)
         ->assertJsonStructure([
             'data' => [
-                'name_kh',
-                'name_en',
+                'full_name',
+                'full_name_optional',
                 'dob',
                 'gender',
                 'nationality_code',
@@ -288,7 +286,7 @@ class RegistrationTest extends TestCase
         $this->deleteJson("api/patients/{$patient->id}")
         ->assertStatus(200);
 
-        $this->assertDatabaseHas('patients', $patient->fresh()->toArray());
+        $this->assertDatabaseHas('patients', collect($patient->fresh())->except(['age', 'identity_type_text'])->toArray());
         $this->assertNotEquals(NULL, $patient->fresh()->deleted_at);
     }
 
@@ -302,7 +300,7 @@ class RegistrationTest extends TestCase
         $this->deleteJson("api/patients/{$patient->id}")
         ->assertStatus(403);
 
-        $this->assertDatabaseHas('patients', $patient->toArray());
+        $this->assertDatabaseHas('patients', collect($patient)->except(['age', 'identity_type_text'])->toArray());
         $this->assertEquals(NULL, $patient->fresh()->deleted_at);
     }
 }

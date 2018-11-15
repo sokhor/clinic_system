@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Reception\Repositories;
+namespace App\Patient\Repositories;
 
-use App\Reception\Models\Patient;
-use App\Reception\Models\Queue;
+use App\Patient\Models\Patient;
+use App\Patient\Models\Queue;
 
 class QueueRepositroy
 {
     /**
      * Queue model
      *
-     * @var \App\Reception\Models\Queue
+     * @var \App\Patient\Models\Queue
      */
     protected $queue;
 
     /**
      * Create a new queue repository instance.
      *
-     * @param \App\Reception\Models\Queue $queue
+     * @param \App\Patient\Models\Queue $queue
      */
     public function __construct(Queue $queue)
     {
@@ -27,8 +27,8 @@ class QueueRepositroy
     /**
      * Generate a new queue
      *
-     * @param  \App\Reception\Models\Patient $patient
-     * @return \App\Reception\Models\Queue
+     * @param  \App\Patient\Models\Patient $patient
+     * @return \App\Patient\Models\Queue
      */
     public function generate(Patient $patient)
     {

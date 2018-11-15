@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Reception\Providers;
+namespace App\Patient\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class ReceptionServiceProvider extends ServiceProvider
+class PatientServiceProvider extends ServiceProvider
 {
     /**
      * This namespace is applied to your controller routes.
@@ -14,7 +14,7 @@ class ReceptionServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Reception\Http\Controllers';
+    protected $namespace = 'App\Patient\Http\Controllers';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -38,6 +38,6 @@ class ReceptionServiceProvider extends ServiceProvider
         Route::middleware('api')
             ->prefix('api')
              ->namespace($this->namespace)
-             ->group(app_path('Reception/route.php'));
+             ->group(app_path('patient/route.php'));
     }
 }

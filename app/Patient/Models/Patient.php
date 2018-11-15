@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Reception\Models;
+namespace App\Patient\Models;
 
-use App\Reception\Models\Appointment;
-use App\Reception\Models\Queue;
+use App\Patient\Models\Appointment;
+use App\Patient\Models\Queue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
@@ -19,8 +19,8 @@ class Patient extends Model
      */
     protected $fillable = [
         'code',
-        'name_kh',
-        'name_en',
+        'full_name',
+        'full_name_optional',
         'gender',
         'dob',
         'nationality_code',

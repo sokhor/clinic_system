@@ -17,7 +17,7 @@
         <div class="mb-4">
           <input
             class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-            v-model="form.name_en"
+            v-model="form.full_name"
             type="text"
             placeholder="Full Name"
           />
@@ -67,7 +67,7 @@ export default {
     return {
       form: {
         id: '',
-        name_en: '',
+        full_name: '',
         phone: '',
         identity_no: ''
       },
@@ -81,7 +81,7 @@ export default {
       this.$store
         .dispatch('patients/list', {
           filter: {
-            name_en: this.form.name_en,
+            full_name: this.form.full_name,
             phone: this.form.phone,
             identity_no: this.form.identity_no
           }

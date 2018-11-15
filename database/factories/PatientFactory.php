@@ -4,10 +4,10 @@ use App\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
-$factory->define(App\Reception\Models\Patient::class, function (Faker $faker) {
+$factory->define(App\Patient\Models\Patient::class, function (Faker $faker) {
     return [
-        'name_kh' => $faker->firstName,
-        'name_en' => $faker->lastName,
+        'full_name' => $faker->name,
+        'full_name_optional' => null,
         'gender' => $faker->randomElement(['M', 'F']),
         'dob' => $faker->dateTimeBetween('-30 years', '-10 years')->format('Y-m-d'),
         'nationality_code' => $faker->countryCode,

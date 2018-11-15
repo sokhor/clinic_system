@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Reception\Http\Controllers;
+namespace App\Patient\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Reception\Http\Requests\PatientCreateRequest;
-use App\Reception\Http\Requests\PatientDeleteRequest;
-use App\Reception\Http\Requests\PatientUpdateRequest;
-use App\Reception\Http\Requests\PatientViewRequest;
-use App\Reception\Http\Resources\PatientResource;
-use App\Reception\Models\Patient;
-use App\Reception\Repositories\PatientRepository;
-use App\Reception\Repositories\QueueRepositroy;
+use App\Patient\Http\Requests\PatientCreateRequest;
+use App\Patient\Http\Requests\PatientDeleteRequest;
+use App\Patient\Http\Requests\PatientUpdateRequest;
+use App\Patient\Http\Requests\PatientViewRequest;
+use App\Patient\Http\Resources\PatientResource;
+use App\Patient\Models\Patient;
+use App\Patient\Repositories\PatientRepository;
+use App\Patient\Repositories\QueueRepositroy;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class PatientController extends Controller
@@ -18,22 +18,22 @@ class PatientController extends Controller
     /**
      * Queue repository
      *
-     * @var \App\Reception\Repositories\PatientRepository
+     * @var \App\Patient\Repositories\PatientRepository
      */
     protected $patient;
 
     /**
      * Queue repository
      *
-     * @var \App\Reception\Repositories\QueueRepositroy
+     * @var \App\Patient\Repositories\QueueRepositroy
      */
     protected $queue;
 
     /**
      * Create the controller instance
      *
-     * @param \App\Reception\Repositories\PatientRepository $patient
-     * @param \App\Reception\Repositories\QueueRepositroy $queue
+     * @param \App\Patient\Repositories\PatientRepository $patient
+     * @param \App\Patient\Repositories\QueueRepositroy $queue
      */
     public function __construct(PatientRepository $patient, QueueRepositroy $queue)
     {
@@ -50,7 +50,7 @@ class PatientController extends Controller
     public function index(PatientViewRequest $request)
     {
         $patients = QueryBuilder::for(Patient::class)
-            ->allowedFilters('name_en', 'phone', 'identity_no', 'id')
+            ->allowedFilters('full_name', 'phone', 'identity_no', 'id')
             ->latest()
             ->paginate($request->per_page);
 
@@ -61,7 +61,7 @@ class PatientController extends Controller
      * Show a patient
      *
      * @param  \App\Place\Http\Requests\PatientViewRequest $request
-     * @param  \App\Reception\Models\Patient $patient
+     * @param  \App\Patient\Models\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function show(PatientViewRequest $request, Patient $patient)
@@ -105,8 +105,8 @@ class PatientController extends Controller
     /**
      * Delete patients
      *
-     * @param  \App\Reception\Http\Requests\PatientDeleteRequest $request
-     * @param  \App\Reception\Models\Patient $patient
+     * @param  \App\Patient\Http\Requests\PatientDeleteRequest $request
+     * @param  \App\Patient\Models\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function destroy(PatientDeleteRequest $request, Patient $patient)

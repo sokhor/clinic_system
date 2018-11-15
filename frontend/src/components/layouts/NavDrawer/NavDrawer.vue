@@ -109,15 +109,6 @@ export default {
           icon: 'fas fa-user'
         },
         {
-          title: true,
-          name: 'Setting',
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
-        },
-        {
           name: 'Wards',
           url: '/wards',
           icon: 'fas fa-caret-right'
@@ -134,7 +125,7 @@ export default {
         },
         {
           title: true,
-          name: 'Reception',
+          name: 'Patient',
           class: '',
           wrapper: {
             element: '',

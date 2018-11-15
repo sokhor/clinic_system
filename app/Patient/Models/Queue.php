@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Reception\Models;
+namespace App\Patient\Models;
 
+use App\Patient\Models\Patient;
 use Illuminate\Database\Eloquent\Model;
 
 class Queue extends Model
@@ -26,4 +27,9 @@ class Queue extends Model
     protected $casts = [
         'alive' => 'bool',
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }
