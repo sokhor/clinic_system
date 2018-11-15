@@ -2,11 +2,10 @@
   <BaseCard class="h-full">
     <div
       class="w-full h-full flex justify-center items-center cursor-pointer bg-white p-4"
-      v-if="patients.length === 0"
+      v-if="loadingPatient"
     >
       <p class="text-center leading-loose">
-        <i class=" block fab fa-accessible-icon text-5xl mb-2"></i>
-        <BaseButton color="primary" class="capitalize" @click="registerNew">Register a new patient</BaseButton>
+        <i class="text-2xl fas fa-spinner spinning"></i>
       </p>
     </div>
     <div
@@ -57,6 +56,7 @@ import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Patients',
+  props: ['loadingPatient'],
   computed: {
     ...mapState('patients', { patients: 'resources' }),
     ...mapGetters(['gender']),
@@ -89,9 +89,6 @@ export default {
     ...mapActions('patients', { fetchPatients: 'list' }),
     selectPatient(patient) {
       this.$emit('selected-patient', patient)
-    },
-    registerNew() {
-      this.$emit('register-new-patient')
     }
   }
 }

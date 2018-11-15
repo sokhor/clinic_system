@@ -2,6 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">Registration</h1>
+      <BaseButton color="primary" @click="registerNew">Register Patient</BaseButton>
     </div>
     <div class="flex -mx-2">
       <div class="w-1/5 p-2">
@@ -10,8 +11,8 @@
       <div class="w-4/5 p-2">
         <component
             :is="patient ? 'RegistrationForm' : 'PatientList'"
+            :loading-patient="loadingPatient"
             @selected-patient="selectPatient"
-            @register-new-patient="patient = {}"
             :patient="patient"
             @cancel-form="cancelForm"
           />
@@ -31,8 +32,12 @@ export default {
   components: { SearchVisitedPatient, PatientList, RegistrationForm },
   data() {
     return {
-      patient: null
+      patient: null,
+      loadingPatient: true
     }
+  },
+  created() {
+    this.listPatients()
   },
   methods: {
     selectPatient(patient) {
@@ -40,6 +45,16 @@ export default {
     },
     cancelForm() {
       this.patient = null
+    },
+    registerNew() {
+      this.patient = {}
+    },
+    listPatients() {
+      this.loadingPatient = true
+
+      this.$store
+        .dispatch('patients/list')
+        .then(() => (this.loadingPatient = false))
     }
   }
 }
