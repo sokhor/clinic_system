@@ -78,7 +78,7 @@ class PatientController extends Controller
     public function store(PatientCreateRequest $request)
     {
         $patient = $this->patient->create($request->all());
-        $this->queue->generate($patient);
+        $this->queue->generate($patient, ['status' => 1]);
 
         return $patient;
     }

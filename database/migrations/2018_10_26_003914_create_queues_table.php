@@ -17,7 +17,9 @@ class CreateQueuesTable extends Migration
             $table->increments('id');
             $table->integer('patient_id')->unsigned();
             $table->string('queue_no');
-            $table->boolean('alive')->default(true);
+            $table->string('previous_by')->nullable();
+            $table->string('next_by')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

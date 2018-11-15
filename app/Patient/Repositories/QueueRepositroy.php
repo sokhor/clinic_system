@@ -30,13 +30,14 @@ class QueueRepositroy
      * @param  \App\Patient\Models\Patient $patient
      * @return \App\Patient\Models\Queue
      */
-    public function generate(Patient $patient)
+    public function generate(Patient $patient, $option = [])
     {
         $queue = Queue::latest()->first();
 
         return Queue::create([
             'patient_id' => $patient->id,
-            'queue_no' => $queue ? $queue->id + 1 : 1,
+            'queue_no' => $queue ? $queue->queue_no + 1 : 1,
+            'status' => isset($option['status']) ? $option['status'] : null,
         ]);
     }
 }

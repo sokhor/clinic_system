@@ -48,7 +48,7 @@ class PatientTest extends TestCase
         $this->assertDatabaseHas('queues', [
             'patient_id' => $patient->id,
             'queue_no' => 1,
-            'alive' => true,
+            'status' => 1,
         ]);
     }
 
@@ -101,7 +101,6 @@ class PatientTest extends TestCase
 
         $this->assertDatabaseMissing('queues', [
             'queue_no' => 1,
-            'alive' => true,
         ]);
     }
 
