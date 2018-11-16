@@ -38,6 +38,6 @@ class PatientServiceProvider extends ServiceProvider
         Route::middleware('api')
             ->prefix('api')
              ->namespace($this->namespace)
-             ->group(app_path('patient/route.php'));
+             ->group(app_path('Patient/route.php'));
     }
 }
