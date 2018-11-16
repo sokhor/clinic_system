@@ -78,6 +78,9 @@ class PatientController extends Controller
     public function store(PatientCreateRequest $request)
     {
         $patient = $this->patient->create($request->all());
+        $patient->visits()->create([
+            'status' => 1,
+        ]);
         $this->queue->generate($patient, ['status' => 1]);
 
         return $patient;
@@ -96,8 +99,10 @@ class PatientController extends Controller
             Patient::findOrFail($id),
             $request->all()
         );
-
-        $this->queue->generate($patient);
+        $patient->visits()->create([
+            'status' => 1,
+        ]);
+        $this->queue->generate($patient, ['status' => 1]);
 
         return $patient;
     }
