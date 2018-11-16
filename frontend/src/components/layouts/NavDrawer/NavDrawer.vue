@@ -141,6 +141,11 @@ export default {
           name: 'Queues',
           url: '/queues',
           icon: 'fas fa-caret-right'
+        },
+        {
+          name: 'Visit',
+          url: '/visits',
+          icon: 'fas fa-caret-right'
         }
       ]
     }

@@ -4,9 +4,10 @@ namespace App\Patient\Models;
 
 use App\Patient\Models\Appointment;
 use App\Patient\Models\Queue;
+use App\Patient\Models\Visit;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Patient extends Model
 {
@@ -90,6 +91,16 @@ class Patient extends Model
     public function queues()
     {
         return $this->hasOne(Queue::class);
+    }
+
+    /**
+     * Patient may have many visits
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function visits()
+    {
+        return $this->hasMany(Visit::class)->latest();
     }
 
     /**

@@ -45,8 +45,15 @@ class PatientTest extends TestCase
 
         $patient = Patient::first();
 
+        $this->assertDatabaseHas('visits', [
+            'patient_id' => $patient->id,
+            'status' => 1,
+            'type' => 1,
+        ]);
+
         $this->assertDatabaseHas('queues', [
             'patient_id' => $patient->id,
+            'visit_id' => $patient->visit()->latest()->first()->id,
             'queue_no' => 1,
             'status' => 1,
         ]);
