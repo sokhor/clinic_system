@@ -5,7 +5,7 @@ export default {
   render(h, context) {
     return (
       <div
-        class="w-full bg-white shadow rounded overflow-hidden"
+        class="bg-white shadow rounded overflow-hidden"
         {...{ class: context.data.staticClass }}
       >
         {context.children}
