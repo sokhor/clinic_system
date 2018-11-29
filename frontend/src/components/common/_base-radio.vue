@@ -26,7 +26,7 @@ export default {
   render(h, context) {
     return (
       <div
-        class="relative block h-6 w-6 pl-6 flex items-center"
+        class="relative pl-6 flex items-center"
         {...{
           class: [
             context.data.staticClass,
@@ -44,7 +44,10 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-radio absolute block w-4 h-4 rounded-full select-none pin-l border bg-white-grey-lighter"
+          class="box-radio absolute block w-4 h-4 rounded-full select-none pin-l bg-white-grey-lighter"
+          {...{
+            class: { border: !isChecked(context) }
+          }}
           onClick={event => event.target.previousSibling.click()}
         />
         <label class="relative mb-0 whitespace-no-wrap">
@@ -91,7 +94,6 @@ input[type='radio']:disabled ~ .box-radio:hover {
 }
 
 .box-radio:after {
-  @apply bg-no-repeat bg-50%;
-  background-position: 37% 32%;
+  @apply bg-no-repeat bg-50% bg-center;
 }
 </style>
