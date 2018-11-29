@@ -191,7 +191,20 @@
             </div>
           </div>
         </div>
-        <div class="w-2/5 p-4"></div>
+        <div class="w-2/5 p-4">
+          <div class="flex items-start mb-3">
+            <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+              Assign To
+            </label>
+            <div class="w-3/5">
+              <input
+                class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                v-model="form.referal"
+                type="text"
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="flex items-center justify-end mt-4">
         <base-button flat color="primary" class="mr-5" @click="cancel">
