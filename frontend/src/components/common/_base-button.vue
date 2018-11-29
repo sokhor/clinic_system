@@ -113,7 +113,7 @@ export default {
       'button',
       {
         class: [
-          'focus:outline-none uppercase font-semibold',
+          'focus:outline-none font-semibold',
           classColorScheme({
             flat: context.props.flat,
             outline: context.props.outline,
