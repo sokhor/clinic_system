@@ -1,27 +1,31 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Visit</h1>
+      <h1 class="inline text-grey-darkest text-xl font-bold">Patient Visit</h1>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>
         <base-thead>
+          <base-th>Visit ID</base-th>
+          <base-th>Visited At</base-th>
           <base-th>Patient Code</base-th>
           <base-th>Patient Name</base-th>
           <base-th>Age</base-th>
           <base-th>Gender</base-th>
-          <base-th>Numbers of Visit</base-th>
-          <base-th>Last Visit At</base-th>
+          <base-th>Status</base-th>
+          <base-th>Type</base-th>
           <base-th></base-th>
         </base-thead>
         <base-tbody>
           <base-tr v-for="visit in visits" :key="visit.id">
-            <base-td>{{ visit.code }}</base-td>
-            <base-td>{{ visit.full_name }}</base-td>
-            <base-td>{{ visit.age }} yrs</base-td>
-            <base-td>{{ visit.gender }}</base-td>
-            <base-td>{{ visit.visits_count }}</base-td>
-            <base-td>{{ visit.last_visited_at }}</base-td>
+            <base-td>{{ visit.id }}</base-td>
+            <base-td>{{ visit.created_at }}</base-td>
+            <base-td>{{ visit.patient.code }}</base-td>
+            <base-td>{{ visit.patient.full_name }}</base-td>
+            <base-td>{{ visit.patient.age }} yrs</base-td>
+            <base-td>{{ visit.patient.gender }}</base-td>
+            <base-td>{{ visit.status_text}}</base-td>
+            <base-td>{{ visit.type_text }}</base-td>
             <base-td class="flex w-1">
               <base-button
                 class="mr-2"
@@ -46,7 +50,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Visits',
   computed: {
-    ...mapState('visits', { visits: 'resources' }),
+    ...mapState('visits', { visits: 'resources' })
   },
   created() {
     this.fetchVisits()

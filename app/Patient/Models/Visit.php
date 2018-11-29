@@ -2,6 +2,7 @@
 
 namespace App\Patient\Models;
 
+use App\Patient\Models\Patient;
 use Illuminate\Database\Eloquent\Model;
 
 class Visit extends Model
@@ -65,5 +66,15 @@ class Visit extends Model
             default:
                 return null;
         }
+    }
+
+    /**
+     * Patient visit belongs to a patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
     }
 }

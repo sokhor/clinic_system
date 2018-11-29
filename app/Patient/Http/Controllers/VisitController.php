@@ -4,7 +4,7 @@ namespace App\Patient\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Patient\Http\Resources\PatientVisitResource;
-use App\Patient\Models\Patient;
+use App\Patient\Models\Visit;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -18,7 +18,7 @@ class VisitController extends Controller
      */
     public function index(Request $request)
     {
-        $patients = QueryBuilder::for(Patient::withCount('visits'))
+        $patients = QueryBuilder::for(Visit::with('patient'))
             ->allowedFilters(
                 'consult_operate_by',
                 'status',
@@ -39,7 +39,7 @@ class VisitController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $patient = Patient::with('visits')->findOrFail($id);
+        $patient = Visit::with('patient')->findOrFail($id);
 
         return new PatientVisitResource($patient);
     }
