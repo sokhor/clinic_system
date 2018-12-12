@@ -16,6 +16,7 @@ $factory->define(App\Patient\Models\Patient::class, function (Faker $faker) {
         'address' => $faker->address,
         'identity_type' => $faker->randomElement([1, 2, 3]),
         'identity_no' => random_int(1000000, 2000000),
+        'photo' => null,
         'last_visited_at' => Carbon::now(),
         'registered_by' => function() { return factory(User::class)->create()->id; },
     ];
