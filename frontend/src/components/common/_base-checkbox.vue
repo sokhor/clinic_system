@@ -63,7 +63,7 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-checkbox absolute block w-4 h-4 rounded select-none pin-l border bg-white-grey-lighter"
+          class="box-checkbox absolute block w-4 h-4 rounded select-none pin-l border bg-grey-lighter"
           onClick={event => event.target.previousSibling.click()}
         />
         <label class="relative mb-0 whitespace-no-wrap">

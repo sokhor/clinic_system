@@ -1,5 +1,5 @@
 <template>
-  <header class="header flex items-center bg-blue-dark border-b border-blue-darker h-14">
+  <header class="header flex items-center bg-blue-dark border-b border-blue-darker h-16">
     <div class="inline-block md:pl-8 md:pr-10 order-2 md:order-1 flex-auto md:flex-none text-center">
       <router-link to="/">
         <img src="../../assets/logo.svg" width="89" class="inline-block">

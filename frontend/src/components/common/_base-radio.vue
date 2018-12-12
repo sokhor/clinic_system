@@ -44,7 +44,7 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-radio absolute block w-4 h-4 rounded-full select-none pin-l bg-white-grey-lighter"
+          class="box-radio absolute block w-4 h-4 rounded-full select-none pin-l bg-grey-lighter"
           {...{
             class: { border: !isChecked(context) }
           }}
