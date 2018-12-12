@@ -24,7 +24,6 @@ export const actions = {
             page: page !== undefined ? page : state.pagination.current_page,
             per_page:
               per_page !== undefined ? per_page : state.pagination.per_page,
-            search: state.search !== '' ? state.search : null,
             filter
           },
           paramsSerializer: function(params) {

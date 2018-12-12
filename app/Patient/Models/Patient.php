@@ -114,7 +114,9 @@ class Patient extends Model
             return null;
         }
 
-        return Carbon::today()->diffInYears(Carbon::createFromFormat('Y-m-d', explode(' ',$this->attributes['dob'])[0]));
+        return Carbon::today()->diffInYears(
+            Carbon::createFromFormat('Y-m-d', explode(' ',$this->attributes['dob'])[0])
+        );
     }
 
     /**

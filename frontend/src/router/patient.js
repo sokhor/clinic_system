@@ -34,5 +34,13 @@ export default [
 
       next()
     }
+  },
+  {
+    path: '/patients/:id',
+    name: 'patients-show',
+    meta: {
+      authRequired: true
+    },
+    component: () => import('@/pages/patients/show.vue')
   }
 ]

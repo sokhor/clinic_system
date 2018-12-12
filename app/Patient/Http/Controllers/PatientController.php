@@ -12,6 +12,7 @@ use App\Patient\Models\Patient;
 use App\Patient\Repositories\PatientRepository;
 use App\Patient\Repositories\QueueRepositroy;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\Filter;
 
 class PatientController extends Controller
 {
@@ -50,11 +51,18 @@ class PatientController extends Controller
     public function index(PatientViewRequest $request)
     {
         $patients = QueryBuilder::for(Patient::class)
-            ->allowedFilters('full_name', 'phone', 'identity_no', 'id')
-            ->latest()
-            ->paginate($request->per_page);
+            ->allowedFilters(
+                'full_name',
+                Filter::exact('phone'),
+                Filter::exact('identity_no'),
+                Filter::exact('code'),
+                Filter::exact('email')
+            )
+            ->latest();
 
-        return PatientResource::collection($patients);
+        return PatientResource::collection(
+            $request->per_page == 'all' ? $patients->get() : $patients->paginate($request->per_page)
+        );
     }
 
     /**
