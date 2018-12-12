@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-// use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Carbon;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Resource::withoutWrapping();
         Carbon::serializeUsing(function ($carbon) {
             return $carbon->format('d-m-Y');
         });
