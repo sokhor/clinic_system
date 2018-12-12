@@ -4,7 +4,7 @@
       <AppHeader/>
       <div class="flex-grow flex">
         <NavDrawer v-show="drawer"/>
-        <div class="p-4 w-full h-full">
+        <div class="p-8 w-full h-full">
           <router-view></router-view>
         </div>
       </div>
