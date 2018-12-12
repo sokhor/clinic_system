@@ -21,7 +21,7 @@ export default {
   render(h, context) {
     return (
       <div
-        class="p-1 rounded inline-block font-bold leading-none text-center align-baseline whitespace-no-wrap text-75%"
+        class="p-1 rounded inline-block font-bold leading-none text-center align-baseline whitespace-no-wrap text-xs"
         {...{ class: context.data.staticClass }}
         {...{ class: colorClass(context.props.color) }}
       >
