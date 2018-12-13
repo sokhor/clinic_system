@@ -35,6 +35,9 @@
                 <img :src="patient.photo" v-if="patient.photo">
                 <BaseUserIcon class="h-8 w-8 rounded-full mr-2" v-else/>
                 <span>{{ patient.full_name }}</span>
+                <span class="ml-2 text-grey" v-show="patient.other_name != null">
+                  {{ `(${patient.other_name})` }}
+                </span>
               </div>
             </BaseTd>
             <BaseTd>{{ patient.gender }}</BaseTd>

@@ -22,6 +22,7 @@ class PatientResource extends JsonResource
             'dob' => $this->dob,
             'email'=> $this->email,
             'full_name'=> $this->full_name,
+            'other_name'=> $this->other_name,
             'gender' => $this->gender,
             'identity_no' => $this->identity_no,
             'identity_type' => $this->identity_type,

@@ -17,7 +17,7 @@ class CreatePatientsTable extends Migration
             $table->increments('id');
             $table->string('code')->nullable();
             $table->string('full_name');
-            $table->string('full_name_optional')->nullable();
+            $table->string('other_name')->nullable();
             $table->char('gender', 1);
             $table->date('dob')->nullable();
             $table->char('nationality_code', 2);

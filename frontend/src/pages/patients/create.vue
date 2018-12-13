@@ -30,6 +30,18 @@
                 </div>
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                    Other Name
+                  </label>
+                  <div class="w-3/5">
+                    <input
+                      class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                      v-model="form.other_name"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="flex items-start mb-3">
+                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
                     Gender
                   </label>
                   <div class="w-3/5">
@@ -270,6 +282,7 @@ export default {
       form: {
         id: '',
         full_name: '',
+        other_name: '',
         dob: '',
         gender: '',
         nationality_code: '',
@@ -362,6 +375,7 @@ export default {
     select(patient) {
       this.form.id = patient.id
       this.form.full_name = patient.full_name
+      this.form.other_name = patient.other_name
       this.form.dob = patient.dob
       this.form.gender = patient.gender
       this.form.nationality_code = patient.nationality_code
@@ -375,6 +389,7 @@ export default {
     clearSelect() {
       this.form.id = ''
       this.form.full_name = ''
+      this.form.other_name = ''
       this.form.dob = ''
       this.form.gender = ''
       this.form.nationality_code = ''

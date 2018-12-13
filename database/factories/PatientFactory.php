@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Patient\Models\Patient::class, function (Faker $faker) {
     return [
         'full_name' => $faker->name,
-        'full_name_optional' => null,
+        'other_name' => null,
         'gender' => $faker->randomElement(['M', 'F']),
         'dob' => $faker->dateTimeBetween('-30 years', '-10 years')->format('Y-m-d'),
         'nationality_code' => $faker->countryCode,
