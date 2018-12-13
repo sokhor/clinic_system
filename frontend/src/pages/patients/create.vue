@@ -5,8 +5,8 @@
         <router-link class="text-blue hover:text-blue-light" to="/patients"><i class="fas fa-arrow-left"></i></router-link> / Patient Registration
       </h1>
     </div>
-    <div class="flex -mx-2">
-      <div class="w-3/5 p-2">
+    <div class="flex -mx-4">
+      <div class="w-3/4 p-4">
         <BaseCard class="p-4">
           <form @submit.prevent="save">
             <div class="flex -mx-4">
@@ -215,12 +215,9 @@
           </form>
         </BaseCard>
       </div>
-      <div class="w-2/5 p-2">
+      <div class="w-1/4 p-4">
         <h4 class="text-grey-darkest mb-2">Suggested Patients</h4>
-        <BaseCard>
-          <p class="flex items-center justify-center py-5" v-show="patients.length === 0">
-            No exist patients
-          </p>
+        <BaseCard v-show="patients.length">
           <div class="p-4 border-b" v-for="patient in patients">
             <div class="flex">
               <img :src="patient.photo" v-if="patient.photo">
@@ -240,18 +237,22 @@
                   <i class="far fa-id-card inline-block w-5"></i> {{ patient.identity_no }}
                   <BaseBadge
                     :color="identityColor(patient.identity_type)"
-                    class="ml-2"
                   >
                     {{ patient.identity_type_text }}
                   </BaseBadge>
                 </span>
               </div>
               <div class="self-end">
-                <BaseButton outline sm color="primary" @click="select(patient)">Re-visit</BaseButton>
+                <BaseButton flat sm color="primary" @click="select(patient)">
+                  <i class="fas fa-share"></i> Re-visit
+                </BaseButton>
               </div>
             </div>
           </div>
         </BaseCard>
+        <p class="flex items-center justify-center" v-show="patients.length === 0">
+          No existed patients
+        </p>
       </div>
     </div>
   </div>
@@ -399,9 +400,9 @@ export default {
         .dispatch('patients/list', {
           filter: {
             full_name: this.form.full_name,
-            phone: this.form.phone,
-            email: this.form.email,
-            identity_no: this.form.identity_no
+            // phone: this.form.phone,
+            // email: this.form.email,
+            // identity_no: this.form.identity_no
           },
           per_page: 'all'
         })
