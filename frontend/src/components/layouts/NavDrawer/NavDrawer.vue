@@ -138,8 +138,8 @@ export default {
           icon: 'fas fa-caret-right'
         },
         {
-          name: 'Queues',
-          url: '/queues',
+          name: 'Medical Record',
+          url: '/medical-record',
           icon: 'fas fa-caret-right'
         },
         {
