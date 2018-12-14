@@ -5,9 +5,9 @@ namespace App\Patient\Models;
 use App\Patient\Models\Appointment;
 use App\Patient\Models\Queue;
 use App\Patient\Models\Visit;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class Patient extends Model
 {
