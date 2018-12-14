@@ -15,10 +15,24 @@ class CreateVisitsTable extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('patient_id')->unsigned();
-            $table->string('consult_operate_by')->nullable();
-            $table->string('status')->nullable();
-            $table->string('type')->nullable();
+            $table->unsignedInteger('patient_id');
+            $table->unsignedInteger('assigned_id')->nullable();
+            $table->tinyInteger('progress')->nullable(); // 1:Nursing, 2:Doctor Visit, 3:Lab Test/Imaging, 4:Dispensery
+            $table->tinyInteger('status')->default(0); // 0:Waiting, 1:In-progress, 2:Completed
+            $table->boolean('ipd')->default(false);
+            $table->tinyInteger('nursing')->default(false);
+            $table->unsignedInteger('nursing_by_id')->nullable();
+            $table->tinyInteger('nursing_status')->nullable(); // 1:In-progress, 2:Completed
+            $table->boolean('doctor_visit')->default(false);
+            $table->unsignedInteger('doctor_visit_by_id')->nullable();
+            $table->tinyInteger('doctor_visit_status')->nullable(); // 1:In-progress, 2:Completed
+            $table->boolean('imaging')->default(false);
+            $table->unsignedInteger('imaging_by_id')->nullable();
+            $table->tinyInteger('imaging_status')->nullable(); // 1:In-progress, 2:Completed
+            $table->boolean('dispensery')->default(false);
+            $table->unsignedInteger('dispensery_by_id')->nullable();
+            $table->tinyInteger('dispensery_status')->nullable(); // 1:In-progress, 2:Completed
+            $table->unsignedInteger('referal_id')->nullable();
             $table->timestamps();
         });
     }
