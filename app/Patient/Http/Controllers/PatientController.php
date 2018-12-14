@@ -24,22 +24,22 @@ class PatientController extends Controller
     protected $patient;
 
     /**
-     * Queue repository
+     * Visit repository
      *
-     * @var \App\Patient\Repositories\QueueRepositroy
+     * @var \App\Patient\Repositories\VisitRepository
      */
-    protected $queue;
+    protected $visit;
 
     /**
      * Create the controller instance
      *
      * @param \App\Patient\Repositories\PatientRepository $patient
-     * @param \App\Patient\Repositories\QueueRepositroy $queue
+     * @param \App\Patient\Repositories\VisitRepository $vist
      */
-    public function __construct(PatientRepository $patient, QueueRepositroy $queue)
+    public function __construct(PatientRepository $patient, VisitRepository $visit)
     {
         $this->patient = $patient;
-        $this->queue = $queue;
+        $this->visit = $visit;
     }
 
     /**
@@ -86,10 +86,7 @@ class PatientController extends Controller
     public function store(PatientCreateRequest $request)
     {
         $patient = $this->patient->create($request->all());
-        $patient->visits()->create([
-            'status' => 1,
-        ]);
-        $this->queue->generate($patient, ['status' => 1]);
+        $this->visit->generate($patient, $request->progress ?? 1);
 
         return $patient;
     }
@@ -103,14 +100,8 @@ class PatientController extends Controller
      */
     public function update(PatientUpdateRequest $request, $id)
     {
-        $patient = $this->patient->update(
-            Patient::findOrFail($id),
-            $request->all()
-        );
-        $patient->visits()->create([
-            'status' => 1,
-        ]);
-        $this->queue->generate($patient, ['status' => 1]);
+        $patient = $this->patient->update($id, $request->all());
+        $this->visit->generate($patient, $request->progress ?? 1);
 
         return $patient;
     }
