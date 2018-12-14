@@ -14,17 +14,20 @@ class UsersRolePermisionSeeder extends Seeder
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        App\User::truncate();
-        $user = factory(App\User::class)->create([
-            'username' => 'superadmin',
-            'email' => 'superadmin@example.com',
-        ]);
-        Bouncer::allow($user)->everything();
-
         Artisan::call('passport:client', ['--password' => true, '--no-interaction' => true]);
 
-        $client = Client::first();
-        $client->update(['user_id' => $user->id]);
+        App\User::truncate();
+
+        $user = factory(App\User::class)->create(['username' => 'superadmin', 'email' => 'superadmin@example.com']);
+        Bouncer::allow($user)->everything();
+
+        Bouncer::role()->create([ 'name' => 'doctor', 'title' => 'Doctor']);
+        $doctor = factory(App\User::class)->create([ 'username' => 'doctor', 'email' => 'doctor@mail.com']);
+        Bouncer::assign('doctor')->to($doctor);
+
+        Bouncer::role()->create([ 'name' => 'nurse', 'title' => 'Nurse']);
+        $nurse = factory(App\User::class)->create([ 'username' => 'nurse', 'email' => 'nurse@mail.com']);
+        Bouncer::assign('nurse')->to($nurse);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
