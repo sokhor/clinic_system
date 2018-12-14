@@ -29,7 +29,7 @@ class MedicalRecordController extends Controller
      * @param  \App\Patient\Models\MedicalRecord $medical_record
      * @return \Illuminate\Http\Response
      */
-    public function index(MedicalRecordViewRequest $request, MedicalRecord $medical_record)
+    public function show(MedicalRecordViewRequest $request, MedicalRecord $medical_record)
     {
         return new MedicalRecordResource($medical_record);
     }
