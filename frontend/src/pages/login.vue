@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex flex-col items-center justify-center">
+  <div class="w-full h-screen flex flex-col items-center justify-center">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-xs" @submit.prevent="postLogin">
       <alert type="danger" v-if="message !== ''" class="mb-4">{{ message }}</alert>
       <div class="mb-4">
