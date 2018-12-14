@@ -18,17 +18,17 @@ const classColorScheme = ({
     })
   } else if (outline) {
     colorScheme = Object.assign({}, colorScheme, {
-      'text-grey border-2 rounded border-grey hover:text-grey-light hover:border-grey-light shadow':
+      'text-grey-darker border rounded border-grey-dark hover:text-grey-dark hover:border-grey':
         colorType === 'default',
-      'text-blue border-2 rounded border-blue hover:text-blue-light hover:border-blue-light shadow':
+      'text-blue border rounded border-blue hover:text-blue-light hover:border-blue-light':
         colorType === 'primary',
-      'text-green border-2 rounded border-green hover:text-green-light hover:border-green-light shadow':
+      'text-green border rounded border-green hover:text-green-light hover:border-green-light':
         colorType === 'accent' || colorType === 'success',
-      'text-red border-2 rounded border-red hover:text-red-light hover:border-red-light shadow':
+      'text-red border rounded border-red hover:text-red-light hover:border-red-light':
         colorType === 'danger',
-      'text-yellow border-2 rounded border-yellow hover:text-yellow-light hover:border-yellow-light shadow':
+      'text-yellow border rounded border-yellow hover:text-yellow-light hover:border-yellow-light':
         colorType === 'warning',
-      'text-blue-light border-2 rounded border-blue-light hover:text-blue-lighter hover:border-blue-lighter shadow':
+      'text-blue-light border rounded border-blue-light hover:text-blue-lighter hover:border-blue-lighter':
         colorType === 'info'
     })
   } else {
