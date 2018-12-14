@@ -7,34 +7,39 @@ use App\Patient\Models\Patient;
 class PatientRepository
 {
     /**
-     * Patient model
+     * Create a new patient.
      *
-     * @var \App\Patient\Models\Patient
+     * @param  Array  $params
+     * @return \App\Patient\Models\Patient $patient
      */
-    protected $patient;
-
-    /**
-     * Create a new patient repository instance.
-     *
-     * @param \App\Patient\Models\Patient $patient
-     */
-    public function __construct(Patient $patient)
-    {
-        $this->patient = $patient;
-    }
-
     public function create(Array $params)
     {
+        $patient = Patient::where(function($builder) {
+                $builder->where('identity_no', $params['identity_no'])
+                    ->where('identity_type', $params['identity_type']);
+            });
+
+        if($patient) {
+            $patient->update(array_merge($params, [ 'registered_by' => auth()->id() ]));
+            return $patient->fresh();
+        }
+
         return Patient::create(
             array_merge($params, [ 'registered_by' => auth()->id() ])
         );
     }
 
+    /**
+     * Update a new patient.
+     *
+     * @param  int $id
+     * @param  Array  $params
+     * @return \App\Patient\Models\Patient $patient
+     */
     public function update(Patient $patient, Array $params)
     {
-        $patient->update(
-            array_merge($params, [ 'registered_by' => auth()->id() ])
-        );
+        $patient = Patient::findOrFail($id);
+        $patient->update(array_merge($params, [ 'registered_by' => auth()->id() ]));
 
         return $patient->fresh();
     }
