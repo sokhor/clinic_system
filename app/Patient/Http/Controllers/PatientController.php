@@ -86,7 +86,7 @@ class PatientController extends Controller
     public function store(PatientCreateRequest $request)
     {
         $patient = $this->patient->create($request->all());
-        $this->visit->generate($patient, $request->progress ?? 1);
+        $this->visit->generateGueue($patient, $request->progress ?? 1);
 
         return $patient;
     }
@@ -101,7 +101,7 @@ class PatientController extends Controller
     public function update(PatientUpdateRequest $request, $id)
     {
         $patient = $this->patient->update($id, $request->all());
-        $this->visit->generate($patient, $request->progress ?? 1);
+        $this->visit->generateGueue($patient, $request->progress ?? 1);
 
         return $patient;
     }
