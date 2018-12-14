@@ -35,6 +35,7 @@ class CreateVisitsTable extends Migration
             $table->tinyInteger('dispensery_status')->nullable(); // 1:In-progress, 2:Completed
             $table->unsignedInteger('referal_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -4,9 +4,12 @@ namespace App\Patient\Models;
 
 use App\Patient\Models\Patient;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Visit extends Model
 {
+    use SoftDeletes;
+
     /**
      * The guarded attributes on the model.
      *
