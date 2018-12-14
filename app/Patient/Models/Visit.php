@@ -8,32 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 class Visit extends Model
 {
     /**
-     * Set the fillable attributes for the model.
+     * The guarded attributes on the model.
      *
-     * @param  array  $fillable
+     * @var array
      */
-    protected $fillable = [
-        'patient_id',
-        'consult_operate_by',
-        'status',
-        'type',
-    ];
+    protected $guarded = [];
 
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
-    protected $appends = ['status_text', 'type_text'];
+    protected $appends = ['progress_text'];
 
     /**
      * The text equivalance of status
      *
      * @return string|null
      */
-    public function getStatusTextAttribute()
+    public function getProgressTextAttribute()
     {
-        switch ($this->attributes['status']) {
+        switch ($this->attributes['progress']) {
             case 1:
                 return 'Nursing';
             case 2:
@@ -46,23 +41,6 @@ class Visit extends Model
                 return 'Dispensery';
             case 6:
                 return 'Completed';
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * The text equivalance of Type
-     *
-     * @return string|null
-     */
-    public function getTypeTextAttribute()
-    {
-        switch ($this->attributes['status']) {
-            case 1:
-                return 'OPD';
-            case 2:
-                return 'IPD';
             default:
                 return null;
         }
