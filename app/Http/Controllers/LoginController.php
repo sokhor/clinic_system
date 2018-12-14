@@ -109,7 +109,7 @@ class LoginController extends Controller
     {
         Auth::setUser($user);
 
-        return User::with(['roles', 'abilities'])->find(Auth::id());
+        return $user;
     }
 
     /**

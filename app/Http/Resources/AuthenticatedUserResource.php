@@ -16,17 +16,9 @@ class AuthenticatedUserResource extends JsonResource
     {
         return [
             'username' => $this['user']->username,
-            'roles' => $this['user']->roles->map(function($role) {
-                return [
-                    'name' => $role->name,
-                    'title' => $role->title,
-                ];
-            }),
-            'abilities' => $this['user']->abilities->map(function($abilitie) {
-                return [
-                    'name' => $abilitie->name,
-                    'title' => $abilitie->title,
-                ];
+            'roles' => $this['user']->getRoles(),
+            'abilities' => $this['user']->getAbilities()->map(function($abilitie) {
+                return $abilitie->name;
             }),
             'email' => $this['user']->email,
             'access_token' => $this['token']->access_token,
