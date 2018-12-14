@@ -10,7 +10,7 @@ use App\Patient\Http\Requests\PatientViewRequest;
 use App\Patient\Http\Resources\PatientResource;
 use App\Patient\Models\Patient;
 use App\Patient\Repositories\PatientRepository;
-use App\Patient\Repositories\QueueRepositroy;
+use App\Patient\Repositories\VisitRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filter;
 
