@@ -14,10 +14,11 @@ class PatientRepository
      */
     public function create(Array $params)
     {
-        $patient = Patient::where(function($builder) {
+        $patient = Patient::where(function($builder) use ($params) {
                 $builder->where('identity_no', $params['identity_no'])
                     ->where('identity_type', $params['identity_type']);
-            });
+            })
+            ->first();
 
         if($patient) {
             $patient->update(array_merge($params, [ 'registered_by' => auth()->id() ]));
