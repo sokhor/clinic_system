@@ -7,18 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     /**
-     * Set the fillable attributes for the model.
+     * The guarded attributes on the model.
      *
-     * @param  array  $fillable
+     * @var array
      */
-    protected $fillable = [
-        'patient_id',
-        'next_visit_at',
-        'referal',
-        'refer_to',
-        'type',
-        'status',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be mutated to dates.

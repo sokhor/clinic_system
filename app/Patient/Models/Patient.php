@@ -14,27 +14,11 @@ class Patient extends Model
     use SoftDeletes;
 
     /**
-     * Set the fillable attributes for the model.
+     * The guarded attributes on the model.
      *
-     * @param  array  $fillable
+     * @var array
      */
-    protected $fillable = [
-        'code',
-        'full_name',
-        'other_name',
-        'full_name_optional',
-        'gender',
-        'dob',
-        'nationality_code',
-        'phone',
-        'email',
-        'address',
-        'identity_type',
-        'identity_no',
-        'last_visited_at',
-        'registered_by',
-        'referal',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be mutated to dates.
