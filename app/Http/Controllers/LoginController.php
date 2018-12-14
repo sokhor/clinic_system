@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use League\OAuth2\Server\AuthorizationServer;
-use Zend\Diactoros\Response as Psr7Response;
-use Zend\Diactoros\ServerRequest;
-use Illuminate\Http\Request;
 use App\Http\Resources\AuthenticatedUserResource;
 use App\User;
 use Auth;
+use Illuminate\Http\Request;
+use Laravel\Passport\Passport;
+use League\OAuth2\Server\AuthorizationServer;
+use Zend\Diactoros\Response as Psr7Response;
+use Zend\Diactoros\ServerRequest;
 
 class LoginController extends Controller
 {
@@ -63,7 +64,7 @@ class LoginController extends Controller
      */
     protected function retrieveAccessToken(User $user, Request $request)
     {
-        if(is_null($client = $user->clients->first()))
+        if(is_null($client = Passport::client()->first()))
         {
             return false;
         }
