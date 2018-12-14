@@ -21,6 +21,10 @@ class UsersRolePermisionSeeder extends Seeder
         $user = factory(App\User::class)->create(['username' => 'superadmin', 'email' => 'superadmin@example.com']);
         Bouncer::allow($user)->everything();
 
+        Bouncer::role()->create([ 'name' => 'receptionist', 'title' => 'Receptionist']);
+        $receptionist = factory(App\User::class)->create([ 'username' => 'receptionist', 'email' => 'receptionist@mail.com']);
+        Bouncer::assign('receptionist')->to($receptionist);
+
         Bouncer::role()->create([ 'name' => 'doctor', 'title' => 'Doctor']);
         $doctor = factory(App\User::class)->create([ 'username' => 'doctor', 'email' => 'doctor@mail.com']);
         Bouncer::assign('doctor')->to($doctor);
