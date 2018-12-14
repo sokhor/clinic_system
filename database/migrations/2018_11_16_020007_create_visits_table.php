@@ -16,6 +16,7 @@ class CreateVisitsTable extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('patient_id');
+            $table->integer('queue_no');
             $table->unsignedInteger('assigned_id')->nullable();
             $table->tinyInteger('progress')->nullable(); // 1:Nursing, 2:Doctor Visit, 3:Lab Test/Imaging, 4:Dispensery
             $table->tinyInteger('status')->default(0); // 0:Waiting, 1:In-progress, 2:Completed
