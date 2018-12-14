@@ -15,12 +15,15 @@
     <ul class="list-reset pr-4 order-5">
       <li>
         <BaseDropDown>
-          <BaseButton flat class="focus:outline-none text-xl">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5">
-              <circle cx="16" cy="7.5" r="7.4"/>
-              <path d="M16,18C7.7,18,1,24.3,1,32h30C31,24.3,24.3,18,16,18z"/>
-            </svg>
-          </BaseButton>
+          <div class="flex justify-center">
+            <span class="mr-2 text-white">{{ authUser.username }}</span>
+            <BaseButton flat class="focus:outline-none text-xl">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5">
+                <circle cx="16" cy="7.5" r="7.4"/>
+                <path d="M16,18C7.7,18,1,24.3,1,32h30C31,24.3,24.3,18,16,18z"/>
+              </svg>
+            </BaseButton>
+          </div>
           <ul class="list-reset" slot="dropdown-items">
             <li class="whitespace-no-wrap">
               <a href="#" class="no-underline text-grey-darkest" @click.prevent="logOut">
@@ -35,10 +38,15 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Header',
+  computed: {
+    ...mapState('auth', {
+      authUser: 'user'
+    })
+  },
   methods: {
     ...mapMutations(['toggleNavigation']),
     async logOut() {

@@ -1,22 +1,22 @@
 import httpClient from '../../http-client'
 
 export const state = {
-  currentUser: getSavedState('auth.currentUser')
+  user: getSavedState('auth.user')
 }
 
 export const getters = {
   isAuthenticated(state) {
-    return !!state.currentUser
+    return !!state.user
   },
   accessToken(state) {
-    return state.currentUser !== null ? state.currentUser.access_token : ''
+    return state.user !== null ? state.user.access_token : ''
   }
 }
 
 export const mutations = {
   SET_CURRENT_USER(state, newValue) {
-    state.currentUser = newValue
-    saveState('auth.currentUser', newValue)
+    state.user = newValue
+    saveState('auth.user', newValue)
   }
 }
 
