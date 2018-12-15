@@ -1,6 +1,10 @@
 <template>
   <router-link tag="li" :to="url" disabled class="nav-item nav-dropdown block no-underline">
-    <div @click.prevent="handleClick" class="group nav-link nav-dropdown-toggle relative block px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue">
+    <div
+      @click.prevent="handleClick"
+      class="group nav-link nav-dropdown-toggle relative block px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue"
+      :class="{ 'nav-dropdown-toggle__open': dropdownOpen }"
+    >
       <i :class="icon" class="inline-block w-6 text-blue-dark group-hover:text-white"></i> {{name}}
     </div>
     <ul class="nav-dropdown-items list-reset ml-2" :class="{ 'nav-dropdown-items__open': dropdownOpen }">
@@ -60,17 +64,25 @@ export default {
         transition: transform 0.3s;
       }
     }
-  }
 
-  &.nav-dropdown {
-    &__open {
-      .nav-dropdown-toggle {
-        &:before {
-          transform: rotate(-90deg);
-        }
-      }
+    &:hover.nav-dropdown-toggle:before {
+      background-image: url(data:image/svg+xml;charset=utf8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMSAxNCc+PHBhdGggZmlsbD0nI2ZmZicgZD0nTTkuMTQ4IDIuMzUybC00LjE0OCA0LjE0OCA0LjE0OCA0LjE0OHEwLjE0OCAwLjE0OCAwLjE0OCAwLjM1MnQtMC4xNDggMC4zNTJsLTEuMjk3IDEuMjk3cS0wLjE0OCAwLjE0OC0wLjM1MiAwLjE0OHQtMC4zNTItMC4xNDhsLTUuNzk3LTUuNzk3cS0wLjE0OC0wLjE0OC0wLjE0OC0wLjM1MnQwLjE0OC0wLjM1Mmw1Ljc5Ny01Ljc5N3EwLjE0OC0wLjE0OCAwLjM1Mi0wLjE0OHQwLjM1MiAwLjE0OGwxLjI5NyAxLjI5N3EwLjE0OCAwLjE0OCAwLjE0OCAwLjM1MnQtMC4xNDggMC4zNTJ6Jy8+PC9zdmc+);
+    }
+
+    &.nav-dropdown-toggle__open:before {
+      transform: rotate(-90deg);
     }
   }
+
+  // &.nav-dropdown {
+  //   &__open {
+  //     .nav-dropdown-toggle {
+  //       &:before {
+  //         transform: rotate(-90deg);
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 .nav-dropdown-items {
