@@ -1,9 +1,9 @@
 <template>
   <router-link tag="li" :to="url" disabled class="nav-item nav-dropdown block no-underline">
     <div @click.prevent="handleClick" class="group nav-link nav-dropdown-toggle relative block px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue">
-      <i :class="icon" class="inline-block w-6 text-blue-darker group-hover:text-white"></i> {{name}}
+      <i :class="icon" class="inline-block w-6 text-blue-dark group-hover:text-white"></i> {{name}}
     </div>
-    <ul class="nav-dropdown-items list-reset" :class="{ 'nav-dropdown-items__open': dropdownOpen }">
+    <ul class="nav-dropdown-items list-reset ml-2" :class="{ 'nav-dropdown-items__open': dropdownOpen }">
       <slot></slot>
     </ul>
   </router-link>
