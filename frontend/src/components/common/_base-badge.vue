@@ -20,13 +20,13 @@ export default {
   },
   render(h, context) {
     return (
-      <div
-        class="p-1 rounded inline-block font-bold leading-none text-center align-baseline whitespace-no-wrap text-xs"
+      <span
+        class="p-1 mt-1 rounded inline-block font-bold leading-none text-center align-baseline whitespace-no-wrap text-xs"
         {...{ class: context.data.staticClass }}
         {...{ class: colorClass(context.props.color) }}
       >
         {context.children}
-      </div>
+      </span>
     )
   }
 }
