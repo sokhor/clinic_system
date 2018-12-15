@@ -78,74 +78,87 @@ export default {
         {
           name: 'Dashboard',
           url: '/',
-          icon: 'fas fa-tachometer-alt',
-          badge: {
-            variant: 'primary',
-            text: 'NEW'
-          }
+          icon: 'fas fa-tachometer-alt'
         },
         {
-          title: true,
-          name: 'Administration',
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
-        },
-        // {
-        //   name: 'Passport',
-        //   url: '/passport',
-        //   icon: 'fas fa-passport'
-        // },
-        {
-          name: 'Roles',
-          url: '/roles',
-          icon: 'fas fa-user-tie'
+          name: 'User Management',
+          icon: 'fas fa-user',
+          children: [
+            {
+              name: 'Roles',
+              url: '/roles',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Users',
+              url: '/users',
+              icon: 'fas fa-caret-right'
+            }
+          ]
         },
         {
-          name: 'Users',
-          url: '/users',
-          icon: 'fas fa-user'
-        },
-        {
-          name: 'Wards',
-          url: '/wards',
-          icon: 'fas fa-caret-right'
-        },
-        {
-          name: 'Buildings',
-          url: '/buildings',
-          icon: 'fas fa-caret-right'
-        },
-        {
-          name: 'Room',
-          url: '/rooms',
-          icon: 'fas fa-caret-right'
-        },
-        {
-          title: true,
-          name: 'Patient',
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
+          name: 'Department',
+          icon: 'fas fa-building',
+          children: [
+            {
+              name: 'Wards',
+              url: '/wards',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Buildings',
+              url: '/buildings',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Room',
+              url: '/rooms',
+              icon: 'fas fa-caret-right'
+            }
+          ]
         },
         {
           name: 'Patient',
           url: '/patients',
-          icon: 'fas fa-caret-right'
-        },
-        {
-          name: 'Medical Record',
-          url: '/medical-record',
-          icon: 'fas fa-caret-right'
+          icon: 'fas fa-bed',
+          badge: {
+            color: 'red',
+            text: '10'
+          }
         },
         {
           name: 'Visit',
           url: '/visits',
-          icon: 'fas fa-caret-right'
+          icon: 'fas fa-walking'
+        },
+        {
+          name: 'Nurse',
+          url: '/nurses',
+          icon: 'fas fa-notes-medical'
+        },
+        {
+          name: 'Doctor',
+          url: '/doctors',
+          icon: 'fas fa-user-md'
+        },
+        {
+          name: 'Laboratory',
+          url: '/laboratories',
+          icon: 'fas fa-flask'
+        },
+        {
+          name: 'Pharmacist',
+          url: '/pharmacists',
+          icon: 'fas fa-syringe'
+        },
+        {
+          name: 'Appointment',
+          url: '/appointments',
+          icon: 'fas fa-calendar-check',
+          badge: {
+            color: 'red',
+            text: '5'
+          }
         }
       ]
     }
