@@ -4,7 +4,6 @@ import ward from './ward'
 import building from './building'
 import room from './room'
 import patient from './patient'
-import queue from './queue'
 import visit from './visit'
 
 export default [
@@ -27,7 +26,6 @@ export default [
   ...building,
   ...room,
   ...patient,
-  ...queue,
   ...visit
 ]
 

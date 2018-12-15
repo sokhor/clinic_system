@@ -414,7 +414,7 @@ export default {
       this.$store
         .dispatch('patients/list', {
           filter: {
-            full_name: this.form.full_name,
+            full_name: this.form.full_name
             // phone: this.form.phone,
             // email: this.form.email,
             // identity_no: this.form.identity_no

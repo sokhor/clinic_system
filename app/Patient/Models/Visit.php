@@ -18,6 +18,19 @@ class Visit extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'ipd' => 'bool',
+        'nursing' => 'bool',
+        'doctor_visit' => 'bool',
+        'imaging' => 'bool',
+        'dispensery' => 'bool',
+    ];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array

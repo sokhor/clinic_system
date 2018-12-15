@@ -120,16 +120,16 @@ export default {
         {
           name: 'Patient',
           url: '/patients',
-          icon: 'fas fa-bed',
+          icon: 'fas fa-bed'
+        },
+        {
+          name: 'Visitor',
+          url: '/visits',
+          icon: 'fas fa-walking',
           badge: {
             color: 'red',
             text: '10'
           }
-        },
-        {
-          name: 'Visit',
-          url: '/visits',
-          icon: 'fas fa-walking'
         },
         {
           name: 'Nurse',
