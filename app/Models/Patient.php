@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Patient\Models;
+namespace App\Models;
 
 use App\Patient\Models\Appointment;
 use App\Patient\Models\Queue;

@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Patient\Models\Appointment;
-use App\Patient\Models\Patient;
-use App\Patient\Models\Queue;
+use App\Models\Patient;
+use App\Models\Visit;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,12 +24,15 @@ class PatientTest extends TestCase
 
         $patient = factory(Patient::class)->make();
 
-        $this->postJson('api/patients', $patient->toArray())
+        $this->postJson(
+            'api/patients',
+            collect($patient)->except('age', 'identity_type_text')->toArray()
+        )
         ->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
             'full_name' => $patient->full_name,
-            'full_name_optional' => $patient->full_name_optional,
+            'other_name' => $patient->other_name,
             'dob' => $patient->dob,
             'gender' => $patient->gender,
             'nationality_code' => $patient->nationality_code,
@@ -47,15 +50,10 @@ class PatientTest extends TestCase
 
         $this->assertDatabaseHas('visits', [
             'patient_id' => $patient->id,
-            'status' => 1,
-            'type' => 1,
-        ]);
-
-        $this->assertDatabaseHas('queues', [
-            'patient_id' => $patient->id,
-            'visit_id' => $patient->visit()->latest()->first()->id,
             'queue_no' => 1,
-            'status' => 1,
+            'ipd' => false,
+            'status' => 0,
+            'progress' => 1,
         ]);
     }
 
@@ -78,7 +76,6 @@ class PatientTest extends TestCase
         ]);
 
         $this->assertCount(0, Patient::all());
-        $this->assertCount(0, Queue::all());
     }
 
     /** @test */
@@ -91,24 +88,8 @@ class PatientTest extends TestCase
         $this->postJson('api/patients', $patient->toArray())
         ->assertStatus(403);
 
-        $this->assertDatabaseMissing('patients', [
-            'full_name' => $patient->full_name,
-            'full_name_optional' => $patient->full_name_optional,
-            'dob' => $patient->dob,
-            'gender' => $patient->gender,
-            'nationality_code' => $patient->nationality_code,
-            'phone' => $patient->phone,
-            'email' => $patient->email,
-            'address' => $patient->address,
-            'identity_type' => $patient->identity_type,
-            'identity_no' => $patient->identity_no,
-            'last_visited_at' => $patient->last_visited_at,
-            'referal' => $patient->referal,
-        ]);
-
-        $this->assertDatabaseMissing('queues', [
-            'queue_no' => 1,
-        ]);
+        $this->assertCount(0, Patient::all());
+        $this->assertCount(0, Visit::all());
     }
 
     /** @test */
@@ -120,21 +101,25 @@ class PatientTest extends TestCase
 
         $patient = factory(Patient::class)->create();
 
-        $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
-            'full_name' => 'អ្នកជំងឺ',
-            'full_name_optional' => 'patient edit',
-            'gender' => 'M',
-            'nationality_code' => 'KH',
-            'phone' => '0987654',
-            'identity_type' => 1,
-            'identity_no' => '0786545',
-        ]))
+        $this->putJson(
+            "api/patients/{$patient->id}",
+            array_merge(
+                collect($patient)->except('age', 'identity_type_text')->toArray(), [
+                'full_name' => 'អ្នកជំងឺ',
+                'other_name' => 'patient edit',
+                'gender' => 'M',
+                'nationality_code' => 'KH',
+                'phone' => '0987654',
+                'identity_type' => 1,
+                'identity_no' => '0786545',
+            ])
+        )
         ->assertStatus(200);
 
         $this->assertDatabaseHas('patients', [
             'id' => $patient->id,
             'full_name' => 'អ្នកជំងឺ',
-            'full_name_optional' => 'patient edit',
+            'other_name' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -152,7 +137,7 @@ class PatientTest extends TestCase
 
         $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
             'full_name' => 'អ្នកជំងឺ',
-            'full_name_optional' => 'patient edit',
+            'other_name' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -164,7 +149,7 @@ class PatientTest extends TestCase
         $this->assertDatabaseMissing('patients', [
             'id' => $patient->id,
             'full_name' => 'អ្នកជំងឺ',
-            'full_name_optional' => 'patient edit',
+            'other_name' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -211,7 +196,7 @@ class PatientTest extends TestCase
             'data' => [
                 '*' => [
                     'full_name',
-                    'full_name_optional',
+                    'other_name',
                     'dob',
                     'gender',
                     'nationality_code',
@@ -253,7 +238,7 @@ class PatientTest extends TestCase
         ->assertJsonStructure([
             'data' => [
                 'full_name',
-                'full_name_optional',
+                'other_name',
                 'dob',
                 'gender',
                 'nationality_code',

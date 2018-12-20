@@ -155,8 +155,6 @@ return [
          * Application Service Providers...
          */
         App\Place\Providers\RouteServiceProvider::class,
-        App\Patient\Providers\PatientServiceProvider::class,
-
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

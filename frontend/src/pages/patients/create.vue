@@ -216,13 +216,23 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center justify-end mt-4">
-              <base-button flat color="primary" class="mr-5" @click="clearSelect">
-                Clear
-              </base-button>
-              <base-button color="primary" :waiting="saving" type="submit">
-                Register
-              </base-button>
+            <div class="flex items-center mt-4">
+              <div class="flex-grow">
+                <base-checkbox v-model="print_name_card">
+                  Print name card
+                </base-checkbox>
+              </div>
+              <div>
+                <base-button flat color="primary" class="mr-5" @click="clearSelect">
+                  Clear
+                </base-button>
+                <base-button outline class="mr-5" color="primary" :waiting="saving" type="submit">
+                  Register
+                </base-button>
+                <base-button color="primary" :waiting="saving" type="submit">
+                  Register & New
+                </base-button>
+              </div>
             </div>
           </form>
         </BaseCard>
@@ -294,7 +304,8 @@ export default {
         referal: ''
       },
       saving: false,
-      patients: []
+      patients: [],
+      print_name_card: false
     }
   },
   validations: {

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Patient\Repositories;
+namespace App\Repositories;
 
-use App\Patient\Models\Patient;
+use App\Models\Patient;
 
 class PatientRepository
 {
@@ -10,7 +10,7 @@ class PatientRepository
      * Create a new patient.
      *
      * @param  Array  $params
-     * @return \App\Patient\Models\Patient $patient
+     * @return \App\Models\Patient $patient
      */
     public function create(Array $params)
     {
@@ -35,9 +35,9 @@ class PatientRepository
      *
      * @param  int $id
      * @param  Array  $params
-     * @return \App\Patient\Models\Patient $patient
+     * @return \App\Models\Patient $patient
      */
-    public function update(Patient $patient, Array $params)
+    public function update($id, Array $params)
     {
         $patient = Patient::findOrFail($id);
         $patient->update(array_merge($params, [ 'registered_by' => auth()->id() ]));

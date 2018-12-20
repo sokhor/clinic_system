@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Patient\Repositories;
+namespace App\Repositories;
 
-use App\Patient\Models\Patient;
-use App\Patient\Models\Visit;
+use App\Models\Patient;
+use App\Models\Visit;
 
 class VisitRepository
 {
     /**
      * Generate a new queue
      *
-     * @param  \App\Patient\Models\Patient $patient
-     * @return \App\Patient\Models\Visit
+     * @param  \App\Models\Patient $patient
+     * @return \App\Models\Visit
      */
     public function generateGueue(Patient $patient, int $progress)
     {

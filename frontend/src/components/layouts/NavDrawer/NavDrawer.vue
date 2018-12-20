@@ -118,18 +118,24 @@ export default {
           ]
         },
         {
-          name: 'Patient',
-          url: '/patients',
-          icon: 'fas fa-bed'
-        },
-        {
-          name: 'Visitor',
-          url: '/visits',
-          icon: 'fas fa-walking',
-          badge: {
-            color: 'red',
-            text: '10'
-          }
+          name: 'Reception',
+          icon: 'fas fa-building',
+          children: [
+            {
+              name: 'Registration',
+              url: '/patients/create',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Visitor',
+              url: '/visits',
+              icon: 'fas fa-caret-right',
+              badge: {
+                color: 'red',
+                text: '10'
+              }
+            }
+          ]
         },
         {
           name: 'Nurse',
@@ -159,6 +165,11 @@ export default {
             color: 'red',
             text: '5'
           }
+        },
+        {
+          name: 'Patient',
+          url: '/patients',
+          icon: 'fas fa-bed'
         }
       ]
     }

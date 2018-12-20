@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Patient\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Patient\Http\Resources\PatientVisitResource;
-use App\Patient\Models\Visit;
+use App\Http\Resources\PatientVisitResource;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 

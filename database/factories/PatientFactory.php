@@ -4,7 +4,7 @@ use App\User;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
-$factory->define(App\Patient\Models\Patient::class, function (Faker $faker) {
+$factory->define(App\Models\Patient::class, function (Faker $faker) {
     return [
         'full_name' => $faker->name,
         'other_name' => null,

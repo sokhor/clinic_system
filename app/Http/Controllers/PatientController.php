@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Patient\Http\Controllers;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Patient\Http\Requests\PatientCreateRequest;
-use App\Patient\Http\Requests\PatientDeleteRequest;
-use App\Patient\Http\Requests\PatientUpdateRequest;
-use App\Patient\Http\Requests\PatientViewRequest;
-use App\Patient\Http\Resources\PatientResource;
-use App\Patient\Models\Patient;
-use App\Patient\Repositories\PatientRepository;
-use App\Patient\Repositories\VisitRepository;
+use App\Http\Requests\PatientCreateRequest;
+use App\Http\Requests\PatientDeleteRequest;
+use App\Http\Requests\PatientUpdateRequest;
+use App\Http\Requests\PatientViewRequest;
+use App\Http\Resources\PatientResource;
+use App\Models\Patient;
+use App\Repositories\PatientRepository;
+use App\Repositories\VisitRepository;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\Filter;
 
@@ -19,22 +19,22 @@ class PatientController extends Controller
     /**
      * Queue repository
      *
-     * @var \App\Patient\Repositories\PatientRepository
+     * @var \App\Repositories\PatientRepository
      */
     protected $patient;
 
     /**
      * Visit repository
      *
-     * @var \App\Patient\Repositories\VisitRepository
+     * @var \App\Repositories\VisitRepository
      */
     protected $visit;
 
     /**
      * Create the controller instance
      *
-     * @param \App\Patient\Repositories\PatientRepository $patient
-     * @param \App\Patient\Repositories\VisitRepository $vist
+     * @param \App\Repositories\PatientRepository $patient
+     * @param \App\Repositories\VisitRepository $vist
      */
     public function __construct(PatientRepository $patient, VisitRepository $visit)
     {
@@ -69,7 +69,7 @@ class PatientController extends Controller
      * Show a patient
      *
      * @param  \App\Place\Http\Requests\PatientViewRequest $request
-     * @param  \App\Patient\Models\Patient $patient
+     * @param  \App\Models\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function show(PatientViewRequest $request, Patient $patient)
@@ -109,8 +109,8 @@ class PatientController extends Controller
     /**
      * Delete patients
      *
-     * @param  \App\Patient\Http\Requests\PatientDeleteRequest $request
-     * @param  \App\Patient\Models\Patient $patient
+     * @param  \App\Http\Requests\PatientDeleteRequest $request
+     * @param  \App\Models\Patient $patient
      * @return \Illuminate\Http\Response
      */
     public function destroy(PatientDeleteRequest $request, Patient $patient)

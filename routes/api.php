@@ -10,4 +10,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::apiResource('users', 'UserController');
     Route::apiResource('roles', 'RoleController');
     Route::get('abilities', 'AbilitiesController@index');
+    Route::apiResource('patients', 'PatientController');
+    Route::apiResource('visits', 'VisitController');
 });
