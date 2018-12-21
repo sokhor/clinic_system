@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Patient\Http\Resources;
+namespace App\Http\Resources;
 
-use App\Patient\Http\Resources\PatientResource;
+use App\Http\Resources\PatientResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PatientVisitResource extends JsonResource
+class VisitResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

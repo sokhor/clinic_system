@@ -5,7 +5,7 @@
         <base-card class="bg-red-light">
           <div class="flex relative">
             <div class="flex flex-col items-center p-6">
-              <span class="uppercase text-white font-semibold text-sm tracking-wide opacity-75">Today Visitors</span>
+              <span class="uppercase text-white font-semibold text-sm tracking-wide opacity-75">Today Visits</span>
               <span class="uppercase text-white font-semibold text-5xl tracking-wide">10</span>
             </div>
             <span class="flex-grow text-5xl opacity-25 absolute pin-r mr-4" style="font-size: 5rem;">
@@ -44,7 +44,7 @@
     <div class="flex -mx-4">
       <div class="w-2/3 p-4">
         <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-          <h1 class="inline text-grey-darkest text-xl font-bold">Visitor</h1>
+          <h1 class="inline text-grey-darkest text-xl font-bold">Visit</h1>
         </div>
         <base-card>
           <div class="p-4 flex">

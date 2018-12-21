@@ -127,7 +127,7 @@ export default {
               icon: 'fas fa-caret-right'
             },
             {
-              name: 'Visitor',
+              name: 'Visit',
               url: '/visits',
               icon: 'fas fa-caret-right',
               badge: {
