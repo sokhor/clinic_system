@@ -1,4 +1,5 @@
 import './styles/main.css'
+import moment from 'moment'
 import Vue from 'vue'
 import VueRx from 'vue-rx'
 import Vuelidate from 'vuelidate'
@@ -9,7 +10,11 @@ import store from './store'
 import './components/common'
 import { ModalDialog, Toast } from './plugins'
 
-Vue.config.productionTip = false
+moment.locale('kh', {
+  week: {
+    dow: 1
+  }
+})
 
 Vue.use(VueRx)
 Vue.use(Vuelidate)
@@ -17,8 +22,16 @@ Vue.use(Vmodal, { dynamic: true, injectModalsContainer: true })
 Vue.use(ModalDialog)
 Vue.use(Toast, { position: 'bottom-center', duration: 3000 })
 
-new Vue({
+const app = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+Object.defineProperties(Vue.prototype, {
+  $moment: {
+    get() {
+      return moment
+    }
+  }
+})
