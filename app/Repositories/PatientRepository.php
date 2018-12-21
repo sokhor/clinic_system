@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Patient;
+use Illuminate\Support\Carbon;
 
 class PatientRepository
 {
@@ -21,12 +22,18 @@ class PatientRepository
             ->first();
 
         if($patient) {
-            $patient->update(array_merge($params, [ 'registered_by' => auth()->id() ]));
+            $patient->update(array_merge($params, [
+                'dob' => Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d'),
+                'registered_by' => auth()->id(),
+            ]));
             return $patient->fresh();
         }
 
         return Patient::create(
-            array_merge($params, [ 'registered_by' => auth()->id() ])
+            array_merge($params, [
+                'dob' => Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d'),
+                'registered_by' => auth()->id(),
+            ])
         );
     }
 
