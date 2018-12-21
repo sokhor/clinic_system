@@ -19,7 +19,7 @@ class PatientResource extends JsonResource
             'address' => $this->address,
             'age' => $this->age . ' ' . str_plural('yr', $this->age<=1 ? 1 : 2),
             'code' => $this->code,
-            'dob' => $this->dob,
+            'dob' => $this->dob->format(config('app.date_format')),
             'email'=> $this->email,
             'full_name'=> $this->full_name,
             'other_name'=> $this->other_name,

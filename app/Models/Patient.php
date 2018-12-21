@@ -32,9 +32,7 @@ class Patient extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'dob' => 'date:Y-m-d',
-    ];
+    protected $casts = [];
 
     /**
      * The attributes that should be append.
