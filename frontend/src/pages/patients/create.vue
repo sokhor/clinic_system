@@ -2,7 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/patients"><i class="fas fa-arrow-left"></i></router-link> / Patient Registration
+        Patient Registration
       </h1>
     </div>
     <div class="flex -mx-4">
@@ -273,7 +273,8 @@
           </div>
         </BaseCard>
         <p class="flex items-center justify-center" v-show="patients.length === 0">
-          No existed patients
+          <span class="fas fa-spinner spinning" v-show="patientLoading"></span>
+          <span v-show="!patientLoading">No existed patients</span>
         </p>
       </div>
     </div>
@@ -305,8 +306,9 @@ export default {
       },
       saving: false,
       savingAndNew: false,
+      patientLoading: false,
       patients: [],
-      print_name_card: false
+      print_name_card: false,
     }
   },
   validations: {
@@ -377,7 +379,7 @@ export default {
       this.saving = true
       try {
         await this.$store.dispatch('patients/store', this.form)
-        this.$toasted.success('Patient created successfully')
+        this.$toasted.success('Patient registered successfully')
         this.$router.push('/patients')
       } catch (error) {
         this.$toasted.error(error.message)
@@ -393,7 +395,7 @@ export default {
       this.savingAndNew = true
       try {
         await this.$store.dispatch('patients/store', this.form)
-        this.$toasted.success('Patient created successfully')
+        this.$toasted.success('Patient registered successfully')
         this.clearSelect()
       } catch (error) {
         this.$toasted.error(error.message)
@@ -439,6 +441,8 @@ export default {
       )
         return (this.patients = [])
 
+      this.patients = []
+      this.patientLoading = true
       this.$store
         .dispatch('patients/list', {
           filter: {
@@ -451,6 +455,7 @@ export default {
         })
         .then(response => {
           this.patients = response.data
+          this.patientLoading = false
         })
     }, 500)
   }
