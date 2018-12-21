@@ -66,6 +66,7 @@
               <base-th>Patient Name</base-th>
               <base-th>Progress</base-th>
               <base-th>IPD/OPD</base-th>
+              <base-th>Duration</base-th>
             </base-thead>
             <base-tbody>
               <base-tr v-for="visit in visits" :key="visit.id">
@@ -74,6 +75,7 @@
                 <base-td>{{ visit.patient.full_name }}</base-td>
                 <base-td>{{ visit.progress_text}}</base-td>
                 <base-td>{{ visit.ipd ? 'IPD' : 'OPD' }}</base-td>
+                <base-td>{{ visit.duration }}</base-td>
               </base-tr>
             </base-tbody>
           </base-table>
