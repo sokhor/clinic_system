@@ -8,7 +8,7 @@
     <div class="flex -mx-4">
       <div class="w-3/4 p-4">
         <BaseCard class="p-4">
-          <form @submit.prevent="save">
+          <form>
             <div class="flex -mx-4">
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
@@ -226,10 +226,10 @@
                 <base-button flat color="primary" class="mr-5" @click="clearSelect">
                   Clear
                 </base-button>
-                <base-button outline class="mr-5" color="primary" :waiting="saving" type="submit">
+                <base-button outline class="mr-5" color="primary" :waiting="saving" @click="save">
                   Register
                 </base-button>
-                <base-button color="primary" :waiting="saving" type="submit">
+                <base-button color="primary" :waiting="savingAndNew" @click="saveAndNew">
                   Register & New
                 </base-button>
               </div>
@@ -304,6 +304,7 @@ export default {
         referal: ''
       },
       saving: false,
+      savingAndNew: false,
       patients: [],
       print_name_card: false
     }
@@ -367,7 +368,7 @@ export default {
     }
   },
   methods: {
-    async save() {
+    async save(addNew = false) {
       this.$v.$touch()
       if (this.$v.$error) {
         throw 'Validation failed'
@@ -382,6 +383,22 @@ export default {
         this.$toasted.error(error.message)
       }
       this.saving = false
+    },
+    async saveAndNew() {
+      this.$v.$touch()
+      if (this.$v.$error) {
+        throw 'Validation failed'
+      }
+
+      this.savingAndNew = true
+      try {
+        await this.$store.dispatch('patients/store', this.form)
+        this.$toasted.success('Patient created successfully')
+        this.clearSelect()
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
+      this.savingAndNew = false
     },
     select(patient) {
       this.form.id = patient.id

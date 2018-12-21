@@ -2,7 +2,6 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">Patients</h1>
-      <BaseButton color="primary" @click="$router.push('/patients/create')">Register</BaseButton>
     </div>
     <BaseCard>
       <div class="p-4 flex">
