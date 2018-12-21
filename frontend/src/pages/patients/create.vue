@@ -380,7 +380,7 @@ export default {
       try {
         await this.$store.dispatch('patients/store', this.form)
         this.$toasted.success('Patient registered successfully')
-        this.$router.push('/patients')
+        this.$router.push('/visits')
       } catch (error) {
         this.$toasted.error(error.message)
       }
