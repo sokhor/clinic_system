@@ -30,6 +30,7 @@ class PatientCreateRequest extends FormRequest
             'phone' => 'required',
             'identity_type' => 'required',
             'identity_no' => 'required',
+            'type' => 'required',
         ];
     }
 }

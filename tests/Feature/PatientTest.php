@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Patient\Models\Appointment;
 use App\Models\Patient;
+use App\Models\Queue;
+use App\Models\Referal;
+use App\Models\Staff;
 use App\Models\Visit;
+use App\Patient\Models\Appointment;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -22,18 +25,30 @@ class PatientTest extends TestCase
         $user->allow('create-patients');
         $this->signIn($user);
 
-        $patient = factory(Patient::class)->make();
+        $patient = factory(Patient::class)->make([
+            'dob' => today()->subYears(40)->format(config('app.date_format')),
+            'last_visited_at' => now()->format(config('app.timestamp_format')),
+        ]);
+
+        $doctor = factory(Staff::class)->create();
+        $referal = factory(Referal::class)->create();
 
         $this->postJson(
             'api/patients',
-            collect($patient)->except('age', 'identity_type_text')->toArray()
+            collect($patient)
+            ->merge([
+                'type' => 1, //'Consultation'
+                'assigned_id' => $doctor->id,
+                'referal_id' => $referal->id,
+            ])
+            ->toArray()
         )
         ->assertStatus(201);
 
         $this->assertDatabaseHas('patients', [
             'full_name' => $patient->full_name,
-            'other_name' => $patient->other_name,
-            'dob' => $patient->dob,
+            'full_name_2' => $patient->full_name_2,
+            'dob' => Carbon::createFromFormat(config('app.date_format'), $patient->dob)->format('Y-m-d'),
             'gender' => $patient->gender,
             'nationality_code' => $patient->nationality_code,
             'phone' => $patient->phone,
@@ -41,19 +56,29 @@ class PatientTest extends TestCase
             'address' => $patient->address,
             'identity_type' => $patient->identity_type,
             'identity_no' => $patient->identity_no,
-            'last_visited_at' => $patient->last_visited_at,
-            'referal' => $patient->referal,
-            'registered_by' => $user->id,
+            'last_visited_at' => Carbon::createFromFormat(config('app.timestamp_format'), $patient->last_visited_at)->format('Y-m-d H:i:s'),
+            'photo' => $patient->photo,
         ]);
 
         $patient = Patient::first();
 
         $this->assertDatabaseHas('visits', [
             'patient_id' => $patient->id,
+            'ipd' => 0,
+            'status' => 0, // Waiting
+            'progress' => 1, // Nursing
+            'type' => 1, // Consultant
+            'assigned_id' => $doctor->id,
+            'referal_id' => $referal->id,
+            'registered_by' => $user->id,
+        ]);
+
+        $this->assertDatabaseHas('queues', [
+            'patient_id' => $patient->id,
+            'visit_id' => optional($patient->visits()->latest()->first())->id,
             'queue_no' => 1,
-            'ipd' => false,
-            'status' => 0,
-            'progress' => 1,
+            'assigned_id' => $doctor->id,
+            'status' => 0, // Waiting
         ]);
     }
 
@@ -76,6 +101,8 @@ class PatientTest extends TestCase
         ]);
 
         $this->assertCount(0, Patient::all());
+        $this->assertCount(0, Visit::all());
+        $this->assertCount(0, Queue::all());
     }
 
     /** @test */
@@ -90,6 +117,7 @@ class PatientTest extends TestCase
 
         $this->assertCount(0, Patient::all());
         $this->assertCount(0, Visit::all());
+        $this->assertCount(0, Queue::all());
     }
 
     /** @test */
@@ -104,9 +132,9 @@ class PatientTest extends TestCase
         $this->putJson(
             "api/patients/{$patient->id}",
             array_merge(
-                collect($patient)->except('age', 'identity_type_text')->toArray(), [
+                collect($patient)->toArray(), [
                 'full_name' => 'អ្នកជំងឺ',
-                'other_name' => 'patient edit',
+                'full_name_2' => 'patient edit',
                 'gender' => 'M',
                 'nationality_code' => 'KH',
                 'phone' => '0987654',
@@ -119,7 +147,7 @@ class PatientTest extends TestCase
         $this->assertDatabaseHas('patients', [
             'id' => $patient->id,
             'full_name' => 'អ្នកជំងឺ',
-            'other_name' => 'patient edit',
+            'full_name_2' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -137,7 +165,7 @@ class PatientTest extends TestCase
 
         $this->putJson("api/patients/{$patient->id}", array_merge($patient->toArray(), [
             'full_name' => 'អ្នកជំងឺ',
-            'other_name' => 'patient edit',
+            'full_name_2' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -149,7 +177,7 @@ class PatientTest extends TestCase
         $this->assertDatabaseMissing('patients', [
             'id' => $patient->id,
             'full_name' => 'អ្នកជំងឺ',
-            'other_name' => 'patient edit',
+            'full_name_2' => 'patient edit',
             'gender' => 'M',
             'nationality_code' => 'KH',
             'phone' => '0987654',
@@ -196,7 +224,7 @@ class PatientTest extends TestCase
             'data' => [
                 '*' => [
                     'full_name',
-                    'other_name',
+                    'full_name_2',
                     'dob',
                     'gender',
                     'nationality_code',
@@ -206,7 +234,7 @@ class PatientTest extends TestCase
                     'identity_type',
                     'identity_no',
                     'last_visited_at',
-                    'referal',
+                    'lastVisit',
                 ],
             ],
         ]);
@@ -238,7 +266,7 @@ class PatientTest extends TestCase
         ->assertJsonStructure([
             'data' => [
                 'full_name',
-                'other_name',
+                'full_name_2',
                 'dob',
                 'gender',
                 'nationality_code',
@@ -248,7 +276,7 @@ class PatientTest extends TestCase
                 'identity_type',
                 'identity_no',
                 'last_visited_at',
-                'referal',
+                'lastVisit',
             ],
         ]);
     }

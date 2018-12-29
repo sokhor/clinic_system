@@ -11,11 +11,32 @@ class Visit extends Model
     use SoftDeletes;
 
     /**
-     * The guarded attributes on the model.
+     * The fillable attributes on the model.
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'patient_id',
+        'assigned_id',
+        'type',
+        'progress',
+        'status',
+        'ipd',
+        'registered_by',
+        'nursing',
+        'nursing_by_id',
+        'nursing_status',
+        'doctor_visit',
+        'doctor_visit_by_id',
+        'doctor_visit_status',
+        'imaging',
+        'imaging_by_id',
+        'imaging_status',
+        'dispensery',
+        'dispensery_by_id',
+        'dispensery_status',
+        'referal_id',
+    ];
 
     /**
      * The attributes that should be cast to native types.

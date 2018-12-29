@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Patient\Models\Appointment;
-use App\Patient\Models\Queue;
-use App\Patient\Models\Visit;
+use App\Models\Appointment;
+use App\Models\Queue;
+use App\Models\Visit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -14,18 +14,32 @@ class Patient extends Model
     use SoftDeletes;
 
     /**
-     * The guarded attributes on the model.
+     * The fillable attributes on the model.
      *
      * @var array
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'code',
+        'full_name',
+        'full_name_2',
+        'gender',
+        'dob',
+        'nationality_code',
+        'phone',
+        'email',
+        'address',
+        'identity_type',
+        'identity_no',
+        'photo',
+        'last_visited_at',
+    ];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = [ 'dob', 'last_visited_at' ];
+    protected $dates = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -51,7 +65,7 @@ class Patient extends Model
         parent::boot();
 
         static::created(function($model) {
-            $model->code = 'PA' . $model->id;
+            $model->code = 'PA' . sprintf("%'.03d", $model->id);
             $model->save();
         });
     }
@@ -83,7 +97,17 @@ class Patient extends Model
      */
     public function visits()
     {
-        return $this->hasMany(Visit::class)->latest();
+        return $this->hasMany(Visit::class);
+    }
+
+    /**
+     * Patient may have a last visit
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastVisit()
+    {
+        return $this->hasOne(Visit::class)->latest();
     }
 
     /**
@@ -97,9 +121,13 @@ class Patient extends Model
             return null;
         }
 
-        return Carbon::today()->diffInYears(
-            Carbon::createFromFormat('Y-m-d', explode(' ',$this->attributes['dob'])[0])
-        );
+        try {
+            $birth_date = Carbon::createFromFormat(config('app.date_format'), explode(' ', $this->attributes['dob'])[0]);
+        } catch (\Exception $e) {
+            $birth_date = Carbon::createFromFormat('Y-m-d', explode(' ', $this->attributes['dob'])[0]);
+        }
+
+        return Carbon::today()->diffInYears($birth_date);
     }
 
     /**

@@ -50,7 +50,7 @@ class PatientController extends Controller
      */
     public function index(PatientViewRequest $request)
     {
-        $patients = QueryBuilder::for(Patient::class)
+        $patients = QueryBuilder::for(Patient::with('lastVisit'))
             ->allowedFilters(
                 'full_name',
                 Filter::exact('phone'),
@@ -74,6 +74,8 @@ class PatientController extends Controller
      */
     public function show(PatientViewRequest $request, Patient $patient)
     {
+        $patient->load('lastVisit');
+
         return new PatientResource($patient);
     }
 
@@ -86,9 +88,12 @@ class PatientController extends Controller
     public function store(PatientCreateRequest $request)
     {
         $patient = $this->patient->create($request->all());
-        $this->visit->generateGueue($patient, $request->progress ?? 1);
+        $this->visit->create(array_merge(
+            $request->only('type', 'assigned_id', 'referal_id'),
+            ['patient_id' => $patient->id]
+        ));
 
-        return $patient;
+        return new PatientResource($patient);
     }
 
     /**
@@ -101,9 +106,8 @@ class PatientController extends Controller
     public function update(PatientUpdateRequest $request, $id)
     {
         $patient = $this->patient->update($id, $request->all());
-        $this->visit->generateGueue($patient, $request->progress ?? 1);
 
-        return $patient;
+        return new PatientResource($patient);
     }
 
     /**

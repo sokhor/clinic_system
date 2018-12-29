@@ -64,15 +64,7 @@
                 <BaseButton
                   flat
                   color="primary"
-                  title="Revisit"
-                >
-                  <i class="fas fa-share"></i>
-                </BaseButton>
-                <BaseButton
-                  flat
-                  color="primary"
                   title="View"
-                  class="ml-4"
                   @click="$router.push(`/patients/${patient.id}`)"
                 >
                   <i class="fas fa-eye"></i>

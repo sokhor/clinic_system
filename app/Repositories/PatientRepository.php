@@ -15,26 +15,16 @@ class PatientRepository
      */
     public function create(Array $params)
     {
-        $patient = Patient::where(function($builder) use ($params) {
-                $builder->where('identity_no', $params['identity_no'])
-                    ->where('identity_type', $params['identity_type']);
-            })
-            ->first();
+        $params = array_merge($params, [
+            'dob' => Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d'),
+            'last_visited_at' => now()->format('Y-m-d H:i:s'),
+        ]);
 
-        if($patient) {
-            $patient->update(array_merge($params, [
-                'dob' => Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d'),
-                'registered_by' => auth()->id(),
-            ]));
-            return $patient->fresh();
+        if($patient = $this->existsingPatient($params['identity_no'], $params['identity_type'])) {
+            return tap($patient)->update($params);
         }
 
-        return Patient::create(
-            array_merge($params, [
-                'dob' => Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d'),
-                'registered_by' => auth()->id(),
-            ])
-        );
+        return Patient::create($params);
     }
 
     /**
@@ -42,13 +32,25 @@ class PatientRepository
      *
      * @param  int $id
      * @param  Array  $params
-     * @return \App\Models\Patient $patient
+     * @return \App\Models\Patient
      */
     public function update($id, Array $params)
     {
         $patient = Patient::findOrFail($id);
-        $patient->update(array_merge($params, [ 'registered_by' => auth()->id() ]));
+        return tap($patient)->update($params);
+    }
 
-        return $patient->fresh();
+    /**
+     * Existing patient
+     *
+     * @param  string $identity_no
+     * @param  int $identity_type
+     * @return \App\Models\Patient|null
+     */
+    private function existsingPatient($identity_no, $identity_type)
+    {
+        return Patient::where('identity_no', $identity_no)
+            ->where('identity_type', $identity_type)
+            ->first();
     }
 }

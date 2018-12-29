@@ -35,7 +35,7 @@
                   <div class="w-3/5">
                     <input
                       class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.other_name"
+                      v-model="form.full_name_2"
                       type="text"
                     />
                   </div>
@@ -190,12 +190,31 @@
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                    Type
+                  </label>
+                  <div class="w-3/5">
+                    <select
+                      class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                      v-model="form.type"
+                      @input="$v.form.type.$touch()"
+                    >
+                      <option value="">--Choose--</option>
+                      <option value="1">Consulting</option>
+                      <option value="2">Para-clinic</option>
+                    </select>
+                    <span class="block text-xs italic text-red" v-if="typeErrors.length > 0">
+                      {{ typeErrors[0] }}
+                    </span>
+                  </div>
+                </div>
+                <div class="flex items-start mb-3">
+                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
                     Referal
                   </label>
                   <div class="w-3/5">
                     <input
                       class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.referal"
+                      v-model="form.referal_id"
                       type="text"
                     />
                   </div>
@@ -209,7 +228,7 @@
                   <div class="w-3/5">
                     <input
                       class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.referal"
+                      v-model="form.assigned_id"
                       type="text"
                     />
                   </div>
@@ -293,7 +312,7 @@ export default {
       form: {
         id: '',
         full_name: '',
-        other_name: '',
+        full_name_2: '',
         dob: '',
         gender: '',
         nationality_code: '',
@@ -302,13 +321,16 @@ export default {
         address: '',
         identity_type: '',
         identity_no: '',
-        referal: ''
+        referal_id: '',
+        assigned_id: '',
+        type: '',
+        photo: null
       },
       saving: false,
       savingAndNew: false,
       patientLoading: false,
       patients: [],
-      print_name_card: false,
+      print_name_card: false
     }
   },
   validations: {
@@ -318,7 +340,8 @@ export default {
       nationality_code: { required },
       phone: { required },
       identity_type: { required },
-      identity_no: { required }
+      identity_no: { required },
+      type: { required }
     }
   },
   computed: {
@@ -367,6 +390,12 @@ export default {
       if (!this.$v.form.identity_no.$dirty) return errors
       !this.$v.form.identity_no.required && errors.push('Required')
       return errors
+    },
+    typeErrors() {
+      const errors = []
+      if (!this.$v.form.type.$dirty) return errors
+      !this.$v.form.type.required && errors.push('Required')
+      return errors
     }
   },
   methods: {
@@ -405,7 +434,7 @@ export default {
     select(patient) {
       this.form.id = patient.id
       this.form.full_name = patient.full_name
-      this.form.other_name = patient.other_name
+      this.form.full_name_2 = patient.full_name_2
       this.form.dob = patient.dob
       this.form.gender = patient.gender
       this.form.nationality_code = patient.nationality_code
@@ -414,12 +443,12 @@ export default {
       this.form.address = patient.address
       this.form.identity_type = patient.identity_type
       this.form.identity_no = patient.identity_no
-      this.form.referal = patient.referal
+      this.form.referal_id = patient.referal_id
     },
     clearSelect() {
       this.form.id = ''
       this.form.full_name = ''
-      this.form.other_name = ''
+      this.form.full_name_2 = ''
       this.form.dob = ''
       this.form.gender = ''
       this.form.nationality_code = ''
@@ -428,7 +457,7 @@ export default {
       this.form.address = ''
       this.form.identity_type = ''
       this.form.identity_no = ''
-      this.form.referal = ''
+      this.form.referal_id = ''
 
       this.$v.form.$reset()
     },
