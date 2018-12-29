@@ -223,7 +223,7 @@
                       v-model="form.referal_id"
                       type="text"
                     />
-                    <a href="#" class="block text-xs no-underline hover:underline mt-1" @click.prevent="addNewReferal">
+                    <a href="#" class="block text-xs no-underline hover:underline text-blue mt-1" @click.prevent="addNewReferal">
                       <i class="fas fa-plus"></i> Add new
                     </a>
                   </div>
