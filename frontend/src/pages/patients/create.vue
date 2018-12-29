@@ -6,7 +6,7 @@
       </h1>
     </div>
     <div class="flex -mx-4">
-      <div class="w-3/4 p-4">
+      <div class="w-3/4 px-4">
         <BaseCard class="p-4">
           <form>
             <div class="flex -mx-4">
@@ -256,7 +256,7 @@
           </form>
         </BaseCard>
       </div>
-      <div class="w-1/4 p-4">
+      <div class="w-1/4 px-4">
         <h4 class="text-grey-darkest mb-2">Suggested Patients</h4>
         <BaseCard v-show="patients.length">
           <div class="p-4 border-b" v-for="patient in patients">
