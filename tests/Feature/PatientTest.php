@@ -56,11 +56,12 @@ class PatientTest extends TestCase
             'address' => $patient->address,
             'identity_type' => $patient->identity_type,
             'identity_no' => $patient->identity_no,
-            'last_visited_at' => Carbon::createFromFormat(config('app.timestamp_format'), $patient->last_visited_at)->format('Y-m-d H:i:s'),
             'photo' => $patient->photo,
         ]);
 
         $patient = Patient::first();
+
+        $this->assertNotNull($patient->last_visited_at);
 
         $this->assertDatabaseHas('visits', [
             'patient_id' => $patient->id,
