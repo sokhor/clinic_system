@@ -231,5 +231,5 @@ return [
     | Specifies timestamp format when returning timestamp fields
     |
     */
-    'timestamp_format' => 'd-m-Y H:s:i'
+    'timestamp_format' => 'd-m-Y H:i:s'
 ];
