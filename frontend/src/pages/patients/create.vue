@@ -60,8 +60,6 @@
                     </span>
                   </div>
                 </div>
-              </div>
-              <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
                     Date of Birth
@@ -92,6 +90,14 @@
                       {{ nationalityCodeErrors[0] }}
                     </span>
                   </div>
+                </div>
+              </div>
+              <div class="w-1/2 p-4">
+                <div class="text-center">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-32 h-32 fill-current stroke-current text-grey-dark">
+                    <circle cx="16" cy="7.5" r="7.4"/>
+                    <path d="M16,18C7.7,18,1,24.3,1,32h30C31,24.3,24.3,18,16,18z"/>
+                  </svg>
                 </div>
               </div>
             </div>
