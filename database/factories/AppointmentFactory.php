@@ -1,16 +1,17 @@
 <?php
 
-use App\Reception\Models\Patient;
+use App\Models\Patient;
+use App\Models\Staff;
 use Faker\Generator as Faker;
 use Illuminate\Support\Carbon;
 
-$factory->define(App\Reception\Models\Appointment::class, function (Faker $faker) {
+$factory->define(App\Models\Appointment::class, function (Faker $faker) {
     return [
         'patient_id' => function() { return factory(Patient::class)->create()->id; },
-        'next_visit_at' => Carbon::now()->addDay(random_int(3, 30)),
-        'referal' => $faker->company,
-        'refer_to' => null,
-        'type' => $faker->randomElement([1, 2]),
-        'status' => $faker->randomElement([1, 2]),
+        'subject' => $faker->sentence,
+        'appointed_at' => Carbon::now()->addDay(random_int(3, 30))->format('Y-m-d H:i:s'),
+        'comment' => $faker->paragraph,
+        'doctor_id' => function() { return factory(Staff::class)->states('doctor')->create()->id; },
+        'status' => $faker->randomElement([0, 1]),
     ];
 });
