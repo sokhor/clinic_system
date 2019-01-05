@@ -207,7 +207,7 @@ class PatientTest extends TestCase
             'identity_no',
         ]);
 
-        $this->assertDatabaseHas('patients', collect($patient)->except(['age', 'identity_type_text'])->toArray());
+        $this->assertDatabaseHas('patients', collect($patient)->toArray());
     }
 
     /** @test */
@@ -236,6 +236,8 @@ class PatientTest extends TestCase
                     'identity_no',
                     'last_visited_at',
                     'lastVisit',
+                    'age',
+                    'identity_type_text',
                 ],
             ],
         ]);
@@ -278,6 +280,8 @@ class PatientTest extends TestCase
                 'identity_no',
                 'last_visited_at',
                 'lastVisit',
+                'age',
+                'identity_type_text',
             ],
         ]);
     }
@@ -306,7 +310,7 @@ class PatientTest extends TestCase
         $this->deleteJson("api/patients/{$patient->id}")
         ->assertStatus(200);
 
-        $this->assertDatabaseHas('patients', collect($patient->fresh())->except(['age', 'identity_type_text'])->toArray());
+        $this->assertDatabaseHas('patients', collect($patient->fresh())->toArray());
         $this->assertNotEquals(NULL, $patient->fresh()->deleted_at);
     }
 
@@ -320,7 +324,7 @@ class PatientTest extends TestCase
         $this->deleteJson("api/patients/{$patient->id}")
         ->assertStatus(403);
 
-        $this->assertDatabaseHas('patients', collect($patient)->except(['age', 'identity_type_text'])->toArray());
+        $this->assertDatabaseHas('patients', collect($patient)->toArray());
         $this->assertEquals(NULL, $patient->fresh()->deleted_at);
     }
 }
