@@ -53,7 +53,7 @@ class Patient extends Model
      *
      * @var array
      */
-    protected $appends = ['age', 'identity_type_text'];
+    protected $appends = [];
 
     /**
      * The "booting" method of the model.
