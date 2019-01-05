@@ -76,7 +76,10 @@ export default {
       form: {
         patient_id: '',
         subject: '',
-        appointed_at: this.date !== undefined && this.date !== null ? this.date.format('DD-MM-YYYY HH:mm:ss') : '',
+        appointed_at:
+          this.date !== undefined && this.date !== null
+            ? this.date.format('DD-MM-YYYY HH:mm:ss')
+            : '',
         doctor_id: '',
         comment: ''
       },

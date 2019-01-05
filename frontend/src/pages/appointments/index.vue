@@ -73,8 +73,16 @@ export default {
     patients: () => patients,
     upcomingAppointments() {
       return this.appointments.filter(appointment => {
-        return this.$moment().isSame(this.$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss'), 'day') &&
-          this.$moment().isBefore(this.$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss'), 'second')
+        return (
+          this.$moment().isSame(
+            this.$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss'),
+            'day'
+          ) &&
+          this.$moment().isBefore(
+            this.$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss'),
+            'second'
+          )
+        )
       })
     }
   },
