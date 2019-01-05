@@ -6,6 +6,8 @@ use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\Staff;
+use App\Models\Patient;
 
 class AppointmentController extends Controller
 {
@@ -28,6 +30,7 @@ class AppointmentController extends Controller
 
         $appointment = Appointment::create(array_merge($request->all(), [
             'appointed_at' => Carbon::createFromFormat(config('app.timestamp_format'), $request->appointed_at)->format('Y-m-d H:i:s'),
+            'status' => 0,
         ]));
 
         return new AppointmentResource($appointment);
@@ -71,6 +74,11 @@ class AppointmentController extends Controller
         return new AppointmentResource(tap($appointment)->delete());
     }
 
+    /**
+     * Get a list of appointments
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $this->authorize('view-appointments');
@@ -78,5 +86,25 @@ class AppointmentController extends Controller
         return AppointmentResource::collection(
             Appointment::paginate(request()->per_page ?? 15)
         );
+    }
+
+    /**
+     * Get doctors
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function doctors()
+    {
+        return Staff::doctor()->select('id', 'full_name')->get();
+    }
+
+    /**
+     * Get patients
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function patients()
+    {
+        return Patient::select('id', 'full_name')->get();
     }
 }

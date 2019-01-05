@@ -15,14 +15,15 @@ class AppointmentTest extends TestCase
 
     /** @test */
     function it_make_an_appointment()
-    {
+    {$this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $user->allow('create-appointments');
         $this->signIn($user);
 
-        $appointment = factory(Appointment::class)->make(['status' => 0]);
+        $appointment = factory(Appointment::class)->make();
 
-        $this->postJson('api/appointments', array_merge($appointment->toArray(), [
+        $this->postJson('api/appointments', array_merge(
+            collect($appointment)->except('status')->toArray(), [
             'appointed_at' => Carbon::createFromFormat('Y-m-d H:i:s', $appointment->appointed_at)->format('d-m-Y H:i:s'),
         ]))->assertStatus(201);
 
