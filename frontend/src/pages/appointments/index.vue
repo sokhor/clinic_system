@@ -12,7 +12,21 @@
           />
         </base-card>
       </div>
-      <div class="w-2/7 px-4"></div>
+      <div class="w-2/7 px-4">
+        <base-button color="primary" @click="addEvent()">Make appointment</base-button>
+        <div class="mt-8">
+          <h4 class="text-grey-darkest mb-2">Up coming</h4>
+          <base-card class="p-4">
+            <ul class="list-reset">
+              <li v-for="appointment in upcomingAppointments" class="leading-loose">
+                <span class="font-semibold">{{ `${$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss').format('HH:mm')}` }}</span>
+                &nbsp;-&nbsp;
+                <span>{{ `${appointment.subject}` }}</span>
+              </li>
+            </ul>
+          </base-card>
+        </div>
+      </div>
     </div>
     <modal name="new-appointment-modal" height="auto" @before-close="beforeModalClose">
       <new-appointment
@@ -56,7 +70,13 @@ export default {
   computed: {
     ...mapState('appointments', { appointments: 'resources' }),
     doctors: () => doctors,
-    patients: () => patients
+    patients: () => patients,
+    upcomingAppointments() {
+      return this.appointments.filter(appointment => {
+        return this.$moment().isSame(this.$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss'), 'day') &&
+          this.$moment().isBefore(this.$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss'), 'second')
+      })
+    }
   },
   created() {
     this.listAppointments()
