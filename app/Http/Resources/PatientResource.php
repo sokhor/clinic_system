@@ -32,9 +32,9 @@ class PatientResource extends JsonResource
             'last_visited_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->last_visited_at)->format(config('app.timestamp_format')),
             'nationality_code' => $this->nationality_code,
             'phone' => $this->phone,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'created_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format(config('app.timestamp_format')),
+            'updated_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->updated_at)->format(config('app.timestamp_format')),
+            'deleted_at' => $this->deleted_at ? Carbon::createFromFormat($this->deleted_at)->format(config('app.timestamp_format')) : null,
             'lastVisit' => new VisitResource($this->whenLoaded('lastVisit')),
         ];
     }
