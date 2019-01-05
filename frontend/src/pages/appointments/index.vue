@@ -18,13 +18,16 @@
         <div class="mt-8">
           <h4 class="text-grey-darkest mb-2">Up coming</h4>
           <base-card class="p-4">
-            <ul class="list-reset">
+            <ul class="list-reset" v-show="upcomingAppointments.length > 0">
               <li v-for="appointment in upcomingAppointments" class="leading-loose">
                 <span class="font-semibold">{{ `${$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss').format('HH:mm')}` }}</span>
                 &nbsp;-&nbsp;
                 <span>{{ `${appointment.subject}` }}</span>
               </li>
             </ul>
+            <p class="flex items-center justify-center" v-show="upcomingAppointments.length === 0">
+              <span>No today appointments</span>
+            </p>
           </base-card>
         </div>
       </div>
