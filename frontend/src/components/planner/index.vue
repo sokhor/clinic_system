@@ -13,6 +13,7 @@
     <section class="mt-4">
       <planner-month
         :current-date="currentDate"
+        :events="events"
         @date-title="val => title = val"
       />
     </section>
@@ -27,6 +28,9 @@ import PlannerMode from './planner-mode.vue'
 export default {
   name: 'Planner',
   components: { PlannerMonth, DateNavigator, PlannerMode },
+  props: {
+    events: { default: () => [] }
+  },
   data() {
     return {
       currentDate: this.$moment(),
