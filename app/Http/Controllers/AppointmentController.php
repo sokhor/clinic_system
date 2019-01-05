@@ -84,7 +84,7 @@ class AppointmentController extends Controller
         $this->authorize('view-appointments');
 
         return AppointmentResource::collection(
-            Appointment::paginate(request()->per_page ?? 15)
+            Appointment::orderBy('appointed_at')->paginate(request()->per_page ?? 15)
         );
     }
 
