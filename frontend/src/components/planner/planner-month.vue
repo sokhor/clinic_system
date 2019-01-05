@@ -31,8 +31,9 @@
         <div class="text-left mr-2">
           <span
             v-for="event in specificDaysEvents(date)"
-            class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate"
+            class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
             :title="event.text"
+            @click.stop="eventClick(event)"
           >
             {{ event.text }}
           </span>
@@ -128,6 +129,9 @@ export default {
   methods: {
     addEvent(date) {
       this.$parent.$emit('add-new-event', date)
+    },
+    eventClick(event) {
+      this.$parent.$emit('event-click', event)
     }
   }
 }

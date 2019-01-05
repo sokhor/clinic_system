@@ -7,8 +7,9 @@
       <div class="w-5/7 px-4">
         <base-card class="p-4">
           <calendar-planner
-            :events="appointments.map(el => ({date: el.appointed_at, text: `${$moment(el.appointed_at, 'DD-MM-YYYY HH:mm:ss').format('HH:mm')} ${el.subject}`}))"
+            :events="plannerAppointments"
             @add-new-event="addEvent"
+            @event-click="editEvent"
           />
         </base-card>
       </div>
@@ -36,6 +37,14 @@
         @appointment-created="onAppointmentCreated"
       />
     </modal>
+    <modal name="edit-appointment-modal" height="auto" @before-close="beforeModalClose">
+      <edit-appointment
+        :value="editData"
+        :doctors="doctors"
+        :patients="patients"
+        @appointment-updated="onAppointmentUpdated"
+      />
+    </modal>
   </div>
 </template>
 
@@ -43,6 +52,7 @@
 import { mapState } from 'vuex'
 import CalendarPlanner from '@/components/planner/index.vue'
 import NewAppointment from './new-appointment.vue'
+import EditAppointment from './edit-appointment.vue'
 import httpClient from '@/http-client'
 
 let doctors = [],
@@ -60,15 +70,27 @@ export default {
       next()
     })
   },
-  components: { CalendarPlanner, NewAppointment },
+  components: { CalendarPlanner, NewAppointment, EditAppointment },
   data() {
     return {
       selectedDate: null,
+      editData: {},
       loading: false
     }
   },
   computed: {
     ...mapState('appointments', { appointments: 'resources' }),
+    plannerAppointments() {
+      return this.appointments.map(el => {
+        return {
+          date: el.appointed_at,
+          text: `${this.$moment(el.appointed_at, 'DD-MM-YYYY HH:mm:ss').format(
+            'HH:mm'
+          )} ${el.subject}`,
+          id: el.id
+        }
+      })
+    },
     doctors: () => doctors,
     patients: () => patients,
     upcomingAppointments() {
@@ -101,12 +123,23 @@ export default {
       this.selectedDate = date
       this.$modal.show('new-appointment-modal')
     },
+    editEvent(event) {
+      this.editData = this.appointments.find(
+        appointment => appointment.id === event.id
+      )
+      this.$modal.show('edit-appointment-modal')
+    },
     onAppointmentCreated() {
       this.listAppointments()
       this.$modal.hide('new-appointment-modal')
     },
     beforeModalClose() {
-      this.selectedDate = this.$moment()
+      this.selectedDate = null
+      this.editData = {}
+    },
+    onAppointmentUpdated() {
+      this.listAppointments()
+      this.$modal.hide('edit-appointment-modal')
     }
   }
 }
