@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="flex justify-between items-center">
-      <planner-mode />
+      <planner-mode v-model="buttonState" />
       <div>
         <h1 class="text-xlg">{{ title }}</h1>
       </div>
@@ -15,6 +15,7 @@
         :current-date="currentDate"
         :events="events"
         @date-title="val => title = val"
+        v-show="buttonState === 'month'"
       />
     </section>
   </div>
@@ -34,7 +35,8 @@ export default {
   data() {
     return {
       currentDate: this.$moment(),
-      title: ''
+      title: '',
+      buttonState: 'month'
     }
   },
   methods: {
