@@ -63,7 +63,7 @@ export default {
   components: { CalendarPlanner, NewAppointment },
   data() {
     return {
-      selectedDate: this.$moment(),
+      selectedDate: null,
       loading: false
     }
   },
