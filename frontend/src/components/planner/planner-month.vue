@@ -1,19 +1,20 @@
 <template>
   <div>
     <div class="flex">
-      <span class="flex-1 border py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">MON</span>
-      <span class="flex-1 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">TUE</span>
-      <span class="flex-1 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">WED</span>
-      <span class="flex-1 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">THU</span>
-      <span class="flex-1 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">FRI</span>
-      <span class="flex-1 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">SAT</span>
-      <span class="flex-1 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">SUN</span>
+      <span class="w-1/7 border py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">MON</span>
+      <span class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">TUE</span>
+      <span class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">WED</span>
+      <span class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">THU</span>
+      <span class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">FRI</span>
+      <span class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">SAT</span>
+      <span class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold">SUN</span>
     </div>
     <div class="flex" v-for="(dates, index7days) in datesOfMonth">
       <div
         v-for="(date, indexDay) in dates"
-        class="flex-1 h-32 border border-t-0 text-center cursor-pointer"
+        class="w-1/7 h-32 border border-t-0 text-center"
         :class="[{'border-l-0': indexDay>0}]"
+        @click="addEvent(date)"
       >
         <div class="flex justify-center items-center mt-1">
           <span
@@ -21,10 +22,19 @@
             :class="[
               {'text-grey-darkest': inCurrentMonth(date)},
               {'text-grey': !inCurrentMonth(date)},
-              {'bg-blue text-white rounded-full': isToday(date)}
+              {'bg-blue text-white rounded-full shadow': isToday(date)}
             ]"
           >
             {{ date.format('D') }}
+          </span>
+        </div>
+        <div class="text-left mr-2">
+          <span
+            v-for="event in specificDaysEvents(date)"
+            class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate"
+            :title="event.text"
+          >
+            {{ event.text }}
           </span>
         </div>
       </div>
@@ -36,7 +46,8 @@
 export default {
   name: 'PlannerMonth',
   props: {
-    currentDate: {}
+    currentDate: {},
+    events: { default: () => [] }
   },
   computed: {
     datesOfMonth() {
@@ -90,17 +101,19 @@ export default {
       return _.chunk(date, 7)
     },
     inCurrentMonth: vm => date => {
-      return date.format('MM') === vm.$moment(vm.currentDate).format('MM')
+      return vm.currentDate.isSame(date, 'month')
     },
     isToday: vm => date => {
-      return (
-        vm.$moment().format('DD-MM-YYYY') ==
-        vm.$moment(date).format('DD-MM-YYYY')
-      )
+      return vm.$moment().isSame(date, 'day')
     },
     title() {
       return (
         this.currentDate.format('MMMM') + ' ' + this.currentDate.format('YYYY')
+      )
+    },
+    specificDaysEvents: vm => date => {
+      return vm.events.filter(ev =>
+        date.isSame(vm.$moment(ev.date, 'DD-MM-YYYY HH:mm:ss'), 'day')
       )
     }
   },
@@ -110,6 +123,11 @@ export default {
         this.$emit('date-title', val)
       },
       immediate: true
+    }
+  },
+  methods: {
+    addEvent(date) {
+      this.$parent.$emit('add-new-event', date)
     }
   }
 }
