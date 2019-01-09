@@ -103,13 +103,12 @@ export default {
         this.currentDate.format('MMMM') + ' ' + this.currentDate.format('YYYY')
       )
     },
-    specificTimeEvents: vm => (timeOfDay) => {
+    specificTimeEvents: vm => timeOfDay => {
       return vm.events.filter(
         ev =>
-          vm.$moment(vm.currentDate).isSame(
-            vm.$moment(ev.date, 'DD-MM-YYYY HH:mm:ss'),
-            'day'
-          ) &&
+          vm
+            .$moment(vm.currentDate)
+            .isSame(vm.$moment(ev.date, 'DD-MM-YYYY HH:mm:ss'), 'day') &&
           timeOfDay.format('HH') ===
             vm.$moment(ev.date, 'DD-MM-YYYY HH:mm:ss').format('HH')
       )

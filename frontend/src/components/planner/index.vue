@@ -43,7 +43,13 @@ import PlannerDay from './planner-day.vue'
 
 export default {
   name: 'Planner',
-  components: { DateNavigator, PlannerMode, PlannerMonth, PlannerWeek, PlannerDay },
+  components: {
+    DateNavigator,
+    PlannerMode,
+    PlannerMonth,
+    PlannerWeek,
+    PlannerDay
+  },
   props: {
     events: { default: () => [] }
   },
