@@ -19,7 +19,6 @@
             {{ timeOfDay.format('hha')}}
           </div>
         </div>
-
         <div class="flex flex-grow">
           <div v-for="dateOfWeek in datesOfWeek" class="w-1/7">
             <div v-for="timeOfDay in timesOfDay" class="h-16 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm">
