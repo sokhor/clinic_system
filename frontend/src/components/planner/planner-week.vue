@@ -13,21 +13,42 @@
       </div>
     </div>
     <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar">
-      <div v-for="timeOfDay in timesOfDay" class="flex h-16">
-        <div class="w-24 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold h-full">
-          {{ timeOfDay.format('hha')}}
+      <div class="flex">
+        <div>
+          <div v-for="timeOfDay in timesOfDay">
+            <div class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold">
+              {{ timeOfDay.format('hha')}}
+            </div>
+            <!-- <div class="flex flex-grow">
+              <div v-for="dateOfWeek in datesOfWeek" class="w-1/7 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm">
+                <div class="text-left mr-2">
+                  <span
+                    v-for="event in specificTimeEvents(dateOfWeek, timeOfDay)"
+                    class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
+                    :title="event.text"
+                    @click.stop="eventClick(event)"
+                  >
+                    {{ event.text }}
+                  </span>
+                </div>
+              </div>
+            </div> -->
+          </div>
         </div>
+
         <div class="flex flex-grow">
-          <div v-for="dateOfWeek in datesOfWeek" class="w-1/7 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm">
-            <div class="text-left mr-2">
-              <span
-                v-for="event in specificTimeEvents(dateOfWeek, timeOfDay)"
-                class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
-                :title="event.text"
-                @click.stop="eventClick(event)"
-              >
-                {{ event.text }}
-              </span>
+          <div v-for="dateOfWeek in datesOfWeek" class="w-1/7">
+            <div v-for="timeOfDay in timesOfDay" class="h-16 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm">
+              <div class="text-left mr-2">
+                <span
+                  v-for="event in specificTimeEvents(dateOfWeek, timeOfDay)"
+                  class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
+                  :title="event.text"
+                  @click.stop="eventClick(event)"
+                >
+                  {{ event.text }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -52,10 +73,10 @@ export default {
     datesOfWeek() {
       let dates = []
       const diffBeforeDays = this.currentDate.diff(
-        this.$moment().startOf('week'),
+        this.$moment(this.currentDate).startOf('week'),
         'days'
       )
-      const diffAfterDays = this.$moment()
+      const diffAfterDays = this.$moment(this.currentDate)
         .endOf('week')
         .diff(this.currentDate, 'days')
 
