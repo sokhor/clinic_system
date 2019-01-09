@@ -24,6 +24,12 @@
         @date-title="val => title = val"
         v-if="mode === 'week'"
       />
+      <planner-day
+        :current-date="currentDate"
+        :events="events"
+        @date-title="val => title = val"
+        v-if="mode === 'day'"
+      />
     </section>
   </div>
 </template>
@@ -33,10 +39,11 @@ import DateNavigator from './date-navigator.vue'
 import PlannerMode from './planner-mode.vue'
 import PlannerMonth from './planner-month.vue'
 import PlannerWeek from './planner-week.vue'
+import PlannerDay from './planner-day.vue'
 
 export default {
   name: 'Planner',
-  components: { DateNavigator, PlannerMode, PlannerMonth, PlannerWeek },
+  components: { DateNavigator, PlannerMode, PlannerMonth, PlannerWeek, PlannerDay },
   props: {
     events: { default: () => [] }
   },
