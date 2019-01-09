@@ -10,14 +10,15 @@
 export default {
   name: 'DateNavigator',
   props: {
-    currentDate: {}
+    currentDate: {},
+    mode: { type: String, default: 'month' }
   },
   computed: {
     previous() {
-      return this.$moment(this.currentDate).add(-1, 'months')
+      return this.$moment(this.currentDate).add(-1, this.mode)
     },
     next() {
-      return this.$moment(this.currentDate).add(1, 'months')
+      return this.$moment(this.currentDate).add(1, this.mode)
     }
   },
   methods: {

@@ -1,12 +1,13 @@
 <template>
   <div>
     <section class="flex justify-between items-center">
-      <planner-mode v-model="buttonState" />
+      <planner-mode v-model="mode" />
       <div>
         <h1 class="text-xlg">{{ title }}</h1>
       </div>
       <date-navigator
         :current-date="currentDate"
+        :mode="mode"
         @navigate="onNavigateDate"
       />
     </section>
@@ -15,13 +16,13 @@
         :current-date="currentDate"
         :events="events"
         @date-title="val => title = val"
-        v-if="buttonState === 'month'"
+        v-if="mode === 'month'"
       />
       <planner-week
         :current-date="currentDate"
         :events="events"
         @date-title="val => title = val"
-        v-if="buttonState === 'week'"
+        v-if="mode === 'week'"
       />
     </section>
   </div>
@@ -43,7 +44,7 @@ export default {
     return {
       currentDate: this.$moment(),
       title: '',
-      buttonState: 'month'
+      mode: 'month'
     }
   },
   methods: {
