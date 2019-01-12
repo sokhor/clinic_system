@@ -15,13 +15,17 @@
     <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar">
       <div class="flex">
         <div>
-          <div v-for="timeOfDay in timesOfDay" class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold">
+          <div v-for="timeOfDay in timesOfDay(currentDate)" class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold">
             {{ timeOfDay.format('hha')}}
           </div>
         </div>
         <div class="flex flex-grow">
           <div v-for="dateOfWeek in datesOfWeek" class="w-1/7">
-            <div v-for="timeOfDay in timesOfDay" class="h-16 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm">
+            <div
+              v-for="timeOfDay in timesOfDay(dateOfWeek)"
+              class="h-16 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm"
+              @click.stop="addEvent(timeOfDay)"
+            >
               <div class="text-left mr-2">
                 <span
                   v-for="event in specificTimeEvents(dateOfWeek, timeOfDay)"
@@ -79,14 +83,14 @@ export default {
 
       return dates
     },
-    timesOfDay() {
-      const startTime = this.$moment().startOf('day')
-      const endTime = this.$moment().endOf('day')
+    timesOfDay: vm => dateOfWeek => {
+      const startTime = vm.$moment(dateOfWeek).startOf('day')
+      const endTime = vm.$moment(dateOfWeek).endOf('day')
       const interval = endTime.diff(startTime, 'hour')
       let times = []
 
       for (let i = 0; i <= interval; i++) {
-        times.push(this.$moment(startTime).add(i, 'hours'))
+        times.push(vm.$moment(startTime).add(i, 'hours'))
       }
 
       return times

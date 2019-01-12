@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Queue extends Model
@@ -14,30 +15,19 @@ class Queue extends Model
     protected $fillable = [
         'patient_id',
         'visit_id',
-        'queue_no',
-        'assigned_id',
-        'status',
-        'created_at',
+        'token',
+        'counter_id',
+        'status'
     ];
 
     /**
-     * Indicates if the model should be timestamped.
+     * Take today's queues
      *
-     * @var bool
+     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Query\Builder
      */
-    public $timestamps = false;
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
+    public function scopeToday(Builder $query)
     {
-        parent::boot();
-
-        static::creating(function($model) {
-            $model->created_at = now()->format('Y-m-d');
-        });
+        return $query->whereDate('created_at', today());
     }
 }
