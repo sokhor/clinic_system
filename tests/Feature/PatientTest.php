@@ -73,14 +73,6 @@ class PatientTest extends TestCase
             'referal_id' => $referal->id,
             'registered_by' => $user->id,
         ]);
-
-        $this->assertDatabaseHas('queues', [
-            'patient_id' => $patient->id,
-            'visit_id' => optional($patient->visits()->latest()->first())->id,
-            'queue_no' => 1,
-            'assigned_id' => $doctor->id,
-            'status' => 0, // Waiting
-        ]);
     }
 
     /** @test */

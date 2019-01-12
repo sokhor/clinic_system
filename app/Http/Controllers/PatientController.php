@@ -17,7 +17,7 @@ use Spatie\QueryBuilder\Filter;
 class PatientController extends Controller
 {
     /**
-     * Queue repository
+     * Patient repository
      *
      * @var \App\Repositories\PatientRepository
      */

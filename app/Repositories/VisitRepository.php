@@ -21,30 +21,6 @@ class VisitRepository
             'registered_by' => auth()->id()
         ]));
 
-        $this->generateGueue($visit, [
-            'assigned_id' => $params['assigned_id'],
-        ]);
-
         return $visit;
-    }
-
-    /**
-     * Generate a new queue
-     *
-     * @param  \App\Models\Visit $patient
-     * @param  Array $data
-     * @return \App\Models\Queue
-     */
-    public function generateGueue($visit, $params)
-    {
-        $queue = Queue::whereDate('created_at', today())->latest()->first();
-
-        return Queue::create([
-            'patient_id' => $visit->patient_id,
-            'visit_id' => $visit->id,
-            'queue_no' => $queue ? $queue->queue_no + 1 : 1,
-            'assigned_id' => isset($params['assigned_id']) ? $params['assigned_id'] : null,
-            'status' => 0,
-        ]);
     }
 }
