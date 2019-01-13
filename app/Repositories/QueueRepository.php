@@ -35,13 +35,18 @@ class QueueRepository
         return 'A' . sprintf("%'.03d", ++$queue_count);
     }
 
+    /**
+     * Set counter
+     *
+     * @param \App\Models\Queue $queue
+     */
     public function setCounter(Queue $queue)
     {
         $counter = Counter::available()->first();
 
-        // if(is_null($counter)) {
-        //     return false;
-        // }
+        if(is_null($counter)) {
+            return false;
+        }
 
         $queue->counter_id = $counter->id;
         $queue->save();
