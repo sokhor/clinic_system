@@ -2,11 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\Counter;
 use App\Models\Queue;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\User;
 
 class QueueTest extends TestCase
 {
@@ -85,5 +86,23 @@ class QueueTest extends TestCase
         $this->getJson('api/queues')
             ->assertStatus(403)
             ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
+    function it_set_queue_counter()
+    {
+        $this->signIn();
+
+        $counter_1 = factory(Counter::class)->create(['available' => false]);
+        $counter_2 = factory(Counter::class)->create(['available' => true]);
+        $queue = factory(Queue::class)->create();
+
+        $this->assertNull($queue->counter_id);
+
+        $this->putJson("api/queues/{$queue->id}/counter")
+            ->assertStatus(200);
+
+        $this->assertEquals($counter_2->id, $queue->fresh()->counter_id);
+        $this->assertFalse($counter_2->fresh()->available);
     }
 }

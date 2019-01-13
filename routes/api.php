@@ -15,5 +15,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('appointments/doctors', 'AppointmentController@doctors');
     Route::get('appointments/patients', 'AppointmentController@patients');
     Route::apiResource('appointments', 'AppointmentController');
+    Route::put('queues/{queue}/counter', 'QueueCounterController@update');
     Route::apiResource('queues', 'QueueController');
 });

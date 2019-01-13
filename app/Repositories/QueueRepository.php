@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Queue;
+use App\Models\Counter;
 
 class QueueRepository
 {
@@ -32,5 +33,22 @@ class QueueRepository
         $queue_count = Queue::today()->count();
 
         return 'A' . sprintf("%'.03d", ++$queue_count);
+    }
+
+    public function setCounter(Queue $queue)
+    {
+        $counter = Counter::available()->first();
+
+        // if(is_null($counter)) {
+        //     return false;
+        // }
+
+        $queue->counter_id = $counter->id;
+        $queue->save();
+
+        $counter->available = false;
+        $counter->save();
+
+        return true;
     }
 }
