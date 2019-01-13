@@ -91,7 +91,9 @@ class QueueTest extends TestCase
     /** @test */
     function it_set_queue_counter()
     {
-        $this->signIn();
+        $user = factory(User::class)->create();
+        $user->allow('update-queues');
+        $this->signIn($user);
 
         $counter_1 = factory(Counter::class)->create(['available' => false]);
         $counter_2 = factory(Counter::class)->create(['available' => true]);
@@ -104,5 +106,23 @@ class QueueTest extends TestCase
 
         $this->assertEquals($counter_2->id, $queue->fresh()->counter_id);
         $this->assertFalse($counter_2->fresh()->available);
+    }
+
+    /** @test */
+    function it_not_allow_to_set_counter()
+    {
+        $this->signIn();
+
+        $counter_1 = factory(Counter::class)->create(['available' => false]);
+        $counter_2 = factory(Counter::class)->create(['available' => true]);
+        $queue = factory(Queue::class)->create();
+
+        $this->assertNull($queue->counter_id);
+
+        $this->putJson("api/queues/{$queue->id}/counter")
+            ->assertStatus(403);
+
+        $this->assertNull($queue->fresh()->counter_id);
+        $this->assertTrue($counter_2->fresh()->available);
     }
 }

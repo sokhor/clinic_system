@@ -27,6 +27,8 @@ class QueueCounterController extends Controller
 
     public function update(Request $request, Queue $queue)
     {
+        $this->authorize('update-queues');
+
         $this->queue->setCounter($queue);
 
         return response()->json(['message' => 'Queue\'s counter was set']);
