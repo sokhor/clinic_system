@@ -8,15 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Counter extends Model
 {
     /**
-     * The fillable attributes on the model.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'label',
-        'disabled',
-        'available',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -24,8 +20,8 @@ class Counter extends Model
      * @var array
      */
     protected $casts = [
-        'disabled' => 'boolean',
-        'available' => 'boolean',
+        'busy' => 'boolean',
+        'active' => 'boolean',
     ];
 
     /**
@@ -37,7 +33,6 @@ class Counter extends Model
 
     public function scopeAvailable(Builder $query)
     {
-        return $query->where('available', true)
-            ->where('disabled', false);
+        return $query->where('active', true)->where('busy', false);
     }
 }

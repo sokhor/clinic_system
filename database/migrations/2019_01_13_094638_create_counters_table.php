@@ -16,8 +16,8 @@ class CreateCountersTable extends Migration
         Schema::create('counters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('label');
-            $table->boolean('disabled');
-            $table->boolean('available');
+            $table->boolean('active');
+            $table->boolean('busy');
         });
     }
 

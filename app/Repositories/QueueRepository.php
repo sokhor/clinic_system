@@ -51,7 +51,7 @@ class QueueRepository
         $queue->counter_id = $counter->id;
         $queue->save();
 
-        $counter->available = false;
+        $counter->busy = true;
         $counter->save();
 
         return true;

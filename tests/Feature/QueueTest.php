@@ -91,8 +91,9 @@ class QueueTest extends TestCase
         $user->allow('update-queues');
         $this->signIn($user);
 
-        $counter_1 = factory(Counter::class)->create(['available' => false]);
-        $counter_2 = factory(Counter::class)->create(['available' => true]);
+        $counter_1 = factory(Counter::class)->state('inactive')->create();
+        $counter_2 = factory(Counter::class)->state('available')->create();
+        $counter_3 = factory(Counter::class)->state('busy')->create();
         $queue = factory(Queue::class)->create();
 
         $this->assertNull($queue->counter_id);
@@ -101,7 +102,8 @@ class QueueTest extends TestCase
             ->assertStatus(200);
 
         $this->assertEquals($counter_2->id, $queue->fresh()->counter_id);
-        $this->assertFalse($counter_2->fresh()->available);
+        $this->assertTrue($counter_2->fresh()->active);
+        $this->assertTrue($counter_2->fresh()->busy);
     }
 
     /** @test */
@@ -111,7 +113,8 @@ class QueueTest extends TestCase
         $user->allow('update-queues');
         $this->signIn($user);
 
-        factory(Counter::class)->create(['available' => false]);
+        $counter_1 = factory(Counter::class)->state('inactive')->create();
+        $counter_3 = factory(Counter::class)->state('busy')->create();
         $queue = factory(Queue::class)->create();
 
         $this->putJson("api/queues/{$queue->id}/counter")
@@ -125,8 +128,7 @@ class QueueTest extends TestCase
     {
         $this->signIn();
 
-        $counter_1 = factory(Counter::class)->create(['available' => false]);
-        $counter_2 = factory(Counter::class)->create(['available' => true]);
+        $counter_2 = factory(Counter::class)->state('available')->create();
         $queue = factory(Queue::class)->create();
 
         $this->assertNull($queue->counter_id);
@@ -135,6 +137,7 @@ class QueueTest extends TestCase
             ->assertStatus(403);
 
         $this->assertNull($queue->fresh()->counter_id);
-        $this->assertTrue($counter_2->fresh()->available);
+        $this->assertTrue($counter_2->fresh()->active);
+        $this->assertFalse($counter_2->fresh()->busy);
     }
 }
