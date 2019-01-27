@@ -15,8 +15,6 @@ class CreateQueuesTable extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('patient_id')->nullable();
-            $table->unsignedInteger('visit_id')->nullable();
             $table->string('ticket');
             $table->unsignedInteger('counter_id')->nullable();
             $table->tinyInteger('status');

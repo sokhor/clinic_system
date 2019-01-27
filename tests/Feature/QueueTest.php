@@ -24,8 +24,6 @@ class QueueTest extends TestCase
             ->assertStatus(201);
 
         $this->assertDatabaseHas('queues', [
-            'patient_id' => null,
-            'visit_id' => null,
             'ticket' => '01',
             'counter_id' => null,
             'status' => 0, //Pending
@@ -61,8 +59,6 @@ class QueueTest extends TestCase
         ->assertJsonStructure([
             'data' => [
                 '*' => [
-                    'patient_id',
-                    'visit_id',
                     'ticket',
                     'counter_id',
                     'status',
