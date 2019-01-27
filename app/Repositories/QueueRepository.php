@@ -15,10 +15,10 @@ class QueueRepository
      */
     public function create(Array $param = [])
     {
-        $token = $this->generateToken();
+        $ticket = $this->generateTicket();
 
         return Queue::create([
-            'token' => $token,
+            'ticket' => $ticket,
             'status' => 0,
         ]);
     }
@@ -28,11 +28,11 @@ class QueueRepository
      *
      * @return string
      */
-    private function generateToken()
+    private function generateTicket()
     {
         $queue_count = Queue::today()->count();
 
-        return 'A' . sprintf("%'.03d", ++$queue_count);
+        return sprintf("%'.02d", ++$queue_count);
     }
 
     /**

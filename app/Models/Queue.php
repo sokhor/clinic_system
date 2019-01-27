@@ -8,17 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Queue extends Model
 {
     /**
-     * The fillable attributes on the model.
+     * The attributes that aren't mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'patient_id',
-        'visit_id',
-        'token',
-        'counter_id',
-        'status'
-    ];
+    protected $guarded = [];
 
     /**
      * Take today's queues

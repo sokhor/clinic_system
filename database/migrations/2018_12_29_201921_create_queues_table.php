@@ -17,7 +17,7 @@ class CreateQueuesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('patient_id')->nullable();
             $table->unsignedInteger('visit_id')->nullable();
-            $table->string('token');
+            $table->string('ticket');
             $table->unsignedInteger('counter_id')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();

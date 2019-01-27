@@ -43,7 +43,7 @@
     </div>
     <div class="flex -mx-4">
       <div class="w-2/3 p-4">
-        <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
+        <div class="w-full flex flex-row items-end justify-between h-16 mb-3">
           <h1 class="inline text-grey-darkest text-xl font-bold">Visit</h1>
         </div>
         <base-card>
@@ -81,27 +81,18 @@
           </base-table>
         </base-card>
       </div>
-      <div class="w-1/3 p-4">
-        <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-          <h1 class="inline text-grey-darkest text-xl font-bold">Queue</h1>
-        </div>
-        <base-card>
-          <ul class="list-reset">
-            <li class="p-4" :class="{'border-b': index+1<7}" v-for="(n, index) in 7">
-              <span class="text-xl font-semibold">001</span>
-            </li>
-          </ul>
-        </base-card>
-      </div>
+      <queue-list class="w-1/3 p-4"></queue-list>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import QueueList from './queue-list.vue'
 
 export default {
   name: 'Visits',
+  components: { QueueList },
   data() {
     return {
       search: ''

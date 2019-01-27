@@ -26,7 +26,7 @@ class QueueTest extends TestCase
         $this->assertDatabaseHas('queues', [
             'patient_id' => null,
             'visit_id' => null,
-            'token' => 'A001',
+            'ticket' => '01',
             'counter_id' => null,
             'status' => 0, //Pending
         ]);
@@ -63,7 +63,7 @@ class QueueTest extends TestCase
                 '*' => [
                     'patient_id',
                     'visit_id',
-                    'token',
+                    'ticket',
                     'counter_id',
                     'status',
                 ],
