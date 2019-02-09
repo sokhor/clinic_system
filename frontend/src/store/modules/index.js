@@ -3,10 +3,8 @@ import camelCase from 'lodash/camelCase'
 const requireModule = require.context('.', true, /^((?!\.unit\.).)*\.js$/)
 const root = { modules: {} }
 
-console.log(requireModule.keys())
-
 requireModule.keys().forEach(fileName => {
-  if (fileName === './index.js') return
+  if (fileName === './index.js' || fileName === './_mixin.js') return
 
   const modulePath = fileName
     .replace(/^\.\//, '')
@@ -25,7 +23,11 @@ requireModule.keys().forEach(fileName => {
     if (path.length === 1) return subtree
 
     const namespace = path.shift()
-    subtree.modules[namespace] = { modules: {}, ...subtree.modules[namespace] }
+    subtree.modules[namespace] = {
+      modules: {},
+      namespaced: true,
+      ...subtree.modules[namespace]
+    }
     return getNamespace(subtree.modules[namespace], path)
   }
 })
