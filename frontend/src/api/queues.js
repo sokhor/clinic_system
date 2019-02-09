@@ -1,6 +1,6 @@
 import httpClient from '@/http-client'
 
-export default{
+export default {
   list() {
     return httpClient
       .get('/api/queues')

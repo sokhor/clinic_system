@@ -43,8 +43,7 @@ export default {
       this.saving = false
     },
     fetch() {
-      apiQueue.list()
-      .then(response => {
+      apiQueue.list().then(response => {
         this.queues = response.data
       })
     }
