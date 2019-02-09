@@ -3,6 +3,8 @@ import camelCase from 'lodash/camelCase'
 const requireModule = require.context('.', true, /^((?!\.unit\.).)*\.js$/)
 const root = { modules: {} }
 
+console.log(requireModule.keys())
+
 requireModule.keys().forEach(fileName => {
   if (fileName === './index.js') return
 

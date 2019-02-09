@@ -170,6 +170,20 @@ export default {
           name: 'Patient',
           url: '/patients',
           icon: 'fas fa-bed'
+        },
+        {
+          name: 'Inventory',
+          title: true,
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
+          name: 'Product',
+          url: '/products',
+          icon: 'fas fa-box'
         }
       ]
     }
