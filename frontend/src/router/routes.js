@@ -7,6 +7,7 @@ import patient from './patient'
 import visit from './visit'
 import appointment from './appointment'
 import inventory from './inventory'
+import queue from './queue'
 
 export default [
   {
@@ -30,7 +31,8 @@ export default [
   ...patient,
   ...visit,
   ...appointment,
-  ...inventory
+  ...inventory,
+  ...queue
 ]
 
 // function lazyLoadView(AsyncView) {

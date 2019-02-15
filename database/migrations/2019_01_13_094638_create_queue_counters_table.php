@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountersTable extends Migration
+class CreateQueueCountersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCountersTable extends Migration
      */
     public function up()
     {
-        Schema::create('counters', function (Blueprint $table) {
+        Schema::create('queue_counters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('label');
             $table->boolean('active');
@@ -28,6 +28,6 @@ class CreateCountersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('counters');
+        Schema::dropIfExists('queue_counters');
     }
 }

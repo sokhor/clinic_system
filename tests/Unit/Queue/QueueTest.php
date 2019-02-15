@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Queue;
 
 use App\Repositories\QueueRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -34,7 +34,7 @@ class QueueController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create-queues');
+        $this->authorize('create', Queue::class);
 
         $queue = $this->queue->create();
 
@@ -48,7 +48,7 @@ class QueueController extends Controller
      */
     public function index()
     {
-        $this->authorize('view-queues');
+        $this->authorize('view', Queue::class);
 
         return QueueResource::collection(Queue::today()->get());
     }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Counter extends Model
+class QueueCounter extends Model
 {
     /**
      * The attributes that aren't mass assignable.

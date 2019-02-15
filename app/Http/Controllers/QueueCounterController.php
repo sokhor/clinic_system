@@ -27,7 +27,7 @@ class QueueCounterController extends Controller
 
     public function update(Request $request, Queue $queue)
     {
-        $this->authorize('update-queues');
+        $this->authorize('update', Queue::class);
 
         $this->queue->setCounter($queue);
 

@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Counter::class, function (Faker $faker) {
+$factory->define(App\Models\QueueCounter::class, function (Faker $faker) {
     return [
         'label' => $faker->randomNumber(),
         'active' => false,
@@ -10,17 +10,17 @@ $factory->define(App\Models\Counter::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(App\Models\Counter::class, 'inactive', [
+$factory->state(App\Models\QueueCounter::class, 'inactive', [
     'active' => false,
     'busy' => false,
 ]);
 
-$factory->state(App\Models\Counter::class, 'busy', [
+$factory->state(App\Models\QueueCounter::class, 'busy', [
     'active' => true,
     'busy' => true,
 ]);
 
-$factory->state(App\Models\Counter::class, 'available', [
+$factory->state(App\Models\QueueCounter::class, 'available', [
     'active' => true,
     'busy' => false,
 ]);

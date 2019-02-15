@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Queue;
-use App\Models\Counter;
+use App\Models\QueueCounter;
 
 class QueueRepository
 {
@@ -42,7 +42,7 @@ class QueueRepository
      */
     public function setCounter(Queue $queue)
     {
-        $counter = Counter::available()->first();
+        $counter = QueueCounter::available()->first();
 
         if(is_null($counter)) {
             return false;

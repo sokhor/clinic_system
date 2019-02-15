@@ -118,6 +118,11 @@ export default {
           ]
         },
         {
+          name: 'Queue',
+          url: '/queues',
+          icon: 'far fa-list-alt'
+        },
+        {
           name: 'Reception',
           icon: 'fas fa-building',
           children: [

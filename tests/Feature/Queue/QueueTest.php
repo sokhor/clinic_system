@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Queue;
 
-use App\Models\Counter;
+use App\Models\QueueCounter;
 use App\Models\Queue;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,7 +17,7 @@ class QueueTest extends TestCase
     function it_generate_a_new_queue()
     {
         $user = factory(User::class)->create();
-        $user->allow('create-queues');
+        $user->allow('create', Queue::class);
         $this->signIn($user);
 
         $this->postJson('api/queues', [])
@@ -45,7 +45,7 @@ class QueueTest extends TestCase
     function it_fetch_queues_within_today()
     {
         $user = factory(User::class)->create();
-        $user->allow('view-queues');
+        $user->allow('view', Queue::class);
         $this->signIn($user);
 
         $queue_1 = factory(Queue::class)->create();
@@ -88,12 +88,12 @@ class QueueTest extends TestCase
     function it_set_queue_counter()
     {
         $user = factory(User::class)->create();
-        $user->allow('update-queues');
+        $user->allow('update', Queue::class);
         $this->signIn($user);
 
-        $counter_1 = factory(Counter::class)->state('inactive')->create();
-        $counter_2 = factory(Counter::class)->state('available')->create();
-        $counter_3 = factory(Counter::class)->state('busy')->create();
+        $counter_1 = factory(QueueCounter::class)->state('inactive')->create();
+        $counter_2 = factory(QueueCounter::class)->state('available')->create();
+        $counter_3 = factory(QueueCounter::class)->state('busy')->create();
         $queue = factory(Queue::class)->create();
 
         $this->assertNull($queue->counter_id);
@@ -110,11 +110,11 @@ class QueueTest extends TestCase
     function no_queue_counter_available()
     {
         $user = factory(User::class)->create();
-        $user->allow('update-queues');
+        $user->allow('update', Queue::class);
         $this->signIn($user);
 
-        $counter_1 = factory(Counter::class)->state('inactive')->create();
-        $counter_3 = factory(Counter::class)->state('busy')->create();
+        $counter_1 = factory(QueueCounter::class)->state('inactive')->create();
+        $counter_3 = factory(QueueCounter::class)->state('busy')->create();
         $queue = factory(Queue::class)->create();
 
         $this->putJson("api/queues/{$queue->id}/counter")
@@ -128,7 +128,7 @@ class QueueTest extends TestCase
     {
         $this->signIn();
 
-        $counter_2 = factory(Counter::class)->state('available')->create();
+        $counter_2 = factory(QueueCounter::class)->state('available')->create();
         $queue = factory(Queue::class)->create();
 
         $this->assertNull($queue->counter_id);
