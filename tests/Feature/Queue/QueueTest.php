@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Queue;
 
-use App\Models\QueueCounter;
-use App\Models\Queue;
 use App\User;
+use Domain\Queue\Models\Queue;
+use Domain\Queue\Models\QueueCounter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;

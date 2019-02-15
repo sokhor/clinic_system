@@ -2,34 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Queue;
-use App\Repositories\QueueRepository;
+use Domain\Queue\Actions\SetCounter;
+use Domain\Queue\Models\Queue;
 use Illuminate\Http\Request;
 
 class QueueCounterController extends Controller
 {
-    /**
-     * Queue repository
-     *
-     * @var \App\Repositories\QueueRepository
-     */
-    protected $queue;
-
-    /**
-     * Create the controller instance
-     *
-     * @param \App\Repositories\QueueRepository $queue
-     */
-    public function __construct(QueueRepository $queue)
-    {
-        $this->queue = $queue;
-    }
-
     public function update(Request $request, Queue $queue)
     {
         $this->authorize('update', Queue::class);
 
-        $this->queue->setCounter($queue);
+        (new SetCounter($queue))->execute();
 
         return response()->json(['message' => 'Queue\'s counter was set']);
     }

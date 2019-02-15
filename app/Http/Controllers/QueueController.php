@@ -3,29 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\QueueResource;
-use App\Models\Queue;
-use App\Repositories\QueueRepository;
+use Domain\Queue\Actions\CreateQueue;
+use Domain\Queue\Models\Queue;
 use Illuminate\Http\Request;
 
 class QueueController extends Controller
 {
-    /**
-     * Queue repository
-     *
-     * @var \App\Repositories\QueueRepository
-     */
-    protected $queue;
-
-    /**
-     * Create the controller instance
-     *
-     * @param \App\Repositories\QueueRepository $queue
-     */
-    public function __construct(QueueRepository $queue)
-    {
-        $this->queue = $queue;
-    }
-
     /**
      * Create a new resource
      *
@@ -36,7 +19,7 @@ class QueueController extends Controller
     {
         $this->authorize('create', Queue::class);
 
-        $queue = $this->queue->create();
+        $queue = (new CreateQueue)->execute();
 
         return new QueueResource($queue);
     }

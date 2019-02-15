@@ -1,8 +1,9 @@
 <?php
 
+use Domain\Queue\Models\Queue;
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Queue::class, function (Faker $faker) {
+$factory->define(Queue::class, function (Faker $faker) {
     return [
         'ticket' => random_int(100, 300),
         'counter_id' => null,
