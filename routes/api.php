@@ -17,8 +17,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::apiResource('appointments', 'AppointmentController');
 
     // Queue
-    Route::apiResource('queue-section', 'Queue\QueueSectionController');
-    Route::apiResource('queue-counter', 'Queue\QueueCounterController');
+    Route::apiResource('queue-sections', 'Queue\QueueSectionController');
+    Route::apiResource('queue-counters', 'Queue\QueueCounterController');
     Route::put('queues/{queue}/counter', 'Queue\QueueSetCounterController@update');
     Route::post('queues', 'Queue\QueueController@store');
     Route::get('queues', 'Queue\QueueController@index');

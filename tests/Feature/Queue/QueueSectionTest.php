@@ -18,7 +18,7 @@ class QueueSectionTest extends TestCase
 
         $queue_section = factory(QueueSection::class)->make(['name' => 'Doctor Consulting']);
 
-        $this->postJson('api/queue-section', $queue_section->toArray())
+        $this->postJson('api/queue-sections', $queue_section->toArray())
             ->assertStatus(201);
 
         $this->assertDatabaseHas('queue_sections', [

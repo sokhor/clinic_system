@@ -18,7 +18,7 @@ class QueueCounterTest extends TestCase
 
         $counter = factory(QueueCounter::class)->make();
 
-        $this->postJson('api/queue-counter', $counter->toArray())
+        $this->postJson('api/queue-counters', $counter->toArray())
             ->assertStatus(201);
 
         $this->assertDatabaseHas('queue_counters', [
