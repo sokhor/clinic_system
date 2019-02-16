@@ -15,6 +15,7 @@ class CreateQueueCountersTable extends Migration
     {
         Schema::create('queue_counters', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('section_id')->index();
             $table->string('label');
             $table->boolean('active');
             $table->boolean('busy');

@@ -3,18 +3,69 @@
 namespace App\Http\Controllers\Queue;
 
 use App\Http\Controllers\Controller;
-use Domain\Queue\Actions\SetCounter;
-use Domain\Queue\Models\Queue;
+use App\Http\Resources\Queue\QueueCounterResource;
+use Domain\Queue\Actions\CreateQueueCounter;
+use Domain\Queue\ValueObjects\QueueCounterData;
 use Illuminate\Http\Request;
 
 class QueueCounterController extends Controller
 {
-    public function update(Request $request, Queue $queue)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $this->authorize('update', Queue::class);
+        //
+    }
 
-        (new SetCounter($queue))->execute();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $counter = (new CreateQueueCounter)->execute(
+            QueueCounterData::fromArray($request->all())
+        );
 
-        return response()->json(['message' => 'Queue\'s counter was set']);
+        return new QueueCounterResource($counter);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

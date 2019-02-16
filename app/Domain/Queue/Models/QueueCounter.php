@@ -20,6 +20,7 @@ class QueueCounter extends Model
      * @var array
      */
     protected $casts = [
+        'section_id' => 'integer',
         'busy' => 'boolean',
         'active' => 'boolean',
     ];

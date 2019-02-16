@@ -1,6 +1,7 @@
 <?php
 
 use Domain\Queue\Models\QueueCounter;
+use Domain\Queue\Models\QueueSection;
 use Faker\Generator as Faker;
 
 $factory->define(QueueCounter::class, function (Faker $faker) {
@@ -8,6 +9,7 @@ $factory->define(QueueCounter::class, function (Faker $faker) {
         'label' => $faker->randomNumber(),
         'active' => false,
         'busy' => false,
+        'section_id' => factory(QueueSection::class)->create(),
     ];
 });
 
