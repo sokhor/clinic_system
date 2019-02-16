@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Queue;
 
+use App\Http\Controllers\Controller;
 use Domain\Queue\Actions\SetCounter;
 use Domain\Queue\Models\Queue;
 use Illuminate\Http\Request;

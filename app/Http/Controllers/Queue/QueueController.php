@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Queue;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\QueueResource;
 use Domain\Queue\Actions\CreateQueue;
 use Domain\Queue\Models\Queue;

@@ -16,9 +16,7 @@ class QueueTest extends TestCase
     /** @test */
     function it_generate_a_new_queue()
     {
-        $user = factory(User::class)->create();
-        $user->allow('create', Queue::class);
-        $this->signIn($user);
+        $this->signIn()->allow('create', Queue::class);
 
         $this->postJson('api/queues', [])
             ->assertStatus(201);
@@ -44,9 +42,7 @@ class QueueTest extends TestCase
     /** @test */
     function it_fetch_queues_within_today()
     {
-        $user = factory(User::class)->create();
-        $user->allow('view', Queue::class);
-        $this->signIn($user);
+        $this->signIn()->allow('view', Queue::class);
 
         $queue_1 = factory(Queue::class)->create();
         $queue_1->created_at = today()->subDay();
@@ -87,9 +83,7 @@ class QueueTest extends TestCase
     /** @test */
     function it_set_queue_counter()
     {
-        $user = factory(User::class)->create();
-        $user->allow('update', Queue::class);
-        $this->signIn($user);
+        $this->signIn()->allow('update', Queue::class);
 
         $counter_1 = factory(QueueCounter::class)->state('inactive')->create();
         $counter_2 = factory(QueueCounter::class)->state('available')->create();
@@ -109,9 +103,7 @@ class QueueTest extends TestCase
     /** @test */
     function no_queue_counter_available()
     {
-        $user = factory(User::class)->create();
-        $user->allow('update', Queue::class);
-        $this->signIn($user);
+        $this->signIn()->allow('update', Queue::class);
 
         $counter_1 = factory(QueueCounter::class)->state('inactive')->create();
         $counter_3 = factory(QueueCounter::class)->state('busy')->create();
