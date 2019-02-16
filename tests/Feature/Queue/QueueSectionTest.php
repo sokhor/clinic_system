@@ -26,4 +26,24 @@ class QueueSectionTest extends TestCase
             'active' => $queue_section->active,
         ]);
     }
+
+    /** @test */
+    function it_fetch_sections()
+    {
+        $this->signIn();
+
+        factory(QueueSection::class, 5)->create();
+
+        $this->getJson('api/queue-sections')
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'name',
+                        'active',
+                    ]
+                ]
+            ]);
+    }
 }

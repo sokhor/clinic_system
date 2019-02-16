@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Queue;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Queue\QueueSectionResource;
 use Domain\Queue\Actions\CreateQueueSection;
+use Domain\Queue\Models\QueueSection;
 use Domain\Queue\ValueObjects\QueueSectionData;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,9 @@ class QueueSectionController extends Controller
      */
     public function index()
     {
-        //
+        $section = QueueSection::paginate(request()->per_page);
+
+        return QueueSectionResource::collection($section);
     }
 
     /**
