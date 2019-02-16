@@ -118,9 +118,25 @@ export default {
           ]
         },
         {
-          name: 'Queue',
-          url: '/queues',
-          icon: 'far fa-list-alt'
+          name: 'QMS',
+          icon: 'far fa-list-alt',
+          children: [
+            {
+              name: 'Section',
+              url: '/queue-sections',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Counter',
+              url: '/queue-counters',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Queue',
+              url: '/queues',
+              icon: 'fas fa-caret-right'
+            }
+          ]
         },
         {
           name: 'Reception',
