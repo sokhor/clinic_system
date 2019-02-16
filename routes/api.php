@@ -18,8 +18,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Queue
     Route::apiResource('queue-section', 'Queue\QueueSectionController');
-    Route::put('queues/{queue}/counter', 'Queue\QueueCounterController@update');
-    Route::apiResource('queues', 'Queue\QueueController');
+    Route::apiResource('queue-counter', 'Queue\QueueCounterController');
+    Route::put('queues/{queue}/counter', 'Queue\QueueSetCounterController@update');
+    Route::post('queues', 'Queue\QueueController@store');
+    Route::get('queues', 'Queue\QueueController@index');
 
     // Inventory
     Route::apiResource('products', 'Inventory\ProductController');

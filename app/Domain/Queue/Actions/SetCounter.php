@@ -7,17 +7,13 @@ use Domain\Queue\Models\QueueCounter;
 
 class SetCounter
 {
-    public function __construct(Queue $queue)
-    {
-        $this->queue = $queue;
-    }
-
     /**
-     * Generate a token
+     * Generate a ticket
      *
+     * @param \Domain\Queue\Models\Queue $queue
      * @return string
      */
-    public function execute()
+    public function execute(Queue $queue)
     {
         $counter = QueueCounter::available()->first();
 
@@ -25,8 +21,8 @@ class SetCounter
             return false;
         }
 
-        $this->queue->counter_id = $counter->id;
-        $this->queue->save();
+        $queue->counter_id = $counter->id;
+        $queue->save();
 
         $counter->busy = true;
         $counter->save();
