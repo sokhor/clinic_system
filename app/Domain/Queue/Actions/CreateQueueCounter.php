@@ -8,9 +8,10 @@ use Domain\Queue\ValueObjects\QueueCounterData;
 class CreateQueueCounter
 {
     /**
-     * Generate a token
+     * Create queue counter
      *
-     * @return string
+     * @param  \Domain\Queue\ValueObjects\QueueCounterData $input_data
+     * @return \Domain\Queue\Models\QueueCounter
      */
     public function execute(QueueCounterData $input_data)
     {
