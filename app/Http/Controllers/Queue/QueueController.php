@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Queue;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\QueueResource;
+use App\Http\Resources\Queue\QueueResource;
 use Domain\Queue\Actions\CreateQueue;
 use Domain\Queue\Models\Queue;
+use Domain\Queue\ValueObjects\QueueData;
 use Illuminate\Http\Request;
 
 class QueueController extends Controller
@@ -20,7 +21,13 @@ class QueueController extends Controller
     {
         $this->authorize('create', Queue::class);
 
-        $queue = (new CreateQueue)->execute();
+        $this->validate($request, [
+            'section_id' => 'required',
+        ]);
+
+        $queue = (new CreateQueue)->execute(
+            QueueData::fromArray($request->all())
+        );
 
         return new QueueResource($queue);
     }
@@ -34,6 +41,6 @@ class QueueController extends Controller
     {
         $this->authorize('view', Queue::class);
 
-        return QueueResource::collection(Queue::today()->get());
+        return QueueResource::collection(Queue::with(['section', 'counter'])->today()->get());
     }
 }

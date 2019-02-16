@@ -13,7 +13,7 @@ class QueueSectionTest extends TestCase
 
     /** @test */
     function it_create_queue_section()
-    {$this->withoutExceptionHandling();
+    {
         $this->signIn();
 
         $queue_section = factory(QueueSection::class)->make(['name' => 'Doctor Consulting']);

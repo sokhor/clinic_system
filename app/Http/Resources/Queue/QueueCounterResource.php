@@ -4,7 +4,7 @@ namespace App\Http\Resources\Queue;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QueueSectionResource extends JsonResource
+class QueueCounterResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class QueueSectionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'label' => $this->label,
             'active' => $this->active,
+            'busy' => $this->busy,
         ];
     }
 }

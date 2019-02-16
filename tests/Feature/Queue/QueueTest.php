@@ -5,6 +5,7 @@ namespace Tests\Feature\Queue;
 use App\User;
 use Domain\Queue\Models\Queue;
 use Domain\Queue\Models\QueueCounter;
+use Domain\Queue\Models\QueueSection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -18,13 +19,35 @@ class QueueTest extends TestCase
     {
         $this->signIn()->allow('create', Queue::class);
 
-        $this->postJson('api/queues', [])
+        $queue_section = factory(QueueSection::class)->create(['name' => 'Doctor Consulting']);
+
+        $this->postJson('api/queues', ['section_id' => $queue_section->id])
             ->assertStatus(201);
 
         $this->assertDatabaseHas('queues', [
             'ticket' => '01',
             'counter_id' => null,
             'status' => 0, //Pending
+            'section_id' => $queue_section->id,
+        ]);
+    }
+
+    /** @test */
+    function queue_section_is_required_to_generate_a_new_queue()
+    {
+        $this->signIn()->allow('create', Queue::class);
+
+        $queue_section = factory(QueueSection::class)->create(['name' => 'Doctor Consulting']);
+
+        $this->postJson('api/queues', [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['section_id']);
+
+        $this->assertDatabaseMissing('queues', [
+            'ticket' => '01',
+            'counter_id' => null,
+            'status' => 0, //Pending
+            'section_id' => $queue_section->id,
         ]);
     }
 
@@ -56,8 +79,9 @@ class QueueTest extends TestCase
             'data' => [
                 '*' => [
                     'ticket',
-                    'counter_id',
+                    'counter',
                     'status',
+                    'section',
                 ],
             ],
         ]);
