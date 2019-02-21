@@ -10,9 +10,9 @@
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.0",
         "laravel/tinker": "^1.0",
+        "myclabs/php-enum": "^1.6",
         "silber/bouncer": "v1.0.0-rc.4",
         "spatie/data-transfer-object": "^1.7",
-        "spatie/enum": "^1.0",
         "spatie/laravel-cors": "^1.3",
         "spatie/laravel-query-builder": "^1.12"
     },
