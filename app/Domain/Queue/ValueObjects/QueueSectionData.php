@@ -10,17 +10,16 @@ class QueueSectionData extends DataTransferObject
     /** @var string */
     public $name;
 
-    /** @var bool */
+    /** @var QueueSectionStatus */
     public $active;
-
 
     /**
      * Create a new value object instance
      *
      * @param string $name
-     * @param bool   $active
+     * @param QueueSectionStatus   $active
      */
-    public function __construct(string $name, bool $active)
+    public function __construct(string $name, QueueSectionStatus $active)
     {
         $this->name = $name;
         $this->active = $active;
@@ -36,7 +35,7 @@ class QueueSectionData extends DataTransferObject
     {
         return new self(
             $input['name'],
-            isset($input['active']) ? $input['active'] : QueueSectionStatus::INACTIVE
+            isset($input['active']) ? new QueueSectionStatus($input['active']) : QueueSectionStatus::INACTIVE
         );
     }
 }

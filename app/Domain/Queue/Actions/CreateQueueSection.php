@@ -17,7 +17,7 @@ class CreateQueueSection
     {
         $section = QueueSection::create([
             'name' => $input_data->name,
-            'active' => $input_data->active,
+            'active' => $input_data->active->getValue(),
         ]);
 
         return $section;
