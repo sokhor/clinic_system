@@ -18,7 +18,7 @@ class QueueSectionController extends Controller
      */
     public function index()
     {
-        $section = QueueSection::paginate(request()->per_page);
+        $section = QueueSection::with('counters')->paginate(request()->per_page);
 
         return QueueSectionResource::collection($section);
     }

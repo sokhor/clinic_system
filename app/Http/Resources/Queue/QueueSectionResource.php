@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Queue;
 
+use App\Http\Resources\Queue\QueueCounterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class QueueSectionResource extends JsonResource
@@ -18,6 +19,7 @@ class QueueSectionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'active' => $this->active,
+            'counters' => QueueCounterResource::collection($this->whenLoaded('counters')),
         ];
     }
 }
