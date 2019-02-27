@@ -28,4 +28,27 @@ class QueueCounterTest extends TestCase
             'section_id' => $counter->section_id,
         ]);
     }
+
+    /** @test */
+    function it_fetch_counters()
+    {
+        $this->signIn();
+
+        factory(QueueCounter::class, 5)->create();
+
+        $this->getJson('api/queue-counters')
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'label',
+                        'active',
+                        'busy',
+                        'section_id',
+                        'section',
+                    ]
+                ]
+            ]);
+    }
 }

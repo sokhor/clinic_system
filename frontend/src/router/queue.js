@@ -2,20 +2,12 @@ import store from '@/store'
 
 export default [
   {
-    path: '/queue-sections',
-    name: 'queue-sections',
+    path: '/queue-setup',
+    name: 'queue-setup',
     meta: {
       authRequired: true
     },
-    component: () => import('@/pages/queues/section')
-  },
-  {
-    path: '/queue-sections/create',
-    name: 'queue-sections-create',
-    meta: {
-      authRequired: true
-    },
-    component: () => import('@/pages/queues/section/create.vue')
+    component: () => import('@/pages/queues/setup')
   },
   {
     path: '/queues',

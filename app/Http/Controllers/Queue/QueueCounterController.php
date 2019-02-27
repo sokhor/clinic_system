@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Queue;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Queue\QueueCounterResource;
 use Domain\Queue\Actions\CreateQueueCounter;
+use Domain\Queue\Models\QueueCounter;
 use Domain\Queue\ValueObjects\QueueCounterData;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,9 @@ class QueueCounterController extends Controller
      */
     public function index()
     {
-        //
+        $counters = QueueCounter::with('section')->paginate(request()->per_page);
+
+        return QueueCounterResource::collection($counters);
     }
 
     /**

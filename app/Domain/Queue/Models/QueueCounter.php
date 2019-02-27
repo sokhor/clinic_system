@@ -36,4 +36,14 @@ class QueueCounter extends Model
     {
         return $query->where('active', true)->where('busy', false);
     }
+
+    /**
+     * It belongs to a queue section
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function section()
+    {
+        return $this->belongsTo(QueueSection::class);
+    }
 }

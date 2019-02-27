@@ -122,17 +122,12 @@ export default {
           icon: 'far fa-list-alt',
           children: [
             {
-              name: 'Section',
-              url: '/queue-sections',
+              name: 'Setup',
+              url: '/queue-setup',
               icon: 'fas fa-caret-right'
             },
             {
-              name: 'Counter',
-              url: '/queue-counters',
-              icon: 'fas fa-caret-right'
-            },
-            {
-              name: 'Queue',
+              name: 'List',
               url: '/queues',
               icon: 'fas fa-caret-right'
             }
