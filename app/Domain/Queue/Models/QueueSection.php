@@ -2,6 +2,7 @@
 
 namespace Domain\Queue\Models;
 
+use Domain\Queue\Models\QueueCounter;
 use Illuminate\Database\Eloquent\Model;
 
 class QueueSection extends Model
@@ -21,4 +22,14 @@ class QueueSection extends Model
     protected $casts = [
         'active' => 'bool',
     ];
+
+    /**
+     * It has many counters
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function counters()
+    {
+        return $this->hasMany(QueueCounter::class, 'section_id');
+    }
 }
