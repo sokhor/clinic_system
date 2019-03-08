@@ -56,10 +56,14 @@ export default {
         .then(() => (this.loading = false))
     },
     addNewSection() {
-      this.$modal.show(SectionCreate, {}, {
-        height: 'auto',
-        clickToClose: false
-      })
+      this.$modal.show(
+        SectionCreate,
+        {},
+        {
+          height: 'auto',
+          clickToClose: false
+        }
+      )
     }
   }
 }

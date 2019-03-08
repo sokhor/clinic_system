@@ -23,10 +23,12 @@ export const mutations = {
     }
   },
   EDIT_COUNTER(state, counter) {
-    let orgCounter = flatten(map(state.sections, s => s.counters)).find(c => c.id === counter.id)
+    let orgCounter = flatten(map(state.sections, s => s.counters)).find(
+      c => c.id === counter.id
+    )
 
     if (orgCounter !== undefined) {
-      for(let prop in counter) {
+      for (let prop in counter) {
         orgCounter[prop] = counter[prop]
       }
     }
