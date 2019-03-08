@@ -1,3 +1,4 @@
+import { map, flatten } from 'lodash'
 import apiSection from '@/api/queue/sections'
 import apiCounter from '@/api/queue/counters'
 
@@ -11,6 +12,9 @@ export const mutations = {
   RECEIVE_RESOURCES(state, sections) {
     state.sections = sections
   },
+  ADD_NEW_SECTION(state, section) {
+    state.sections.push(section)
+  },
   ADD_NEW_COUNTER(state, counter) {
     let section = state.sections.find(s => s.id === counter.section_id)
 
@@ -18,8 +22,14 @@ export const mutations = {
       section.counters.push(counter)
     }
   },
-  ADD_NEW_SECTION(state, section) {
-    state.sections.push(section)
+  EDIT_COUNTER(state, counter) {
+    let orgCounter = flatten(map(state.sections, s => s.counters)).find(c => c.id === counter.id)
+
+    if (orgCounter !== undefined) {
+      for(let prop in counter) {
+        orgCounter[prop] = counter[prop]
+      }
+    }
   }
 }
 
@@ -53,6 +63,17 @@ export const actions = {
       .store(queueCounter)
       .then(response => {
         commit('ADD_NEW_COUNTER', response.data)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  updateCounter({ commit, state }, queueCounter) {
+    return apiCounter
+      .update(queueCounter)
+      .then(response => {
+        commit('EDIT_COUNTER', response.data)
         return Promise.resolve(response)
       })
       .catch(error => {

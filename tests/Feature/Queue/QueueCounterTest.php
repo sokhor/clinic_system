@@ -30,6 +30,29 @@ class QueueCounterTest extends TestCase
     }
 
     /** @test */
+    function it_update_a_counter()
+    {
+        $this->signIn();
+
+        $counter = factory(QueueCounter::class)->create();
+
+        $this->putJson('api/queue-counters/' . $counter->id, [
+            'label' => 'other label',
+            'active' => true,
+            'busy' => true,
+            'section_id' => $counter->section_id,
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('queue_counters', [
+            'id' => $counter->id,
+            'label' => 'other label',
+            'active' => true,
+            'busy' => true,
+            'section_id' => $counter->section_id,
+        ]);
+    }
+
+    /** @test */
     function it_fetch_counters()
     {
         $this->signIn();

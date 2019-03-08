@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Queue;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Queue\QueueCounterResource;
 use Domain\Queue\Actions\CreateQueueCounter;
+use Domain\Queue\Actions\QueueCounterUpdate;
 use Domain\Queue\Models\QueueCounter;
 use Domain\Queue\ValueObjects\QueueCounterData;
 use Illuminate\Http\Request;
@@ -54,12 +55,18 @@ class QueueCounterController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $counter = (new QueueCounterUpdate)->execute(
+            $id,
+            QueueCounterData::fromArray($request->all())
+        );
+
+        return (new QueueCounterResource($counter))
+                ->additional(['message' => 'Counter updated']);
     }
 
     /**
