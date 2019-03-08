@@ -2,7 +2,12 @@
   <div class="w-full">
     <div class="flex -mx-6">
       <div class="w-4/5 px-6">
-        <queue-section v-for="queueSection in queueSections" :section="queueSection" class="mb-8" />
+        <queue-section
+          v-for="queueSection in queueSections"
+          :key="queueSection.id"
+          :section="queueSection"
+          class="mb-8"
+        />
       </div>
       <div class="w-1/5 px-6 relative">
         <div class="fixed">
@@ -38,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('queue/queueSections', { queueSections: 'resources' })
+    ...mapState('queues', { queueSections: 'sections' })
   },
   created() {
     this.list()
@@ -51,18 +56,9 @@ export default {
       this.loading = true
 
       this.$store
-        .dispatch('queue/queueSections/list')
+        .dispatch('queues/listSections')
         .then(() => (this.loading = false))
     }
-  },
-  watch: {
-    search: debounce(function(search) {
-      this.loading = true
-
-      this.$store
-        .dispatch('queue/queueSections/list', { search })
-        .then(() => (this.loading = false))
-    }, 500)
   }
 }
 </script>

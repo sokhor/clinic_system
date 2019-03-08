@@ -10,10 +10,14 @@
     <hr class="border-b border-grey" />
     <div class="flex flex-wrap -mx-2">
       <div v-for="queueCounter in section.counters" class="p-2">
-        <queue-counter :counter="queueCounter" />
+        <queue-counter :counter="queueCounter" :key="queueCounter.id" />
       </div>
       <div class="p-2">
-        <base-button flat class="w-32 h-32 flex justify-center items-center border border-dashed border-grey text-2xl">
+        <base-button
+          flat
+          class="w-32 h-32 flex justify-center items-center border border-dashed border-grey text-2xl"
+          @click="addNewCounter"
+          >
           <i class="fas fa-plus"></i>
         </base-button>
       </div>
@@ -23,10 +27,32 @@
 
 <script>
 import QueueCounter from './counter'
+import CounterNew from './counter-new'
 
 export default {
   name: 'QueueSection',
-  components: { QueueCounter },
-  props: ['section']
+  components: { QueueCounter, CounterNew },
+  props: ['section'],
+  data() {
+    return {
+      newCounter: {
+        label: null
+      }
+    }
+  },
+  methods: {
+    addNewCounter() {
+      this.$modal.show(
+        CounterNew,
+        {
+          section: this.section
+        },
+        {
+          height: 'auto',
+          clickToClose: false
+        }
+      )
+    }
+  }
 }
 </script>

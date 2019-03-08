@@ -18,7 +18,7 @@ class QueueCounterController extends Controller
      */
     public function index()
     {
-        $counters = QueueCounter::with('section')->paginate(request()->per_page);
+        $counters = QueueCounter::with('section')->get();
 
         return QueueCounterResource::collection($counters);
     }
@@ -35,7 +35,8 @@ class QueueCounterController extends Controller
             QueueCounterData::fromArray($request->all())
         );
 
-        return new QueueCounterResource($counter);
+        return (new QueueCounterResource($counter))
+                ->additional(['message' => 'Counter created']);
     }
 
     /**
