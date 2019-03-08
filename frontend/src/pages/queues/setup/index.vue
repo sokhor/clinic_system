@@ -12,7 +12,7 @@
       <div class="w-1/5 px-6 relative">
         <div class="fixed">
           <div class="text-left">
-            <base-button color="accent">Create Section</base-button>
+            <base-button color="accent" @click="addNewSection">Create Section</base-button>
           </div>
           <ul class="list-reset mt-6">
             <li v-for="queueSection in queueSections">
@@ -28,16 +28,15 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-import { debounce } from 'lodash'
+import { mapState } from 'vuex'
 import QueueSection from './section'
+import SectionCreate from './section-create'
 
 export default {
   name: 'QueueSetup',
-  components: { QueueSection },
+  components: { QueueSection, SectionCreate },
   data() {
     return {
-      queueSection: null,
       loading: true,
       search: ''
     }
@@ -49,15 +48,18 @@ export default {
     this.list()
   },
   methods: {
-    registerNew() {
-      this.queueSection = {}
-    },
     list() {
       this.loading = true
 
       this.$store
         .dispatch('queues/listSections')
         .then(() => (this.loading = false))
+    },
+    addNewSection() {
+      this.$modal.show(SectionCreate, {}, {
+        height: 'auto',
+        clickToClose: false
+      })
     }
   }
 }

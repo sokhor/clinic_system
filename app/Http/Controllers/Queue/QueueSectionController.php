@@ -35,7 +35,8 @@ class QueueSectionController extends Controller
             QueueSectionData::fromArray($request->all())
         );
 
-        return new QueueSectionResource($queue_section);
+        return (new QueueSectionResource($queue_section))
+            ->additional(['message' => 'Section created']);
     }
 
     /**

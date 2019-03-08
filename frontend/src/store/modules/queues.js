@@ -17,6 +17,9 @@ export const mutations = {
     if (section !== undefined) {
       section.counters.push(counter)
     }
+  },
+  ADD_NEW_SECTION(state, section) {
+    state.sections.push(section)
   }
 }
 
@@ -28,6 +31,17 @@ export const actions = {
       .list()
       .then(response => {
         commit('RECEIVE_RESOURCES', response.data)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  createSection({ commit }, queueSection) {
+    return apiSection
+      .store(queueSection)
+      .then(response => {
+        commit('ADD_NEW_SECTION', response.data)
         return Promise.resolve(response)
       })
       .catch(error => {
