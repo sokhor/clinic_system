@@ -22,11 +22,11 @@
       </div>
       <div class="flex items-center justify-end mt-4">
         <div>
-          <base-button class="mr-5" color="primary" :waiting="savingAndNew" @click="saveAndNew">
-            Register & New
+          <base-button outline class="mr-5" color="primary" :waiting="savingAndNew" @click="saveAndNew">
+            Create & New
           </base-button>
           <base-button color="primary" :waiting="saving" @click="saveAndClose">
-            Register
+            Create
           </base-button>
         </div>
       </div>
