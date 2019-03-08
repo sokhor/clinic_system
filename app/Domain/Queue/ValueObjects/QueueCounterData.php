@@ -43,7 +43,7 @@ class QueueCounterData extends DataTransferObject
             'section_id' => $input['section_id'],
             'label' => $input['label'],
             'active' => $input['active'],
-            'busy' => $input['busy'],
+            'busy' => isset($input['busy']) ? $input['busy'] : false,
         ]);
     }
 }
