@@ -36,7 +36,7 @@
       </div>
     </form>
     <p class="text-center text-grey text-xs">
-      ©2018 Acme Corp. All rights reserved.
+      ©2019 Prasetpheap. All rights reserved.
     </p>
   </div>
 </template>
@@ -44,13 +44,11 @@
 <script>
 import { required } from 'vuelidate/lib/validators'
 import Alert from '../components/alert.vue'
-import Waiting from '../components/waiting.vue'
 
 export default {
   name: 'Login',
   components: {
-    Alert,
-    Waiting
+    Alert
   },
   data() {
     return {
