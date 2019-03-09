@@ -53,6 +53,21 @@ class QueueCounterTest extends TestCase
     }
 
     /** @test */
+    function it_delete_a_counter()
+    {
+        $this->signIn();
+
+        $counter = factory(QueueCounter::class)->create();
+
+        $this->deleteJson('api/queue-counters/' . $counter->id)
+            ->assertStatus(200);
+
+        $this->assertDatabaseMissing('queue_counters', [
+            'id' => $counter->id
+        ]);
+    }
+
+    /** @test */
     function it_fetch_counters()
     {
         $this->signIn();

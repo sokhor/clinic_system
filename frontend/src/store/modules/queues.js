@@ -32,6 +32,13 @@ export const mutations = {
         orgCounter[prop] = counter[prop]
       }
     }
+  },
+  DELETE_COUNTER(state, counter) {
+    let section = state.sections.find(s => s.id === counter.section_id)
+
+    if (section !== undefined) {
+      section.counters.splice(section.counters.indexOf(counter), 1)
+    }
   }
 }
 
@@ -71,11 +78,22 @@ export const actions = {
         return Promise.reject(error.response.data)
       })
   },
-  updateCounter({ commit, state }, queueCounter) {
+  updateCounter({ commit }, queueCounter) {
     return apiCounter
       .update(queueCounter)
       .then(response => {
         commit('EDIT_COUNTER', response.data)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  deleteCounter({ commit }, queueCounter) {
+    return apiCounter
+      .destroy(queueCounter.id)
+      .then(response => {
+        commit('DELETE_COUNTER', queueCounter)
         return Promise.resolve(response)
       })
       .catch(error => {

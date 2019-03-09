@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Queue\QueueCounterResource;
 use Domain\Queue\Actions\CreateQueueCounter;
 use Domain\Queue\Actions\QueueCounterUpdate;
+use Domain\Queue\Actions\QueueCounterDestroy;
 use Domain\Queue\Models\QueueCounter;
 use Domain\Queue\ValueObjects\QueueCounterData;
 use Illuminate\Http\Request;
@@ -77,6 +78,8 @@ class QueueCounterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        (new QueueCounterDestroy)->execute($id);
+
+        return response()->json(['message' => 'Counter deleted']);
     }
 }

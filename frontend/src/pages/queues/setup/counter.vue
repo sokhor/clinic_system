@@ -11,8 +11,9 @@
         <base-button flat color="primary" class="mr-3" v-tooltip="'Edit section'" @click="editCounter">
           <i class="fas fa-pencil-alt"></i>
         </base-button>
-        <base-button flat color="danger" v-tooltip="'Delete section'">
-          <i class="fas fa-trash"></i>
+        <base-button flat color="danger" v-tooltip="'Delete section'" @click="deleteCounter">
+          <i class="fas fa-trash" v-show="!deleting"></i>
+          <base-waiting v-show="deleting" />
         </base-button>
       </div>
     </div>
@@ -26,6 +27,11 @@ export default {
   name: 'QueueCounter',
   components: { CounterEdit },
   props: ['counter'],
+  data() {
+    return {
+      deleting: false
+    }
+  },
   methods: {
     editCounter() {
       this.$modal.show(
@@ -38,6 +44,21 @@ export default {
           clickToClose: false
         }
       )
+    },
+    async deleteCounter() {
+      this.deleting = true
+
+      try {
+        let response = await this.$store.dispatch(
+          'queues/deleteCounter',
+          this.counter
+        )
+        this.$toasted.success(response.message)
+      } catch (error) {
+        this.$toasted.error(error)
+      }
+
+      this.deleting = false
     }
   }
 }
