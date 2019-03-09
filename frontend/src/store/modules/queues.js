@@ -18,7 +18,7 @@ export const mutations = {
   EDIT_SECTION(state, section) {
     let orgSection = state.sections.find(s => s.id === section.id)
 
-    if(orgSection !== undefined) {
+    if (orgSection !== undefined) {
       for (let prop in section) {
         orgSection[prop] = section[prop]
       }

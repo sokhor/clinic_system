@@ -41,7 +41,7 @@ export default {
   props: ['section'],
   data() {
     return {
-     deleting: false
+      deleting: false
     }
   },
   methods: {

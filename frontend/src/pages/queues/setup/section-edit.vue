@@ -39,11 +39,14 @@ export default {
   props: ['section'],
   data() {
     return {
-      form: Object.assign({}, {
-        id: this.section.id,
-        name: this.section.name,
-        active: this.section.active
-      }),
+      form: Object.assign(
+        {},
+        {
+          id: this.section.id,
+          name: this.section.name,
+          active: this.section.active
+        }
+      ),
       saving: false
     }
   },
