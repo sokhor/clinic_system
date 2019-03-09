@@ -15,6 +15,15 @@ export const mutations = {
   ADD_NEW_SECTION(state, section) {
     state.sections.push(section)
   },
+  EDIT_SECTION(state, section) {
+    let orgSection = state.sections.find(s => s.id === section.id)
+
+    if(orgSection !== undefined) {
+      for (let prop in section) {
+        orgSection[prop] = section[prop]
+      }
+    }
+  },
   ADD_NEW_COUNTER(state, counter) {
     let section = state.sections.find(s => s.id === counter.section_id)
 
@@ -61,6 +70,17 @@ export const actions = {
       .store(queueSection)
       .then(response => {
         commit('ADD_NEW_SECTION', response.data)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  updateSection({ commit }, { id, ...data }) {
+    return apiSection
+      .update(id, data)
+      .then(response => {
+        commit('EDIT_SECTION', response.data)
         return Promise.resolve(response)
       })
       .catch(error => {

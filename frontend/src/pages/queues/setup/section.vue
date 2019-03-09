@@ -3,7 +3,9 @@
     <div class="flex justify-between">
       <h3>{{ section.name }}</h3>
       <div>
-        <base-button flat color="primary" class="mr-3" v-tooltip="'Edit section'"><i class="fas fa-pencil-alt"></i></base-button>
+        <base-button flat color="primary" class="mr-3" v-tooltip="'Edit section'" @click="editSection">
+          <i class="fas fa-pencil-alt"></i>
+        </base-button>
         <base-button flat color="danger" v-tooltip="'Delete section'"><i class="fas fa-trash"></i></base-button>
       </div>
     </div>
@@ -28,10 +30,11 @@
 <script>
 import QueueCounter from './counter'
 import CounterNew from './counter-new'
+import SectionEdit from './section-edit'
 
 export default {
   name: 'QueueSection',
-  components: { QueueCounter, CounterNew },
+  components: { QueueCounter, CounterNew, SectionEdit },
   props: ['section'],
   data() {
     return {
@@ -44,6 +47,18 @@ export default {
     addNewCounter() {
       this.$modal.show(
         CounterNew,
+        {
+          section: this.section
+        },
+        {
+          height: 'auto',
+          clickToClose: false
+        }
+      )
+    },
+    editSection() {
+      this.$modal.show(
+        SectionEdit,
         {
           section: this.section
         },

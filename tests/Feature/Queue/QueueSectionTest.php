@@ -28,6 +28,25 @@ class QueueSectionTest extends TestCase
     }
 
     /** @test */
+    function it_update_a_queue_section()
+    {
+        $this->signIn();
+
+        $queue_section = factory(QueueSection::class)->create();
+
+        $this->putJson('api/queue-sections/' . $queue_section->id, [
+            'name' => 'Nurse and midwife',
+            'active' => true,
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('queue_sections', [
+            'id' => $queue_section->id,
+            'name' => 'Nurse and midwife',
+            'active' => true,
+        ]);
+    }
+
+    /** @test */
     function it_fetch_sections()
     {
         $this->signIn();
