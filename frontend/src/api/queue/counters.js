@@ -14,9 +14,9 @@ export const store = data => {
     .catch(error => Promise.reject(error.response))
 }
 
-export const update = data => {
+export const update = (id, data) => {
   return apiClient
-    .put(`/api/queue-counters/${data.id}`, data)
+    .put(`/api/queue-counters/${id}`, data)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }

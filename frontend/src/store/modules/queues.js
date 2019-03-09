@@ -112,9 +112,9 @@ export const actions = {
         return Promise.reject(error.response.data)
       })
   },
-  updateCounter({ commit }, queueCounter) {
+  updateCounter({ commit }, { id, ...data }) {
     return apiCounter
-      .update(queueCounter)
+      .update(id, data)
       .then(response => {
         commit('EDIT_COUNTER', response.data)
         return Promise.resolve(response)
