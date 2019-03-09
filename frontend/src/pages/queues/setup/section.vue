@@ -6,7 +6,10 @@
         <base-button flat color="primary" class="mr-3" v-tooltip="'Edit section'" @click="editSection">
           <i class="fas fa-pencil-alt"></i>
         </base-button>
-        <base-button flat color="danger" v-tooltip="'Delete section'"><i class="fas fa-trash"></i></base-button>
+        <base-button flat color="danger" v-tooltip="'Delete section'" @click="deleteSection">
+          <i class="fas fa-trash" v-show="!deleting"></i>
+          <base-waiting v-show="deleting" />
+        </base-button>
       </div>
     </div>
     <hr class="border-b border-grey" />
@@ -38,9 +41,7 @@ export default {
   props: ['section'],
   data() {
     return {
-      newCounter: {
-        label: null
-      }
+     deleting: false
     }
   },
   methods: {
@@ -67,6 +68,21 @@ export default {
           clickToClose: false
         }
       )
+    },
+    async deleteSection() {
+      this.deleting = true
+
+      try {
+        let response = await this.$store.dispatch(
+          'queues/deleteSection',
+          this.section
+        )
+        this.$toasted.success(response.message)
+      } catch (error) {
+        this.$toasted.error(error)
+      }
+
+      this.deleting = false
     }
   }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Queue\QueueSectionResource;
 use Domain\Queue\Actions\CreateQueueSection;
 use Domain\Queue\Actions\QueueSectionUpdate;
+use Domain\Queue\Actions\QueueSectionDestroy;
 use Domain\Queue\Models\QueueSection;
 use Domain\Queue\ValueObjects\QueueSectionData;
 use Illuminate\Http\Request;
@@ -77,6 +78,8 @@ class QueueSectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        (new QueueSectionDestroy)->execute($id);
+
+        return response()->json(['message' => 'Section deleted']);
     }
 }

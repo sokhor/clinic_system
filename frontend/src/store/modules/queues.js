@@ -24,6 +24,9 @@ export const mutations = {
       }
     }
   },
+  DELETE_SECTION(state, section) {
+    state.sections.splice(state.sections.indexOf(section), 1)
+  },
   ADD_NEW_COUNTER(state, counter) {
     let section = state.sections.find(s => s.id === counter.section_id)
 
@@ -81,6 +84,17 @@ export const actions = {
       .update(id, data)
       .then(response => {
         commit('EDIT_SECTION', response.data)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  deleteSection({ commit }, queueSection) {
+    return apiSection
+      .destroy(queueSection.id)
+      .then(response => {
+        commit('DELETE_SECTION', queueSection)
         return Promise.resolve(response)
       })
       .catch(error => {
