@@ -12,12 +12,12 @@
 }
 </style>
 
-<template functional>
-    <span class="fas fa-spinner spin" aria-hidden="true"></span>
+<template>
+  <span class="fas fa-spinner spin" aria-hidden="true"></span>
 </template>
 
 <script>
 export default {
-  name: 'waiting'
+  name: 'BaseWaiting'
 }
 </script>
