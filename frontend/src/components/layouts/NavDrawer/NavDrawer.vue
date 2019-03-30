@@ -90,7 +90,7 @@ export default {
           }
         },
         {
-          name: 'User Management',
+          name: 'Authorization',
           icon: 'fas fa-user',
           children: [
             {
