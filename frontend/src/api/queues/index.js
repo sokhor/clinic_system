@@ -7,9 +7,9 @@ export default {
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error.response))
   },
-  store() {
+  store(data) {
     return httpClient
-      .post('/api/queues')
+      .post('/api/queues', data)
       .then(response => Promise.resolve(response.data))
       .catch(error => Promise.reject(error.response))
   }

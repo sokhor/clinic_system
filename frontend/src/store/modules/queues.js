@@ -1,15 +1,17 @@
 import { map, flatten } from 'lodash'
-import apiSection from '@/api/queue/sections'
-import apiCounter from '@/api/queue/counters'
+import apiSection from '@/api/queues/sections'
+import apiCounter from '@/api/queues/counters'
+import apiQueue from '@/api/queues'
 
 export const state = {
-  sections: []
+  sections: [],
+  queues: []
 }
 
 export const getters = {}
 
 export const mutations = {
-  RECEIVE_RESOURCES(state, sections) {
+  RECEIVE_SECTIONS(state, sections) {
     state.sections = sections
   },
   ADD_NEW_SECTION(state, section) {
@@ -51,17 +53,23 @@ export const mutations = {
     if (section !== undefined) {
       section.counters.splice(section.counters.indexOf(counter), 1)
     }
+  },
+  RECEIVE_QUEUES(state, queues) {
+    state.queues = queues
+  },
+  ADD_NEW_QUEUE(state, queue) {
+    state.queues.push(queue)
   }
 }
 
 export const actions = {
   listSections({ commit }) {
-    commit('RECEIVE_RESOURCES', { data: [] })
+    commit('RECEIVE_SECTIONS', { data: [] })
 
     return apiSection
       .list()
       .then(response => {
-        commit('RECEIVE_RESOURCES', response.data)
+        commit('RECEIVE_SECTIONS', response.data)
         return Promise.resolve(response)
       })
       .catch(error => {
@@ -128,6 +136,30 @@ export const actions = {
       .destroy(queueCounter.id)
       .then(response => {
         commit('DELETE_COUNTER', queueCounter)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  list({ commit }) {
+    commit('RECEIVE_QUEUES', { data: [] })
+
+    return apiQueue
+      .list()
+      .then(response => {
+        commit('RECEIVE_QUEUES', response.data)
+        return Promise.resolve(response)
+      })
+      .catch(error => {
+        return Promise.reject(error.response.data)
+      })
+  },
+  store({ commit }, sectionId) {
+    return apiQueue
+      .store({ section_id: sectionId })
+      .then(response => {
+        commit('ADD_NEW_QUEUE', response.data)
         return Promise.resolve(response)
       })
       .catch(error => {
