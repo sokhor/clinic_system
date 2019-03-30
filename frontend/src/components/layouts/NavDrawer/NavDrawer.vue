@@ -81,6 +81,15 @@ export default {
           icon: 'fas fa-tachometer-alt'
         },
         {
+          name: 'Administration',
+          title: true,
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
           name: 'User Management',
           icon: 'fas fa-user',
           children: [
@@ -97,7 +106,7 @@ export default {
           ]
         },
         {
-          name: 'Department',
+          name: 'Accomodation',
           icon: 'fas fa-building',
           children: [
             {
@@ -118,6 +127,15 @@ export default {
           ]
         },
         {
+          name: 'Reception',
+          title: true,
+          class: '',
+          wrapper: {
+            element: '',
+            attributes: {}
+          }
+        },
+        {
           name: 'QMS',
           icon: 'far fa-list-alt',
           children: [
@@ -134,45 +152,34 @@ export default {
           ]
         },
         {
-          name: 'Reception',
-          icon: 'fas fa-building',
-          children: [
-            {
-              name: 'Registration',
-              url: '/patients/create',
-              icon: 'fas fa-caret-right'
-            },
-            {
-              name: 'Visit',
-              url: '/visits',
-              icon: 'fas fa-caret-right',
-              badge: {
-                color: 'red',
-                text: '10'
-              }
-            }
-          ]
+          name: 'Visit',
+          url: '/visits',
+          icon: 'fas fa-walking',
+          badge: {
+            color: 'red',
+            text: '10'
+          }
         },
-        {
-          name: 'Nurse',
-          url: '/nurses',
-          icon: 'fas fa-notes-medical'
-        },
-        {
-          name: 'Doctor',
-          url: '/doctors',
-          icon: 'fas fa-user-md'
-        },
-        {
-          name: 'Laboratory',
-          url: '/laboratories',
-          icon: 'fas fa-flask'
-        },
-        {
-          name: 'Pharmacist',
-          url: '/pharmacists',
-          icon: 'fas fa-syringe'
-        },
+        // {
+        //   name: 'Nurse',
+        //   url: '/nurses',
+        //   icon: 'fas fa-notes-medical'
+        // },
+        // {
+        //   name: 'Doctor',
+        //   url: '/doctors',
+        //   icon: 'fas fa-user-md'
+        // },
+        // {
+        //   name: 'Laboratory',
+        //   url: '/laboratories',
+        //   icon: 'fas fa-flask'
+        // },
+        // {
+        //   name: 'Pharmacist',
+        //   url: '/pharmacists',
+        //   icon: 'fas fa-syringe'
+        // },
         {
           name: 'Appointment',
           url: '/appointments',

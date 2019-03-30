@@ -2,7 +2,10 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">
-        Patient Registration
+        <router-link class="text-blue hover:text-blue-light mr-2" to="/patients">
+          <i class="fas fa-arrow-left"></i>
+        </router-link>
+        / Patient Registration
       </h1>
     </div>
     <div class="flex -mx-4">

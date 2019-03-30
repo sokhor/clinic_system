@@ -1,7 +1,8 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
+    <div class="w-full flex flex-row items-center justify-between items-end pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">Patients</h1>
+      <base-button color="accent" @click="$router.push('/patients/create')">Register</base-button>
     </div>
     <BaseCard>
       <div class="p-4 flex">
