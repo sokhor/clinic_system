@@ -19,6 +19,7 @@
     "nprogress": "^0.2.0",
     "popper.js": "^1.14.6",
     "postcss-import": "^12.0.1",
+    "print-js": "^1.0.54",
     "qs": "^6.6.0",
     "rxjs": "^6.3.3",
     "shortid": "^2.2.14",
