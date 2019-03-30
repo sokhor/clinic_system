@@ -1,22 +1,13 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-end justify-between h-16 mb-3">
+    <div class="w-full flex flex-row items-end justify-between items-end mb-3">
       <h1 class="inline text-grey-darkest text-xl font-bold">Queue</h1>
       <base-button color="accent" @click="addNewQueue">Generate</base-button>
     </div>
-    <div class="flex -mx-4">
-      <div class="w-2/6 px-4">
-        <base-card>
-          <ul class="list-reset">
-            <li 
-              class="p-4 text-center"
-              :class="{'border-b': index < queues.length - 1}"
-              v-for="(queue, index) in queues"
-              :key="queue.id"
-            >
-              <span class="text-2xl font-semibold">{{ queue.ticket }}</span>
-            </li>
-          </ul>
+    <div class="flex flex-wrap -mx-2">
+      <div class="w-1/6 h-48 px-2 py-2" v-for="queue in queues" :key="queue.id">
+        <base-card class="flex items-center justify-center w-full h-full cursor-pointer">
+          <span class="text-2xl font-semibold">{{ queue.ticket }}</span>
         </base-card>
       </div>
     </div>
