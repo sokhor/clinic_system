@@ -48,7 +48,7 @@ export default {
       this.$modal.show(
         QueueCreate,
         {
-          queueSections: queueSections
+          queueSections: queueSections.filter(qs => qs.counters.length > 0)
         },
         {
           height: 'auto',
