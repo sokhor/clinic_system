@@ -212,14 +212,19 @@ export default {
           }
         },
         {
+          name: 'Service',
+          url: '/services',
+          icon: 'fas fa-bolt'
+        },
+        {
+          name: 'Employee',
+          url: '/employees',
+          icon: 'fas fa-people-carry'
+        },
+        {
           name: 'Partner',
           url: '/partners',
           icon: 'fas fa-handshake'
-        },
-        {
-          name: 'Service',
-          url: '/services',
-          icon: 'fas fa-concierge-bell'
         },
         {
           name: 'Administration',
@@ -261,8 +266,23 @@ export default {
               icon: 'fas fa-caret-right'
             },
             {
-              name: 'Room',
+              name: 'Unit',
+              url: '/units',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Sub-unit',
+              url: '/sub-units',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Room & material',
               url: '/rooms',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'Bed',
+              url: '/beds',
               icon: 'fas fa-caret-right'
             }
           ]
