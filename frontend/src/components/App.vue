@@ -55,6 +55,7 @@ export default {
 
 <style lang="sass">
 .nav-drawer
+  overflow-y: auto;
   margin-left: -200px
   transition: margin-left 0.5s ease
 
