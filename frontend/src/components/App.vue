@@ -2,7 +2,7 @@
   <div class="flex flex-col bg-page-background" :style="{ 'min-height': windowHeight }">
     <template v-if="isAuthenticated">
       <AppHeader class="fixed pin-x z-50" />
-      <NavDrawer v-show="drawer" class="fixed pin-l pin-y z-40 pt-16" />
+      <NavDrawer class="fixed pin-l pin-y z-40 pt-16 nav-drawer" :class="{'nav-drawer__open': drawer}" />
       <div class="flex-grow flex mt-16 content-wrapper" :class="{'content-wrapper__open': drawer}">        
         <div class="p-8 w-full min-h-screen">
           <router-view></router-view>
@@ -54,9 +54,16 @@ export default {
 </script>
 
 <style lang="sass">
+.nav-drawer
+  margin-left: -200px
+  transition: margin-left 0.5s ease
+
+  &__open
+    margin-left: 0
+
 .content-wrapper
   margin-left: 0
-  // transition: margin-left 0.5s ease
+  transition: margin-left 0.5s ease
 
   &__open
     margin-left: 200px

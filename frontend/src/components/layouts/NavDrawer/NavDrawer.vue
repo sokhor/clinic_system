@@ -1,6 +1,5 @@
 <template>
-  <!-- <transition name="slide-fade"> -->
-    <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true">
+    <!-- <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar"> -->
       <div class="drawer bg-blue-darkest shadow">
         <SidebarHeader/>
         <SidebarForm/>
@@ -48,8 +47,7 @@
         <SidebarFooter/>
         <SidebarMinimizer/>
       </div>
-    </simplebar>
-  <!-- </transition> -->
+    <!-- </simplebar> -->
 </template>
 <script>
 import SidebarFooter from './SidebarFooter'
