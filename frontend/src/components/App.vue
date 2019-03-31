@@ -56,7 +56,7 @@ export default {
 <style lang="sass">
 .content-wrapper
   margin-left: 0
-  transition: margin-left 0.5s ease
+  // transition: margin-left 0.5s ease
 
   &__open
     margin-left: 200px
