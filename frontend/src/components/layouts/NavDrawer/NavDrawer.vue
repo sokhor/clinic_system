@@ -129,10 +129,15 @@ export default {
           }
         },
         {
-          name: 'Patient',
-          url: '/patients',
+          name: 'Patient Registration',
+          url: '/patients/create',
           icon: 'fas fa-bed'
         },
+        // {
+        //   name: 'Patient',
+        //   url: '/patients',
+        //   icon: 'fas fa-bed'
+        // },
         {
           name: 'Treatement',
           title: true,
