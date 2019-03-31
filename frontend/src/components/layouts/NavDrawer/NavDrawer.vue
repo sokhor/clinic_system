@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-fade">
-    <!-- <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar"> -->
-      <div class="drawer bg-blue-darkest shadow">
+    <div class="drawer bg-blue-darkest shadow">
+      <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true">
         <SidebarHeader/>
         <SidebarForm/>
         <nav class="drawer-nav text-white">
@@ -47,8 +47,8 @@
         </nav>
         <SidebarFooter/>
         <SidebarMinimizer/>
-      </div>
-    <!-- </simplebar> -->
+      </simplebar>
+    </div>
   </transition>
 </template>
 <script>
