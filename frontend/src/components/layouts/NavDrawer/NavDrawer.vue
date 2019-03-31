@@ -86,18 +86,20 @@ export default {
           icon: 'fas fa-tachometer-alt'
         },
         {
-          name: 'Reception',
-          title: true,
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
-        },
-        {
-          name: 'Patient Registration',
-          url: '/patients/create',
-          icon: 'fab fa-accessible-icon'
+          name: 'Queue',
+          icon: 'far fa-list-alt',
+          children: [
+            {
+              name: 'Setup',
+              url: '/queue-setup',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'List',
+              url: '/queues',
+              icon: 'fas fa-caret-right'
+            }
+          ]
         },
         {
           name: 'Visit',
@@ -118,29 +120,9 @@ export default {
           }
         },
         {
-          name: 'Queue',
-          icon: 'far fa-list-alt',
-          children: [
-            {
-              name: 'Setup',
-              url: '/queue-setup',
-              icon: 'fas fa-caret-right'
-            },
-            {
-              name: 'List',
-              url: '/queues',
-              icon: 'fas fa-caret-right'
-            }
-          ]
-        },
-        {
-          name: 'Treatement',
-          title: true,
-          class: '',
-          wrapper: {
-            element: '',
-            attributes: {}
-          }
+          name: 'Registration',
+          url: '/patients/create',
+          icon: 'fab fa-accessible-icon'
         },
         {
           name: 'Nurse',
