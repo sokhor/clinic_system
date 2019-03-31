@@ -15,7 +15,7 @@
             <base-button color="accent" @click="addNewSection">Create Section</base-button>
           </div>
           <ul class="list-reset mt-6">
-            <li v-for="queueSection in queueSections">
+            <li v-for="queueSection in queueSections" :key="queueSection.id">
               <a href="#" class="no-underline text-grey-darker hover:text-blue leading-loose">
                 {{ queueSection.name }}
               </a>

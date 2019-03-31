@@ -64,7 +64,7 @@ export const mutations = {
 
 export const actions = {
   listSections({ commit }) {
-    commit('RECEIVE_SECTIONS', { data: [] })
+    commit('RECEIVE_SECTIONS', [])
 
     return apiSection
       .list()
