@@ -1,5 +1,5 @@
 <template>
-    <!-- <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar"> -->
+    <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar">
       <div class="drawer bg-blue-darkest shadow">
         <SidebarHeader/>
         <SidebarForm/>
@@ -47,7 +47,7 @@
         <SidebarFooter/>
         <SidebarMinimizer/>
       </div>
-    <!-- </simplebar> -->
+    </simplebar>
 </template>
 <script>
 import SidebarFooter from './SidebarFooter'
