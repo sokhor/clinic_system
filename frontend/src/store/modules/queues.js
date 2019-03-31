@@ -1,4 +1,5 @@
 import { map, flatten } from 'lodash'
+import Vue from 'vue'
 import apiSection from '@/api/queues/sections'
 import apiCounter from '@/api/queues/counters'
 import apiQueue from '@/api/queues'
@@ -33,6 +34,10 @@ export const mutations = {
     let section = state.sections.find(s => s.id === counter.section_id)
 
     if (section !== undefined) {
+      if (section.counters === undefined) {
+        Vue.set(section, 'counters', [])
+      }
+
       section.counters.push(counter)
     }
   },
