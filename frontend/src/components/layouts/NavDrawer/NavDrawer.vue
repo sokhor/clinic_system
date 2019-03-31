@@ -95,20 +95,9 @@ export default {
           }
         },
         {
-          name: 'Queue',
-          icon: 'far fa-list-alt',
-          children: [
-            {
-              name: 'Setup',
-              url: '/queue-setup',
-              icon: 'fas fa-caret-right'
-            },
-            {
-              name: 'List',
-              url: '/queues',
-              icon: 'fas fa-caret-right'
-            }
-          ]
+          name: 'Patient Registration',
+          url: '/patients/create',
+          icon: 'fab fa-accessible-icon'
         },
         {
           name: 'Visit',
@@ -129,15 +118,21 @@ export default {
           }
         },
         {
-          name: 'Patient Registration',
-          url: '/patients/create',
-          icon: 'fas fa-bed'
+          name: 'Queue',
+          icon: 'far fa-list-alt',
+          children: [
+            {
+              name: 'Setup',
+              url: '/queue-setup',
+              icon: 'fas fa-caret-right'
+            },
+            {
+              name: 'List',
+              url: '/queues',
+              icon: 'fas fa-caret-right'
+            }
+          ]
         },
-        // {
-        //   name: 'Patient',
-        //   url: '/patients',
-        //   icon: 'fas fa-bed'
-        // },
         {
           name: 'Treatement',
           title: true,
@@ -166,6 +161,11 @@ export default {
           name: 'Pharmacist',
           url: '/pharmacists',
           icon: 'fas fa-syringe'
+        },
+        {
+          name: 'Patient',
+          url: '/patients',
+          icon: 'fas fa-bed'
         },
         {
           name: 'Inventory',
