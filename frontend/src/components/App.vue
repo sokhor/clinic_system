@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col bg-page-background" :style="{ 'min-height': windowHeight }">
     <template v-if="isAuthenticated">
-      <AppHeader/>
-      <div class="flex-grow flex">
-        <NavDrawer v-show="drawer"/>
-        <div class="p-8 w-full h-full">
+      <AppHeader class="fixed pin-x z-50" />
+      <NavDrawer v-show="drawer" class="fixed pin-l pin-y z-40 pt-16" />
+      <div class="flex-grow flex mt-16 content-wrapper" :class="{'content-wrapper__open': drawer}">        
+        <div class="p-8 w-full min-h-screen">
           <router-view></router-view>
         </div>
       </div>
@@ -39,9 +39,6 @@ export default {
   created() {
     this.validateAuth()
   },
-  mounted() {
-    this.setFullHeight()
-  },
   methods: {
     validateAuth() {
       if (this.isAuthenticated) {
@@ -51,18 +48,16 @@ export default {
           }
         })
       }
-    },
-    setFullHeight() {
-      const callBack = event => {
-        this.windowHeight =
-          window.innerHeight > document.body.clientHeight
-            ? window.innerHeight + 'px'
-            : null
-      }
-
-      window.addEventListener('load', callBack)
-      window.addEventListener('resize', callBack)
     }
   }
 }
 </script>
+
+<style lang="sass">
+.content-wrapper
+  margin-left: 0
+  transition: margin-left 0.5s ease
+
+  &__open
+    margin-left: 200px
+</style>

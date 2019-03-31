@@ -1,6 +1,6 @@
 <template>
   <transition name="slide-fade">
-    <div class="drawer relative bg-blue-darkest shadow">
+    <div class="drawer bg-blue-darkest shadow">
       <SidebarHeader/>
       <SidebarForm/>
       <nav class="drawer-nav text-white">
