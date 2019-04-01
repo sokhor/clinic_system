@@ -85,20 +85,9 @@ export default {
           icon: 'fas fa-tachometer-alt'
         },
         {
-          name: 'Queue',
-          icon: 'far fa-list-alt',
-          children: [
-            {
-              name: 'Setup',
-              url: '/queue-setup',
-              icon: 'fas fa-caret-right'
-            },
-            {
-              name: 'List',
-              url: '/queues',
-              icon: 'fas fa-caret-right'
-            }
-          ]
+          name: 'Queues',
+          url: '/queues',
+          icon: 'far fa-list-alt'
         },
         {
           name: 'Visit',
@@ -277,6 +266,11 @@ export default {
           name: 'Company',
           url: '/company',
           icon: 'fas fa-building'
+        },
+        {
+          name: 'Queue Setup',
+          url: '/queue-setup',
+          icon: 'far fa-list-alt'
         }
       ]
     }
