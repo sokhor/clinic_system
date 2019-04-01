@@ -13,14 +13,14 @@ class PatientRepository
      * @param  Array  $params
      * @return \App\Models\Patient $patient
      */
-    public function create(Array $params)
+    public function create(array $params)
     {
         $params = array_merge($params, [
-            'dob' => Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d'),
+            'dob' => !is_null($params['dob']) && !empty($params['dob']) ? Carbon::createFromFormat(config('app.date_format'), $params['dob'])->format('Y-m-d') : null,
             'last_visited_at' => now()->format('Y-m-d H:i:s'),
         ]);
 
-        if($patient = $this->existsingPatient($params['identity_no'], $params['identity_type'])) {
+        if ($patient = $this->existsingPatient($params['identity_no'], $params['identity_type'])) {
             return tap($patient)->update($params);
         }
 
@@ -34,7 +34,7 @@ class PatientRepository
      * @param  Array  $params
      * @return \App\Models\Patient
      */
-    public function update($id, Array $params)
+    public function update($id, array $params)
     {
         $patient = Patient::findOrFail($id);
         return tap($patient)->update($params);

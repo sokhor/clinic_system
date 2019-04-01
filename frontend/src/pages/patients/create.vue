@@ -2,10 +2,7 @@
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
       <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light mr-2" to="/patients">
-          <i class="fas fa-arrow-left"></i>
-        </router-link>
-        / Patient Registration
+        Patient Registration
       </h1>
     </div>
     <div class="flex -mx-4">
@@ -16,7 +13,7 @@
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Full name
+                    Full name <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <input
@@ -45,7 +42,7 @@
                 </div>
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Gender
+                    Gender <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <select
@@ -77,7 +74,7 @@
                 </div>
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Nationality
+                    Nationality <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <select
@@ -109,7 +106,7 @@
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Phone
+                    Phone <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <input
@@ -156,7 +153,7 @@
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Identity Type
+                    Identity Type <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <select
@@ -178,7 +175,7 @@
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Identity No
+                    Identity No <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <input
@@ -199,7 +196,7 @@
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
                   <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
-                    Type
+                    Type <span class="text-red">*</span>
                   </label>
                   <div class="w-3/5">
                     <select

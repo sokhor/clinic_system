@@ -21,7 +21,7 @@ class PatientResource extends JsonResource
             'address' => $this->address,
             'age' => $this->age . ' ' . str_plural('yr', $this->age<=1 ? 1 : 2),
             'code' => $this->code,
-            'dob' => Carbon::createFromFormat('Y-m-d', $this->dob)->format(config('app.date_format')),
+            'dob' => !is_null($this->dob) ? Carbon::createFromFormat('Y-m-d', $this->dob)->format(config('app.date_format')) : null,
             'email'=> $this->email,
             'full_name'=> $this->full_name,
             'full_name_2'=> $this->full_name_2,
