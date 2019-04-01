@@ -1,6 +1,6 @@
 <template>
   <!-- <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar"> -->
-    <div class="drawer bg-blue-darkest shadow">
+    <div class="drawer bg-nav-drawer shadow">
       <SidebarHeader/>
       <SidebarForm/>
       <nav class="drawer-nav text-white">

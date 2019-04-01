@@ -7,6 +7,14 @@
   background-color: #e8e8e8;
 }
 
+.bg-nav-drawer {
+  background-color: #18364e;
+}
+
+.nav-title {
+  color: #6c88a1;
+}
+
 .dialog-mask {
   @apply fixed pin flex justify-center items-center;
   background-color: rgba(0, 0, 0, 0.33);
