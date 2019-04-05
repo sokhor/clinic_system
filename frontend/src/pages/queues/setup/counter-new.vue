@@ -43,7 +43,7 @@ export default {
   data() {
     const form = {
       label: null,
-      active: false,
+      active: true,
       section_id: this.section.id
     }
 

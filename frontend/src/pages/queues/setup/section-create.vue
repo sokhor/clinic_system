@@ -42,7 +42,7 @@ export default {
   data() {
     const form = {
       name: null,
-      active: false
+      active: true
     }
 
     return {
