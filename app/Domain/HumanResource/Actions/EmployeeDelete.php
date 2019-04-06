@@ -7,7 +7,7 @@ use Domain\HumanResource\Models\Employee;
 class EmployeeDelete
 {
     /**
-     * Create a new employee
+     * Delete an employee
      *
      * @param \Domain\HumanResource\Models\Employee $employee
      * @return \Domain\HumanResource\Models\Employee
