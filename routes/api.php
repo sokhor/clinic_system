@@ -3,7 +3,7 @@ Route::post('login', 'LoginController@login');
 Route::post('logout', 'LoginController@logout')->middleware('auth');
 Route::get('authenticated', 'LoginController@authenticated')->middleware('auth');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::put('users/{user}/password/reset', 'UserPasswordResetController@update');
     Route::post('users/{user}/roles', 'UserController@attachRoles');
     Route::put('users/{user}/roles', 'UserController@detachRoles');
@@ -15,6 +15,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('appointments/doctors', 'AppointmentController@doctors');
     Route::get('appointments/patients', 'AppointmentController@patients');
     Route::apiResource('appointments', 'AppointmentController');
+
+    //Human resource
+    Route::apiResource('employees', 'HumanResource\EmployeeController');
 
     // Queue
     Route::apiResource('queue-sections', 'Queue\QueueSectionController');
