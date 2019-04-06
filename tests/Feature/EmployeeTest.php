@@ -99,4 +99,16 @@ class EmployeeTest extends TestCase
 
         $response->assertStatus(200)->assertJson(['data' => $updateInput]);
     }
+
+    /** @test */
+    public function it_delete_an_employee()
+    {
+        $employee = factory(Employee::class)->create();
+        
+        $response = $this->signIn()->deleteJson('api/employees/' . $employee->id);
+
+        $response->assertStatus(200);
+        $this->assertNull(Employee::find($employee->id));
+        $this->assertDatabaseHas('employees', ['id' => $employee->id]);
+    }
 }

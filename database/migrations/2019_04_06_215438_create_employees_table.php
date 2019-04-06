@@ -28,6 +28,7 @@ class CreateEmployeesTable extends Migration
             $table->date('hiring_date')->nullable();
             $table->enum('hiring_status', ['Active', 'Resigned'])->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

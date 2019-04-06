@@ -5,6 +5,7 @@ namespace App\Http\Controllers\HumanResource;
 use Domain\HumanResource\Models\Employee;
 use Domain\HumanResource\Actions\EmployeeCreate;
 use Domain\HumanResource\Actions\EmployeeUpdate;
+use Domain\HumanResource\Actions\EmployeeDelete;
 use Domain\HumanResource\ValueObjects\EmployeeData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -73,6 +74,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        (new EmployeeDelete)->execute($employee);
+
+        return response()->json(['message' => 'Employee was deleted']);
     }
 }
