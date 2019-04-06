@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HumanResource;
 
 use Domain\HumanResource\Models\Employee;
 use Domain\HumanResource\Actions\EmployeeCreate;
+use Domain\HumanResource\Actions\EmployeeUpdate;
 use Domain\HumanResource\ValueObjects\EmployeeData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -56,7 +57,12 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $employee = (new EmployeeUpdate)->execute(
+            $employee,
+            EmployeeData::fromArray($request->all())
+        );
+
+        return new EmployeeResource($employee);
     }
 
     /**
