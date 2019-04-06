@@ -3,8 +3,8 @@
     <template v-if="isAuthenticated">
       <AppHeader class="fixed pin-x z-50" />
       <NavDrawer class="fixed pin-l pin-y z-40 pt-16 nav-drawer" :class="{'nav-drawer__open': drawer}" />
-      <div class="flex-grow flex mt-16 content-wrapper" :class="{'content-wrapper__open': drawer}">        
-        <div class="p-8 w-full min-h-screen">
+      <div class="flex-grow flex min-h-screen pt-16 content-wrapper" :class="{'content-wrapper__open': drawer}">        
+        <div class="p-8 w-full">
           <router-view></router-view>
         </div>
       </div>
