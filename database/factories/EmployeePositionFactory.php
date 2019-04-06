@@ -1,8 +1,9 @@
 <?php
 
 use Faker\Generator as Faker;
+use Domain\HumanResource\Models\EmployeePosition;
 
-$factory->define(App\Models\Position::class, function (Faker $faker) {
+$factory->define(EmployeePosition::class, function (Faker $faker) {
     return [
         'name' => $faker->randomElement(['Nurse', 'Doctor', 'Midwife', 'Cashier', 'Pharmacist']),
         'order' => null,
