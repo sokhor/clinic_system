@@ -65,9 +65,16 @@
                     Date of Birth
                   </label>
                   <div class="w-3/5">
+                    <base-date-picker v-model="form.dob" />
+                  </div>
+                </div>
+                <div class="flex items-start mb-3">
+                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                    Age
+                  </label>
+                  <div class="w-3/5">
                     <input
                       class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.dob"
                       type="text"
                     />
                   </div>
