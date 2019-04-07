@@ -65,7 +65,7 @@
                     Date of Birth
                   </label>
                   <div class="w-3/5">
-                    <base-date-picker v-model="form.dob" />
+                    <base-input-date-picker v-model="form.dob" />
                   </div>
                 </div>
                 <div class="flex items-start mb-3">

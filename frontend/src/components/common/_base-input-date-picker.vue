@@ -15,16 +15,16 @@
 </template>
 
 <script>
-import DatePicker from './date-picker.vue'
-import OnClickOutside from '../on-click-outside.vue'
+import DatePicker from '@/components/date-picker.vue'
+import OnClickOutside from '@/components/on-click-outside.vue'
 
 export default {
-  name: 'BaseDatePicker',
+  name: 'BaseInputDatePickerInput',
   inheritAttrs: false,
   components: { DatePicker, OnClickOutside },
   data() {
     return {
-      picker: true,
+      picker: false,
       value: null
     }
   },
