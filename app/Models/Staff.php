@@ -25,10 +25,10 @@ class Staff extends Model
      */
     public function scopeDoctor(Builder $query)
     {
-        return $query->whereExists(function($query) {
-            return $query->from('positions')
-            ->whereRaw("positions.id = {$this->table}.position_id")
-            ->whereRaw("lower(name) = lower('Doctor')");
+        return $query->whereExists(function ($query) {
+            return $query->from('employee_positions')
+                ->whereRaw("employee_positions.id = {$this->table}.position_id")
+                ->whereRaw("lower(name) = lower('Doctor')");
         });
     }
 }
