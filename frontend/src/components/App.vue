@@ -1,9 +1,18 @@
 <template>
-  <div class="flex flex-col bg-page-background" :style="{ 'min-height': windowHeight }">
+  <div
+    class="flex flex-col bg-page-background"
+    :style="{ 'min-height': windowHeight }"
+  >
     <template v-if="isAuthenticated">
-      <AppHeader class="fixed pin-x z-50" />
-      <NavDrawer class="fixed pin-l pin-y z-40 pt-16 nav-drawer" :class="{'nav-drawer__open': drawer}" />
-      <div class="flex-grow flex min-h-screen pt-16 content-wrapper" :class="{'content-wrapper__open': drawer}">        
+      <AppHeader class="fixed inset-x-0 z-50" />
+      <NavDrawer
+        class="fixed inset-l-0 inset-y-0 z-40 mt-16 nav-drawer"
+        :class="{ 'nav-drawer__open': drawer }"
+      />
+      <div
+        class="flex-grow flex min-h-screen pt-16 content-wrapper"
+        :class="{ 'content-wrapper__open': drawer }"
+      >
         <div class="p-8 w-full">
           <router-view></router-view>
         </div>
@@ -12,7 +21,7 @@
     <template v-if="!isAuthenticated">
       <router-view></router-view>
     </template>
-    <dialogs-wrapper tag="div"/>
+    <dialogs-wrapper tag="div" />
   </div>
 </template>
 
@@ -55,7 +64,7 @@ export default {
 
 <style lang="sass">
 .nav-drawer
-  overflow-y: auto;
+  overflow-y: auto
   margin-left: -200px
   transition: margin-left 0.5s ease
 

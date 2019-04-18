@@ -1,8 +1,8 @@
 <template>
   <div class="w-full">
     <Clients />
-    <AuthorizedClients class="mt-8"/>
-    <PersonalAccessTokens class="mt-8"/>
+    <AuthorizedClients class="mt-8" />
+    <PersonalAccessTokens class="mt-8" />
   </div>
 </template>
 

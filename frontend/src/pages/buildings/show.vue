@@ -1,8 +1,11 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light mr-2" to="/buildings">
+      <h1 class="inline text-gray-900 text-xl font-bold">
+        <router-link
+          class="text-blue hover:text-blue-light mr-2"
+          to="/buildings"
+        >
           <i class="fas fa-arrow-left"></i>
         </router-link>
         / Building Detail
@@ -54,7 +57,10 @@
         </span>
       </div>
     </BaseCard>
-    <BuildingWards :building="building" @input="wards => building.wards = wards" />
+    <BuildingWards
+      :building="building"
+      @input="wards => (building.wards = wards)"
+    />
   </div>
 </template>
 

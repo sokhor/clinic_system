@@ -9,11 +9,7 @@ export default {
 
 <template>
   <Transition appear>
-    <BaseIcon
-      :class="$style.loadingIcon"
-      name="fa-spinner"
-      spin
-    />
+    <BaseIcon :class="$style.loadingIcon" name="fa-spinner" spin />
   </Transition>
 </template>
 

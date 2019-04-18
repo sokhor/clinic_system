@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-between px-4 py-2">
-      <h3>New Section</h3>
+      <h3 class="font-bold text-gray-800">New Section</h3>
       <base-button flat @click="$emit('close')">
         <i class="fas fa-times"></i>
       </base-button>
@@ -10,10 +10,13 @@
     <form class="p-4">
       <div class="mb-4">
         <base-label class="mb-2">
-          Name <span class="text-red">*</span>
+          Section Name <span class="text-red-500">*</span>
         </base-label>
         <base-input v-model="form.name" />
-        <span class="block text-xs italic text-red" v-if="nameErrors.length > 0">
+        <span
+          class="block text-xs italic text-red-500"
+          v-if="nameErrors.length > 0"
+        >
           {{ nameErrors[0] }}
         </span>
       </div>
@@ -22,8 +25,14 @@
       </div>
       <div class="flex items-center justify-end mt-4">
         <div>
-          <base-button outline class="mr-5" color="primary" :waiting="savingAndNew" @click="saveAndNew">
-            Create & New
+          <base-button
+            outline
+            class="mr-5"
+            color="primary"
+            :waiting="savingAndNew"
+            @click="saveAndNew"
+          >
+            Create &amp; New
           </base-button>
           <base-button color="primary" :waiting="saving" @click="saveAndClose">
             Create

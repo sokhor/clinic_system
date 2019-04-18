@@ -1,50 +1,61 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/users"><i class="fas fa-arrow-left"></i></router-link> / Edit User
+      <h1 class="inline text-gray-900 text-xl font-bold">
+        <router-link class="text-blue hover:text-blue-light" to="/users"
+          ><i class="fas fa-arrow-left"></i
+        ></router-link>
+        / Edit User
       </h1>
     </div>
     <BaseCard>
       <form @submit.prevent="save">
         <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
+          <label class="block text-gray-800 text-sm font-bold w-1/5">
             Username
           </label>
           <div class="w-2/5">
             <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+              class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
               v-model="form.username"
               type="text"
               @input="$v.form.username.$touch()"
               disabled
             />
-            <span class="block text-xs italic text-red" v-if="usernameErrors.length > 0">
+            <span
+              class="block text-xs italic text-red"
+              v-if="usernameErrors.length > 0"
+            >
               {{ usernameErrors[0] }}
             </span>
           </div>
         </div>
         <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
+          <label class="block text-gray-800 text-sm font-bold w-1/5">
             Email
           </label>
           <div class="w-2/5">
             <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+              class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
               v-model="form.email"
               type="email"
             />
-            <span class="block text-xs italic text-red" v-if="emailErrors.length > 0">
+            <span
+              class="block text-xs italic text-red"
+              v-if="emailErrors.length > 0"
+            >
               {{ emailErrors[0] }}
             </span>
           </div>
         </div>
         <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5"></label>
+          <label class="block text-gray-800 text-sm font-bold w-1/5"></label>
           <BaseCheckbox v-model="form.active">Active</BaseCheckbox>
         </div>
         <div class="flex items-center justify-end p-4">
-          <BaseButton color="primary" :waiting="saving" type="submit">Save change</BaseButton>
+          <BaseButton color="primary" :waiting="saving" type="submit"
+            >Save change</BaseButton
+          >
         </div>
       </form>
     </BaseCard>

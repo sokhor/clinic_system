@@ -15,19 +15,19 @@
       <planner-month
         :current-date="currentDate"
         :events="events"
-        @date-title="val => title = val"
+        @date-title="val => (title = val)"
         v-if="mode === 'month'"
       />
       <planner-week
         :current-date="currentDate"
         :events="events"
-        @date-title="val => title = val"
+        @date-title="val => (title = val)"
         v-if="mode === 'week'"
       />
       <planner-day
         :current-date="currentDate"
         :events="events"
-        @date-title="val => title = val"
+        @date-title="val => (title = val)"
         v-if="mode === 'day'"
       />
     </section>

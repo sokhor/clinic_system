@@ -1,24 +1,30 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/roles"><i class="fas fa-arrow-left"></i></router-link> / Edit Role
+      <h1 class="inline text-gray-900 text-xl font-bold">
+        <router-link class="text-blue hover:text-blue-light" to="/roles"
+          ><i class="fas fa-arrow-left"></i
+        ></router-link>
+        / Edit Role
       </h1>
     </div>
     <BaseCard>
       <form @submit.prevent="save">
         <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-grey-darker text-sm font-bold w-1/5">
+          <label class="block text-gray-800 text-sm font-bold w-1/5">
             Role name
           </label>
           <div class="w-2/5">
             <input
-              class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+              class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
               v-model="form.role_name"
               type="text"
               @input="$v.form.role_name.$touch()"
             />
-            <span class="block text-xs italic text-red" v-if="roleNameErrors.length > 0">
+            <span
+              class="block text-xs italic text-red"
+              v-if="roleNameErrors.length > 0"
+            >
               {{ roleNameErrors[0] }}
             </span>
           </div>
@@ -30,12 +36,14 @@
         </div>
       </form>
     </BaseCard>
-    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6 mt-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
+    <div
+      class="w-full flex flex-row items-center justify-between pt-4 pb-6 mt-6"
+    >
+      <h1 class="inline text-gray-900 text-xl font-bold">
         Permissions
       </h1>
     </div>
-    <Permissions @input="setAbilities" :abilitiesProp="form.abilities"/>
+    <Permissions @input="setAbilities" :abilitiesProp="form.abilities" />
   </div>
 </template>
 

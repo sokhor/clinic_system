@@ -44,7 +44,7 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-radio absolute block w-4 h-4 rounded-full select-none pin-l bg-grey-lighter"
+          class="box-radio absolute block w-4 h-4 rounded-full select-none left-0 bg-gray-300"
           {...{
             class: { border: !isChecked(context) }
           }}
@@ -59,41 +59,31 @@ export default {
 }
 </script>
 
-<style>
-@tailwind utilities;
-
+<style lang="sass">
 input[type='radio'],
-input[type='radio'] {
-  box-sizing: border-box;
-  padding: 0;
-}
+input[type='radio']
+  box-sizing: border-box
+  padding: 0
 
-input[type='radio']:checked ~ .box-radio {
-  @apply text-white bg-blue;
-}
+input[type='radio']:checked ~ .box-radio
+  @apply text-white bg-blue-500
 
-input[type='radio']:checked ~ .box-radio:after {
-  background-image: url(data:image/svg+xml;charset=utf8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9Jy00IC00IDggOCc+PGNpcmNsZSByPSczJyBmaWxsPScjZmZmJy8+PC9zdmc+);
-}
+input[type='radio']:checked ~ .box-radio:after
+  background-image: url(data:image/svg+xml;charset=utf8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9Jy00IC00IDggOCc+PGNpcmNsZSByPSczJyBmaWxsPScjZmZmJy8+PC9zdmc+)
 
-input[type='radio']:disabled ~ .box-radio {
-  @apply bg-grey;
-}
+input[type='radio']:disabled ~ .box-radio
+  @apply bg-gray-500
 
-input[type='radio']:disabled ~ .box-radio:hover {
-  @apply cursor-not-allowed;
-}
+input[type='radio']:disabled ~ .box-radio:hover
+  @apply cursor-not-allowed
 
-.box-radio:hover {
-  @apply cursor-pointer;
-}
+.box-radio:hover
+  @apply cursor-pointer
 
-.box-radio:after {
-  @apply absolute block w-4 h-4;
-  content: '';
-}
+.box-radio:after
+  @apply absolute block w-4 h-4
+  content: ''
 
-.box-radio:after {
-  @apply bg-no-repeat bg-50% bg-center;
-}
+.box-radio:after
+  @apply bg-no-repeat bg-50% bg-center
 </style>

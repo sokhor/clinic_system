@@ -5,7 +5,7 @@ export default {
   render(h, context) {
     return (
       <label
-        class="block text-grey-darker text-sm font-bold"
+        class="block text-gray-700 text-base font-semibold"
         {...{ class: context.data.staticClass }}
       >
         {context.children}

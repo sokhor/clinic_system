@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: ["error", { "args": "none" }]*/
+
 import qs from 'qs'
 import httpClient from '@/http-client'
 import { baseState, baseMutations } from './_mixin'

@@ -1,14 +1,16 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Product</h1>
-      <BaseButton color="accent" @click="$router.push('/products/create')">Create Product</BaseButton>
+      <h1 class="inline text-gray-900 text-xl font-bold">Product</h1>
+      <BaseButton color="accent" @click="$router.push('/products/create')"
+        >Create Product</BaseButton
+      >
     </div>
     <BaseCard>
       <div class="p-4 flex">
         <input
           type="text"
-          class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-64"
+          class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-64"
           v-model="search"
           placeholder="Search..."
         />
@@ -29,13 +31,13 @@
             <BaseTd>{{ product.product_code }}</BaseTd>
             <BaseTd class="w-1">
               <BaseButton
-                  flat
-                  color="primary"
-                  title="Edit"
-                  @click="$router.push(`/products/${product.id}`)"
-                >
-                  <i class="fas fa-edit"></i>
-                </BaseButton>
+                flat
+                color="primary"
+                title="Edit"
+                @click="$router.push(`/products/${product.id}`)"
+              >
+                <i class="fas fa-edit"></i>
+              </BaseButton>
               <div class="flex">
                 <BaseButton
                   flat

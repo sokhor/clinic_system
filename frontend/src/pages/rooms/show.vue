@@ -1,19 +1,14 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
+      <h1 class="inline text-gray-900 text-xl font-bold">
         <router-link class="text-blue hover:text-blue-light mr-2" to="/rooms">
           <i class="fas fa-arrow-left"></i>
         </router-link>
         / Room Detail
       </h1>
       <div>
-        <BaseButton
-          sm
-          color="primary"
-          title="Edit"
-          @click="edit(room)"
-        >
+        <BaseButton sm color="primary" title="Edit" @click="edit(room)">
           <i class="fas fa-edit"></i>
         </BaseButton>
         <BaseButton

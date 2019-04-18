@@ -63,7 +63,7 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-checkbox absolute block w-4 h-4 rounded select-none pin-l border bg-grey-lighter"
+          class="box-checkbox absolute block w-4 h-4 rounded select-none left-0 border bg-gray-300"
           onClick={event => event.target.previousSibling.click()}
         />
         <label class="relative mb-0 whitespace-no-wrap">
@@ -75,41 +75,31 @@ export default {
 }
 </script>
 
-<style>
-@tailwind utilities;
-
+<style lang="sass">
 input[type='checkbox'],
-input[type='radio'] {
-  box-sizing: border-box;
-  padding: 0;
-}
+input[type='radio']
+  box-sizing: border-box
+  padding: 0
 
-input[type='checkbox']:checked ~ .box-checkbox {
-  @apply text-white bg-blue;
-}
+input[type='checkbox']:checked ~ .box-checkbox
+  @apply text-white bg-blue-500
 
-input[type='checkbox']:checked ~ .box-checkbox:after {
-  background-image: url(data:image/svg+xml;charset=utf8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA4IDgnPjxwYXRoIGZpbGw9JyNmZmYnIGQ9J002LjU2NC43NWwtMy41OSAzLjYxMi0xLjUzOC0xLjU1TDAgNC4yNiAyLjk3NCA3LjI1IDggMi4xOTN6Jy8+PC9zdmc+);
-}
+input[type='checkbox']:checked ~ .box-checkbox:after
+  background-image: url(data:image/svg+xml;charset=utf8;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA4IDgnPjxwYXRoIGZpbGw9JyNmZmYnIGQ9J002LjU2NC43NWwtMy41OSAzLjYxMi0xLjUzOC0xLjU1TDAgNC4yNiAyLjk3NCA3LjI1IDggMi4xOTN6Jy8+PC9zdmc+)
 
-input[type='checkbox']:disabled ~ .box-checkbox {
-  @apply bg-grey;
-}
+input[type='checkbox']:disabled ~ .box-checkbox
+  @apply bg-gray-500
 
-input[type='checkbox']:disabled ~ .box-checkbox:hover {
-  @apply cursor-not-allowed;
-}
+input[type='checkbox']:disabled ~ .box-checkbox:hover
+  @apply cursor-not-allowed
 
-.box-checkbox:hover {
-  @apply cursor-pointer;
-}
+.box-checkbox:hover
+  @apply cursor-pointer
 
-.box-checkbox:after {
-  @apply absolute block w-4 h-4;
-  content: '';
-}
+.box-checkbox:after
+  @apply absolute block w-4 h-4
+  content: ''
 
-.box-checkbox:after {
-  @apply bg-no-repeat bg-center bg-50%;
-}
+.box-checkbox:after
+  @apply bg-no-repeat bg-center bg-50%
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">OAuth Clients</h1>
-      <base-button color="accent" @click="showNewForm()">Create New Client</base-button>
+      <h1 class="inline text-gray-900 text-xl font-bold">OAuth Clients</h1>
+      <base-button color="accent" @click="showNewForm()"
+        >Create New Client</base-button
+      >
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>
@@ -26,10 +28,22 @@
               <code>{{ client.secret }}</code>
             </base-td>
             <base-td>
-              <base-button class="mr-2" flat color="primary" title="Edit client" @click="showClientForm(client)">
+              <base-button
+                class="mr-2"
+                flat
+                color="primary"
+                title="Edit client"
+                @click="showClientForm(client)"
+              >
                 <i class="fas fa-edit"></i>
               </base-button>
-              <base-button flat color="danger" :waiting="client._deleting" title="Delete client" @click="deleteClient(client)">
+              <base-button
+                flat
+                color="danger"
+                :waiting="client._deleting"
+                title="Delete client"
+                @click="deleteClient(client)"
+              >
                 <i class="fas fa-trash" v-if="!client._deleting"></i>
               </base-button>
             </base-td>

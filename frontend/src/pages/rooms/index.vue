@@ -1,8 +1,10 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Room</h1>
-      <base-button color="accent" @click="$router.push('/rooms/create')">Create</base-button>
+      <h1 class="inline text-gray-900 text-xl font-bold">Room</h1>
+      <base-button color="accent" @click="$router.push('/rooms/create')"
+        >Create</base-button
+      >
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>

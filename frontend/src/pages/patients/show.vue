@@ -1,8 +1,11 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/patients"><i class="fas fa-arrow-left"></i></router-link> / Patient Detail
+      <h1 class="inline text-gray-900 text-xl font-bold">
+        <router-link class="text-blue hover:text-blue-light" to="/patients"
+          ><i class="fas fa-arrow-left"></i
+        ></router-link>
+        / Patient Detail
       </h1>
     </div>
     <div class="flex -mx-4">
@@ -37,7 +40,9 @@
                   <td class="w-1 pr-5">Identity</td>
                   <td class="font-semibold">
                     <span>040008655</span>
-                    <BaseBadge :color="identityColor(1)" class="ml-2">National ID</BaseBadge>
+                    <BaseBadge :color="identityColor(1)" class="ml-2"
+                      >National ID</BaseBadge
+                    >
                   </td>
                 </tr>
                 <tr class="leading-loose">
@@ -46,7 +51,9 @@
                 </tr>
                 <tr class="leading-loose">
                   <td class="w-1 pr-5">Address</td>
-                  <td class="font-semibold">#23, St 130, Tuol Tumpoung, Chamkarmorn, Phnom Penh</td>
+                  <td class="font-semibold">
+                    #23, St 130, Tuol Tumpoung, Chamkarmorn, Phnom Penh
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -63,7 +70,9 @@
                 <span>20-Dec-2018</span>
               </div>
               <div class="flex-grow">
-                <span class="block text-grey-dark leading-loose">Medication</span>
+                <span class="block text-grey-dark leading-loose"
+                  >Medication</span
+                >
                 <p>Paracetamol 20mg 1 tablet for 3 days during the meal</p>
               </div>
               <div class="flex-1">
@@ -74,26 +83,40 @@
             <div class="flex mt-10">
               <div>
                 <span class="block text-grey-dark leading-loose">Note</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar sic tempor. Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget.</p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Aenean euismod bibendum laoreet. Proin gravida dolor sit amet
+                  lacus accumsan et viverra justo commodo. Proin sodales
+                  pulvinar sic tempor. Sociis natoque penatibus et magnis dis
+                  parturient montes, nascetur ridiculus mus. Nam fermentum,
+                  nulla luctus pharetra vulputate, felis tellus mollis orci, sed
+                  rhoncus pronin sapien nunc accuan eget.
+                </p>
               </div>
             </div>
           </BaseCard>
         </div>
         <div class="mt-10">
           <div class="mb-3 flex justify-between items-end">
-            <h4 class="text-grey-dark font-bold uppercase">Medical Record (12)</h4>
+            <h4 class="text-grey-dark font-bold uppercase">
+              Medical Record (12)
+            </h4>
             <BaseButton color="primary">New Record</BaseButton>
           </div>
           <BaseCard>
             <div class="mb-5 p-4">
               <input
                 type="text"
-                class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-64"
+                class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-64"
                 placeholder="Search..."
               />
             </div>
             <ul class="list-reset">
-              <li class="py-5 px-4" :class="{'border-b': index < 9-1}" v-for="(n, index) in 9">
+              <li
+                class="py-5 px-4"
+                :class="{ 'border-b': index < 9 - 1 }"
+                v-for="(n, index) in 9"
+              >
                 <div class="flex">
                   <div class="flex-1">
                     <span class="block text-grey-dark leading-loose">Date</span>
@@ -104,19 +127,19 @@
                     <p>Lorem ipsum dolor sit amet, consectetur...</p>
                   </div>
                   <div class="flex-1">
-                    <span class="block text-grey-dark leading-loose">Medication</span>
+                    <span class="block text-grey-dark leading-loose"
+                      >Medication</span
+                    >
                     <p>-</p>
                   </div>
                   <div class="flex-1">
-                    <span class="block text-grey-dark leading-loose">Weight</span>
+                    <span class="block text-grey-dark leading-loose"
+                      >Weight</span
+                    >
                     <span>50 Kg</span>
                   </div>
                   <div class="self-center p-4">
-                    <BaseButton
-                      flat
-                      color="primary"
-                      title="View"
-                    >
+                    <BaseButton flat color="primary" title="View">
                       <i class="fas fa-eye"></i>
                     </BaseButton>
                   </div>

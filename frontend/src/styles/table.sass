@@ -1,0 +1,24 @@
+.ui-table
+  @apply .table .rounded .w-full
+
+  thead
+    @apply .bg-gray-200
+
+    th
+      @apply .p-2 .font-semibold .text-xs .text-gray-600 .text-left .uppercase
+
+      &.ui-checkable
+        @apply .w-10 .text-center
+
+  tbody
+    tr
+      @apply .border-t .border-gray-200
+
+      &:hover
+        @apply .bg-gray-100
+
+      td
+        @apply .px-2 .py-3 .font-normal .text-base
+
+        &.ui-checkable
+          @apply .w-10 .text-center

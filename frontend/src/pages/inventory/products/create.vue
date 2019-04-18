@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <!-- <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">
+      <h1 class="inline text-gray-900 text-xl font-bold">
         <router-link class="text-blue hover:text-blue-light" to="/roles"><i class="fas fa-arrow-left"></i></router-link> / Create Product
       </h1>
     </div>
@@ -12,12 +12,12 @@
             <div class="flex -mx-4">
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                  <label class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6">
                     Product Name
                   </label>
                   <div class="w-3/5">
                     <input
-                      class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
                       v-model="form.product_name"
                       type="text"
                       autofocus
@@ -30,12 +30,12 @@
                 </div>
                 <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                  <label class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6">
                     Product Code
                   </label>
                   <div class="w-3/5">
                     <input
-                      class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
                       v-model="form.product_code"
                       type="text"
                       autofocus
@@ -47,12 +47,12 @@
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                  <label class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6">
                     Brand Name
                   </label>
                   <div class="w-3/5">
                     <input
-                      class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
                       v-model="form.brand_name"
                       type="text"
                       autofocus
@@ -64,12 +64,12 @@
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label class="block text-grey-darker text-sm font-bold w-2/5 text-right pr-6">
+                  <label class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6">
                     Category
                   </label>
                   <div class="w-3/5">
                     <select
-                      class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
                       v-model="form.category_id"
                       type="text"
                       @input="$v.form.category_id.$touch()"

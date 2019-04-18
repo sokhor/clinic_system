@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-between px-4 py-2">
-      <h3>Edit Counter</h3>
+      <h3 class="font-bold text-gray-800">Edit Counter</h3>
       <base-button flat @click="$emit('close')">
         <i class="fas fa-times"></i>
       </base-button>
@@ -10,10 +10,13 @@
     <form class="p-4">
       <div class="mb-4">
         <base-label class="mb-2">
-          Counter Label <span class="text-red">*</span>
+          Counter Name <span class="text-red-500">*</span>
         </base-label>
         <base-input v-model="form.label" />
-        <span class="block text-xs italic text-red" v-if="labelErrors.length > 0">
+        <span
+          class="block text-xs italic text-red-500"
+          v-if="labelErrors.length > 0"
+        >
           {{ labelErrors[0] }}
         </span>
       </div>

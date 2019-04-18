@@ -102,13 +102,20 @@
 <template>
   <on-click-outside :do="close">
     <div class="search-select" :class="{ 'is-active': isOpen }">
-      <button ref="button" @click="open" type="button" class="search-select-input">
-        <span
-          v-if="option !== null"
-          class="search-select-text"
-        >{{ typeof option === 'object' ? option.text : option }}</span>
+      <button
+        ref="button"
+        @click="open"
+        type="button"
+        class="search-select-input"
+      >
+        <span v-if="option !== null" class="search-select-text">{{
+          typeof option === 'object' ? option.text : option
+        }}</span>
         <span v-else class="search-select-placeholder">--Select--</span>
-        <span class="search-select__arrow" :class="{ 'search-select__arrow__open': isOpen }"></span>
+        <span
+          class="search-select__arrow"
+          :class="{ 'search-select__arrow__open': isOpen }"
+        ></span>
       </button>
       <div ref="dropdown" v-show="isOpen" class="search-select-dropdown">
         <input
@@ -120,18 +127,26 @@
           @keydown.down="highlightNext"
           @keydown.enter.prevent="selectHighlighted"
           @input="searchText"
+        />
+        <ul
+          ref="options"
+          v-show="filteredOptions.length > 0"
+          class="search-select-options"
         >
-        <ul ref="options" v-show="filteredOptions.length > 0" class="search-select-options">
           <li
             class="search-select-option"
             v-for="(option, i) in filteredOptions"
             :key="typeof option === 'object' ? option.value : option"
             @click="select(option)"
-            :class="{ 'is-active': i === highlightedIndex}"
-          >{{ typeof option === 'object' ? option.text : option }}</li>
+            :class="{ 'is-active': i === highlightedIndex }"
+          >
+            {{ typeof option === 'object' ? option.text : option }}
+          </li>
         </ul>
         <div v-show="filteredOptions.length === 0" class="search-select-empty">
-          <slot name="no-result" :search="search">No results found for "{{ search }}"</slot>
+          <slot name="no-result" :search="search"
+            >No results found for "{{ search }}"</slot
+          >
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-between px-4 py-2">
-      <h3>Select Section</h3>
+      <h3 class="font-bold text-gray-800">Select Section</h3>
       <base-button flat @click="$emit('close')">
         <i class="fas fa-times"></i>
       </base-button>
@@ -10,9 +10,9 @@
       <div class="flex flex-col items-center justify-center">
         <base-button
           class="w-full mt-3"
-          color="primary" 
-          :waiting="saving" 
-          @click="generateQueue(section.id)" 
+          color="primary"
+          :waiting="saving"
+          @click="generateQueue(section.id)"
           v-for="section in queueSections"
           :key="section.id"
         >
@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import apiQueue from '@/api/queues'
-
 export default {
   name: 'QueueCreate',
   props: ['queueSections'],
@@ -39,7 +37,7 @@ export default {
       this.saving = true
 
       try {
-        let response = await this.$store.dispatch('queues/store', sectionId)
+        await this.$store.dispatch('queues/store', sectionId)
         this.$toasted.success('A new queue was generated')
       } catch (error) {
         this.$toasted.error(error.data.message)

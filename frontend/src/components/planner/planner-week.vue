@@ -1,22 +1,31 @@
 <template>
   <div>
     <div class="flex">
-      <div class="border py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold w-24"></div>
+      <div
+        class="border py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold w-24"
+      ></div>
       <div class="flex flex-grow">
         <div
           v-for="(dateOfWeek, index) in datesOfWeek"
           class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold"
-          :class="{'text-blue': isToday(dateOfWeek)}"
+          :class="{ 'text-blue': isToday(dateOfWeek) }"
         >
           {{ dateOfWeek.format('ddd M/D').toUpperCase() }}
         </div>
       </div>
     </div>
-    <simplebar class="planner-scrollbar" data-simplebar-auto-hide="true" ref="simple-scrollbar">
+    <simplebar
+      class="planner-scrollbar"
+      data-simplebar-auto-hide="true"
+      ref="simple-scrollbar"
+    >
       <div class="flex">
         <div>
-          <div v-for="timeOfDay in timesOfDay(currentDate)" class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold">
-            {{ timeOfDay.format('hha')}}
+          <div
+            v-for="timeOfDay in timesOfDay(currentDate)"
+            class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold"
+          >
+            {{ timeOfDay.format('hha') }}
           </div>
         </div>
         <div class="flex flex-grow">

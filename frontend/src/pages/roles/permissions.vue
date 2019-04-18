@@ -1,15 +1,15 @@
 <template>
   <BaseCard>
-    <div class="flex items-baseline p-4 border-b border-white-grey" v-for="(abilities, module) in modules">
-      <span class="block text-grey-darker text-sm font-bold w-1/5">
+    <div
+      class="flex items-baseline p-4 border-b border-white-grey"
+      v-for="(abilities, module) in modules"
+    >
+      <span class="block text-gray-800 text-sm font-bold w-1/5">
         {{ module }}
       </span>
       <ul class="list-reset">
         <li v-for="ability in abilities" :key="ability.id">
-          <base-checkbox
-            v-model="selectedAbilities"
-            :value="ability.name"
-          >
+          <base-checkbox v-model="selectedAbilities" :value="ability.name">
             {{ ability.title }}
           </base-checkbox>
         </li>

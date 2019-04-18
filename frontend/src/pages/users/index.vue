@@ -1,8 +1,10 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Users</h1>
-      <BaseButton color="accent" @click="$router.push('/users/create')">Create User</BaseButton>
+      <h1 class="inline text-gray-900 text-xl font-bold">Users</h1>
+      <BaseButton color="accent" @click="$router.push('/users/create')"
+        >Create User</BaseButton
+      >
     </div>
     <BaseCard>
       <BaseTable>
@@ -20,21 +22,51 @@
             <BaseTd>{{ user.username }}</BaseTd>
             <BaseTd>{{ user.email }}</BaseTd>
             <BaseTd>
-              <div class="w-3 h-3 bg-green rounded-full border-2 border-green-lighter" v-if="user.active"></div>
-              <div class="w-3 h-3 bg-red rounded-full border-2 border-red-lighter" v-else></div>
+              <div
+                class="w-3 h-3 bg-green rounded-full border-2 border-green-lighter"
+                v-if="user.active"
+              ></div>
+              <div
+                class="w-3 h-3 bg-red rounded-full border-2 border-red-lighter"
+                v-else
+              ></div>
             </BaseTd>
             <BaseTd>{{ user.created_at }}</BaseTd>
             <BaseTd class="flex">
-              <BaseButton class="mr-2" flat color="primary" title="View user" @click="show(user)">
+              <BaseButton
+                class="mr-2"
+                flat
+                color="primary"
+                title="View user"
+                @click="show(user)"
+              >
                 <i class="fas fa-eye"></i>
               </BaseButton>
-              <BaseButton class="mr-2" flat color="primary" title="Edit user" @click="edit(user)">
+              <BaseButton
+                class="mr-2"
+                flat
+                color="primary"
+                title="Edit user"
+                @click="edit(user)"
+              >
                 <i class="fas fa-edit"></i>
               </BaseButton>
-              <BaseButton class="mr-2" flat color="primary" title="Reset password" @click="resetPassword(user)">
+              <BaseButton
+                class="mr-2"
+                flat
+                color="primary"
+                title="Reset password"
+                @click="resetPassword(user)"
+              >
                 <i class="fas fa-key"></i>
               </BaseButton>
-              <BaseButton flat color="danger" title="Delete user" :waiting="user._deleting" @click="deleteUser(user)">
+              <BaseButton
+                flat
+                color="danger"
+                title="Delete user"
+                :waiting="user._deleting"
+                @click="deleteUser(user)"
+              >
                 <i class="fas fa-trash" v-if="!user._deleting"></i>
               </BaseButton>
             </BaseTd>

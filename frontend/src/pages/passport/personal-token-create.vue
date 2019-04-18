@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div class="w-full flex flex-row items-center justify-between p-3 mb-3 border-b border-white-grey">
-      <h4 class="inline text-grey-darkest text-base font-bold">Create Personal Token</h4>
-      <base-button flat @click="$emit('close')"><i class="fas fa-times"></i></base-button>
+    <div
+      class="w-full flex flex-row items-center justify-between p-3 mb-3 border-b border-white-grey"
+    >
+      <h4 class="inline text-gray-900 text-base font-bold">
+        Create Personal Token
+      </h4>
+      <base-button flat @click="$emit('close')"
+        ><i class="fas fa-times"></i
+      ></base-button>
     </div>
     <base-alert type="success" class="mx-4" v-if="isSuccess === true">
       <p>{{ alertMessage }}</p>
@@ -16,17 +22,20 @@
     </base-alert>
     <form @submit.prevent="save">
       <div class="flex items-baseline p-4">
-        <label class="block text-grey-darker text-sm font-bold w-1/5">
+        <label class="block text-gray-800 text-sm font-bold w-1/5">
           Name
         </label>
         <div class="w-4/5">
           <input
-            class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
+            class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
             v-model="form.name"
             type="text"
             @input="$v.form.name.$touch()"
           />
-          <span class="block text-xs italic text-red" v-if="nameErrors.length > 0">
+          <span
+            class="block text-xs italic text-red"
+            v-if="nameErrors.length > 0"
+          >
             {{ nameErrors[0] }}
           </span>
         </div>

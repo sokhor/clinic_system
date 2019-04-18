@@ -1,4 +1,4 @@
-import './styles/main.css'
+import './styles/main.sass'
 import moment from 'moment'
 import Vue from 'vue'
 import VueRx from 'vue-rx'
@@ -25,7 +25,7 @@ Vue.use(ModalDialog)
 Vue.use(Toast, { position: 'bottom-center', duration: 3000 })
 Vue.use(VTooltip)
 
-const app = new Vue({
+new Vue({
   router,
   store,
   render: h => h(App)

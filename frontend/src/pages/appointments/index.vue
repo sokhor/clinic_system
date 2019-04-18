@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Appointment</h1>
+      <h1 class="inline text-gray-900 text-xl font-bold">Appointment</h1>
     </div>
     <div class="flex -mx-4">
       <div class="w-5/7 px-4">
@@ -14,25 +14,42 @@
         </base-card>
       </div>
       <div class="w-2/7 px-4">
-        <base-button color="primary" @click="addEvent()">Make appointment</base-button>
+        <base-button color="primary" @click="addEvent()"
+          >Make appointment</base-button
+        >
         <div class="mt-8">
-          <h4 class="text-grey-darkest mb-2">Up coming</h4>
+          <h4 class="text-gray-900 mb-2">Up coming</h4>
           <base-card class="p-4">
             <ul class="list-reset" v-show="upcomingAppointments.length > 0">
-              <li v-for="appointment in upcomingAppointments" class="leading-loose">
-                <span class="font-semibold">{{ `${$moment(appointment.appointed_at, 'DD-MM-YYYY HH:mm:ss').format('HH:mm')}` }}</span>
+              <li
+                v-for="appointment in upcomingAppointments"
+                class="leading-loose"
+              >
+                <span class="font-semibold">{{
+                  `${$moment(
+                    appointment.appointed_at,
+                    'DD-MM-YYYY HH:mm:ss'
+                  ).format('HH:mm')}`
+                }}</span>
                 &nbsp;-&nbsp;
                 <span>{{ `${appointment.subject}` }}</span>
               </li>
             </ul>
-            <p class="flex items-center justify-center" v-show="upcomingAppointments.length === 0">
+            <p
+              class="flex items-center justify-center"
+              v-show="upcomingAppointments.length === 0"
+            >
               <span>No today appointments</span>
             </p>
           </base-card>
         </div>
       </div>
     </div>
-    <modal name="new-appointment-modal" height="auto" @before-close="beforeModalClose">
+    <modal
+      name="new-appointment-modal"
+      height="auto"
+      @before-close="beforeModalClose"
+    >
       <new-appointment
         :date="selectedDate"
         :doctors="doctors"
@@ -40,7 +57,11 @@
         @appointment-created="onAppointmentCreated"
       />
     </modal>
-    <modal name="edit-appointment-modal" height="auto" @before-close="beforeModalClose">
+    <modal
+      name="edit-appointment-modal"
+      height="auto"
+      @before-close="beforeModalClose"
+    >
       <edit-appointment
         :value="editData"
         :doctors="doctors"

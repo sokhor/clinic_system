@@ -8,39 +8,39 @@ const classColorScheme = ({
 
   if (flat) {
     colorScheme = Object.assign({}, colorScheme, {
-      'text-grey hover:text-grey-light': colorType === 'default',
-      'text-blue hover:text-blue-light': colorType === 'primary',
-      'text-green hover:text-green-light':
+      'text-gray-500 hover:text-gray-400': colorType === 'default',
+      'text-blue-500 hover:text-blue-400': colorType === 'primary',
+      'text-green-500 hover:text-green-400':
         colorType === 'accent' || colorType === 'success',
-      'text-red hover:text-red-light': colorType === 'danger',
-      'text-yellow hover:text-yellow-light': colorType === 'warning',
-      'text-blue-light hover:text-blue-lighter': colorType === 'info'
+      'text-red-500 hover:text-red-400': colorType === 'danger',
+      'text-yellow-500 hover:text-yellow-400': colorType === 'warning',
+      'text-blue-400 hover:text-blue-300': colorType === 'info'
     })
   } else if (outline) {
     colorScheme = Object.assign({}, colorScheme, {
-      'text-grey-darker border rounded border-grey-dark hover:text-grey-dark hover:border-grey':
+      'text-gray-700 border rounded border-gray-600 hover:text-gray-600 hover:border-gray-500':
         colorType === 'default',
-      'text-blue border rounded border-blue hover:text-blue-light hover:border-blue-light':
+      'text-blue-500 border rounded border-blue-500 hover:text-blue-400 hover:border-blue-400':
         colorType === 'primary',
-      'text-green border rounded border-green hover:text-green-light hover:border-green-light':
+      'text-green-500 border rounded border-green-500 hover:text-green-400 hover:border-green-400':
         colorType === 'accent' || colorType === 'success',
-      'text-red border rounded border-red hover:text-red-light hover:border-red-light':
+      'text-red-500 border rounded border-red-500 hover:text-red-400 hover:border-red-400':
         colorType === 'danger',
-      'text-yellow border rounded border-yellow hover:text-yellow-light hover:border-yellow-light':
+      'text-yellow-500 border rounded border-yellow-500 hover:text-yellow-400 hover:border-yellow-400':
         colorType === 'warning',
-      'text-blue-light border rounded border-blue-light hover:text-blue-lighter hover:border-blue-lighter':
+      'text-blue-400 border rounded border-blue-400 hover:text-blue-300 hover:border-blue-300':
         colorType === 'info'
     })
   } else {
     colorScheme = Object.assign({}, colorScheme, {
       'rounded shadow': true,
-      'bg-grey-light hover:bg-grey': colorType === 'default',
-      'bg-blue text-white hover:bg-blue-light': colorType === 'primary',
-      'bg-green text-white hover:bg-green-light': colorType === 'accent',
-      'bg-green text-white hover:bg-grey-light': colorType === 'success',
-      'bg-red text-white hover:bg-red-light': colorType === 'danger',
-      'bg-yellow text-white hover:bg-yellow-light': colorType === 'warning',
-      'bg-blue-light text-white hover:bg-blue-lighter': colorType === 'info'
+      'bg-gray-400 hover:bg-gray-500': colorType === 'default',
+      'bg-blue-500 text-white hover:bg-blue-400': colorType === 'primary',
+      'bg-green-500 text-white hover:bg-green-400': colorType === 'accent',
+      'bg-green-500 text-white hover:bg-gray-400': colorType === 'success',
+      'bg-red-500 text-white hover:bg-red-400': colorType === 'danger',
+      'bg-yellow-500 text-white hover:bg-yellow-400': colorType === 'warning',
+      'bg-blue-400 text-white hover:bg-blue-300': colorType === 'info'
     })
   }
 
@@ -123,10 +123,10 @@ export default {
             size: context.props.lg
               ? 'lg'
               : context.props.md
-                ? 'md'
-                : context.props.sm
-                  ? 'sm'
-                  : undefined,
+              ? 'md'
+              : context.props.sm
+              ? 'sm'
+              : undefined,
             flat: context.props.flat
           }),
           context.data.staticClass

@@ -4,11 +4,11 @@
       <base-label class="mb-2">
         Subject <span class="text-red">*</span>
       </base-label>
-      <base-input
-        v-model="form.subject"
-        @input="$v.form.subject.$touch()"
-      />
-      <span class="block text-xs italic text-red" v-if="subjectErrors.length > 0">
+      <base-input v-model="form.subject" @input="$v.form.subject.$touch()" />
+      <span
+        class="block text-xs italic text-red"
+        v-if="subjectErrors.length > 0"
+      >
         {{ subjectErrors[0] }}
       </span>
     </div>
@@ -19,11 +19,14 @@
         </base-label>
         <base-select
           v-model="form.patient_id"
-          :options="patients.map(d => ({value: d.id, text: d.full_name}))"
+          :options="patients.map(d => ({ value: d.id, text: d.full_name }))"
           :filter-function="filterPatient"
           @input="$v.form.patient_id.$touch()"
         ></base-select>
-        <span class="block text-xs italic text-red" v-if="patientIdErrors.length > 0">
+        <span
+          class="block text-xs italic text-red"
+          v-if="patientIdErrors.length > 0"
+        >
           {{ patientIdErrors[0] }}
         </span>
       </div>
@@ -33,11 +36,14 @@
         </base-label>
         <base-select
           v-model="form.doctor_id"
-          :options="doctors.map(d => ({value: d.id, text: d.full_name}))"
+          :options="doctors.map(d => ({ value: d.id, text: d.full_name }))"
           :filter-function="filterDoctor"
           @input="$v.form.doctor_id.$touch()"
         ></base-select>
-        <span class="block text-xs italic text-red" v-if="doctorIdErrors.length > 0">
+        <span
+          class="block text-xs italic text-red"
+          v-if="doctorIdErrors.length > 0"
+        >
           {{ doctorIdErrors[0] }}
         </span>
       </div>
@@ -51,7 +57,10 @@
         placeholder="DD-MM-YYYY HH:mm:ss"
         @input="$v.form.appointed_at.$touch()"
       />
-      <span class="block text-xs italic text-red" v-if="appointedAtErrors.length > 0">
+      <span
+        class="block text-xs italic text-red"
+        v-if="appointedAtErrors.length > 0"
+      >
         {{ appointedAtErrors[0] }}
       </span>
     </div>
@@ -60,7 +69,9 @@
       <base-textarea v-model="form.comment" rows="5" />
     </div>
     <div class="flex items-center justify-end">
-      <base-button color="primary" :waiting="saving" @click="updateEvent">Save change</base-button>
+      <base-button color="primary" :waiting="saving" @click="updateEvent"
+        >Save change</base-button
+      >
     </div>
   </form>
 </template>

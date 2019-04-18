@@ -5,19 +5,22 @@
       class="inline-flex items-center justify-center w-24 h-full no-underline text-center text-sm rounded-l"
       :class="[buttonStateMonth]"
       @click.prevent="toggle('month')"
-    >Month</a>
+      >Month</a
+    >
     <a
       href="#"
       class="inline-flex items-center justify-center w-24 h-full no-underline text-center text-sm"
       :class="[buttonStateWeek]"
       @click.prevent="toggle('week')"
-    >Week</a>
+      >Week</a
+    >
     <a
       href="#"
       class="inline-flex items-center justify-center w-24 h-full no-underline text-center text-sm rounded-r"
       :class="[buttonStateDay]"
       @click.prevent="toggle('day')"
-    >Day</a>
+      >Day</a
+    >
   </div>
 </template>
 

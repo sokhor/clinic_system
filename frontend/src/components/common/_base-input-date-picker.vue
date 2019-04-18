@@ -1,17 +1,21 @@
 <template>
-	<on-click-outside :do="close">
-		<div class="relative">
-			<input
-				type="text"
-				placeholder="DD-MM-YYYY"
-				class="appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full"
-				v-bind="$attrs"
-				v-model="value"
-				@focus="show"
-			/>
-			<date-picker v-if="picker" class="absolute z-20" @change="event => value = event.format('DD-MM-YYYY')"/>
-		</div>
-	</on-click-outside>
+  <on-click-outside :do="close">
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="DD-MM-YYYY"
+        class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
+        v-bind="$attrs"
+        v-model="value"
+        @focus="show"
+      />
+      <date-picker
+        v-if="picker"
+        class="absolute z-20"
+        @change="event => (value = event.format('DD-MM-YYYY'))"
+      />
+    </div>
+  </on-click-outside>
 </template>
 
 <script>

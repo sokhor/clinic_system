@@ -1,7 +1,9 @@
 <template>
   <div class="w-full" v-if="tokens.length > 0">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-grey-darkest text-xl font-bold">Authorized Applications</h1>
+      <h1 class="inline text-gray-900 text-xl font-bold">
+        Authorized Applications
+      </h1>
     </div>
     <div class="w-full bg-white shadow rounded overflow-hidden">
       <base-table>

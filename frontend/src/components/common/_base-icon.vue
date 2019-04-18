@@ -28,8 +28,5 @@ export default {
     :class="name"
     aria-hidden="true"
   ></span>
-  <span
-    v-else-if="source === 'custom'"
-    :class="customIconClass"
-  />
+  <span v-else-if="source === 'custom'" :class="customIconClass" />
 </template>

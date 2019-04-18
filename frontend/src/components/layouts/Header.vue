@@ -1,14 +1,26 @@
 <template>
-  <header class="header flex items-center bg-blue-dark border-b border-blue-darker h-16">
-    <div class="inline-block md:pl-8 md:pr-10 order-2 md:order-1 flex-auto md:flex-none text-center">
+  <header
+    class="header flex items-center bg-blue-600 border-b border-blue-700 h-16"
+  >
+    <div
+      class="inline-block md:pl-8 md:pr-10 order-2 md:order-1 flex-auto md:flex-none text-center"
+    >
       <router-link to="/">
-        <img src="../../assets/logo.svg" width="89" class="inline-block">
+        <img src="../../assets/logo.svg" width="89" class="inline-block" />
       </router-link>
     </div>
-    <button type="button" @click="toggleNavigation" class="flex items-center text-white ml-4 md:ml-0 focus:outline-none order-1 md:order-2">
-      <svg class="fill-current h-5 w-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <button
+      type="button"
+      @click="toggleNavigation"
+      class="flex items-center text-white ml-4 md:ml-0 focus:outline-none order-1 md:order-2"
+    >
+      <svg
+        class="fill-current h-5 w-5"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <title>Menu</title>
-        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
       </svg>
     </button>
     <div class="flex-auto order-3 hidden md:inline-block"></div>
@@ -18,15 +30,24 @@
           <div class="flex justify-center">
             <span class="mr-2 text-white">{{ authUser.username }}</span>
             <BaseButton flat class="focus:outline-none text-xl">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-5 h-5">
-                <circle cx="16" cy="7.5" r="7.4"/>
-                <path d="M16,18C7.7,18,1,24.3,1,32h30C31,24.3,24.3,18,16,18z"/>
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 32 32"
+                class="w-5 h-5"
+              >
+                <circle cx="16" cy="7.5" r="7.4" />
+                <path d="M16,18C7.7,18,1,24.3,1,32h30C31,24.3,24.3,18,16,18z" />
               </svg>
             </BaseButton>
           </div>
           <ul class="list-reset" slot="dropdown-items">
             <li class="whitespace-no-wrap">
-              <a href="#" class="no-underline text-grey-darkest" @click.prevent="logOut">
+              <a
+                href="#"
+                class="no-underline text-gray-900"
+                @click.prevent="logOut"
+              >
                 <i class="fas fa-sign-out-alt"></i> Signout
               </a>
             </li>

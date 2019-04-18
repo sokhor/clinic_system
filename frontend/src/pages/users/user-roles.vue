@@ -10,7 +10,13 @@
         <BaseTd>{{ role.id }}</BaseTd>
         <BaseTd>{{ role.name }}</BaseTd>
         <BaseTd class="flex">
-          <BaseButton flat color="danger" title="Delete role" :waiting="role._deleting" @click="destroy(role)">
+          <BaseButton
+            flat
+            color="danger"
+            title="Delete role"
+            :waiting="role._deleting"
+            @click="destroy(role)"
+          >
             <i class="fas fa-trash" v-if="!role._deleting"></i>
           </BaseButton>
         </BaseTd>

@@ -43,7 +43,7 @@ export default {
       <textarea
         {...{
           class: [
-            'appearance-none border rounded py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline w-full',
+            'appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full',
             context.data.staticClass
           ]
         }}

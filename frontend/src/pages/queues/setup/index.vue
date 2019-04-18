@@ -12,11 +12,16 @@
       <div class="w-1/5 px-6 relative">
         <div class="fixed">
           <div class="text-left">
-            <base-button color="accent" @click="addNewSection">Create Section</base-button>
+            <base-button color="accent" @click="addNewSection"
+              >Create Section</base-button
+            >
           </div>
           <ul class="list-reset mt-6">
             <li v-for="queueSection in queueSections" :key="queueSection.id">
-              <a href="#" class="no-underline text-grey-darker hover:text-blue leading-loose">
+              <a
+                href="#"
+                class="no-underline text-gray-700 hover:text-blue-500 leading-loose"
+              >
                 {{ queueSection.name }}
               </a>
             </li>

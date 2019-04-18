@@ -1,6 +1,8 @@
 <template>
   <SidebarNavItem :classes="classList.navItem">
-    <a :class="classList.navLink" :href="url"><i :class="classList.icon"></i> {{name}}</a>
+    <a :class="classList.navLink" :href="url"
+      ><i :class="classList.icon"></i> {{ name }}</a
+    >
   </SidebarNavItem>
 </template>
 
