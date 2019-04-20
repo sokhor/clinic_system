@@ -6,7 +6,7 @@ import Vuelidate from 'vuelidate'
 import Vmodal from 'vue-js-modal'
 import 'simplebar/dist/simplebar.min.css'
 import VTooltip from 'v-tooltip'
-import App from './components/App.vue'
+import Application from './components/application.vue'
 import router from './router'
 import store from './store'
 import './components/common'
@@ -28,7 +28,7 @@ Vue.use(VTooltip)
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(Application)
 }).$mount('#app')
 
 Object.defineProperties(Vue.prototype, {
