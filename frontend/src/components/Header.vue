@@ -6,7 +6,7 @@
       class="inline-block md:pl-8 md:pr-10 order-2 md:order-1 flex-auto md:flex-none text-center"
     >
       <router-link to="/">
-        <img src="../../assets/logo.svg" width="89" class="inline-block" />
+        <img src="@/assets/logo.svg" width="89" class="inline-block" />
       </router-link>
     </div>
     <button
