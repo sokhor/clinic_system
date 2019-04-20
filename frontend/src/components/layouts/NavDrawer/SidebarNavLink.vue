@@ -12,9 +12,9 @@
         ></i>
         {{ name }}
       </span>
-      <b-badge v-if="badge && badge.text" :variant="badge.variant">{{
+      <base-badge v-if="badge && badge.text" :variant="badge.variant">{{
         badge.text
-      }}</b-badge>
+      }}</base-badge>
     </a>
   </div>
   <div v-else>

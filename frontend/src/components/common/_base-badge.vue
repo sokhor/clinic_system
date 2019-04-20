@@ -1,11 +1,11 @@
 <script>
 const colorClass = color => {
   if (color.toLowerCase() === 'blue') {
-    return 'bg-blue text-white'
+    return 'bg-blue-600 text-white'
   } else if (color.toLowerCase() === 'red') {
-    return 'bg-red text-white'
+    return 'bg-red-600 text-white'
   } else if (color.toLowerCase() === 'green') {
-    return 'bg-green text-white'
+    return 'bg-green-600 text-white'
   }
 }
 
