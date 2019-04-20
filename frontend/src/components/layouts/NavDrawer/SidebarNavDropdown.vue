@@ -12,7 +12,7 @@
     >
       <i
         :class="icon"
-        class="inline-block w-6 text-blue-darker group-hover:text-white"
+        class="inline-block w-6 text-blue-200 opacity-50 group-hover:text-white"
       ></i>
       {{ name }}
     </div>
