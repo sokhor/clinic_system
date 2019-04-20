@@ -17,11 +17,11 @@ export default [
   },
   {
     path: '/',
-    name: 'dashboard',
+    name: 'home',
     meta: {
       authRequired: true
     },
-    component: () => import('@/pages/Dashboard.vue')
+    component: () => import('@/pages/dashboard')
   },
   ...role,
   ...user,
