@@ -1,9 +1,8 @@
 <template>
-  <span>Dashboard</span>
+  <div class="sidebar-header"></div>
 </template>
-
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'nav-header'
 }
 </script>

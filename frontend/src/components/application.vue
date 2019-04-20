@@ -28,7 +28,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import AppHeader from '@/components/app-header'
-import NavDrawer from '@/components/NavDrawer/NavDrawer.vue'
+import NavDrawer from '@/components/nav-drawer'
 
 export default {
   name: 'App',

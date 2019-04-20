@@ -1,9 +1,8 @@
 <template>
-  <span>Dashboard</span>
+  <div class="sidebar-footer"></div>
 </template>
-
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'nav-footer'
 }
 </script>
