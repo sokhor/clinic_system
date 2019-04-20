@@ -4,9 +4,9 @@
       class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-xs"
       @submit.prevent="postLogin"
     >
-      <alert type="danger" v-if="message !== ''" class="mb-4">{{
+      <base-alert type="danger" v-if="message !== ''" class="mb-4">{{
         message
-      }}</alert>
+      }}</base-alert>
       <div class="mb-4">
         <label
           class="block text-gray-800 text-sm font-bold mb-2"
@@ -62,13 +62,9 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import Alert from '../components/alert.vue'
 
 export default {
   name: 'Login',
-  components: {
-    Alert
-  },
   data() {
     return {
       username: '',
