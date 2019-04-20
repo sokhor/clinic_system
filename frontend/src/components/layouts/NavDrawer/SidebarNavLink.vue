@@ -3,7 +3,7 @@
     <a
       :href="url"
       :class="classList"
-      class="group block no-underline px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue"
+      class="group block no-underline px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue-500"
     >
       <span>
         <i
@@ -21,7 +21,7 @@
     <router-link
       :to="url"
       :class="classList"
-      class="flex justify-between group block no-underline px-4 py-2 text-white font-hairline hover:text-white hover:bg-blue"
+      class="flex justify-between group block no-underline px-4 py-2 text-white font-hairline hover:text-white hover:bg-blue-500"
     >
       <span>
         <i

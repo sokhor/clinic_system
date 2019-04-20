@@ -7,7 +7,7 @@
   >
     <div
       @click.prevent="handleClick"
-      class="group nav-link nav-dropdown-toggle relative block px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue"
+      class="group nav-link nav-dropdown-toggle relative block px-4 py-3 text-white font-hairline hover:text-white hover:bg-blue-500"
       :class="{ 'nav-dropdown-toggle__open': dropdownOpen }"
     >
       <i
