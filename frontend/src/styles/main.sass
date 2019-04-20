@@ -1,6 +1,6 @@
 @tailwind base
 
-//@import "form-control.scss"
+@import "form-control"
 @import "table"
 @import "animate"
 @import "nprogress"
@@ -19,5 +19,9 @@
 .dialog-mask
   @apply fixed inset-0 flex justify-center items-center
   background-color: rgba(0, 0, 0, 0.33)
+
+.required:after
+  @apply .inline-block .absolute .text-red-600 .ml-1
+  content: "*"
 
 @tailwind utilities
