@@ -7,7 +7,7 @@ export default {
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
-      class="fill-current text-grey-dark"
+      class="fill-current text-gray-600"
       {...{ class: context.data.staticClass }}
     >
       <circle cx="16" cy="7.5" r="7.4" />
