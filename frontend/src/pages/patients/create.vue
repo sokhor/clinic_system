@@ -1,34 +1,30 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-gray-900 text-xl font-bold">
+    <div class="w-full flex flex-row items-center justify-between mb-6">
+      <h1 class="inline text-gray-800 text-xl">
         Patient Registration
       </h1>
     </div>
     <div class="flex -mx-4">
       <div class="w-3/4 px-4">
-        <BaseCard class="p-4">
+        <base-card class="p-4">
           <form>
             <div class="flex -mx-4">
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Full name <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Full name
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    <base-input
                       v-model="form.full_name"
-                      type="text"
                       autofocus
                       @input="
                         $v.form.full_name.$touch() || loadExistedPatients()
                       "
                     />
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="fullNameErrors.length > 0"
                     >
                       {{ fullNameErrors[0] }}
@@ -36,30 +32,21 @@
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Other Name
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.full_name_2"
-                      type="text"
-                    />
+                    <base-input v-model="form.full_name_2" />
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Gender <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Gender
+                  </base-label>
                   <div class="w-3/5">
                     <select
                       class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
                       v-model="form.gender"
-                      type="text"
                       @input="$v.form.gender.$touch()"
                     >
                       <option value="">--Choose--</option>
@@ -67,7 +54,7 @@
                       <option value="F">Female</option>
                     </select>
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="genderErrors.length > 0"
                     >
                       {{ genderErrors[0] }}
@@ -75,46 +62,36 @@
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Date of Birth
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
                     <base-input-date-picker v-model="form.dob" />
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Age
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
-                      type="text"
-                    />
+                    <base-input />
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Nationality <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Nationality
+                  </base-label>
                   <div class="w-3/5">
                     <select
                       class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
                       v-model="form.nationality_code"
-                      type="text"
                       @input="$v.form.nationality_code.$touch()"
                     >
                       <option value="">--Choose--</option>
                       <option value="KH">Cambodian</option>
                     </select>
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="nationalityCodeErrors.length > 0"
                     >
                       {{ nationalityCodeErrors[0] }}
@@ -123,12 +100,12 @@
                 </div>
               </div>
               <div class="w-1/2 p-4">
-                <div class="text-center">
+                <div class="flex justify-center">
                   <svg
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 32 32"
-                    class="w-32 h-32 fill-current stroke-current text-grey-dark"
+                    class="w-32 h-32 fill-current stroke-current text-gray-600"
                   >
                     <circle cx="16" cy="7.5" r="7.4" />
                     <path
@@ -139,27 +116,23 @@
               </div>
             </div>
             <h3
-              class="text-grey-dark font-semibold py-2 mb-2 border-b border-grey-light text-xs uppercase"
+              class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
             >
               Contact
             </h3>
             <div class="flex -mx-4">
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Phone <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Phone
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    <base-input
                       v-model="form.phone"
-                      type="text"
                       @input="$v.form.phone.$touch() || loadExistedPatients()"
                     />
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="phoneErrors.length > 0"
                     >
                       {{ phoneErrors[0] }}
@@ -167,14 +140,11 @@
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Email
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    <base-input
                       v-model="form.email"
                       type="email"
                       @input="loadExistedPatients()"
@@ -184,11 +154,9 @@
               </div>
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Address
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
                     <textarea
                       class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
@@ -199,18 +167,16 @@
               </div>
             </div>
             <h3
-              class="text-grey-dark font-semibold py-2 mb-2 border-b border-grey-light text-xs uppercase"
+              class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
             >
               Identity
             </h3>
             <div class="flex -mx-4">
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Identity Type <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Identity Type
+                  </base-label>
                   <div class="w-3/5">
                     <select
                       class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
@@ -223,7 +189,7 @@
                       <option value="3">Driving License</option>
                     </select>
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="identityTypeErrors.length > 0"
                     >
                       {{ identityTypeErrors[0] }}
@@ -233,22 +199,18 @@
               </div>
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Identity No <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Identity No
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    <base-input
                       v-model="form.identity_no"
-                      type="text"
                       @input="
                         $v.form.identity_no.$touch() || loadExistedPatients()
                       "
                     />
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="identityNoErrors.length > 0"
                     >
                       {{ identityNoErrors[0] }}
@@ -258,18 +220,16 @@
               </div>
             </div>
             <h3
-              class="text-grey-dark font-semibold py-2 mb-2 border-b border-grey-light text-xs uppercase"
+              class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
             >
               Other
             </h3>
             <div class="flex -mx-4">
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
-                    Type <span class="text-red">*</span>
-                  </label>
+                  <base-label class="w-2/5 text-right pr-6 required">
+                    Type
+                  </base-label>
                   <div class="w-3/5">
                     <select
                       class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
@@ -281,7 +241,7 @@
                       <option value="2">Para-clinic</option>
                     </select>
                     <span
-                      class="block text-xs italic text-red"
+                      class="block text-xs italic text-red-600"
                       v-if="typeErrors.length > 0"
                     >
                       {{ typeErrors[0] }}
@@ -289,20 +249,14 @@
                   </div>
                 </div>
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Referal
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.referal_id"
-                      type="text"
-                    />
+                    <base-input v-model="form.referal_id" />
                     <a
                       href="#"
-                      class="block text-xs no-underline hover:underline text-blue mt-1"
+                      class="block text-sm no-underline hover:underline text-blue-500 mt-1"
                       @click.prevent="addNewReferal"
                     >
                       <i class="fas fa-plus"></i> Add new
@@ -312,17 +266,11 @@
               </div>
               <div class="w-1/2 p-4">
                 <div class="flex items-start mb-3">
-                  <label
-                    class="block text-gray-800 text-sm font-bold w-2/5 text-right pr-6"
-                  >
+                  <base-label class="w-2/5 text-right pr-6">
                     Assign To
-                  </label>
+                  </base-label>
                   <div class="w-3/5">
-                    <input
-                      class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
-                      v-model="form.assigned_id"
-                      type="text"
-                    />
+                    <base-input v-model="form.assigned_id" />
                   </div>
                 </div>
               </div>
@@ -361,52 +309,14 @@
               </div>
             </div>
           </form>
-        </BaseCard>
+        </base-card>
       </div>
       <div class="w-1/4 px-4">
         <h4 class="text-gray-900 mb-2">Suggested Patients</h4>
-        <BaseCard v-show="patients.length">
-          <div class="p-4 border-b" v-for="patient in patients">
-            <div class="flex">
-              <img :src="patient.photo" v-if="patient.photo" />
-              <BaseUserIcon class="h-16 w-16 rounded-full" v-else />
-              <div class="ml-2">
-                <span class="text-gray-900 mb-2 text-lg font-semibold">{{
-                  patient.full_name
-                }}</span>
-                <span class="font-normal ml-2">({{ patient.age }})</span>
-                <p class="text-grey">{{ patient.code }}</p>
-              </div>
-            </div>
-            <div class="mt-2 flex">
-              <div class="flex-grow">
-                <span class="block text-gray-800">
-                  <i class="fas fa-phone inline-block w-5"></i>
-                  {{ patient.phone }}
-                </span>
-                <span class="block text-gray-800">
-                  <i class="far fa-id-card inline-block w-5"></i>
-                  {{ patient.identity_no }}
-                  <BaseBadge :color="identityColor(patient.identity_type)">
-                    {{ patient.identity_type_text }}
-                  </BaseBadge>
-                </span>
-              </div>
-              <div class="self-end">
-                <BaseButton flat sm color="primary" @click="select(patient)">
-                  <i class="fas fa-share"></i> Re-visit
-                </BaseButton>
-              </div>
-            </div>
-          </div>
-        </BaseCard>
-        <p
-          class="flex items-center justify-center"
-          v-show="patients.length === 0"
-        >
-          <span class="fas fa-spinner spinning" v-show="patientLoading"></span>
-          <span v-show="!patientLoading">No existed patients</span>
-        </p>
+        <suggested-patients
+          :patients="patients"
+          :patient-loading="patientLoading"
+        />
       </div>
     </div>
   </div>
@@ -416,9 +326,11 @@
 import { mapState } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 import { debounce } from 'lodash'
+import SuggestedPatients from './suggested-patients'
 
 export default {
   name: 'PatientCreate',
+  components: { SuggestedPatients },
   data() {
     return {
       form: {
@@ -457,16 +369,6 @@ export default {
     }
   },
   computed: {
-    identityColor: () => identityType => {
-      switch (identityType) {
-        case 1:
-          return 'green'
-        case 2:
-          return 'red'
-        case 3:
-          return 'blue'
-      }
-    },
     fullNameErrors() {
       const errors = []
       if (!this.$v.form.full_name.$dirty) return errors
