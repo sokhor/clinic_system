@@ -98,30 +98,6 @@ export default [
     icon: 'fas fa-shopping-cart'
   },
   {
-    name: 'Corporation',
-    title: true,
-    class: '',
-    wrapper: {
-      element: '',
-      attributes: {}
-    }
-  },
-  {
-    name: 'Service',
-    url: '/services',
-    icon: 'fas fa-bolt'
-  },
-  {
-    name: 'Employee',
-    url: '/employees',
-    icon: 'fas fa-people-carry'
-  },
-  {
-    name: 'Partner',
-    url: '/partners',
-    icon: 'fas fa-handshake'
-  },
-  {
     name: 'Administration',
     title: true,
     class: '',
@@ -191,5 +167,20 @@ export default [
     name: 'Queue Setup',
     url: '/queue-setup',
     icon: 'far fa-list-alt'
-  }
+  },
+  {
+    name: 'Service',
+    url: '/services',
+    icon: 'fas fa-bolt'
+  },
+  {
+    name: 'Employee',
+    url: '/employees',
+    icon: 'fas fa-people-carry'
+  },
+  {
+    name: 'Partner',
+    url: '/partners',
+    icon: 'fas fa-handshake'
+  },
 ]
