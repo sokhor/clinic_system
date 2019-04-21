@@ -1,19 +1,14 @@
 <template>
   <on-click-outside :do="close">
     <div class="relative">
-      <input
+      <base-input
         type="text"
         placeholder="DD-MM-YYYY"
-        class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
         v-bind="$attrs"
         v-model="value"
         @focus="show"
       />
-      <date-picker
-        v-if="picker"
-        class="absolute z-20"
-        @change="event => (value = event.format('DD-MM-YYYY'))"
-      />
+      <date-picker v-if="picker" class="absolute z-20" @change="selectDate" />
     </div>
   </on-click-outside>
 </template>
@@ -23,7 +18,7 @@ import DatePicker from '@/components/date-picker.vue'
 import OnClickOutside from '@/components/on-click-outside.vue'
 
 export default {
-  name: 'BaseInputDatePickerInput',
+  name: 'BaseDatePickerInput',
   inheritAttrs: false,
   components: { DatePicker, OnClickOutside },
   data() {
@@ -38,6 +33,10 @@ export default {
     },
     close() {
       this.picker = false
+    },
+    selectDate(date) {
+      this.value = date.format('DD-MM-YYYY')
+      this.close()
     }
   },
   watch: {

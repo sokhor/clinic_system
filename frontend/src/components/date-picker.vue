@@ -1,16 +1,16 @@
 <template>
-  <div class="bg-white shadow rounded p-4">
+  <div class="bg-white shadow-lg rounded p-4">
     <div class="box-body">
       <div class="calendar">
         <div class="calendar-header">
           <div class="flex justify-between">
-            <a href="#" class="text-gray-800" @click.prevent="previous">
+            <a href="#" class="text-gray-700" @click.prevent="previous">
               <i class="fas fa-chevron-left"></i>
             </a>
-            <div class="uppercase text-gray-800 font-bold">
+            <div class="uppercase text-gray-700 font-bold">
               {{ month }} {{ year }}
             </div>
-            <a href="#" class="text-gray-800" @click.prevent="next">
+            <a href="#" class="text-gray-700" @click.prevent="next">
               <i class="fas fa-chevron-right"></i>
             </a>
           </div>
@@ -18,37 +18,37 @@
         <div class="mt-5">
           <div class="flex">
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Mon
             </div>
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Tue
             </div>
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Wed
             </div>
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Thu
             </div>
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Fri
             </div>
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Sat
             </div>
             <div
-              class="w-1/7 uppercase text-sm font-semibold text-center text-grey-dark"
+              class="w-1/7 uppercase text-sm font-semibold text-center text-gray-600"
             >
               Sun
             </div>
@@ -64,17 +64,20 @@
             <div
               v-for="(date, indexDay) in dates"
               :key="indexDay"
-              class="w-1/7 text-center p-3 cursor-pointer"
+              class="group w-1/7 text-center p-1 cursor-pointer"
               :class="[
-                inCurrentMonth(date) ? 'text-gray-800' : 'text-grey',
+                inCurrentMonth(date) ? 'text-gray-800' : 'text-gray-500',
                 { 'last-day-of-week': indexDay === dates.length - 1 }
               ]"
               @click="selectDate(date)"
             >
               <span
-                :class="{
-                  'text-white rounded-full block bg-red w-6 h-6': isToday(date)
-                }"
+                :class="[
+                  'flex items-center justify-center w-8 h-8 rounded-full',
+                  isToday(date)
+                    ? 'text-white bg-red-500'
+                    : 'group-hover:bg-gray-300 group-hover:opacity-75'
+                ]"
               >
                 {{ date.format('D') }}
               </span>
