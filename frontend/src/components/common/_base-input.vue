@@ -1,26 +1,31 @@
 <script>
-const inputValue = context => {
-  if (context.data.model !== undefined) return context.data.model.value
-  else if (context.data.attrs !== undefined) return context.data.attrs.value
+function onInputEvent(context, evt) {
+  const listener = context.listeners['input'] || (() => {})
 
-  return ''
-}
-
-const onInput = (event, context) => {
-  let emitInputEvent = context.listeners['input'] || (() => {})
-  let modelValue = event.target.value
-
-  if (Array.isArray(emitInputEvent)) {
-    return emitInputEvent.forEach(e => e(modelValue, event))
+  if (Array.isArray(listener)) {
+    return listener.forEach(_listener => _listener(evt.target.value))
   }
 
-  return emitInputEvent(modelValue, event)
+  return listener(evt.target.value)
+}
+
+function onFocusEvent(context, evt) {
+  const listener = context.listeners['focus'] || (() => {})
+
+  if (Array.isArray(listener)) {
+    return listener.forEach(_listener => _listener(evt))
+  }
+
+  return listener(evt)
 }
 
 export default {
   name: 'BaseInput',
   functional: true,
   props: {
+    value: {
+      default: ''
+    },
     type: {
       type: String,
       default: 'text'
@@ -37,17 +42,13 @@ export default {
   render(h, context) {
     return (
       <input
-        {...{
-          class: [
-            'appearance-none border rounded py-2 px-3 text-gray-800 leading-none focus:outline-none focus:shadow-outline w-full',
-            context.data.staticClass
-          ]
-        }}
+        class="appearance-none border rounded py-2 px-3 text-gray-800 leading-none focus:outline-none focus:shadow-outline w-full"
         type={context.props.type}
-        value={inputValue(context)}
-        onInput={event => onInput(event, context)}
+        value={context.props.value}
         disabled={context.props.disabled}
         placeholder={context.props.placeholder}
+        vOn:input={evt => onInputEvent(context, evt)}
+        vOn:focus={evt => onFocusEvent(context, evt)}
       />
     )
   }
