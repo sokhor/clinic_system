@@ -4,45 +4,28 @@
       class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-xs"
       @submit.prevent="postLogin"
     >
-      <base-alert type="danger" v-if="message !== ''" class="mb-4">{{
+      <BaseAlert type="danger" v-if="message !== ''" class="mb-4">{{
         message
-      }}</base-alert>
+      }}</BaseAlert>
       <div class="mb-4">
-        <label
-          class="block text-gray-800 text-sm font-bold mb-2"
-          for="username"
-        >
-          Username
-        </label>
-        <input
-          v-model="username"
-          class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline shadow w-full"
-          id="username"
-          type="text"
-          @input="$v.username.$touch()"
-        />
+        <BaseLabel class="mb-2">Username</BaseLabel>
+        <BaseInput v-model="username" @input="$v.username.$touch()" />
         <span
-          class="block text-xs italic text-red"
+          class="block text-xs italic text-red-500"
           v-if="usernameErrors.length > 0"
         >
           {{ usernameErrors[0] }}
         </span>
       </div>
       <div class="mb-6">
-        <label
-          class="block text-gray-800 text-sm font-bold mb-2"
-          for="password"
-        >
-          Password
-        </label>
-        <input
+        <BaseLabel class="bmb-2">Password</BaseLabel>
+        <BaseInput
           v-model="password"
-          class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline shadow w-full"
           type="password"
           @input="$v.password.$touch()"
         />
         <span
-          class="block text-xs italic text-red"
+          class="block text-xs italic text-red-500"
           v-if="passwordErrors.length > 0"
         >
           {{ passwordErrors[0] }}
