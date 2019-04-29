@@ -1,8 +1,7 @@
 import Vue from 'vue'
-import upperFirst from 'lodash/upperFirst'
-import camelCase from 'lodash/camelCase'
+import { upperFirst, camelCase } from 'lodash'
 
-const requireComponent = require.context('.', true, /_base-[\w-]+(.vue|.js|)$/)
+const requireComponent = require.context('.', true, /_base-[\w-]+$/)
 
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName)
