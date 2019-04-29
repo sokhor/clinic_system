@@ -1,34 +1,33 @@
-<script>
 const classList = props => {
   if (props.type.toLowerCase().trim() === 'danger') {
     return {
-      'bg-red-lightest': true,
-      'border-red': true,
-      'text-red-dark': true
+      'bg-red-200': true,
+      'border-red-500': true,
+      'text-red-700': true
     }
   } else if (props.type.toLowerCase().trim() === 'warning') {
     return {
-      'bg-orange-lightest': true,
-      'border-orange': true,
-      'text-orange-dark': true
+      'bg-orange-200': true,
+      'border-orange-500': true,
+      'text-orange-700': true
     }
   } else if (props.type.toLowerCase().trim() === 'info') {
     return {
-      'bg-blue-lightest': true,
+      'bg-blue-200': true,
       'border-blue': true,
-      'text-blue-dark': true
+      'text-blue-700': true
     }
   } else if (props.type.toLowerCase().trim() === 'success') {
     return {
-      'bg-green-lightest': true,
-      'border-green': true,
-      'text-green-dark': true
+      'bg-green-200': true,
+      'border-green-500': true,
+      'text-green-700': true
     }
   } else {
     return {
-      'bg-grey-lightest': true,
-      'border-grey': true,
-      'text-grey-dark': true
+      'bg-gray-200': true,
+      'border-gray-500': true,
+      'text-gray-700': true
     }
   }
 }
@@ -53,4 +52,3 @@ export default {
     )
   }
 }
-</script>
