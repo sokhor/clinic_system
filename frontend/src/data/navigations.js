@@ -182,5 +182,5 @@ export default [
     name: 'Partner',
     url: '/partners',
     icon: 'fas fa-handshake'
-  },
+  }
 ]

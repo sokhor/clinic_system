@@ -421,7 +421,7 @@ export default {
 
       this.saving = true
       try {
-        await this.$store.dispatch('patients/store', this.form)
+        await this.$store.dispatch('patient/store', this.form)
         this.$toasted.success('Patient registered successfully')
         this.$router.push('/visits')
       } catch (error) {
@@ -437,7 +437,7 @@ export default {
 
       this.savingAndNew = true
       try {
-        await this.$store.dispatch('patients/store', this.form)
+        await this.$store.dispatch('patient/store', this.form)
         this.$toasted.success('Patient registered successfully')
         this.clearSelect()
       } catch (error) {
@@ -487,7 +487,7 @@ export default {
       this.patients = []
       this.patientLoading = true
       this.$store
-        .dispatch('patients/list', {
+        .dispatch('patient/list', {
           filter: {
             full_name: this.form.full_name
             // phone: this.form.phone,
