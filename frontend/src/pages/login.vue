@@ -1,34 +1,30 @@
 <template>
   <div class="w-full h-screen flex flex-col items-center justify-center">
     <form
-      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-xs"
+      class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm"
       @submit.prevent="postLogin"
     >
-      <BaseAlert type="danger" v-if="message !== ''" class="mb-4">{{
-        message
+      <BaseAlert type="danger" class="mb-4" v-if="errorMessage !== ''">{{
+        errorMessage
       }}</BaseAlert>
       <div class="mb-4">
         <BaseLabel class="mb-2">Username</BaseLabel>
-        <BaseInput v-model="username" @input="$v.username.$touch()" />
+        <BaseInput v-model="username" />
         <span
           class="block text-xs italic text-red-500"
-          v-if="usernameErrors.length > 0"
+          v-if="errors.has('username')"
         >
-          {{ usernameErrors[0] }}
+          {{ errors.first('username') }}
         </span>
       </div>
       <div class="mb-6">
-        <BaseLabel class="bmb-2">Password</BaseLabel>
-        <BaseInput
-          v-model="password"
-          type="password"
-          @input="$v.password.$touch()"
-        />
+        <BaseLabel class="mb-2">Password</BaseLabel>
+        <BaseInput v-model="password" type="password" />
         <span
           class="block text-xs italic text-red-500"
-          v-if="passwordErrors.length > 0"
+          v-if="errors.has('username')"
         >
-          {{ passwordErrors[0] }}
+          {{ errors.first('username') }}
         </span>
       </div>
       <div class="flex items-center justify-between">
@@ -44,7 +40,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { Errors } from 'form-backend-validation'
 
 export default {
   name: 'Login',
@@ -52,31 +48,14 @@ export default {
     return {
       username: '',
       password: '',
-      message: '',
-      loggingIn: false
-    }
-  },
-  validations: {
-    username: { required },
-    password: { required }
-  },
-  computed: {
-    usernameErrors() {
-      const errors = []
-      if (!this.$v.username.$dirty) return errors
-      !this.$v.username.required && errors.push('Required')
-      return errors
-    },
-    passwordErrors() {
-      const errors = []
-      if (!this.$v.password.$dirty) return errors
-      !this.$v.password.required && errors.push('Required')
-      return errors
+      loggingIn: false,
+      errorMessage: '',
+      errors: new Errors()
     }
   },
   methods: {
     postLogin() {
-      this.validateInput()
+      this.errors.clear()
 
       this.loggingIn = true
 
@@ -91,15 +70,10 @@ export default {
         })
         .catch(error => {
           this.loggingIn = false
-          this.message = error.response.data.message
-        })
-    },
-    validateInput() {
-      this.$v.$touch()
 
-      if (this.$v.$error) {
-        throw 'Validation failed'
-      }
+          if (error.errors !== undefined) this.errors = new Errors(error.errors)
+          else this.errorMessage = error.message
+        })
     }
   }
 }

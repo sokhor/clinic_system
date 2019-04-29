@@ -46,6 +46,7 @@ export const actions = {
         commit('SET_CURRENT_USER', user)
         return user
       })
+      .catch(error => Promise.reject(error.response.data))
   },
   logOut({ commit }) {
     return httpClient
@@ -54,6 +55,7 @@ export const actions = {
         commit('SET_CURRENT_USER', null)
         return response.data
       })
+      .catch(error => Promise.reject(error.response.data))
   }
 }
 
