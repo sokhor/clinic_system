@@ -1,27 +1,8 @@
-<template>
-  <on-click-outside :do="close">
-    <div>
-      <div ref="button" @click="open">
-        <slot />
-      </div>
-      <div
-        class="absolute bg-white p-3 shadow rounded"
-        v-show="isOpen"
-        ref="dropdown"
-      >
-        <slot name="dropdown-items" />
-      </div>
-    </div>
-  </on-click-outside>
-</template>
-
-<script>
 import Popper from 'popper.js'
 import OnClickOutside from '@/components/on-click-outside.vue'
 
 export default {
   name: 'BaseDropDown',
-  components: { OnClickOutside },
   data() {
     return {
       popper: null,
@@ -58,6 +39,23 @@ export default {
         this.popper.scheduleUpdate()
       }
     }
+  },
+  render() {
+    return (
+      <OnClickOutside do={this.close}>
+        <div>
+          <div ref="button" vOn:click={this.open}>
+            {this.$slots.default}
+          </div>
+          <div
+            class="absolute bg-white p-3 shadow rounded"
+            v-show={this.isOpen}
+            ref="dropdown"
+          >
+            {this.$slots['dropdown-items']}
+          </div>
+        </div>
+      </OnClickOutside>
+    )
   }
 }
-</script>

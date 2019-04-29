@@ -1,4 +1,3 @@
-<script>
 const colorClass = color => {
   if (color.toLowerCase() === 'blue') {
     return 'bg-blue-500 text-white'
@@ -30,4 +29,3 @@ export default {
     )
   }
 }
-</script>

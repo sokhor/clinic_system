@@ -1,4 +1,3 @@
-<script>
 const classColorScheme = ({
   flat = false,
   outline = false,
@@ -138,4 +137,3 @@ export default {
     )
   }
 }
-</script>

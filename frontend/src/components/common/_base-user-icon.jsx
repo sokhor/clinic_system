@@ -1,4 +1,3 @@
-<script>
 export default {
   name: 'BaseUserIcon',
   functional: true,
@@ -15,4 +14,3 @@ export default {
     </svg>
   )
 }
-</script>

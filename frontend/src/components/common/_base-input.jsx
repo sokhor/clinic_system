@@ -1,4 +1,3 @@
-<script>
 function onInputEvent(context, evt) {
   const listener = context.listeners['input'] || (() => {})
 
@@ -53,4 +52,3 @@ export default {
     )
   }
 }
-</script>

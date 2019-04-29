@@ -1,16 +1,14 @@
-<script>
 export default {
-  name: 'BaseLabel',
+  name: 'BaseCard',
   functional: true,
   render(h, context) {
     return (
-      <label
-        class="block text-gray-700 text-base font-semibold"
+      <div
+        class="bg-white shadow-md rounded overflow-hidden"
         {...{ class: context.data.staticClass }}
       >
         {context.children}
-      </label>
+      </div>
     )
   }
 }
-</script>

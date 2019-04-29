@@ -1,4 +1,3 @@
-<script>
 const inputValue = context => {
   if (context.data.model !== undefined) return context.data.model.value
   else if (context.data.attrs !== undefined) return context.data.attrs.value
@@ -58,4 +57,3 @@ export default {
     )
   }
 }
-</script>

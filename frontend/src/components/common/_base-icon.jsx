@@ -1,4 +1,3 @@
-<script>
 import camelCase from 'lodash/camelCase'
 
 export default {
@@ -17,16 +16,16 @@ export default {
     customIconClass() {
       return this.$style[camelCase('icon-custom-' + this.name)]
     }
+  },
+  render() {
+    return (
+      <span
+        {...{
+          class:
+            this.source === 'font-awesome' ? this.name : this.customIconClass
+        }}
+        aria-hidden="true"
+      />
+    )
   }
 }
-</script>
-
-<template>
-  <span
-    v-if="source === 'font-awesome'"
-    class="fas"
-    :class="name"
-    aria-hidden="true"
-  ></span>
-  <span v-else-if="source === 'custom'" :class="customIconClass" />
-</template>

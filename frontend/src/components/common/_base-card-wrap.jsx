@@ -1,4 +1,3 @@
-<script>
 export default {
   name: 'BaseCardWrap',
   functional: true,
@@ -10,4 +9,3 @@ export default {
     )
   }
 }
-</script>
