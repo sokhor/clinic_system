@@ -12,7 +12,6 @@ export default {
     }
   },
   computed: {
-    // Gets a CSS module class, e.g. iconCustomLogo
     customIconClass() {
       return this.$style[camelCase('icon-custom-' + this.name)]
     }

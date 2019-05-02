@@ -30,9 +30,14 @@
         >SUN</span
       >
     </div>
-    <div class="flex" v-for="(dates, index7days) in datesOfMonth">
+    <div
+      class="flex"
+      v-for="(dates, index7days) in datesOfMonth"
+      :key="index7days"
+    >
       <div
         v-for="(date, indexDay) in dates"
+        :key="indexDay"
         class="w-1/7 h-32 border border-t-0 text-center"
         :class="[{ 'border-l-0': indexDay > 0 }]"
         @click="addEvent(date)"
@@ -51,7 +56,8 @@
         </div>
         <div class="text-left mr-2">
           <span
-            v-for="event in specificDaysEvents(date)"
+            v-for="(event, index) in specificDaysEvents(date)"
+            :key="index"
             class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
             :title="event.text"
             @click.stop="eventClick(event)"
@@ -65,6 +71,8 @@
 </template>
 
 <script>
+import { chunk } from 'lodash'
+
 export default {
   name: 'PlannerMonth',
   props: {
@@ -120,7 +128,7 @@ export default {
         )
       }
 
-      return _.chunk(date, 7)
+      return chunk(date, 7)
     },
     inCurrentMonth: vm => date => {
       return vm.currentDate.isSame(date, 'month')

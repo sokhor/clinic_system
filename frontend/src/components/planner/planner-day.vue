@@ -21,22 +21,25 @@
       <div class="flex">
         <div>
           <div
-            v-for="timeOfDay in timesOfDay"
             class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold"
+            v-for="(timeOfDay, index) in timesOfDay"
+            :key="index"
           >
             {{ timeOfDay.format('hha') }}
           </div>
         </div>
         <div class="flex-grow">
           <div
-            v-for="timeOfDay in timesOfDay"
             class="h-16 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm"
+            v-for="(timeOfDay, index) in timesOfDay"
+            :key="index"
             @click.stop="addEvent(timeOfDay)"
           >
             <div class="text-left mr-2">
               <span
-                v-for="event in specificTimeEvents(timeOfDay)"
                 class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
+                v-for="(event, index) in specificTimeEvents(timeOfDay)"
+                :key="index"
                 :title="event.text"
                 @click.stop="eventClick(event)"
               >

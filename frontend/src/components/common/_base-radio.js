@@ -25,9 +25,9 @@ export default {
   render(h, context) {
     return (
       <div
-        class="relative pl-6 flex items-center"
         {...{
           class: [
+            'relative pl-6 flex items-center',
             context.data.staticClass,
             { checked: isChecked(context) },
             { disabled: context.props.disabled }
@@ -43,9 +43,11 @@ export default {
           onInput={event => onInput(event, context)}
         />
         <div
-          class="box-radio absolute block w-4 h-4 rounded-full select-none left-0 bg-gray-300"
           {...{
-            class: { border: !isChecked(context) }
+            class: [
+              'box-radio absolute block w-4 h-4 rounded-full select-none left-0 bg-gray-300',
+              { border: !isChecked(context) }
+            ]
           }}
           onClick={event => event.target.previousSibling.click()}
         />

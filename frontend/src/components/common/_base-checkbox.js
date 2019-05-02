@@ -44,9 +44,9 @@ export default {
   render(h, context) {
     return (
       <div
-        class="relative block h-6 w-6 pl-6 flex items-center"
         {...{
           class: [
+            'relative block h-6 w-6 pl-6 flex items-center',
             context.data.staticClass,
             { checked: isChecked(context) },
             { disabled: context.props.disabled }

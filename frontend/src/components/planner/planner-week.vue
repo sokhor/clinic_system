@@ -7,6 +7,7 @@
       <div class="flex flex-grow">
         <div
           v-for="(dateOfWeek, index) in datesOfWeek"
+          :key="index"
           class="w-1/7 border border-l-0 py-1 text-center text-grey-dark text-sm bg-grey-lighter font-semibold"
           :class="{ 'text-blue': isToday(dateOfWeek) }"
         >
@@ -22,22 +23,32 @@
       <div class="flex">
         <div>
           <div
-            v-for="timeOfDay in timesOfDay(currentDate)"
+            v-for="(timeOfDay, index) in timesOfDay(currentDate)"
+            :key="index"
             class="w-24 h-16 border border-t-0 py-1 text-center text-grey-dark text-sm font-semibold"
           >
             {{ timeOfDay.format('hha') }}
           </div>
         </div>
         <div class="flex flex-grow">
-          <div v-for="dateOfWeek in datesOfWeek" class="w-1/7">
+          <div
+            v-for="(dateOfWeek, index) in datesOfWeek"
+            :key="index"
+            class="w-1/7"
+          >
             <div
-              v-for="timeOfDay in timesOfDay(dateOfWeek)"
+              v-for="(timeOfDay, index) in timesOfDay(dateOfWeek)"
+              :key="index"
               class="h-16 border border-t-0 border-l-0 py-1 text-center text-grey-dark text-sm"
               @click.stop="addEvent(timeOfDay)"
             >
               <div class="text-left mr-2">
                 <span
-                  v-for="event in specificTimeEvents(dateOfWeek, timeOfDay)"
+                  v-for="(event, index) in specificTimeEvents(
+                    dateOfWeek,
+                    timeOfDay
+                  )"
+                  :key="index"
                   class="block bg-indigo text-white text-xs p-1 mt-1 rounded truncate cursor-pointer"
                   :title="event.text"
                   @click.stop="eventClick(event)"

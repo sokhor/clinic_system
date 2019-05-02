@@ -113,7 +113,10 @@ export default {
               return sortVal
             }).reverse()
           }
-        } catch (e) {}
+        } catch (e) {
+          /* eslint-disable no-unused-vars */
+          /* eslint-enable no-unused-vars */
+        }
       }
 
       return this.records
@@ -187,10 +190,11 @@ export default {
     }, 1000)
   },
   watch: {
-    checkedItems: function(checkedItems) {
+    checkedItems: function() {
       this.raisedCheckItemsEvent()
     }
   },
+  /* eslint-disable no-unused-vars */
   render(h) {
     return (
       <table class="ui-table">
@@ -330,4 +334,5 @@ export default {
       </table>
     )
   }
+  /* eslint-enable no-unused-vars */
 }
