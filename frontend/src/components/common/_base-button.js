@@ -70,7 +70,8 @@ export default {
       type: String
     },
     size: {
-      type: String
+      type: String,
+      default: 'sm'
     },
     flat: {
       type: Boolean,
@@ -87,7 +88,7 @@ export default {
   },
   render(h, context) {
     const Spin = ({ props }) => {
-      if (props.waiting) return <i class="fas fa-spinner spinning mr-2" />
+      if (props.waiting) return <i class="fas fa-spinner spin mr-2" />
     }
 
     return (
@@ -95,7 +96,6 @@ export default {
         type={context.props.type}
         {...{
           class: [
-            'btn',
             classColor({ ...context.props }),
             classSize({ ...context.props }),
             context.data.staticClass
