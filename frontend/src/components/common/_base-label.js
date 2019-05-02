@@ -6,7 +6,7 @@ export default {
       <label
         {...{
           class: [
-            'block text-gray-700 text-base font-semibold',
+            'block text-gray-600 text-base font-semibold',
             context.data.staticClass
           ]
         }}
