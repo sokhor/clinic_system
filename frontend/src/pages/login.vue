@@ -4,12 +4,12 @@
       class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm"
       @submit.prevent="postLogin"
     >
-      <BaseAlert type="danger" class="mb-4" v-if="errorMessage !== ''">{{
-        errorMessage
-      }}</BaseAlert>
+      <base-alert type="danger" class="mb-4" v-if="errorMessage !== ''">
+        {{ errorMessage }}
+      </base-alert>
       <div class="mb-4">
-        <BaseLabel class="mb-2">Username</BaseLabel>
-        <BaseInput v-model="username" />
+        <base-label class="mb-2">Username</base-label>
+        <base-input v-model="username" />
         <span
           class="block text-xs italic text-red-500"
           v-if="errors.has('username')"
@@ -18,8 +18,8 @@
         </span>
       </div>
       <div class="mb-6">
-        <BaseLabel class="mb-2">Password</BaseLabel>
-        <BaseInput v-model="password" type="password" />
+        <base-label class="mb-2">Password</base-label>
+        <base-input v-model="password" type="password" />
         <span
           class="block text-xs italic text-red-500"
           v-if="errors.has('username')"
@@ -28,9 +28,9 @@
         </span>
       </div>
       <div class="flex items-center justify-between">
-        <base-button color="primary" :waiting="loggingIn" type="submit"
-          >Sign In</base-button
-        >
+        <base-button color="primary" :waiting="loggingIn" type="submit">
+          Sign In
+        </base-button>
       </div>
     </form>
     <p class="text-center text-grey text-xs">
@@ -55,6 +55,7 @@ export default {
   },
   methods: {
     postLogin() {
+      this.errorMessage = ''
       this.errors.clear()
 
       this.loggingIn = true
