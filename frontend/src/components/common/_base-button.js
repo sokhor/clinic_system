@@ -5,7 +5,7 @@ const classColor = ({ color, flat, outline }) => {
     colorStyle = Object.assign({}, colorStyle, {
       'text-gray-500 hover:text-gray-500': color === 'default',
       'text-blue-500 hover:text-blue-500': color === 'primary',
-      'text-indigo-500 hover:text-indigo-500': color === 'accent',
+      'text-teal-500 hover:text-teal-500': color === 'accent',
       'text-green-500 hover:text-green-500': color === 'success',
       'text-red-500 hover:text-red-500': color === 'danger',
       'text-yellow-500 hover:text-yellow-500': color === 'warning',
@@ -17,7 +17,7 @@ const classColor = ({ color, flat, outline }) => {
         color === 'default',
       'text-blue-500 border rounded border-blue-500 hover:text-blue-500 hover:border-blue-500':
         color === 'primary',
-      'text-indigo-500 border rounded border-indigo-500 hover:text-indigo-500 hover:border-indigo-500':
+      'text-teal-500 border rounded border-teal-500 hover:text-teal-500 hover:border-teal-500':
         color === 'accent',
       'text-green-500 border rounded border-green-500 hover:text-green-500 hover:border-green-500':
         color === 'success',
@@ -33,7 +33,7 @@ const classColor = ({ color, flat, outline }) => {
       'rounded shadow': true,
       'bg-gray-500 hover:bg-gray-500': color === 'default',
       'bg-blue-500 text-white hover:bg-blue-500': color === 'primary',
-      'bg-indigo-500 text-white hover:bg-indigo-500': color === 'accent',
+      'bg-teal-500 text-white hover:bg-teal-500': color === 'accent',
       'bg-green-500 text-white hover:bg-gray-500': color === 'success',
       'bg-red-500 text-white hover:bg-red-500': color === 'danger',
       'bg-yellow-500 text-white hover:bg-yellow-500': color === 'warning',
