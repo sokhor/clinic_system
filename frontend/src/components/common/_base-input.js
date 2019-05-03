@@ -41,7 +41,9 @@ export default {
   render(h, context) {
     return (
       <input
-        class="appearance-none border rounded py-2 px-3 text-gray-800 leading-none focus:outline-none focus:shadow-outline w-full"
+        {...{
+          class: ['form-input', context.data.staticClass]
+        }}
         type={context.props.type}
         value={context.props.value}
         disabled={context.props.disabled}
