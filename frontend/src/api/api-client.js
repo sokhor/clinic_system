@@ -11,9 +11,9 @@ const client = axios.create({
 client.interceptors.request.use(
   config => {
     if (store && store.getters['auth/isAuthenticated']) {
-      config.headers = {
-        Authorization: `Bearer ${store.getters['auth/accessToken']}`
-      }
+      config.headers.Authorization = `Bearer ${
+        store.getters['auth/accessToken']
+      }`
     }
 
     return config
