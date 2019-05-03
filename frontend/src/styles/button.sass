@@ -1,0 +1,142 @@
+.btn
+	&.btn-sm
+		@apply .px-4 .py-2
+
+	&.btn-md
+		@apply .px-6 .py-3
+
+	&.btn-lg
+		@apply .px-8 .py-4
+
+	&.btn-default
+		@apply .rounded .shadow .bg-gray-300 .text-gray-600
+		&:hover
+			@apply .bg-gray-400
+
+	&.btn-primary
+		@apply .rounded .shadow .bg-blue-500 .text-white
+		&:hover
+			@apply .bg-blue-600
+
+	&.btn-accent
+		@apply .rounded .shadow .bg-teal-500 .text-white
+		&:hover
+			@apply .bg-teal-600
+
+	&.btn-success
+		@apply .rounded .shadow .bg-green-500 .text-white
+		&:hover
+			@apply .bg-green-600
+
+	&.btn-danger
+		@apply .rounded .shadow .bg-red-500 .text-white
+		&:hover
+			@apply .bg-red-600
+
+	&.btn-warning
+		@apply .rounded .shadow .bg-yellow-500 .text-white
+		&:hover
+			@apply .bg-yellow-600
+
+	&.btn-info
+		@apply .rounded .shadow .bg-blue-300 .text-white
+		&:hover
+			@apply .bg-blue-400
+
+	&.btn-outline-default
+		@apply .text-gray-600 .border .rounded .border-gray-600
+		&:hover
+			@apply .text-white .bg-gray-600
+
+	&.btn-outline-primary
+		@apply .text-blue-500 .border .rounded .border-blue-500
+		&:hover
+			@apply .text-white .bg-blue-600
+
+	&.btn-outline-accent
+		@apply .text-teal-500 .border .rounded .border-teal-500
+		&:hover
+			@apply .text-white .bg-teal-600
+
+	&.btn-outline-success
+		@apply .text-green-500 .border .rounded .border-green-500
+		&:hover
+			@apply .text-white .bg-green-600
+
+	&.btn-outline-danger
+		@apply .text-red-500 .border .rounded .border-red-500
+		&:hover
+			@apply .text-white .bg-red-600
+
+	&.btn-outline-warning
+		@apply .text-yellow-500 .border .rounded .border-yellow-500
+		&:hover
+			@apply .text-white .bg-yellow-600
+
+	&.btn-outline-info
+		@apply .text-blue-300 .border .rounded .border-blue-300
+		&:hover
+			@apply .text-white .bg-blue-400
+
+	&.btn-flat-default
+		@apply .relative .text-gray-600
+		&:hover
+			@apply .text-gray-700
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12
+
+	&.btn-flat-primary
+		@apply .relative .text-blue-500
+		&:hover
+			@apply .text-blue-600
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12
+
+	&.btn-flat-accent
+		@apply .relative .text-teal-500
+		&:hover
+			@apply .text-teal-600
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12
+
+	&.btn-flat-success
+		@apply .relative .text-green-500
+		&:hover
+			@apply .text-green-600
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12
+
+	&.btn-flat-danger
+		@apply .relative .text-red-500
+		&:hover
+			@apply .text-red-600
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12
+
+	&.btn-flat-warning
+		@apply .relative .text-yellow-500
+		&:hover
+			@apply .text-yellow-600
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12
+
+	&.btn-flat-info
+		@apply .relative .text-blue-300
+		&:hover
+			@apply .text-blue-400
+			&::before
+				@apply .rounded .absolute .top-0 .left-0 .bg-black .w-full .h-full
+				content: ''
+				opacity: 0.12

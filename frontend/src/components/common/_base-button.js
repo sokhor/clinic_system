@@ -3,41 +3,33 @@ const classColor = ({ color, flat, outline }) => {
 
   if (flat) {
     colorStyle = Object.assign({}, colorStyle, {
-      'text-gray-500 hover:text-gray-500': color === 'default',
-      'text-blue-500 hover:text-blue-500': color === 'primary',
-      'text-teal-500 hover:text-teal-500': color === 'accent',
-      'text-green-500 hover:text-green-500': color === 'success',
-      'text-red-500 hover:text-red-500': color === 'danger',
-      'text-yellow-500 hover:text-yellow-500': color === 'warning',
-      'text-blue-500 hover:text-blue-300': color === 'info'
+      'btn-flat-default': color === undefined,
+      'btn-flat-primary': color === 'primary',
+      'btn-flat-accent': color === 'accent',
+      'btn-flat-success': color === 'success',
+      'btn-flat-danger': color === 'danger',
+      'btn-flat-warning': color === 'warning',
+      'btn-flat-info': color === 'info'
     })
   } else if (outline) {
     colorStyle = Object.assign({}, colorStyle, {
-      'text-gray-700 border rounded border-gray-600 hover:text-gray-600 hover:border-gray-500':
-        color === 'default',
-      'text-blue-500 border rounded border-blue-500 hover:text-blue-500 hover:border-blue-500':
-        color === 'primary',
-      'text-teal-500 border rounded border-teal-500 hover:text-teal-500 hover:border-teal-500':
-        color === 'accent',
-      'text-green-500 border rounded border-green-500 hover:text-green-500 hover:border-green-500':
-        color === 'success',
-      'text-red-500 border rounded border-red-500 hover:text-red-500 hover:border-red-500':
-        color === 'danger',
-      'text-yellow-500 border rounded border-yellow-500 hover:text-yellow-500 hover:border-yellow-500':
-        color === 'warning',
-      'text-blue-500 border rounded border-blue-500 hover:text-blue-300 hover:border-blue-300':
-        color === 'info'
+      'btn-outline-default': color === undefined,
+      'btn-outline-primary': color === 'primary',
+      'btn-outline-accent': color === 'accent',
+      'btn-outline-success': color === 'success',
+      'btn-outline-danger': color === 'danger',
+      'btn-outline-warning': color === 'warning',
+      'btn-outline-info': color === 'info'
     })
   } else {
     colorStyle = Object.assign({}, colorStyle, {
-      'rounded shadow': true,
-      'bg-gray-500 hover:bg-gray-500': color === 'default',
-      'bg-blue-500 text-white hover:bg-blue-500': color === 'primary',
-      'bg-teal-500 text-white hover:bg-teal-500': color === 'accent',
-      'bg-green-500 text-white hover:bg-gray-500': color === 'success',
-      'bg-red-500 text-white hover:bg-red-500': color === 'danger',
-      'bg-yellow-500 text-white hover:bg-yellow-500': color === 'warning',
-      'bg-blue-500 text-white hover:bg-blue-300': color === 'info'
+      'btn-default': color === undefined,
+      'btn-primary': color === 'primary',
+      'btn-accent': color === 'accent',
+      'btn-success': color === 'success',
+      'btn-danger': color === 'danger',
+      'btn-warning': color === 'warning',
+      'btn-info': color === 'info'
     })
   }
 
@@ -45,16 +37,16 @@ const classColor = ({ color, flat, outline }) => {
 }
 
 const classSize = ({ size, flat }) => {
-  if (flat) {
-    return ''
-  }
+  // if (flat) {
+  //   return ''
+  // }
 
   if (size === 'sm') {
-    return 'px-4 py-2'
+    return 'btn-sm'
   } else if (size === 'md') {
-    return 'px-6 py-3'
+    return 'btn-md'
   } else if (size === 'lg') {
-    return 'px-8 py-4'
+    return 'btn-lg'
   }
 }
 
@@ -96,6 +88,7 @@ export default {
         type={context.props.type}
         {...{
           class: [
+            'btn',
             classColor({ ...context.props }),
             classSize({ ...context.props }),
             context.data.staticClass
