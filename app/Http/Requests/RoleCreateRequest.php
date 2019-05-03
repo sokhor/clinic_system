@@ -27,4 +27,16 @@ class RoleCreateRequest extends FormRequest
             'role_name' => 'required',
         ];
     }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'role_name.required' => 'Required',
+        ];
+    }
 }

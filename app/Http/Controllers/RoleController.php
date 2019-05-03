@@ -27,10 +27,11 @@ class RoleController extends Controller
             'title' => ($request->role_name),
         ]);
 
-        foreach($request->abilities as $ability) {
+        foreach ($request->abilities as $ability) {
             Bouncer::allow($role->name)->to($ability);
         }
-        return response(new RoleResource($role), 201);
+
+        return (new RoleResource($role))->additional(['message' => 'Role created']);
     }
 
     /**
@@ -48,11 +49,11 @@ class RoleController extends Controller
 
         $role->save();
 
-        foreach($request->abilities as $ability) {
+        foreach ($request->abilities as $ability) {
             Bouncer::allow($role->name)->to($ability);
         }
 
-        return new RoleResource($role->fresh());
+        return (new RoleResource($role->fresh()))->additional(['message' => 'Role updated']);;
     }
 
     /**
@@ -64,11 +65,17 @@ class RoleController extends Controller
      */
     public function index(RoleViewRequest $request)
     {
-        if($request->noPaging) {
+        if ($request->noPaging) {
             return RoleResource::collection(Role::with('abilities')->get());
         }
 
-        return RoleResource::collection(Role::with('abilities')->paginate());
+        $roles = Role::with('abilities')
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->search . '%');
+            })
+            ->paginate();
+
+        return RoleResource::collection($roles);
     }
 
     /**
@@ -83,7 +90,7 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return new RoleResource($role);
+        return response()->json(['message' => 'Role deleted']);;
     }
 
     /**
@@ -96,6 +103,6 @@ class RoleController extends Controller
      */
     public function show(RoleViewRequest $request, $id)
     {
-        return new RoleResource(Role::with('abilities')->whereId($id)->first());
+        return new RoleResource(Role::with('abilities')->findOrFail($id));
     }
 }

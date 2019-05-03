@@ -19,10 +19,12 @@ export const actions = {
   fetchAbilities({ commit, state }) {
     if (state.abilities.length > 0) return
 
-    httpClient
+    return httpClient
       .get('/api/abilities', {}, { showProgressBar: true })
       .then(response => {
         commit('RECEIVE_ABILITIES', response.data)
+
+        return Promise.resolve(response)
       })
   }
 }

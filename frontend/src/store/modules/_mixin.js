@@ -31,6 +31,9 @@ export const baseMutations = {
 
     state.pagination = setPaging(meta)
   },
+  DELETE_RESOURCE(state, resource) {
+    state.resources.splice(state.resources.indexOf(resource), 1)
+  },
   SET_SEARCH(state, search) {
     state.search = search
   },

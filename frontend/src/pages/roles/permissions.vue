@@ -3,6 +3,7 @@
     <div
       class="flex items-baseline p-4 border-b border-white-grey"
       v-for="(abilities, module) in modules"
+      :key="module"
     >
       <span class="block text-gray-800 text-sm font-bold w-1/5">
         {{ module }}
