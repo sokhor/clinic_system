@@ -46,7 +46,7 @@ export default {
   name: 'Roles',
   data() {
     return {
-      columns: ['Name', { name: '', style: 'width: 1px;' }],
+      columns: ['Name', { name: '', style: 'width: 1px;' }]
     }
   },
   computed: {
@@ -77,7 +77,7 @@ export default {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
         return
       }
-      
+
       role._deleting = true
       try {
         let response = await this.$store.dispatch('role/destroy', role)

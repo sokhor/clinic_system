@@ -28,9 +28,7 @@
         </div>
       </form>
     </base-card>
-    <div
-      class="w-full flex flex-row items-center justify-between pb-2 mt-6"
-    >
+    <div class="w-full flex flex-row items-center justify-between pb-2 mt-6">
       <h1 class="inline text-gray-700 text-lg font-bold">
         Permissions
       </h1>

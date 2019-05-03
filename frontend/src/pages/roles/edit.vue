@@ -31,9 +31,7 @@
         </div>
       </form>
     </base-card>
-    <div
-      class="w-full flex flex-row items-center justify-between pb-2 mt-6"
-    >
+    <div class="w-full flex flex-row items-center justify-between pb-2 mt-6">
       <h1 class="inline text-gray-700 text-lg font-bold">
         Permissions
       </h1>
@@ -108,7 +106,7 @@ export default {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
         return
       }
-      
+
       this.deleting = true
       try {
         let response = await this.$store.dispatch('role/destroy', role)

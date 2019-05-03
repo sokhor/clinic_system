@@ -9,7 +9,11 @@
         </span>
         <span>{{ title }}</span>
       </h4>
-      <a href="#" @click.prevent="$close(noValue)" class="inline-block mr-3 text-center text-gray-300 hover:text-gray-500">
+      <a
+        href="#"
+        @click.prevent="$close(noValue)"
+        class="inline-block mr-3 text-center text-gray-300 hover:text-gray-500"
+      >
         <i class="fas fa-times"></i>
       </a>
     </div>
