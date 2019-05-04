@@ -1,119 +1,109 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-gray-900 text-xl font-bold">Users</h1>
-      <BaseButton color="accent" @click="$router.push('/users/create')"
-        >Create User</BaseButton
-      >
+    <div class="w-full flex flex-row items-end justify-between pb-6">
+      <base-title>Users</base-title>
+      <base-button color="primary" @click="$router.push('/users/create')">
+        New User
+      </base-button>
     </div>
-    <BaseCard>
-      <BaseTable>
-        <BaseThead>
-          <BaseTh>Id</BaseTh>
-          <BaseTh>Username</BaseTh>
-          <BaseTh>Email</BaseTh>
-          <BaseTh>Active</BaseTh>
-          <BaseTh>Created At</BaseTh>
-          <BaseTh class="w-1"></BaseTh>
-        </BaseThead>
-        <BaseTbody>
-          <BaseTr v-for="user in users" :key="user.id">
-            <BaseTd>{{ user.id }}</BaseTd>
-            <BaseTd>{{ user.username }}</BaseTd>
-            <BaseTd>{{ user.email }}</BaseTd>
-            <BaseTd>
-              <div
-                class="w-3 h-3 bg-green rounded-full border-2 border-green-lighter"
-                v-if="user.active"
-              ></div>
-              <div
-                class="w-3 h-3 bg-red rounded-full border-2 border-red-lighter"
-                v-else
-              ></div>
-            </BaseTd>
-            <BaseTd>{{ user.created_at }}</BaseTd>
-            <BaseTd class="flex">
-              <BaseButton
-                class="mr-2"
-                flat
-                color="primary"
-                title="View user"
-                @click="show(user)"
-              >
-                <i class="fas fa-eye"></i>
-              </BaseButton>
-              <BaseButton
-                class="mr-2"
-                flat
-                color="primary"
-                title="Edit user"
-                @click="edit(user)"
-              >
-                <i class="fas fa-edit"></i>
-              </BaseButton>
-              <BaseButton
-                class="mr-2"
-                flat
-                color="primary"
-                title="Reset password"
-                @click="resetPassword(user)"
-              >
-                <i class="fas fa-key"></i>
-              </BaseButton>
-              <BaseButton
-                flat
-                color="danger"
-                title="Delete user"
-                :waiting="user._deleting"
-                @click="deleteUser(user)"
-              >
-                <i class="fas fa-trash" v-if="!user._deleting"></i>
-              </BaseButton>
-            </BaseTd>
-          </BaseTr>
-        </BaseTbody>
-      </BaseTable>
-    </BaseCard>
+    <base-card>
+      <base-card-wrap>
+        <base-input v-model="search" placeholder="Search ..." class="w-64" />
+      </base-card-wrap>
+      <base-table :columns="columns" :records="users">
+        <template slot-scope="{ record: user }">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <div
+              class="w-3 h-3 bg-green-500 rounded-full border-2 border-green-300"
+              v-if="user.active"
+            ></div>
+            <div
+              class="w-3 h-3 bg-red-500 rounded-full border-2 border-red-300"
+              v-else
+            ></div>
+          </td>
+          <td class="flex">
+            <a
+              href="#"
+              class="text-blue-500 hover:text-blue-600 mr-3"
+              title="Edit user"
+              @click.prevent="edit(user)"
+            >
+              <i class="fas fa-edit"></i>
+            </a>
+            <a
+              href="#"
+              class="text-red-500 hover:text-red-600"
+              title="Delete user"
+              @click.prevent="destroy(user)"
+              :waiting="user._deleting"
+            >
+              <i class="fas fa-trash" v-if="!user._deleting"></i>
+            </a>
+          </td>
+        </template>
+      </base-table>
+    </base-card>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import { debounce } from 'lodash'
 
 export default {
   name: 'Users',
+  data() {
+    return {
+      columns: [
+        'Username',
+        'Email',
+        'Active',
+        { name: '', style: 'width: 1px' }
+      ]
+    }
+  },
   computed: {
-    ...mapState('users', ['users'])
+    ...mapState('user', { users: 'resources' }),
+    search: {
+      get() {
+        return this.$store.state.user.search
+      },
+      set(value) {
+        this.$store.commit('user/SET_SEARCH', value)
+      }
+    }
   },
   created() {
-    this.fetchUsers()
+    this.fetch()
   },
   methods: {
-    fetchUsers() {
-      this.$store.dispatch('users/fetchUsers')
+    fetch() {
+      this.$store.dispatch('user/get', { search: this.search })
     },
     edit(user) {
       this.$router.push({
         name: 'users-edit',
-        params: { id: user.id, user: user }
+        params: { id: user.id }
       })
     },
     resetPassword(user) {
       this.$router.push({
         name: 'users-reset-password',
-        params: { id: user.id, user: user }
+        params: { id: user.id }
       })
     },
-    async deleteUser(user) {
+    async destroy(user) {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
         return
       }
 
       user._deleting = true
       try {
-        await this.$store.dispatch('users/deleteUser', user)
-        this.fetchUsers()
-        this.$toasted.success('User deleted successfully')
+        let response = await this.$store.dispatch('user/destroy', user)
+        this.$toasted.success(response.message)
       } catch (error) {
         this.$toasted.error(error.message)
       }
@@ -122,9 +112,14 @@ export default {
     show(user) {
       this.$router.push({
         name: 'users-show',
-        params: { id: user.id, user: user }
+        params: { id: user.id }
       })
     }
+  },
+  watch: {
+    search: debounce(function() {
+      this.fetch()
+    }, 500)
   }
 }
 </script>

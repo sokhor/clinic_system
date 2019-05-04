@@ -37,7 +37,17 @@ class UserController extends Controller
      */
     public function index(UserViewRequest $request)
     {
-        return UserResource::collection(User::withoutSuperAdmin()->with('roles')->paginate());
+        $users = User::withoutSuperAdmin()
+            ->with('roles')
+            ->when($request->search, function ($query) use ($request) {
+                $query->where(function ($query) use ($request) {
+                    $query->orWhere('username', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+                });
+            })
+            ->paginate();
+
+        return UserResource::collection($users);
     }
 
     /**
