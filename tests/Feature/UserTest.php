@@ -20,13 +20,85 @@ class UserTest extends TestCase
 
         $this->signIn()
             ->allow('create-users')
-            ->postJson('api/users', array_merge($user->toArray(), ['password' => 'secret']))
+            ->postJson('api/users', array_merge($user->toArray(), [
+                'password' => 'secret',
+                'password_confirmation' => 'secret',
+            ]))
             ->assertStatus(201);
 
         $this->assertDatabaseHas('users', $user->toArray());
+    }
 
-        $user = User::where('username', $user->username)->first();
-        $this->assertCount(1, $user->clients);
+    /** @test */
+    public function it_validate_required_fields_when_creating_a_user()
+    {
+        $user = factory(User::class)->make();
+
+        $this->signIn()
+            ->allow('create-users')
+            ->postJson('api/users', [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['username', 'password']);
+
+        $this->assertDatabaseMissing('users', $user->toArray());
+    }
+
+    /** @test */
+    public function password_mismatch_when_creating_a_user()
+    {
+        $user = factory(User::class)->make();
+
+        $this->signIn()
+            ->allow('create-users')
+            ->postJson('api/users', array_merge($user->toArray(), ['password' => 'secret']))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['password']);
+
+        $this->assertDatabaseMissing('users', $user->toArray());
+    }
+
+    /** @test */
+    public function username_is_unique_when_creating_a_user()
+    {
+        factory(User::class)->create(['username' => 'user1']);
+        $user = factory(User::class)->make(['username' => 'user1']);
+
+        $this->signIn()
+            ->allow('create-users')
+            ->postJson('api/users', array_merge($user->toArray(), ['password' => 'secret']))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['username']);
+
+        $this->assertDatabaseMissing('users', $user->toArray());
+    }
+
+    /** @test */
+    public function email_is_unique_but_nullable_when_creating_a_user()
+    {
+        // Unique email
+        factory(User::class)->create(['email' => 'user1@mail.com']);
+        $user = factory(User::class)->make(['email' => 'user1@mail.com']);
+
+        $this->signIn()
+            ->allow('create-users')
+            ->postJson('api/users', array_merge($user->toArray(), [
+                'password' => 'secret',
+                'password_confirmation' => 'secret',
+            ]))
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['email']);
+
+        $this->assertDatabaseMissing('users', $user->toArray());
+
+        // Nullable
+        $this->signIn()
+            ->allow('create-users')
+            ->postJson('api/users', array_merge($user->toArray(), [
+                'password' => 'secret',
+                'password_confirmation' => 'secret',
+                'email' => '',
+            ]))
+            ->assertStatus(201);
     }
 
     /** @test */
@@ -45,14 +117,47 @@ class UserTest extends TestCase
     public function authorized_user_can_edit_a_user()
     {
         $user = factory(User::class)->create();
-        $updatingData = ['email' => 'edit@mail.com'];
+        $updatingData = ['active' => false];
 
         $this->signIn()
             ->allow('edit-users')
             ->putJson("api/users/{$user->id}", $updatingData)
             ->assertStatus(200);
 
-        $this->assertEquals($updatingData, $user->fresh()->only(['email']));
+        $this->assertEquals($updatingData, $user->fresh()->only(['active']));
+    }
+
+    /** @test */
+    public function email_is_unique_but_nullable_when_editing_a_user()
+    {
+        // Unique email
+        factory(User::class)->create(['email' => 'user1@mail.com']);
+        $user = factory(User::class)->create();
+        $updatingData = ['email' => 'user1@mail.com'];
+
+        $this->signIn()
+            ->allow('edit-users')
+            ->putJson("api/users/{$user->id}", $updatingData)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['email']);
+
+        $this->assertNotEquals($updatingData, $user->fresh()->only(['email']));
+
+        // Ignore user's email
+        $user = factory(User::class)->create(['email' => 'user2@mail.com']);
+
+        $this->signIn()
+            ->allow('edit-users')
+            ->putJson("api/users/{$user->id}", ['email' => 'user2@mail.com'])
+            ->assertStatus(200);
+
+        // Nullable
+        factory(User::class)->create(['email' => null]);
+
+        $this->signIn()
+            ->allow('edit-users')
+            ->putJson("api/users/{$user->id}", ['email' => ''])
+            ->assertStatus(200);
     }
 
     /** @test */
@@ -78,7 +183,6 @@ class UserTest extends TestCase
             ->deleteJson("api/users/{$user->id}")
             ->assertStatus(200);
 
-        $this->assertDatabaseHas('users', $user->toArray());
         $this->assertNotNull($user->fresh()->deleted_at);
     }
 
@@ -91,7 +195,6 @@ class UserTest extends TestCase
             ->deleteJson("api/users/{$user->id}")
             ->assertStatus(403);
 
-        $this->assertDatabaseHas('users', $user->toArray());
         $this->assertNull($user->fresh()->deleted_at);
     }
 
@@ -224,7 +327,7 @@ class UserTest extends TestCase
             ->postJson("api/users/$user->id/roles", [
                 'roles' => ['role-test-1', 'role-test-2']
             ])
-            ->assertStatus(201);
+            ->assertStatus(200);
 
         $this->assertCount(2, $user->fresh()->roles);
     }
@@ -248,6 +351,7 @@ class UserTest extends TestCase
     /** @test */
     public function detach_user_roles()
     {
+        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
 
         Bouncer::ability()->firstOrCreate(['name' => 'role-test-1', 'title' => 'Role test 1']);

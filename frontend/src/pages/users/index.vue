@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     fetch() {
-      this.$store.dispatch('user/get', { search: this.search })
+      this.$store.dispatch('user/fetchUsers', { search: this.search })
     },
     edit(user) {
       this.$router.push({

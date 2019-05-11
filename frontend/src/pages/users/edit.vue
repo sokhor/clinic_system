@@ -1,69 +1,83 @@
 <template>
   <div class="w-full">
     <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-gray-900 text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/users"
-          ><i class="fas fa-arrow-left"></i
-        ></router-link>
+      <base-title>
+        <router-link class="text-blue-500 hover:text-blue-400" to="/users">
+          <i class="fas fa-arrow-left"></i>
+        </router-link>
         / Edit User
-      </h1>
+      </base-title>
+      <base-button color="danger" @click="destroy(user)" :waiting="deleting">
+        <i class="fas fa-trash" v-if="!deleting"></i>
+      </base-button>
     </div>
-    <BaseCard>
-      <form @submit.prevent="save">
-        <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-gray-800 text-sm font-bold w-1/5">
+    <base-card>
+      <form>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
             Username
-          </label>
+          </base-label>
           <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.username"
-              type="text"
-              @input="$v.form.username.$touch()"
-              disabled
-            />
-            <span
-              class="block text-xs italic text-red"
-              v-if="usernameErrors.length > 0"
-            >
-              {{ usernameErrors[0] }}
-            </span>
+            <base-input v-model="form.username" disabled />
+            <base-validation-text v-if="errors.has('username')">
+              {{ errors.first('username') }}
+            </base-validation-text>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-gray-800 text-sm font-bold w-1/5">
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Password
+          </base-label>
+          <div class="w-2/5">
+            <base-input type="password" v-model="form.password" />
+            <base-validation-text v-if="errors.has('password')">
+              {{ errors.first('password') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Password Again
+          </base-label>
+          <div class="w-2/5">
+            <base-input type="password" v-model="form.password_confirmation" />
+            <base-validation-text v-if="errors.has('password_confirmation')">
+              {{ errors.first('password_confirmation') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
             Email
-          </label>
+          </base-label>
           <div class="w-2/5">
-            <input
-              class="appearance-none border rounded py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline w-full"
-              v-model="form.email"
-              type="email"
-            />
-            <span
-              class="block text-xs italic text-red"
-              v-if="emailErrors.length > 0"
-            >
-              {{ emailErrors[0] }}
-            </span>
+            <base-input v-model="form.email" />
+            <base-validation-text v-if="errors.has('email')">
+              {{ errors.first('email') }}
+            </base-validation-text>
           </div>
         </div>
-        <div class="flex items-baseline p-4 border-b border-white-grey">
-          <label class="block text-gray-800 text-sm font-bold w-1/5"></label>
-          <BaseCheckbox v-model="form.active">Active</BaseCheckbox>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5"></base-label>
+          <base-checkbox v-model="form.active">Active</base-checkbox>
         </div>
         <div class="flex items-center justify-end p-4">
-          <BaseButton color="primary" :waiting="saving" type="submit"
-            >Save change</BaseButton
+          <base-button
+            class="mr-1"
+            color="primary"
+            :waiting="saving"
+            @click="save"
           >
+            Save Change
+          </base-button>
         </div>
       </form>
-    </BaseCard>
+    </base-card>
   </div>
 </template>
 
 <script>
-import { required, requiredIf, email, sameAs } from 'vuelidate/lib/validators'
+import { Errors } from 'form-backend-validation'
 import httpClient from '@/http-client'
 
 export default {
@@ -92,40 +106,10 @@ export default {
         email: '',
         active: true
       },
-      saving: false
-    }
-  },
-  validations: {
-    form: {
-      username: { required },
-      email: { email }
-    }
-  },
-  computed: {
-    usernameErrors() {
-      const errors = []
-      if (!this.$v.form.username.$dirty) return errors
-      !this.$v.form.username.required && errors.push('Required')
-      return errors
-    },
-    passwordErrors() {
-      const errors = []
-      if (!this.$v.form.password.$dirty) return errors
-      !this.$v.form.password.required && errors.push('Required')
-      return errors
-    },
-    passwordConfirmationErrors() {
-      const errors = []
-      if (!this.$v.form.password_confirmation.$dirty) return errors
-      !this.$v.form.password_confirmation.sameAsPassword &&
-        errors.push('Password mismatch')
-      return errors
-    },
-    emailErrors() {
-      const errors = []
-      if (!this.$v.form.email.$dirty) return errors
-      !this.$v.form.email.email && errors.push('Invalid email')
-      return errors
+      saving: false,
+      deleting: false,
+      errorMessage: '',
+      errors: new Errors()
     }
   },
   created() {
@@ -135,23 +119,41 @@ export default {
   },
   methods: {
     async save() {
-      this.$v.$touch()
-      if (this.$v.$error) {
-        throw 'Validation failed'
-      }
+      this.errorMessage = ''
+      this.errors.clear()
 
       this.saving = true
+
       try {
-        await this.$store.dispatch(
-          'users/updateUser',
-          Object.assign(this.form, { id: this.user.id })
-        )
+        let response = await this.$store.dispatch('user/editUser', {
+          id: this.user.id,
+          ...this.form
+        })
+        this.$toasted.success(response.message)
         this.$router.push('/users')
-        this.$toasted.success('Save change user successfully')
       } catch (error) {
+        if (error.errors !== undefined) {
+          this.errors = new Errors(error.errors)
+        }
+
         this.$toasted.error(error.message)
       }
       this.saving = false
+    },
+    async destroy(user) {
+      if (!(await this.$confirmDelete('Are you sure to delete?'))) {
+        return
+      }
+
+      this.deleting = true
+      try {
+        let response = await this.$store.dispatch('user/destroy', user)
+        this.$toasted.success(response.message)
+        this.$router.push('/users')
+      } catch (error) {
+        this.$toasted.error(error.message)
+      }
+      this.deleting = false
     }
   }
 }

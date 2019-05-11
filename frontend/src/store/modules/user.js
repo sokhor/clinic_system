@@ -12,7 +12,7 @@ export const mutations = {
 }
 
 export const actions = {
-  get(context, { page, per_page, search } = {}) {
+  fetchUsers(context, { page, per_page, search } = {}) {
     return api
       .get({ page, per_page, search })
       .then(response => {
@@ -21,15 +21,15 @@ export const actions = {
       })
       .catch(error => Promise.reject(error.data))
   },
-  store(context, user) {
+  createUser(context, user) {
     return api
       .store(user)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   },
-  update(context, user) {
+  editUser(context, { id, ...user }) {
     return api
-      .update(user.id, user)
+      .update(id, user)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   },
