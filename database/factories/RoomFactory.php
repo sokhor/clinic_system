@@ -8,8 +8,12 @@ $factory->define(App\Place\Models\Room::class, function (Faker $faker) {
     $room_number = random_int(1, 100);
 
     return [
-        'building_id' => function() { return factory(Building::class)->create()->id; },
-        'ward_id' => function() { return factory(Ward::class)->create()->id; },
+        'building_id' => function () {
+            return factory(Building::class)->create()->id;
+        },
+        'ward_id' => function () {
+            return factory(Ward::class)->create()->id;
+        },
         'name_kh' => 'Room ' . $room_number,
         'name_en' => 'បន្ទប់ ' . $room_number,
         'code' => 'ROOM-' . $room_number,

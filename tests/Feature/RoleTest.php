@@ -12,7 +12,7 @@ class RoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    function setup()
+    protected function setup(): void
     {
         parent::setup();
 
@@ -21,7 +21,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function authorized_user_create_a_role()
+    public function authorized_user_create_a_role()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('create-roles');
@@ -39,7 +39,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function unauthorized_user_cannot_create_a_role()
+    public function unauthorized_user_cannot_create_a_role()
     {
         $this->signIn();
 
@@ -52,7 +52,7 @@ class RoleTest extends TestCase
         ]);
     }
     /** @test */
-    function authorized_user_edit_role()
+    public function authorized_user_edit_role()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('edit-roles');
@@ -76,7 +76,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function unauthorized_user_cannot_edit_role()
+    public function unauthorized_user_cannot_edit_role()
     {
         $this->signIn();
 
@@ -97,7 +97,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function name_title_fields_required()
+    public function name_title_fields_required()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('create-roles');
@@ -113,13 +113,13 @@ class RoleTest extends TestCase
             'title' => 'Role name',
         ]);
 
-        $this->putJson('api/roles/' . $role->id , [])
+        $this->putJson('api/roles/' . $role->id, [])
             ->assertStatus(422)
             ->assertJsonValidationErrors(['role_name']);
     }
 
     /** @test */
-    function it_fetch_roles()
+    public function it_fetch_roles()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('view-roles');
@@ -149,7 +149,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_roles()
+    public function it_not_allow_to_fetch_roles()
     {
         $this->signIn();
 
@@ -169,7 +169,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_show_role()
+    public function it_show_role()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('view-roles');
@@ -192,7 +192,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_cannot_show_role()
+    public function it_cannot_show_role()
     {
         $this->signIn();
 
@@ -207,7 +207,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_delete_role()
+    public function it_delete_role()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('delete-roles');
@@ -223,11 +223,11 @@ class RoleTest extends TestCase
         $this->deleteJson('api/roles/' . $role->id)
             ->assertStatus(200);
 
-        $this->assertDatabaseMissing('roles',$role->toArray());
+        $this->assertDatabaseMissing('roles', $role->toArray());
     }
 
     /** @test */
-    function it_not_allow_to_delete_role()
+    public function it_not_allow_to_delete_role()
     {
         $this->signIn();
 
@@ -243,7 +243,7 @@ class RoleTest extends TestCase
     }
 
     /** @test */
-    function it_has_no_duplicate_role_name()
+    public function it_has_no_duplicate_role_name()
     {
         $sign_in_user = factory(User::class)->create();
         $sign_in_user->allow('create-roles');

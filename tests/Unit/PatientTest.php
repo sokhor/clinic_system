@@ -12,7 +12,7 @@ class PatientTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_generate_patient_code()
+    public function it_generate_patient_code()
     {
         $patient = factory(Patient::class)->create();
         $this->assertEquals('PA' . sprintf("%'.03d", $patient->id), $patient->code);

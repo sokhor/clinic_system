@@ -53,7 +53,8 @@ class RoleController extends Controller
             Bouncer::allow($role->name)->to($ability);
         }
 
-        return (new RoleResource($role->fresh()))->additional(['message' => 'Role updated']);;
+        return (new RoleResource($role->fresh()))->additional(['message' => 'Role updated']);
+        ;
     }
 
     /**
@@ -90,7 +91,8 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return response()->json(['message' => 'Role deleted']);;
+        return response()->json(['message' => 'Role deleted']);
+        ;
     }
 
     /**

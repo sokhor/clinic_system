@@ -14,7 +14,7 @@ class BuildingTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_fetch_buildings()
+    public function it_fetch_buildings()
     {
         $user = factory(User::class)->create();
         $user->allow('view-buildings');
@@ -37,7 +37,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_buildings()
+    public function it_not_allow_to_fetch_buildings()
     {
         $this->signIn();
 
@@ -49,7 +49,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_show_a_building()
+    public function it_show_a_building()
     {
         $user = factory(User::class)->create();
         $user->allow('view-buildings');
@@ -70,7 +70,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_show_a_building()
+    public function it_not_allow_to_show_a_building()
     {
         $this->signIn();
 
@@ -82,7 +82,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_create_a_building()
+    public function it_create_a_building()
     {
         $user = factory(User::class)->create();
         $user->allow('create-buildings');
@@ -97,7 +97,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_create_a_building()
+    public function it_not_allow_to_create_a_building()
     {
         $this->signIn();
 
@@ -110,7 +110,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_edit_a_building()
+    public function it_edit_a_building()
     {
         $user = factory(User::class)->create();
         $user->allow('update-buildings');
@@ -131,7 +131,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_edit_a_building()
+    public function it_not_allow_to_edit_a_building()
     {
         $this->signIn();
 
@@ -150,7 +150,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_delete_a_building()
+    public function it_delete_a_building()
     {
         $user = factory(User::class)->create();
         $user->allow('delete-buildings');
@@ -167,7 +167,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_delete_a_building()
+    public function it_not_allow_to_delete_a_building()
     {
         $this->signIn();
 
@@ -180,7 +180,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_attach_wards_to_a_building()
+    public function it_attach_wards_to_a_building()
     {
         $user = factory(User::class)->create();
         $user->allow('attach-wards-buildings');
@@ -196,7 +196,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_attach_wards_to_a_building()
+    public function it_not_allow_to_attach_wards_to_a_building()
     {
         $this->signIn();
 
@@ -210,7 +210,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_detach_wards_from_a_building()
+    public function it_detach_wards_from_a_building()
     {
         $user = factory(User::class)->create();
         $user->allow('attach-wards-buildings');
@@ -233,7 +233,7 @@ class BuildingTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_detach_wards_from_a_building()
+    public function it_not_allow_to_detach_wards_from_a_building()
     {
         $this->signIn();
 

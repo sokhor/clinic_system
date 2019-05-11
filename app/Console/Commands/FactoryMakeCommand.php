@@ -24,14 +24,15 @@ class FactoryMakeCommand extends Command
     protected function getPath($name)
     {
         $name = str_replace(
-            ['\\', '/'], '', $this->argument('name')
+            ['\\', '/'],
+            '',
+            $this->argument('name')
         );
 
-        if($this->option('path')) {
+        if ($this->option('path')) {
             return $this->option('path') . "/factories/{$name}.php";
         }
 
         return $this->laravel->databasePath() . "/factories/{$name}.php";
     }
 }
-

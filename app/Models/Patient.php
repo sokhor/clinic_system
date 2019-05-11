@@ -64,7 +64,7 @@ class Patient extends Model
     {
         parent::boot();
 
-        static::created(function($model) {
+        static::created(function ($model) {
             $model->code = 'PA' . sprintf("%'.03d", $model->id);
             $model->save();
         });
@@ -117,7 +117,7 @@ class Patient extends Model
      */
     public function getAgeAttribute()
     {
-        if(is_null($this->attributes['dob'])) {
+        if (is_null($this->attributes['dob'])) {
             return null;
         }
 

@@ -16,7 +16,7 @@ class AbilitiesController extends Controller
     {
         return Bouncer::ability()
             ->where('name', '<>', '*')->get()
-            ->map(function($ability) {
+            ->map(function ($ability) {
                 return collect($ability)->merge([
                     'module' => ucfirst(last(explode('-', $ability->name)))
                 ]);

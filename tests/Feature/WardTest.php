@@ -13,7 +13,7 @@ class WardTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_fetch_wards()
+    public function it_fetch_wards()
     {
         $user = factory(User::class)->create();
         $user->allow('view-wards');
@@ -33,7 +33,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_wards()
+    public function it_not_allow_to_fetch_wards()
     {
         $this->signIn();
 
@@ -43,7 +43,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_show_a_ward()
+    public function it_show_a_ward()
     {
         $user = factory(User::class)->create();
         $user->allow('view-wards');
@@ -63,7 +63,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_show_a_ward()
+    public function it_not_allow_to_show_a_ward()
     {
         $this->signIn();
 
@@ -75,7 +75,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_create_a_ward()
+    public function it_create_a_ward()
     {
         $user = factory(User::class)->create();
         $user->allow('create-wards');
@@ -90,7 +90,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_create_a_ward()
+    public function it_not_allow_to_create_a_ward()
     {
         $this->signIn();
 
@@ -103,7 +103,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_edit_a_ward()
+    public function it_edit_a_ward()
     {
         $user = factory(User::class)->create();
         $user->allow('update-wards');
@@ -124,7 +124,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_edit_a_ward()
+    public function it_not_allow_to_edit_a_ward()
     {
         $this->signIn();
 
@@ -143,7 +143,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_delete_a_ward()
+    public function it_delete_a_ward()
     {
         $user = factory(User::class)->create();
         $user->allow('delete-wards');
@@ -160,7 +160,7 @@ class WardTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_delete_a_ward()
+    public function it_not_allow_to_delete_a_ward()
     {
         $this->signIn();
 

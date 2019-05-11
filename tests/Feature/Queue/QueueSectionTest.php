@@ -12,7 +12,7 @@ class QueueSectionTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_create_queue_section()
+    public function it_create_queue_section()
     {
         $this->signIn();
 
@@ -28,7 +28,7 @@ class QueueSectionTest extends TestCase
     }
 
     /** @test */
-    function it_update_a_queue_section()
+    public function it_update_a_queue_section()
     {
         $this->signIn();
 
@@ -47,7 +47,7 @@ class QueueSectionTest extends TestCase
     }
 
     /** @test */
-    function it_delete_a_queue_section()
+    public function it_delete_a_queue_section()
     {
         $this->signIn();
 
@@ -62,7 +62,7 @@ class QueueSectionTest extends TestCase
     }
 
     /** @test */
-    function it_fetch_sections()
+    public function it_fetch_sections()
     {
         $this->signIn();
 

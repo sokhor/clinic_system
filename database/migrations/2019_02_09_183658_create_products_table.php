@@ -21,7 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('made_in');
             $table->string('brand_name')->nullable();
             $table->string('compositions')->nullable();
-            $table->string('laboratory')->nullable();;
+            $table->string('laboratory')->nullable();
+            ;
             $table->timestamps();
             $table->softDeletes();
         });

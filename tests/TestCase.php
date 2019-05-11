@@ -46,10 +46,9 @@ abstract class TestCase extends BaseTestCase
     {
         $this->user = $user ?: $this->user ?: factory(User::class)->create();
 
-        if(is_null($model)) {
+        if (is_null($model)) {
             Bouncer::allow($this->user)->to($ability);
-        }
-        else {
+        } else {
             Bouncer::allow($this->user)->to($ability, $model);
         }
 

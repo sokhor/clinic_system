@@ -20,8 +20,7 @@ class ProductController extends Controller
         PersistProduct $persistProduct,
         UpdateProduct $updateProduct,
         DeleteProduct $deleteProduct
-    )
-    {
+    ) {
         $this->persistProduct = $persistProduct;
         $this->updateProduct = $updateProduct;
         $this->deleteProduct = $deleteProduct;

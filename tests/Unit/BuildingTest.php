@@ -14,7 +14,7 @@ class BuildingTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_delete_the_related_wards_pivot_if_building_deleted()
+    public function it_delete_the_related_wards_pivot_if_building_deleted()
     {
         $wards = factory(Ward::class, 2)->create();
         $building = factory(Building::class)->create();

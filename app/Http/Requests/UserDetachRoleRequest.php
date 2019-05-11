@@ -13,7 +13,8 @@ class UserDetachRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('detach-roles-users');;
+        return auth()->user()->can('detach-roles-users');
+        ;
     }
 
     /**

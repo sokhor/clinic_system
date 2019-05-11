@@ -13,7 +13,7 @@ class ProductTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_create_a_product()
+    public function it_create_a_product()
     {
         $user = factory(User::class)->create();
         $user->allow('create', Product::class);
@@ -39,7 +39,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_create_a_product()
+    public function it_not_allow_to_create_a_product()
     {
         $this->signIn();
 
@@ -63,7 +63,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_edit_a_product()
+    public function it_edit_a_product()
     {
         $user = factory(User::class)->create();
         $user->allow('edit', Product::class);
@@ -71,7 +71,7 @@ class ProductTest extends TestCase
 
         $product = factory(Product::class)->create();
 
-        $this->putJson('api/products/' . $product->id, array_merge($product->toArray(),[
+        $this->putJson('api/products/' . $product->id, array_merge($product->toArray(), [
             'product_name' => 'Product edit 1'
         ]))->assertStatus(200);
 
@@ -82,13 +82,13 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_edit_a_product()
+    public function it_not_allow_to_edit_a_product()
     {
         $this->signIn();
 
         $product = factory(Product::class)->create();
 
-        $this->putJson('api/products/' . $product->id, array_merge($product->toArray(),[
+        $this->putJson('api/products/' . $product->id, array_merge($product->toArray(), [
             'product_name' => 'Product edit 1'
         ]))->assertStatus(403);
 
@@ -105,7 +105,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_delete_a_product()
+    public function it_delete_a_product()
     {
         $user = factory(User::class)->create();
         $user->allow('delete', Product::class);
@@ -123,7 +123,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_delete_a_product()
+    public function it_not_allow_to_delete_a_product()
     {
         $this->signIn();
 
@@ -140,7 +140,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_fetch_products()
+    public function it_fetch_products()
     {
         $user = factory(User::class)->create();
         $user->allow('view', Product::class);
@@ -166,7 +166,7 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_products()
+    public function it_not_allow_to_fetch_products()
     {
         $this->signIn();
 

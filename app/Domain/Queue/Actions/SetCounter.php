@@ -17,7 +17,7 @@ class SetCounter
     {
         $counter = QueueCounter::available()->first();
 
-        if(is_null($counter)) {
+        if (is_null($counter)) {
             return false;
         }
 

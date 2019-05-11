@@ -15,7 +15,7 @@ class QueueTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_generate_a_new_queue()
+    public function it_generate_a_new_queue()
     {
         $this->signIn()->allow('create', Queue::class);
 
@@ -33,7 +33,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function queue_section_is_required_to_generate_a_new_queue()
+    public function queue_section_is_required_to_generate_a_new_queue()
     {
         $this->signIn()->allow('create', Queue::class);
 
@@ -52,7 +52,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_generate_a_new_queue()
+    public function it_not_allow_to_generate_a_new_queue()
     {
         $this->signIn();
 
@@ -63,7 +63,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function it_fetch_queues_within_today()
+    public function it_fetch_queues_within_today()
     {
         $this->signIn()->allow('view', Queue::class);
 
@@ -93,7 +93,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_queues()
+    public function it_not_allow_to_fetch_queues()
     {
         $this->signIn();
 
@@ -105,7 +105,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function it_set_queue_counter()
+    public function it_set_queue_counter()
     {
         $this->signIn()->allow('update', Queue::class);
 
@@ -125,7 +125,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function no_queue_counter_available()
+    public function no_queue_counter_available()
     {
         $this->signIn()->allow('update', Queue::class);
 
@@ -140,7 +140,7 @@ class QueueTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_set_counter()
+    public function it_not_allow_to_set_counter()
     {
         $this->signIn();
 

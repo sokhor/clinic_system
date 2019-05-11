@@ -14,8 +14,9 @@ class AppointmentTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_make_an_appointment()
-    {$this->withoutExceptionHandling();
+    public function it_make_an_appointment()
+    {
+        $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $user->allow('create-appointments');
         $this->signIn($user);
@@ -23,9 +24,11 @@ class AppointmentTest extends TestCase
         $appointment = factory(Appointment::class)->make();
 
         $this->postJson('api/appointments', array_merge(
-            collect($appointment)->except('status')->toArray(), [
+            collect($appointment)->except('status')->toArray(),
+            [
             'appointed_at' => Carbon::createFromFormat('Y-m-d H:i:s', $appointment->appointed_at)->format('d-m-Y H:i:s'),
-        ]))->assertStatus(201);
+        ]
+        ))->assertStatus(201);
 
         $this->assertDatabaseHas('appointments', [
             'patient_id' => $appointment->patient_id,
@@ -38,7 +41,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_make_an_appointment()
+    public function it_not_allow_to_make_an_appointment()
     {
         $this->signIn();
 
@@ -51,7 +54,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_edit_an_appointment()
+    public function it_edit_an_appointment()
     {
         $user = factory(User::class)->create();
         $user->allow('update-appointments');
@@ -76,7 +79,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_edit_appointment()
+    public function it_not_allow_to_edit_appointment()
     {
         $this->signIn();
 
@@ -99,7 +102,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_delete_an_appointment()
+    public function it_delete_an_appointment()
     {
         $user = factory(User::class)->create();
         $user->allow('delete-appointments');
@@ -115,7 +118,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_delete_an_appointment()
+    public function it_not_allow_to_delete_an_appointment()
     {
         $this->signIn();
 
@@ -129,7 +132,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_fetch_appointments()
+    public function it_fetch_appointments()
     {
         $user = factory(User::class)->create();
         $user->allow('view-appointments');
@@ -154,7 +157,7 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_appointments()
+    public function it_not_allow_to_fetch_appointments()
     {
         $this->signIn();
 

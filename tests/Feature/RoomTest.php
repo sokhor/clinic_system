@@ -13,7 +13,7 @@ class RoomTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_fetch_rooms()
+    public function it_fetch_rooms()
     {
         $user = factory(User::class)->create();
         $user->allow('view-rooms');
@@ -41,7 +41,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_rooms()
+    public function it_not_allow_to_fetch_rooms()
     {
         $this->signIn();
 
@@ -53,7 +53,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_show_a_room()
+    public function it_show_a_room()
     {
         $user = factory(User::class)->create();
         $user->allow('view-rooms');
@@ -79,7 +79,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_show_a_room()
+    public function it_not_allow_to_show_a_room()
     {
         $this->signIn();
 
@@ -91,7 +91,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_create_a_room()
+    public function it_create_a_room()
     {
         $user = factory(User::class)->create();
         $user->allow('create-rooms');
@@ -106,7 +106,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_create_a_room_and_dont_meet_required_fields()
+    public function it_create_a_room_and_dont_meet_required_fields()
     {
         $user = factory(User::class)->create();
         $user->allow('create-rooms');
@@ -125,7 +125,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_create_a_room()
+    public function it_not_allow_to_create_a_room()
     {
         $this->signIn();
 
@@ -138,7 +138,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_edit_a_room()
+    public function it_edit_a_room()
     {
         $user = factory(User::class)->create();
         $user->allow('update-rooms');
@@ -163,7 +163,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_edit_a_room_and_dont_meet_required_fields()
+    public function it_edit_a_room_and_dont_meet_required_fields()
     {
         $user = factory(User::class)->create();
         $user->allow('update-rooms');
@@ -184,7 +184,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_edit_a_room()
+    public function it_not_allow_to_edit_a_room()
     {
         $this->signIn();
 
@@ -201,7 +201,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_delete_a_room()
+    public function it_delete_a_room()
     {
         $user = factory(User::class)->create();
         $user->allow('delete-rooms');
@@ -218,7 +218,7 @@ class RoomTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_delete_a_room()
+    public function it_not_allow_to_delete_a_room()
     {
         $this->signIn();
 

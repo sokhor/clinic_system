@@ -9,7 +9,9 @@ $factory->define(QueueCounter::class, function (Faker $faker) {
         'label' => $faker->randomNumber(),
         'active' => false,
         'busy' => false,
-        'section_id' => function() { return factory(QueueSection::class)->create(); },
+        'section_id' => function () {
+            return factory(QueueSection::class)->create();
+        },
     ];
 });
 

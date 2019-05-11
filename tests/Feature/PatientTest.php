@@ -19,7 +19,7 @@ class PatientTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_register_a_new_patient()
+    public function it_register_a_new_patient()
     {
         $user = factory(User::class)->create();
         $user->allow('create-patients');
@@ -76,7 +76,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_register_a_patient_and_dont_meet_required_fields()
+    public function it_register_a_patient_and_dont_meet_required_fields()
     {
         $user = factory(User::class)->create();
         $user->allow('create-patients');
@@ -99,7 +99,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_register_a_new_patient()
+    public function it_not_allow_to_register_a_new_patient()
     {
         $this->signIn();
 
@@ -114,7 +114,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_edit_a_patient()
+    public function it_edit_a_patient()
     {
         $user = factory(User::class)->create();
         $user->allow('update-patients');
@@ -125,7 +125,8 @@ class PatientTest extends TestCase
         $this->putJson(
             "api/patients/{$patient->id}",
             array_merge(
-                collect($patient)->toArray(), [
+                collect($patient)->toArray(),
+                [
                 'full_name' => 'អ្នកជំងឺ',
                 'full_name_2' => 'patient edit',
                 'gender' => 'M',
@@ -133,7 +134,8 @@ class PatientTest extends TestCase
                 'phone' => '0987654',
                 'identity_type' => 1,
                 'identity_no' => '0786545',
-            ])
+            ]
+            )
         )
         ->assertStatus(200);
 
@@ -150,7 +152,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_edit_a_patient()
+    public function it_not_allow_to_edit_a_patient()
     {
         $this->signIn();
 
@@ -180,7 +182,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_update_a_patient_and_dont_meet_required_fields()
+    public function it_update_a_patient_and_dont_meet_required_fields()
     {
         $user = factory(User::class)->create();
         $user->allow('update-patients');
@@ -203,7 +205,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_fetch_patients()
+    public function it_fetch_patients()
     {
         $user = factory(User::class)->create();
         $user->allow('view-patients');
@@ -236,7 +238,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_fetch_patients()
+    public function it_not_allow_to_fetch_patients()
     {
         $this->signIn();
 
@@ -248,7 +250,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_show_a_patient()
+    public function it_show_a_patient()
     {
         $user = factory(User::class)->create();
         $user->allow('view-patients');
@@ -279,7 +281,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_not_allow_to_show_a_patient()
+    public function it_not_allow_to_show_a_patient()
     {
         $this->signIn();
 
@@ -291,7 +293,7 @@ class PatientTest extends TestCase
     }
 
     /** @test */
-    function it_delete_patients()
+    public function it_delete_patients()
     {
         $user = factory(User::class)->create();
         $user->allow('delete-patients');
@@ -303,11 +305,11 @@ class PatientTest extends TestCase
         ->assertStatus(200);
 
         $this->assertDatabaseHas('patients', collect($patient->fresh())->toArray());
-        $this->assertNotEquals(NULL, $patient->fresh()->deleted_at);
+        $this->assertNotEquals(null, $patient->fresh()->deleted_at);
     }
 
     /** @test */
-    function it_not_allow_to_delete_patients()
+    public function it_not_allow_to_delete_patients()
     {
         $this->signIn();
 
@@ -317,6 +319,6 @@ class PatientTest extends TestCase
         ->assertStatus(403);
 
         $this->assertDatabaseHas('patients', collect($patient)->toArray());
-        $this->assertEquals(NULL, $patient->fresh()->deleted_at);
+        $this->assertEquals(null, $patient->fresh()->deleted_at);
     }
 }

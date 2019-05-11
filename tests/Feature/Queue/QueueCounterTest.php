@@ -12,7 +12,7 @@ class QueueCounterTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_create_a_new_counter()
+    public function it_create_a_new_counter()
     {
         $this->signIn();
 
@@ -30,7 +30,7 @@ class QueueCounterTest extends TestCase
     }
 
     /** @test */
-    function it_update_a_counter()
+    public function it_update_a_counter()
     {
         $this->signIn();
 
@@ -53,7 +53,7 @@ class QueueCounterTest extends TestCase
     }
 
     /** @test */
-    function it_delete_a_counter()
+    public function it_delete_a_counter()
     {
         $this->signIn();
 
@@ -68,7 +68,7 @@ class QueueCounterTest extends TestCase
     }
 
     /** @test */
-    function it_fetch_counters()
+    public function it_fetch_counters()
     {
         $this->signIn();
 

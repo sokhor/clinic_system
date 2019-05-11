@@ -14,7 +14,7 @@ class QueueTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_generate_a_ticket()
+    public function it_generate_a_ticket()
     {
         $queue_section = factory(QueueSection::class)->create(['name' => 'Doctor Consulting']);
 

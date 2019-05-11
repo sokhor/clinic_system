@@ -39,13 +39,11 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if(!($user = $this->hasValidCredentials($request)))
-        {
+        if (!($user = $this->hasValidCredentials($request))) {
             return response()->json(['message' => 'Username or password is invalid'], 422);
         }
 
-        if(!($token = $this->retrieveAccessToken($user, $request)))
-        {
+        if (!($token = $this->retrieveAccessToken($user, $request))) {
             return response()->json(['message' => 'This user is unauthorized'], 422);
         }
 
@@ -64,8 +62,7 @@ class LoginController extends Controller
      */
     protected function retrieveAccessToken(User $user, Request $request)
     {
-        if(is_null($client = Passport::client()->first()))
-        {
+        if (is_null($client = Passport::client()->first())) {
             return false;
         }
 
