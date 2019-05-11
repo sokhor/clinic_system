@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between pb-6">
+    <div class="w-full flex flex-row items-center justify-between mb-6">
       <base-title>
         <router-link class="text-blue-500 hover:text-blue-300" to="/roles"
           ><i class="fas fa-arrow-left"></i

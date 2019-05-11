@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-end justify-between pb-6">
+    <div class="w-full flex flex-row items-end justify-between mb-6">
       <base-title>Users</base-title>
       <base-button color="primary" @click="$router.push('/users/create')">
         New User
