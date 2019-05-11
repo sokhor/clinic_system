@@ -8,62 +8,58 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
 use Laravel\Passport\Client;
 use App\User;
+use Laravel\Passport\ClientRepository;
 
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        (new ClientRepository())->create(null, 'Password Client', 'http://localhost', false, true);
+    }
+
     /** @test */
     public function user_attempt_login_success()
     {
-        $this->artisan('passport:client', ['--password' => true, '--no-interaction' => true]);
-        $user = factory(User::class)->create([
+        factory(User::class)->create([
             'username' => 'user1',
             'password' => bcrypt('secret'),
         ]);
-        $client = Client::where('password_client', 1)->first();
-        $client->update(['user_id' => $user->id]);
 
-        $this->postJson('api/login', [
-            'username' => 'user1',
-            'password' => 'secret',
-        ])
-        ->assertStatus(Response::HTTP_OK)
-        ->assertJsonStructure([
-            'data' => [
-                'token_type',
-                'expires_in',
-                'access_token',
-                'refresh_token',
-            ],
-        ]);
+        $this->postJson('api/login', ['username' => 'user1', 'password' => 'secret'])
+            ->assertStatus(Response::HTTP_OK)
+            ->assertJsonStructure([
+                'data' => [
+                    'token_type',
+                    'expires_in',
+                    'access_token',
+                    'refresh_token',
+                ],
+            ]);
     }
 
     /** @test */
     public function user_attempt_login_failed()
     {
-        $this->artisan('passport:client', ['--password' => true, '--no-interaction' => true]);
-        $user = factory(User::class)->create([
+        factory(User::class)->create([
             'username' => 'user1',
             'password' => bcrypt('secret'),
         ]);
-        $client = Client::where('password_client', 1)->first();
-        $client->update(['user_id' => $user->id]);
 
-        $this->postJson('api/login', [
-            'username' => 'user1',
-            'password' => 'wrong-secret',
-        ])
-        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
-        ->assertJson([
-            'message' => 'Invalid credentials',
-        ]);
+        $this->postJson('api/login', ['username' => 'user1', 'password' => 'wrong-secret'])
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJson([
+                'message' => 'Username or password is invalid',
+            ]);
     }
 
     /** @test */
     public function it_require_username_and_password()
     {
-        $user = factory(User::class)->create([
+        factory(User::class)->create([
             'username' => 'user1',
             'password' => bcrypt('secret'),
         ]);
@@ -82,26 +78,20 @@ class AuthenticationTest extends TestCase
             'active' => false,
         ]);
 
-        $this->postJson('api/login', [
-            'username' => 'user1',
-            'password' => 'secret',
-        ])
-        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
-        ->assertJson([
-            'message' => 'Invalid credentials',
-        ]);
+        $this->postJson('api/login', ['username' => 'user1', 'password' => 'secret'])
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+            ->assertJson([
+                'message' => 'Username or password is invalid',
+            ]);
     }
 
     /** @test */
     public function it_revoke_auth_token_after_logout()
     {
-        $this->artisan('passport:client', ['--password' => true, '--no-interaction' => true]);
         $user = factory(User::class)->create([
             'username' => 'user1',
             'password' => bcrypt('secret'),
         ]);
-        $client = Client::where('password_client', 1)->first();
-        $client->update(['user_id' => $user->id]);
 
         // Attempt to login for the purpose generating access token.
         $response = $this->postJson('api/login', [
