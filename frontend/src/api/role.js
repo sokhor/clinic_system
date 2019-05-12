@@ -1,36 +1,36 @@
 import apiClient from './api-client'
 
-export const get = params => {
+export const get = (options = {}) => {
   return apiClient
-    .get('/api/roles', { params })
+    .get('/api/roles', options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const find = (id, params) => {
+export const find = (id, options = {}) => {
   return apiClient
-    .get(`/api/roles/${id}`, { params })
+    .get(`/api/roles/${id}`, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const store = data => {
+export const store = (data, options = {}) => {
   return apiClient
-    .post('/api/roles', data)
+    .post('/api/roles', data, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const update = (id, data) => {
+export const update = (id, data, options = {}) => {
   return apiClient
-    .put(`/api/roles/${id}`, data)
+    .put(`/api/roles/${id}`, data, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const destroy = id => {
+export const destroy = (id, options = {}) => {
   return apiClient
-    .delete(`/api/roles/${id}`)
+    .delete(`/api/roles/${id}`, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }

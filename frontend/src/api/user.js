@@ -1,59 +1,67 @@
 import apiClient from './api-client'
 
-export const get = params => {
+export const get = (options = {}) => {
   return apiClient
-    .get('/api/users', { params })
+    .get('/api/users', options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const find = (id, params) => {
+export const find = (id, options = {}) => {
   return apiClient
-    .get(`/api/users/${id}`, { params })
+    .get(`/api/users/${id}`, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const store = data => {
+export const store = (data, options = {}) => {
   return apiClient
-    .post('/api/users', data)
+    .post('/api/users', data, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const update = (id, data) => {
+export const update = (id, data, options = {}) => {
   return apiClient
-    .put(`/api/users/${id}`, data)
+    .put(`/api/users/${id}`, data, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const destroy = id => {
+export const destroy = (id, options = {}) => {
   return apiClient
-    .delete(`/api/users/${id}`)
+    .delete(`/api/users/${id}`, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const resetPassword = (id, { password, password_confirmation }) => {
+export const resetPassword = (
+  id,
+  { password, password_confirmation },
+  options = {}
+) => {
   return apiClient
-    .put(`/api/users/${id}/password/reset`, { password, password_confirmation })
+    .put(
+      `/api/users/${id}/password/reset`,
+      { password, password_confirmation },
+      options
+    )
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const attachRoles = (id, roles) => {
+export const attachRoles = (id, roles, options = {}) => {
   return apiClient
-    .post(`/api/users/${id}/roles`, roles)
+    .post(`/api/users/${id}/roles`, { roles }, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export const dettachRoles = (id, roles) => {
+export const detachRoles = (id, { roles }, options = {}) => {
   return apiClient
-    .put(`/api/users/${id}/roles`, roles)
+    .put(`/api/users/${id}/roles`, roles, options)
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }
 
-export default { get, store, update, destroy }
+export default { get, find, store, update, destroy, attachRoles, detachRoles }
