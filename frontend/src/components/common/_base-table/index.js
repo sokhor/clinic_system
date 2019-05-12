@@ -235,7 +235,15 @@ export default {
         </thead>
         <tbody>
           {(() => {
-            if (this.rowGroup) {
+            if (this.dataTable.length === 0) {
+              return (
+                <tr>
+                  <td colspan={this.columnLength} class="text-center">
+                    No records
+                  </td>
+                </tr>
+              )
+            } else if (this.rowGroup) {
               return this.dataTable.map((items, key) => {
                 return [
                   <tr>
