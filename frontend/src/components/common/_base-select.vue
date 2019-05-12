@@ -206,7 +206,22 @@ export default {
     setupPopper() {
       if (this.popper === undefined) {
         this.popper = new Popper(this.$refs.button, this.$refs.dropdown, {
-          placement: 'bottom'
+          placement: 'bottom',
+          positionFixed: true,
+          modifiers: {
+            offset: {
+              enabled: true,
+              fn: data => {
+                data.offsets.popper.left = data.offsets.reference.left
+                data.offsets.popper.right = data.offsets.reference.right
+                data.offsets.popper.width = data.styles.width = Math.round(
+                  data.offsets.reference.width
+                )
+                return data
+              },
+              order: 840
+            }
+          }
         })
       } else {
         this.popper.scheduleUpdate()
