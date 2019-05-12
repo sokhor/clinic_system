@@ -1,17 +1,19 @@
+import { camelCase } from 'lodash'
+
 function setPaging({
-  current_page = 1,
+  currentPage = 1,
   from = null,
   to = null,
-  last_page = 0,
-  per_page = 15,
+  lastPage = 0,
+  perPage = 15,
   total = 0
 } = {}) {
   return {
-    current_page,
+    currentPage,
     from,
     to,
-    last_page,
-    per_page,
+    lastPage,
+    perPage,
     total
   }
 }
@@ -29,7 +31,7 @@ export const baseMutations = {
       state.resources.push(Object.assign(resource, { _deleting: false }))
     })
 
-    state.pagination = setPaging(meta)
+    state.pagination = setPaging(camelCase(meta))
   },
   DELETE_RESOURCE(state, resource) {
     state.resources.splice(state.resources.indexOf(resource), 1)
@@ -38,6 +40,6 @@ export const baseMutations = {
     state.search = search
   },
   RESET_CURRENT_PAGE(state) {
-    state.pagination.current_page = 1
+    state.pagination.currentPage = 1
   }
 }
