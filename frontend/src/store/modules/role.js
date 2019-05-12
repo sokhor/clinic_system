@@ -12,9 +12,9 @@ export const mutations = {
 }
 
 export const actions = {
-  get(context, { page, per_page, search } = {}) {
+  get(context, { page, perPage, search } = {}) {
     return api
-      .get({ page, per_page, search })
+      .get({ params: { page, perPage, search } })
       .then(response => {
         context.commit('RECEIVE_RESOURCES', response)
         return Promise.resolve(response)

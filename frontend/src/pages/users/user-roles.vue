@@ -1,28 +1,20 @@
 <template>
-  <BaseTable>
-    <BaseThead>
-      <BaseTh>Id</BaseTh>
-      <BaseTh>Name</BaseTh>
-      <BaseTh class="w-1"></BaseTh>
-    </BaseThead>
-    <BaseTbody>
-      <BaseTr v-for="role in userRoles" :key="role.id">
-        <BaseTd>{{ role.id }}</BaseTd>
-        <BaseTd>{{ role.name }}</BaseTd>
-        <BaseTd class="flex">
-          <BaseButton
-            flat
-            color="danger"
-            title="Delete role"
-            :waiting="role._deleting"
-            @click="destroy(role)"
-          >
-            <i class="fas fa-trash" v-if="!role._deleting"></i>
-          </BaseButton>
-        </BaseTd>
-      </BaseTr>
-    </BaseTbody>
-  </BaseTable>
+  <base-table :records="userRoles" :columns="columns">
+    <template slot-scope="{ record: role }">
+      <td>{{ role.name }}</td>
+      <td class="flex">
+        <base-button
+          flat
+          color="danger"
+          title="Delete role"
+          :waiting="role._deleting"
+          @click="destroy(role)"
+        >
+          <i class="fas fa-trash" v-if="!role._deleting"></i>
+        </base-button>
+      </td>
+    </template>
+  </base-table>
 </template>
 
 <script>
@@ -31,6 +23,7 @@ export default {
   props: ['roles'],
   data() {
     return {
+      columns: ['Name', { name: '', style: 'width: 1px;' }],
       userRoles: this.roles
     }
   },

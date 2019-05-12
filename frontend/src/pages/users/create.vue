@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between mb-6">
+    <div class="w-full flex flex-row items-end justify-between mb-6">
       <base-title>
         <router-link class="text-blue-500 hover:text-blue-400" to="/users">
           <i class="fas fa-arrow-left"></i>
@@ -97,13 +97,11 @@ export default {
       },
       saving: false,
       savingAndNew: false,
-      errorMessage: '',
       errors: new Errors()
     }
   },
   methods: {
     async save() {
-      this.errorMessage = ''
       this.errors.clear()
 
       this.saving = true
@@ -122,7 +120,6 @@ export default {
       this.saving = false
     },
     async saveAndNew() {
-      this.errorMessage = ''
       this.errors.clear()
 
       this.savingAndNew = true
@@ -142,7 +139,6 @@ export default {
     },
     clearForm() {
       this.form = Object.assign({}, this.newForm)
-      this.errorMessage = ''
       this.errors.clear()
     }
   }

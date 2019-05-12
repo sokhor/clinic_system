@@ -66,17 +66,14 @@ class RoleController extends Controller
      */
     public function index(RoleViewRequest $request)
     {
-        if ($request->noPaging) {
-            return RoleResource::collection(Role::with('abilities')->get());
-        }
-
         $roles = Role::with('abilities')
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'LIKE', '%' . $request->search . '%');
-            })
-            ->paginate();
+            });
 
-        return RoleResource::collection($roles);
+        return RoleResource::collection(
+            $request->perPage != -1 ? $roles->paginate($request->perPage) : $roles->get()
+        );
     }
 
     /**

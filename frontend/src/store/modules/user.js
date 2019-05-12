@@ -12,11 +12,19 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchUsers(context, { page, per_page, search } = {}) {
+  fetchUsers(context, { page, perPage, search } = {}) {
     return api
-      .get({ page, per_page, search })
+      .get({ params: { page, perPage, search } })
       .then(response => {
         context.commit('RECEIVE_RESOURCES', response)
+        return Promise.resolve(response)
+      })
+      .catch(error => Promise.reject(error.data))
+  },
+  findUserById(context, id) {
+    return api
+      .find(id)
+      .then(response => {
         return Promise.resolve(response)
       })
       .catch(error => Promise.reject(error.data))
@@ -49,14 +57,15 @@ export const actions = {
       .catch(error => Promise.reject(error.data))
   },
   attachRoles(context, { id, roles }) {
+    console.log(roles)
     return api
       .attachRoles(id, roles)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   },
-  dettachRoles(context, { id, roles }) {
+  detachRoles(context, { id, roles }) {
     return api
-      .dettachRoles(id, roles)
+      .detachRoles(id, roles)
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   }

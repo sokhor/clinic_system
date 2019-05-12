@@ -1,81 +1,77 @@
 <template>
   <div class="w-full">
-    <div class="w-full flex flex-row items-center justify-between pt-4 pb-6">
-      <h1 class="inline text-gray-900 text-xl font-bold">
-        <router-link class="text-blue hover:text-blue-light" to="/users"
-          ><i class="fas fa-arrow-left"></i
-        ></router-link>
-        / User Details
-      </h1>
+    <div class="w-full flex flex-row items-end justify-between mb-6">
+      <base-title>
+        <router-link class="text-blue-500 hover:text-blue-400" to="/users">
+          <i class="fas fa-arrow-left"></i>
+        </router-link>
+        / User Detail
+      </base-title>
       <div>
-        <BaseButton sm color="primary" title="Edit user" @click="edit(user)">
+        <base-button color="primary" @click="edit(user)" class="mr-1">
           <i class="fas fa-edit"></i>
-        </BaseButton>
-        <BaseButton
-          sm
+        </base-button>
+        <base-button
           color="danger"
-          title="Delete user"
-          :waiting="user._deleting"
           @click="destroy(user)"
-          class="ml-2"
+          :waiting="user._deleting"
         >
           <i class="fas fa-trash" v-if="!user._deleting"></i>
-        </BaseButton>
+        </base-button>
       </div>
     </div>
-    <BaseCard>
-      <div class="flex items-baseline p-4 border-b border-white-grey">
-        <BaseLabel class="w-1/5">
+    <base-card>
+      <div class="flex items-baseline p-4">
+        <base-label class="w-1/5">
           Username
-        </BaseLabel>
+        </base-label>
         <span class="w-2/5">
           {{ user.username }}
         </span>
       </div>
-      <div class="flex items-baseline p-4 border-b border-white-grey">
-        <BaseLabel class="w-1/5">
+      <div class="flex items-baseline p-4">
+        <base-label class="w-1/5">
           Email
-        </BaseLabel>
+        </base-label>
         <span class="w-2/5">
           {{ user.email }}
         </span>
       </div>
-      <div class="flex items-baseline p-4 border-b border-white-grey">
-        <BaseLabel class="w-1/5">
+      <div class="flex items-baseline p-4">
+        <base-label class="w-1/5">
           Active
-        </BaseLabel>
+        </base-label>
         <span class="w-2/5">
           <div
-            class="w-3 h-3 bg-green rounded-full border-2 border-green-lighter"
+            class="w-3 h-3 bg-green-500 rounded-full border-2 border-green-300"
             v-if="user.active"
           ></div>
           <div
-            class="w-3 h-3 bg-red rounded-full border-2 border-red-lighter"
+            class="w-3 h-3 bg-red-500 rounded-full border-2 border-red-300"
             v-else
           ></div>
         </span>
       </div>
-    </BaseCard>
-    <div
-      class="w-full flex flex-row items-center justify-between pt-4 pb-6 mt-6"
-    >
-      <h1 class="inline text-gray-900 text-xl font-bold">Roles</h1>
-      <BaseButton color="primary" @click="attachRole(user)">
+    </base-card>
+    <div class="w-full flex flex-row items-end justify-between mb-6 mt-10">
+      <base-title>Roles</base-title>
+      <base-button color="primary" @click="attachRole(user)">
         Attach Role
-      </BaseButton>
+      </base-button>
     </div>
-    <BaseCard>
-      <UserRoles :roles="user.roles" />
-    </BaseCard>
+    <base-card>
+      <user-roles :roles="user.roles" />
+    </base-card>
   </div>
 </template>
 
 <script>
 import httpClient from '@/http-client'
 import UserRoles from './user-roles.vue'
+import AttachRole from './attach-role.vue'
 
 export default {
-  name: 'UserView',
+  name: 'UserShow',
   async beforeRouteEnter(to, from, next) {
     if (to.params.user === undefined) {
       let response = await httpClient.get(
@@ -87,7 +83,7 @@ export default {
     }
     next()
   },
-  components: { UserRoles },
+  components: { UserRoles, AttachRole },
   props: {
     user: {
       type: Object,
@@ -114,10 +110,16 @@ export default {
       user._deleting = false
     },
     attachRole(user) {
-      this.$router.push({
-        name: 'users-attach-roles',
-        params: { id: user.id, user: user }
-      })
+      this.$modal.show(
+        AttachRole,
+        {
+          user: this.user
+        },
+        {
+          width: 300,
+          height: 'auto'
+        }
+      )
     }
   }
 }

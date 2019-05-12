@@ -23,6 +23,20 @@ class UserAttachRoleRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'roles' => 'required'
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            '*.required' => 'required',
+        ];
     }
 }

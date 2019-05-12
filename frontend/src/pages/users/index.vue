@@ -28,6 +28,14 @@
             <a
               href="#"
               class="text-blue-500 hover:text-blue-600 mr-3"
+              title="Show user"
+              @click.prevent="show(user)"
+            >
+              <i class="fas fa-eye"></i>
+            </a>
+            <a
+              href="#"
+              class="text-blue-500 hover:text-blue-600 mr-3"
               title="Edit user"
               @click.prevent="edit(user)"
             >
