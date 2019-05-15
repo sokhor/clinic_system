@@ -93,6 +93,10 @@ export default {
             classSize({ ...context.props }),
             context.data.staticClass
           ],
+          attrs: Object.assign(
+            { disabled: context.props.waiting },
+            context.data.attrs
+          ),
           on: context.listeners
         }}
       >
