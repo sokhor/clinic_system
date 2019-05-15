@@ -1,3 +1,4 @@
+<script>
 const classColor = ({ color, flat, outline }) => {
   let colorStyle = {}
 
@@ -36,11 +37,7 @@ const classColor = ({ color, flat, outline }) => {
   return colorStyle
 }
 
-const classSize = ({ size, flat }) => {
-  // if (flat) {
-  //   return ''
-  // }
-
+const classSize = ({ size }) => {
   if (size === 'sm') {
     return 'btn-sm'
   } else if (size === 'md') {
@@ -121,3 +118,4 @@ export default {
     )
   }
 }
+</script>
