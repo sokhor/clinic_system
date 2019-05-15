@@ -8,7 +8,7 @@
         / User Detail
       </base-title>
       <div>
-        <base-button color="primary" @click="edit(user)" class="mr-1">
+        <base-button color="primary" @click="edit(user)" class="mr-2">
           <i class="fas fa-edit"></i>
         </base-button>
         <base-button

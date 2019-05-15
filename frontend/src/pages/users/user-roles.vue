@@ -5,6 +5,7 @@
       <td class="flex">
         <base-button
           flat
+          size="sm"
           color="danger"
           title="Delete role"
           :waiting="role._deleting"

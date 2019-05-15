@@ -52,7 +52,7 @@ export default {
 
       this.saving = true
       try {
-        await this.$store.dispatch('user/attachRoles', {
+        let response = await this.$store.dispatch('user/attachRoles', {
           id: this.user.id,
           roles: [this.form.selectedRole]
         })
