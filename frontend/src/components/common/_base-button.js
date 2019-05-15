@@ -50,6 +50,8 @@ const classSize = ({ size, flat }) => {
   }
 }
 
+const isWaiting = waiting => waiting === true || waiting.state === true
+
 export default {
   functional: true,
   name: 'BaseButton',
@@ -74,13 +76,14 @@ export default {
       default: false
     },
     waiting: {
-      type: Boolean,
+      type: Boolean | Object,
       default: false
     }
   },
   render(h, context) {
-    const Spin = ({ props }) => {
-      if (props.waiting) return <i class="fas fa-spinner spin mr-2" />
+    const Spin = ({ props, data }) => {
+      if (isWaiting(props.waiting))
+        return <i class="fas fa-spinner spin" {...{ class: data.class }} />
     }
 
     return (
@@ -94,14 +97,26 @@ export default {
             context.data.staticClass
           ],
           attrs: Object.assign(
-            { disabled: context.props.waiting },
+            { disabled: isWaiting(context.props.waiting) },
             context.data.attrs
           ),
           on: context.listeners
         }}
       >
-        <Spin waiting={context.props.waiting} />
-        {context.children}
+        {(() => {
+          if (
+            typeof context.props.waiting === 'object' &&
+            context.props.waiting.state === true &&
+            context.props.waiting.hideText === true
+          ) {
+            return <Spin waiting={context.props.waiting} />
+          } else {
+            return [
+              <Spin waiting={context.props.waiting} class="mr-2" />,
+              context.children
+            ]
+          }
+        })()}
       </button>
     )
   }
