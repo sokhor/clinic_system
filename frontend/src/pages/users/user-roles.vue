@@ -1,5 +1,5 @@
 <template>
-  <base-table :records="userRoles" :columns="columns">
+  <base-table :records="roles" :columns="columns">
     <template slot-scope="{ record: role }">
       <td>{{ role.name }}</td>
       <td class="flex">
@@ -19,15 +19,19 @@
 </template>
 
 <script>
+import { cloneDeep } from 'lodash'
+import { mapState } from 'vuex'
+
 export default {
   name: 'UserRoles',
-  props: ['roles'],
   data() {
     return {
-      columns: ['Name', { name: '', style: 'width: 1px;' }],
-      userRoles: this.roles.map(role =>
-        Object.assign({}, role, { _deleting: false })
-      )
+      columns: ['Name', { name: '', style: 'width: 1px;' }]
+    }
+  },
+  computed: {
+    roles() {
+      return this.$store.state.user.user.roles
     }
   },
   methods: {
@@ -43,11 +47,10 @@ export default {
           roles: [role.name]
         })
         this.$toasted.success(response.message)
-        this.userRoles.splice(this.userRoles.indexOf(role), 1)
       } catch (error) {
         this.$toasted.error(error.message)
       }
-      // role._deleting = false
+      role._deleting = false
     }
   }
 }

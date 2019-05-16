@@ -22,15 +22,10 @@
 
 <script>
 import { Errors } from 'form-backend-validation'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AttachRole',
-  props: {
-    user: {
-      type: Object,
-      default: null
-    }
-  },
   data() {
     return {
       form: {
@@ -40,6 +35,9 @@ export default {
       saving: false,
       errors: new Errors()
     }
+  },
+  computed: {
+    ...mapState('user', ['user'])
   },
   beforeMount() {
     this.$store.dispatch('role/get', { perPage: -1 }).then(response => {

@@ -1,4 +1,4 @@
-import store from '@/store'
+import apiUser from '@/api/user'
 
 export default [
   {
@@ -36,7 +36,12 @@ export default [
     },
     component: () =>
       import(/* webpackChunkName: "users-show" */ '@/pages/users/show.vue'),
-    props: route => ({ user: route.params.user })
+    props: route => ({ user: route.params.user }),
+    beforeEnter: async (to, from, next) => {
+      let response = await apiUser.find(to.params.id)
+      to.params.user = response.data
+      next()
+    }
   },
   {
     path: '/users/:id/password/reset',

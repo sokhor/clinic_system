@@ -2,13 +2,20 @@ import api from '@/api/user'
 import { baseState, baseMutations } from './_mixin'
 
 export const state = {
-  ...baseState
+  ...baseState,
+  user: {}
 }
 
 export const getters = {}
 
 export const mutations = {
-  ...baseMutations
+  ...baseMutations,
+  SET_USER(state, { roles, ...data }) {
+    state.user = Object.assign({}, state.user, {
+      ...data,
+      roles: roles.map(role => Object.assign({}, role, { _deleting: false }))
+    })
+  }
 }
 
 export const actions = {
@@ -57,16 +64,21 @@ export const actions = {
       .catch(error => Promise.reject(error.data))
   },
   attachRoles(context, { id, roles }) {
-    console.log(roles)
     return api
       .attachRoles(id, roles)
-      .then(response => Promise.resolve(response))
+      .then(response => {
+        context.commit('SET_USER', { roles: response.data })
+        return Promise.resolve(response)
+      })
       .catch(error => Promise.reject(error.data))
   },
   detachRoles(context, { id, roles }) {
     return api
       .detachRoles(id, roles)
-      .then(response => Promise.resolve(response))
+      .then(response => {
+        context.commit('SET_USER', { roles: response.data })
+        return Promise.resolve(response)
+      })
       .catch(error => Promise.reject(error.data))
   }
 }

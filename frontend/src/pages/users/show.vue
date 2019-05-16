@@ -55,40 +55,31 @@
     </base-card>
     <div class="w-full flex flex-row items-end justify-between mb-6 mt-10">
       <base-title>Roles</base-title>
-      <base-button color="primary" @click="attachRole(user)">
+      <base-button color="primary" @click="attachRole">
         Attach Role
       </base-button>
     </div>
     <base-card>
-      <user-roles :roles="user.roles" />
+      <user-roles />
     </base-card>
   </div>
 </template>
 
 <script>
-import httpClient from '@/http-client'
 import UserRoles from './user-roles.vue'
 import AttachRole from './attach-role.vue'
 
 export default {
   name: 'UserShow',
-  async beforeRouteEnter(to, from, next) {
-    if (to.params.user === undefined) {
-      let response = await httpClient.get(
-        `/api/users/${to.params.id}`,
-        {},
-        { showProgressBar: true }
-      )
-      to.params.user = response.data.data
-    }
-    next()
-  },
   components: { UserRoles, AttachRole },
   props: {
     user: {
       type: Object,
       default: null
     }
+  },
+  beforeMount() {
+    this.$store.commit('user/SET_USER', this.user)
   },
   methods: {
     edit(user) {
@@ -112,12 +103,10 @@ export default {
       }
       user._deleting = false
     },
-    attachRole(user) {
+    attachRole() {
       this.$modal.show(
         AttachRole,
-        {
-          user: this.user
-        },
+        {},
         {
           width: 300,
           height: 'auto'
