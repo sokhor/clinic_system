@@ -7,8 +7,12 @@
         </router-link>
         / Edit User
       </base-title>
-      <base-button color="danger" @click="destroy(user)" :waiting="deleting">
-        <i class="fas fa-trash" v-if="!deleting"></i>
+      <base-button
+        color="danger"
+        @click="destroy"
+        :waiting="{ state: deleting, hideText: true }"
+      >
+        <i class="fas fa-trash"></i>
       </base-button>
     </div>
     <base-card>
@@ -78,23 +82,11 @@
 
 <script>
 import { Errors } from 'form-backend-validation'
-import httpClient from '@/http-client'
 
 export default {
   name: 'UserEdit',
-  async beforeRouteEnter(to, from, next) {
-    if (to.params.user === undefined) {
-      let response = await httpClient.get(
-        `/api/users/${to.params.id}`,
-        {},
-        { showProgressBar: true }
-      )
-      to.params.user = response.data.data
-    }
-    next()
-  },
   props: {
-    user: {
+    userProp: {
       type: Object,
       default: null
     }
@@ -113,7 +105,7 @@ export default {
   },
   created() {
     for (let key in this.form) {
-      this.form[key] = this.user[key]
+      this.form[key] = this.userProp[key]
     }
   },
   methods: {
@@ -124,7 +116,7 @@ export default {
 
       try {
         let response = await this.$store.dispatch('user/editUser', {
-          id: this.user.id,
+          id: this.userProp.id,
           ...this.form
         })
         this.$toasted.success(response.message)
@@ -138,14 +130,17 @@ export default {
       }
       this.saving = false
     },
-    async destroy(user) {
+    async destroy() {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
         return
       }
 
       this.deleting = true
       try {
-        let response = await this.$store.dispatch('user/destroy', user)
+        let response = await this.$store.dispatch(
+          'user/deleteUser',
+          this.userProp
+        )
         this.$toasted.success(response.message)
         this.$router.push('/users')
       } catch (error) {

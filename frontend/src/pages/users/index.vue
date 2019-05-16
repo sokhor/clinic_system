@@ -25,31 +25,31 @@
             ></div>
           </td>
           <td class="flex">
-            <a
-              href="#"
-              class="text-blue-500 hover:text-blue-600 mr-3"
+            <base-button
+              flat
+              color="primary"
               title="Show user"
-              @click.prevent="show(user)"
+              @click="show(user)"
             >
               <i class="fas fa-eye"></i>
-            </a>
-            <a
-              href="#"
-              class="text-blue-500 hover:text-blue-600 mr-3"
+            </base-button>
+            <base-button
+              flat
+              color="primary"
               title="Edit user"
-              @click.prevent="edit(user)"
+              @click="edit(user)"
             >
               <i class="fas fa-edit"></i>
-            </a>
-            <a
-              href="#"
-              class="text-red-500 hover:text-red-600"
+            </base-button>
+            <base-button
+              flat
+              color="danger"
               title="Delete user"
-              @click.prevent="destroy(user)"
-              :waiting="user._deleting"
+              @click="destroy(user)"
+              :waiting="{ state: user._deleting, hideText: true }"
             >
-              <i class="fas fa-trash" v-if="!user._deleting"></i>
-            </a>
+              <i class="fas fa-trash"></i>
+            </base-button>
           </td>
         </template>
       </base-table>

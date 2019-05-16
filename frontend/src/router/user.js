@@ -26,7 +26,12 @@ export default [
     },
     component: () =>
       import(/* webpackChunkName: "users-edit" */ '@/pages/users/edit.vue'),
-    props: route => ({ user: route.params.user })
+    props: route => ({ userProp: route.params.userProp }),
+    beforeEnter: async (to, from, next) => {
+      let response = await apiUser.find(to.params.id)
+      to.params.userProp = response.data
+      next()
+    }
   },
   {
     path: '/users/:id',
@@ -39,9 +44,7 @@ export default [
     props: route => ({ userProp: route.params.userProp }),
     beforeEnter: async (to, from, next) => {
       let response = await apiUser.find(to.params.id)
-      to.params.userProp = Object.assign({}, response.data, {
-        _deleting: false
-      })
+      to.params.userProp = response.data
       next()
     }
   },

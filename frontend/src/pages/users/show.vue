@@ -8,13 +8,13 @@
         / User Detail
       </base-title>
       <div>
-        <base-button color="primary" @click="edit(user)" class="mr-2">
+        <base-button color="primary" @click="edit" class="mr-2">
           <i class="fas fa-edit"></i>
         </base-button>
         <base-button
           color="danger"
           @click="destroy"
-          :waiting="{ state: user._deleting, hideText: true }"
+          :waiting="{ state: deleting, hideText: true }"
         >
           <i class="fas fa-trash"></i>
         </base-button>
@@ -79,6 +79,11 @@ export default {
       default: null
     }
   },
+  data() {
+    return {
+      deleting: false
+    }
+  },
   computed: {
     ...mapState('user', ['user'])
   },
@@ -86,10 +91,10 @@ export default {
     this.$store.commit('user/SET_USER', this.userProp)
   },
   methods: {
-    edit(user) {
+    edit() {
       this.$router.push({
         name: 'users-edit',
-        params: { id: user.id, user: user }
+        params: { id: this.user.id }
       })
     },
     async destroy() {
@@ -97,7 +102,7 @@ export default {
         return
       }
 
-      this.user._deleting = true
+      this.deleting = true
       try {
         let response = await this.$store.dispatch('user/deleteUser', this.user)
         this.$toasted.success(response.message)
@@ -105,7 +110,7 @@ export default {
       } catch (error) {
         this.$toasted.error(error)
       }
-      this.user._deleting = false
+      this.deleting = false
     },
     attachRole() {
       this.$modal.show(
