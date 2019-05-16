@@ -110,7 +110,7 @@ export default {
 
       user._deleting = true
       try {
-        let response = await this.$store.dispatch('user/destroy', user)
+        let response = await this.$store.dispatch('user/deleteUser', user)
         this.$toasted.success(response.message)
       } catch (error) {
         this.$toasted.error(error.message)

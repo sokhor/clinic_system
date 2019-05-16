@@ -13,10 +13,10 @@
         </base-button>
         <base-button
           color="danger"
-          @click="destroy(user)"
-          :waiting="user._deleting"
+          @click="destroy"
+          :waiting="{ state: user._deleting, hideText: true }"
         >
-          <i class="fas fa-trash" v-if="!user._deleting"></i>
+          <i class="fas fa-trash"></i>
         </base-button>
       </div>
     </div>
@@ -68,18 +68,22 @@
 <script>
 import UserRoles from './user-roles.vue'
 import AttachRole from './attach-role.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'UserShow',
   components: { UserRoles, AttachRole },
   props: {
-    user: {
+    userProp: {
       type: Object,
       default: null
     }
   },
+  computed: {
+    ...mapState('user', ['user'])
+  },
   beforeMount() {
-    this.$store.commit('user/SET_USER', this.user)
+    this.$store.commit('user/SET_USER', this.userProp)
   },
   methods: {
     edit(user) {
@@ -88,20 +92,20 @@ export default {
         params: { id: user.id, user: user }
       })
     },
-    async destroy(user) {
+    async destroy() {
       if (!(await this.$confirmDelete('Are you sure to delete?'))) {
         return
       }
 
-      user._deleting = true
+      this.user._deleting = true
       try {
-        let response = await this.$store.dispatch('users/deleteUser', user)
+        let response = await this.$store.dispatch('user/deleteUser', this.user)
         this.$toasted.success(response.message)
         this.$router.push('/users')
-      } catch (e) {
-        this.$toasted.error(error.message)
+      } catch (error) {
+        this.$toasted.error(error)
       }
-      user._deleting = false
+      this.user._deleting = false
     },
     attachRole() {
       this.$modal.show(

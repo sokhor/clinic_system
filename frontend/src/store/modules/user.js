@@ -48,7 +48,7 @@ export const actions = {
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   },
-  destroy(context, user) {
+  deleteUser(context, user) {
     return api
       .destroy(user.id)
       .then(response => {

@@ -11,7 +11,7 @@
           :waiting="{ state: role._deleting, hideText: true }"
           @click="destroy(role)"
         >
-          <i class="fas fa-trash" v-if="!role._deleting"></i>
+          <i class="fas fa-trash"></i>
         </base-button>
       </td>
     </template>
@@ -20,7 +20,6 @@
 
 <script>
 import { cloneDeep } from 'lodash'
-import { mapState } from 'vuex'
 
 export default {
   name: 'UserRoles',

@@ -36,10 +36,12 @@ export default [
     },
     component: () =>
       import(/* webpackChunkName: "users-show" */ '@/pages/users/show.vue'),
-    props: route => ({ user: route.params.user }),
+    props: route => ({ userProp: route.params.userProp }),
     beforeEnter: async (to, from, next) => {
       let response = await apiUser.find(to.params.id)
-      to.params.user = response.data
+      to.params.userProp = Object.assign({}, response.data, {
+        _deleting: false
+      })
       next()
     }
   },
