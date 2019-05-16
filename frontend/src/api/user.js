@@ -57,9 +57,12 @@ export const attachRoles = (id, roles, options = {}) => {
     .catch(error => Promise.reject(error.response))
 }
 
-export const detachRoles = (id, { roles }, options = {}) => {
+export const detachRoles = (id, roles, options = {}) => {
   return apiClient
-    .put(`/api/users/${id}/roles`, roles, options)
+    .delete(
+      `/api/users/${id}/roles`,
+      Object.assign({ params: { roles } }, options)
+    )
     .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response))
 }

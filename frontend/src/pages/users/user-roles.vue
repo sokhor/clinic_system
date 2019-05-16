@@ -8,7 +8,7 @@
           size="sm"
           color="danger"
           title="Delete role"
-          :waiting="role._deleting"
+          :waiting="{ state: role._deleting, hideText: true }"
           @click="destroy(role)"
         >
           <i class="fas fa-trash" v-if="!role._deleting"></i>
@@ -25,7 +25,9 @@ export default {
   data() {
     return {
       columns: ['Name', { name: '', style: 'width: 1px;' }],
-      userRoles: this.roles
+      userRoles: this.roles.map(role =>
+        Object.assign({}, role, { _deleting: false })
+      )
     }
   },
   methods: {
@@ -36,16 +38,16 @@ export default {
 
       role._deleting = true
       try {
-        await this.$store.dispatch('users/detachRoles', {
-          userId: this.$route.params.id,
+        let response = await this.$store.dispatch('user/detachRoles', {
+          id: this.$route.params.id,
           roles: [role.name]
         })
+        this.$toasted.success(response.message)
         this.userRoles.splice(this.userRoles.indexOf(role), 1)
-        this.$toasted.success('Role detached successfully')
       } catch (error) {
         this.$toasted.error(error.message)
       }
-      role._deleting = false
+      // role._deleting = false
     }
   }
 }

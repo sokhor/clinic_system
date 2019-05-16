@@ -6,7 +6,7 @@ Route::get('authenticated', 'LoginController@authenticated')->middleware('auth')
 Route::group(['middleware' => 'auth'], function () {
     Route::put('users/{user}/password/reset', 'UserPasswordResetController@update');
     Route::post('users/{user}/roles', 'UserAttachRoleController');
-    Route::put('users/{user}/roles', 'UserDetachRoleController');
+    Route::delete('users/{user}/roles', 'UserDetachRoleController');
     Route::apiResource('users', 'UserController');
     Route::apiResource('roles', 'RoleController');
     Route::get('abilities', 'AbilitiesController@index');

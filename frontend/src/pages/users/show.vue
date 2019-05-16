@@ -104,9 +104,12 @@ export default {
 
       user._deleting = true
       try {
-        await this.$store.dispatch('users/deleteUser', user)
+        let response = await this.$store.dispatch('users/deleteUser', user)
+        this.$toasted.success(response.message)
         this.$router.push('/users')
-      } catch (e) {}
+      } catch (e) {
+        this.$toasted.error(error.message)
+      }
       user._deleting = false
     },
     attachRole(user) {
