@@ -150,8 +150,23 @@ export default {
 
       return chunk(date, 7)
     },
+    isPreviousMonth: vm => date => {
+      return (
+        date.format('MM') < moment(vm.currentDate).format('MM') ||
+        date.format('YYYY') < moment(vm.currentDate).format('YYYY')
+      )
+    },
     inCurrentMonth: vm => date => {
-      return date.format('MM') === moment(vm.currentDate).format('MM')
+      return (
+        date.format('MM') === moment(vm.currentDate).format('MM') &&
+        date.format('YYYY') === moment(vm.currentDate).format('YYYY')
+      )
+    },
+    isNextMonth: vm => date => {
+      return (
+        date.format('MM') > moment(vm.currentDate).format('MM') ||
+        date.format('YYYY') > moment(vm.currentDate).format('YYYY')
+      )
     },
     month() {
       return this.currentDate.format('MMMM')
