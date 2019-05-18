@@ -16,6 +16,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('appointments/patients', 'AppointmentController@patients');
     Route::apiResource('appointments', 'AppointmentController');
 
+    //Administration
+    Route::apiResource('companies', 'Administration\CompanyController');
+
     //Human resource
     Route::apiResource('employees', 'HumanResource\EmployeeController');
 
