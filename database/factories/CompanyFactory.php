@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Company::class, function (Faker $faker) {
     return [
-        'comany_name_kh' => null,
+        'company_name_kh' => null,
         'company_name_en' => $faker->company,
         'logo' => null,
         'type_of_business' => $faker->randomElement(['Health facility', 'Type 2', 'Type 3']),

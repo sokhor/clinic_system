@@ -8,6 +8,7 @@ import visit from './visit'
 import appointment from './appointment'
 import inventory from './inventory'
 import queue from './queue'
+import company from './administration/company'
 
 export default [
   {
@@ -32,7 +33,8 @@ export default [
   ...visit,
   ...appointment,
   ...inventory,
-  ...queue
+  ...queue,
+  ...company
 ]
 
 // function lazyLoadView(AsyncView) {

@@ -160,7 +160,7 @@ export default [
   },
   {
     name: 'Company',
-    url: '/company',
+    url: '/companies',
     icon: 'fas fa-building'
   },
   {

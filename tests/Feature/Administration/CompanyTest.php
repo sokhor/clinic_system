@@ -14,14 +14,65 @@ class CompanyTest extends TestCase
     /** @test */
     public function it_create_a_company()
     {
-        $this->withoutExceptionHandling();
+        $company = factory(Company::class)->make();
+
+        $response = $this->signIn()
+            ->allow('create', Company::class)
+            ->postJson('api/companies', $company->toArray())
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                'message',
+                'data' => [
+                    'id',
+                    'company_name_kh',
+                    'company_name_en',
+                    'logo',
+                    'type_of_business',
+                    'telephone',
+                    'mobilephone',
+                    'email',
+                    'website',
+                    'postcode',
+                    'building',
+                    'street',
+                    'village',
+                    'commune',
+                    'district',
+                    'province',
+                ],
+            ]);
+
+        $this->assertDatabaseHas('companies', $company->toArray());
+    }
+
+    /** @test */
+    public function validate_fields_for_creating_a_company()
+    {
+        $this->signIn()
+            ->allow('create', Company::class)
+            ->postJson('api/companies', [])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'company_name_en',
+                'telephone',
+                'building',
+                'street',
+                'village',
+                'commune',
+                'district',
+                'province',
+            ]);
+    }
+
+    /** @test */
+    public function it_not_allow_to_create_a_company()
+    {
         $company = factory(Company::class)->make();
 
         $this->signIn()
-            ->allow('create-companies')
             ->postJson('api/companies', $company->toArray())
-            ->assertStatus(201);
+            ->assertStatus(403);
 
-        $this->assertDatabaseHas('companies', $company->toArray());
+        $this->assertDatabaseMissing('companies', $company->toArray());
     }
 }

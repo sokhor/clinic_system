@@ -1,0 +1,253 @@
+<template>
+  <div class="w-full">
+    <div class="w-full flex flex-row items-end justify-between mb-6">
+      <base-title>
+        <router-link class="text-blue-500 hover:text-blue-400" to="/companies">
+          <i class="fas fa-arrow-left"></i>
+        </router-link>
+        / Create Company
+      </base-title>
+    </div>
+    <base-card>
+      <form>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
+            Name (KH)
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.company_name_kh" />
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Name (EN)
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.company_name_en" />
+            <base-validation-text v-if="errors.has('company_name_en')">
+              {{ errors.first('company_name_en') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
+            Type of Business
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.type_of_business" />
+          </div>
+        </div>
+        <div class="flex items-baseline p-4 required">
+          <base-label class="w-1/5">
+            Telephone
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.telephone" />
+            <base-validation-text v-if="errors.has('telephone')">
+              {{ errors.first('telephone') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
+            Mobile
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.mobilephone" />
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
+            Email
+          </base-label>
+          <div class="w-2/5">
+            <base-input type="email" v-model="form.email" />
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
+            Website
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.website" />
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5">
+            Postcode
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.postcode" />
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Building
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.building" />
+            <base-validation-text v-if="errors.has('building')">
+              {{ errors.first('building') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Street
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.street" />
+            <base-validation-text v-if="errors.has('street')">
+              {{ errors.first('street') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Village
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.village" />
+            <base-validation-text v-if="errors.has('village')">
+              {{ errors.first('village') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Commune
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.commune" />
+            <base-validation-text v-if="errors.has('commune')">
+              {{ errors.first('commune') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            District
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.district" />
+            <base-validation-text v-if="errors.has('district')">
+              {{ errors.first('district') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
+            Province
+          </base-label>
+          <div class="w-2/5">
+            <base-input v-model="form.province" />
+            <base-validation-text v-if="errors.has('province')">
+              {{ errors.first('province') }}
+            </base-validation-text>
+          </div>
+        </div>
+        <div class="flex items-center justify-end p-4">
+          <base-button
+            class="mr-1"
+            color="primary"
+            :waiting="saving"
+            @click="save"
+          >
+            Create
+          </base-button>
+          <base-button
+            outline
+            color="primary"
+            :waiting="savingAndNew"
+            @click="saveAndNew"
+          >
+            Create &amp; New
+          </base-button>
+        </div>
+      </form>
+    </base-card>
+  </div>
+</template>
+
+<script>
+import { Errors } from 'form-backend-validation'
+
+export default {
+  name: 'CompanyCreate',
+  data() {
+    const newForm = {
+      company_name_kh: null,
+      company_name_en: null,
+      logo: null,
+      type_of_business: null,
+      telephone: null,
+      mobilephone: null,
+      email: null,
+      website: null,
+      postcode: null,
+      building: null,
+      street: null,
+      village: null,
+      commune: null,
+      district: null,
+      province: null
+    }
+
+    return {
+      newForm,
+      form: Object.assign({}, newForm),
+      saving: false,
+      savingAndNew: false,
+      errors: new Errors()
+    }
+  },
+  methods: {
+    async save() {
+      this.errors.clear()
+
+      this.saving = true
+
+      try {
+        let response = await this.$store.dispatch(
+          'administration/company/createCompany',
+          this.form
+        )
+        this.$toasted.success(response.message)
+        this.$router.push('/companies')
+      } catch (error) {
+        if (error.errors !== undefined) {
+          this.errors = new Errors(error.errors)
+        }
+
+        this.$toasted.error(error.message)
+      }
+      this.saving = false
+    },
+    async saveAndNew() {
+      this.errors.clear()
+
+      this.savingAndNew = true
+
+      try {
+        let response = await this.$store.dispatch(
+          'administration/company/createCompany',
+          this.form
+        )
+        this.$toasted.success(response.message)
+        this.clearForm()
+      } catch (error) {
+        if (error.errors !== undefined) {
+          this.errors = new Errors(error.errors)
+        }
+
+        this.$toasted.error(error.message)
+      }
+      this.savingAndNew = false
+    },
+    clearForm() {
+      this.form = Object.assign({}, this.newForm)
+      this.errors.clear()
+    }
+  }
+}
+</script>

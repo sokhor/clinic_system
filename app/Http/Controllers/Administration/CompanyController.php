@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CompanyResource;
+use Domain\Administration\Actions\CompanyCreate;
 use Domain\Administration\Models\Company;
+use Domain\Administration\ValueObjects\CompanyData;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -26,9 +29,24 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $company = Company::create($request->all());
+        $this->authorize('create', Company::class);
 
-        return $company;
+        $request->validate([
+            'company_name_en' => 'required',
+            'telephone' => 'required',
+            'building' => 'required',
+            'street' => 'required',
+            'village' => 'required',
+            'commune' => 'required',
+            'district' => 'required',
+            'province' => 'required',
+        ], [
+            '*.required' => 'Required'
+        ]);
+
+        $company = (new CompanyCreate)->execute(CompanyData::fromRequest($request));
+
+        return (new CompanyResource($company))->additional(['message' => 'Company created']);
     }
 
     /**
