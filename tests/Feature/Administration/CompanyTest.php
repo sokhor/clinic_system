@@ -12,6 +12,50 @@ class CompanyTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_view_companies()
+    {
+        factory(Company::class, 2)->create();
+
+        $this->signIn()
+            ->allow('view', Company::class)
+            ->getJson('api/companies')
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'company_name_kh',
+                        'company_name_en',
+                        'logo',
+                        'type_of_business',
+                        'telephone',
+                        'mobilephone',
+                        'email',
+                        'website',
+                        'postcode',
+                        'building',
+                        'street',
+                        'village',
+                        'commune',
+                        'district',
+                        'province',
+                    ],
+                ],
+            ]);
+    }
+
+    /** @test */
+    public function it_not_allow_to_view_companies()
+    {
+        factory(Company::class, 2)->create();
+
+        $this->signIn()
+            ->getJson('api/companies')
+            ->assertStatus(403)
+            ->assertJsonMissing(['data']);
+    }
+
+    /** @test */
     public function it_create_a_company()
     {
         $company = factory(Company::class)->make();

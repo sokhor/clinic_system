@@ -14,11 +14,22 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $this->authorize('view', Company::class);
+
+        $companies = Company::when($request->search, function ($query) use ($request) {
+            $query->where(function ($query) use ($request) {
+                $query->orWhere('company_name_en', 'LIKE', '%' . $request->search . '%')
+                        ->orWhere('company_name_kh', 'LIKE', '%' . $request->search . '%');
+            });
+        })
+            ->paginate($request->perPage);
+
+        return CompanyResource::collection($companies);
     }
 
     /**
