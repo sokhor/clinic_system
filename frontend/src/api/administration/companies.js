@@ -35,4 +35,16 @@ export const destroy = (id, options = {}) => {
     .catch(error => Promise.reject(error.response))
 }
 
-export default { get, find, store, update, destroy }
+export const uploadLogo = logo => {
+  let formData = new FormData()
+  formData.append('logo', logo)
+
+  return apiClient
+    .post('/api/companies/logos', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+    .then(response => Promise.resolve(response.data))
+    .catch(error => Promise.reject(error.response))
+}
+
+export default { get, find, store, update, destroy, uploadLogo }

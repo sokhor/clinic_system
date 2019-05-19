@@ -2,9 +2,12 @@
 
 namespace Tests\Feature\Administration;
 
+use App\User;
 use Domain\Administration\Models\Company;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CompanyTest extends TestCase
@@ -238,5 +241,67 @@ class CompanyTest extends TestCase
             'id' => $company->id,
             'company_name_en' => 'Edit company name',
         ]);
+    }
+
+    /** @test */
+    public function it_upload_the_company_logo()
+    {
+        Storage::fake();
+
+        // When creating
+        $logo1 = UploadedFile::fake()->image('logo1.png');
+
+        $response = $this->signIn(factory(User::class)->create())
+            ->allow('create', Company::class)
+            ->json('POST', 'api/companies/logos', ['logo' => $logo1])
+            ->assertStatus(201);
+
+        Storage::disk()->assertExists('companies/' . $logo1->hashName());
+
+        $this->assertEquals([
+            'data' => 'companies/' . $logo1->hashName()
+        ], json_decode($response->getContent(), true));
+
+
+        // When editing
+        $logo2 = UploadedFile::fake()->image('logo2.png');
+
+        $response = $this->signIn(factory(User::class)->create())
+            ->allow('edit', Company::class)
+            ->json('POST', 'api/companies/logos', ['logo' => $logo2])
+            ->assertStatus(201);
+
+        Storage::disk()->assertExists('companies/' . $logo2->hashName());
+
+        $this->assertEquals([
+            'data' => 'companies/' . $logo2->hashName()
+        ], json_decode($response->getContent(), true));
+    }
+
+    /** @test */
+    public function company_logo_must_be_image()
+    {
+        Storage::fake();
+
+        $pdf = UploadedFile::fake()->create('file.pdf');
+
+        $this->signIn()
+            ->allow('create', Company::class)
+            ->json('POST', 'api/companies/logos', ['logo' => $pdf])
+            ->assertStatus(422);
+
+        Storage::disk()->assertMissing('companies/' . $pdf->hashName());
+    }
+
+    /** @test */
+    public function it_not_allow_to_upload_the_company_logo()
+    {
+        $logo = UploadedFile::fake()->image('logo.png');
+
+        $this->signIn()
+            ->json('POST', 'api/companies/logos', ['logo' => $logo])
+            ->assertStatus(403);
+
+        Storage::disk()->assertMissing('companies/' . $logo->hashName());
     }
 }

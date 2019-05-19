@@ -35,11 +35,19 @@ export const actions = {
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   },
-  editCompany(context, { id, ...data }) {
-    return companies
-      .update(id, data)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error.data))
+  async editCompany(context, { id, ...data }) {
+    try {
+      if (data.logo instanceof File) {
+        let uploadResponse = await companies.uploadLogo(data.logo)
+        data.logo = uploadResponse.data
+      }
+
+      let response = companies.update(id, data)
+
+      return Promise.resolve(response)
+    } catch (error) {
+      return Promise.reject(error.data)
+    }
   },
   deleteCompany(context, data) {
     return companies

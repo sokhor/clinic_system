@@ -36,6 +36,20 @@
             </base-validation-text>
           </div>
         </div>
+        <div class="flex items-start p-4">
+          <base-label class="w-1/5 required">
+            Logo
+          </base-label>
+          <div class="w-2/5">
+            <base-image-input
+              class="logo-input"
+              :file="companyPhoto"
+              width="100"
+              height="100"
+              @input="image => (form.logo = image)"
+            ></base-image-input>
+          </div>
+        </div>
         <div class="flex items-baseline p-4">
           <base-label class="w-1/5">
             Type of Business
@@ -203,6 +217,15 @@ export default {
       errors: new Errors()
     }
   },
+  computed: {
+    companyPhoto() {
+      if (this.form.logo === null) {
+        return null
+      }
+
+      return `/api/companies/${this.companyProp.id}/logo`
+    }
+  },
   created() {
     for (let key in this.form) {
       this.form[key] = this.companyProp[key]
@@ -225,6 +248,7 @@ export default {
         this.$toasted.success(response.message)
         this.$router.push('/companies')
       } catch (error) {
+        console.log(error)
         if (error.errors !== undefined) {
           this.errors = new Errors(error.errors)
         }

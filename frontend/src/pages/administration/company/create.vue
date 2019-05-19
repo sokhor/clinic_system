@@ -29,6 +29,20 @@
             </base-validation-text>
           </div>
         </div>
+        <div class="flex items-start p-4">
+          <base-label class="w-1/5 required">
+            Logo
+          </base-label>
+          <div class="w-2/5">
+            <base-image-input
+              class="logo-input"
+              :file="companyPhoto"
+              width="100"
+              height="100"
+              @input="image => (form.logo = image)"
+            ></base-image-input>
+          </div>
+        </div>
         <div class="flex items-baseline p-4">
           <base-label class="w-1/5">
             Type of Business
@@ -37,8 +51,8 @@
             <base-input v-model="form.type_of_business" />
           </div>
         </div>
-        <div class="flex items-baseline p-4 required">
-          <base-label class="w-1/5">
+        <div class="flex items-baseline p-4">
+          <base-label class="w-1/5 required">
             Telephone
           </base-label>
           <div class="w-2/5">
@@ -148,20 +162,16 @@
         </div>
         <div class="flex items-center justify-end p-4">
           <base-button
-            class="mr-1"
-            color="primary"
-            :waiting="saving"
-            @click="save"
-          >
-            Create
-          </base-button>
-          <base-button
+            class="mr-2"
             outline
             color="primary"
             :waiting="savingAndNew"
             @click="saveAndNew"
           >
             Create &amp; New
+          </base-button>
+          <base-button color="primary" :waiting="saving" @click="save">
+            Create
           </base-button>
         </div>
       </form>
@@ -199,6 +209,14 @@ export default {
       saving: false,
       savingAndNew: false,
       errors: new Errors()
+    }
+  },
+  computed: {
+    companyPhoto() {
+      // if (this.model.photo === null) {
+      //   return null
+      // }
+      // return `/employee/photo/${this.model.staff_id}`
     }
   },
   methods: {
@@ -251,3 +269,8 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.logo-input
+  justify-content: start
+</style>

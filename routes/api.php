@@ -17,6 +17,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::apiResource('appointments', 'AppointmentController');
 
     //Administration
+    Route::post('companies/logos', 'Administration\CompanyLogoUploadController');
+    Route::get('companies/{id}/logo', 'Administration\CompanyLogoController@show');
     Route::apiResource('companies', 'Administration\CompanyController');
 
     //Human resource
