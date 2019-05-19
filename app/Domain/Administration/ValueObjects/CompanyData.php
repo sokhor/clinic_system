@@ -60,6 +60,22 @@ class CompanyData extends DataTransferObject
      */
     public static function fromRequest(Request $request): self
     {
-        return new self($request->all());
+        return new self($request->only([
+            'company_name_kh',
+            'company_name_en',
+            'logo',
+            'type_of_business',
+            'telephone',
+            'mobilephone',
+            'email',
+            'website',
+            'postcode',
+            'building',
+            'street',
+            'village',
+            'commune',
+            'district',
+            'province',
+        ]));
     }
 }

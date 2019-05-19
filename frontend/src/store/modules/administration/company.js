@@ -35,4 +35,19 @@ export const actions = {
       .then(response => Promise.resolve(response))
       .catch(error => Promise.reject(error.data))
   },
+  editCompany(context, { id, ...data }) {
+    return companies
+      .update(id, data)
+      .then(response => Promise.resolve(response))
+      .catch(error => Promise.reject(error.data))
+  },
+  deleteCompany(context, data) {
+    return companies
+      .destroy(data.id)
+      .then(response => {
+        context.commit('DELETE_RESOURCE', data)
+        return Promise.resolve(response)
+      })
+      .catch(error => Promise.reject(error.data))
+  }
 }
