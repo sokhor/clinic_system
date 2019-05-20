@@ -23,35 +23,35 @@
   // Positioning
 
   &.top-right {
-    top: 10%;
-    right: 7%;
+    top: 0%;
+    right: 0%;
   }
 
   &.top-left {
-    top: 10%;
-    left: 7%;
+    top: 0%;
+    left: 0%;
   }
 
   &.top-center {
-    top: 10%;
+    top: 0%;
     left: 50%;
     transform: translateX(-50%);
   }
 
   &.bottom-right {
-    right: 5%;
-    bottom: 7%;
+    right: 0%;
+    bottom: 0%;
   }
 
   &.bottom-left {
-    left: 5%;
-    bottom: 7%;
+    left: 0%;
+    bottom: 0%;
   }
 
   &.bottom-center {
     left: 50%;
     transform: translateX(-50%);
-    bottom: 7%;
+    bottom: 0%;
   }
 
   // fix positioning floating
@@ -65,10 +65,10 @@
 
   // toast element styling
   .toasted {
-    top: 35px;
+    // top: 35px;
     width: auto;
     clear: both;
-    margin-top: 10px;
+    margin: 5px;
     position: relative;
     max-width: 100%;
     height: auto;

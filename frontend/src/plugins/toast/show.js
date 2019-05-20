@@ -378,7 +378,7 @@ export default function(instance, message, options) {
   newToast.style.opacity = 0
 
   // Animate toast in
-  animations.animateIn(newToast)
+  animations.animateIn(newToast, options)
 
   // Allows timer to be pause while being panned
   let timeLeft = options.duration

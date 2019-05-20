@@ -102,10 +102,13 @@ export const Toasted = function(_options) {
    * @returns {*}
    */
   this.success = (message, options) => {
-    options = options || {
-      iconPack: 'fontawesome',
-      icon: 'fas fa-check-circle'
-    }
+    options = Object.assign(
+      {
+        iconPack: 'fontawesome',
+        icon: 'fas fa-check-circle'
+      },
+      options
+    )
     options.type = 'success'
     return _show(this, message, options)
   }
@@ -118,7 +121,10 @@ export const Toasted = function(_options) {
    * @returns {*}
    */
   this.info = (message, options) => {
-    options = options || { iconPack: 'fontawesome', icon: 'fas fa-info-circle' }
+    options = Object.assign(
+      { iconPack: 'fontawesome', icon: 'fas fa-info-circle' },
+      options
+    )
     options.type = 'info'
     return _show(this, message, options)
   }
@@ -131,10 +137,13 @@ export const Toasted = function(_options) {
    * @returns {*}
    */
   this.error = (message, options) => {
-    options = options || {
-      iconPack: 'fontawesome',
-      icon: 'fas fa-exclamation-triangle'
-    }
+    options = Object.assign(
+      {
+        iconPack: 'fontawesome',
+        icon: 'fas fa-exclamation-triangle'
+      },
+      options
+    )
     options.type = 'error'
     return _show(this, message, options)
   }

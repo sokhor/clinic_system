@@ -3,20 +3,37 @@ import anime from 'animejs'
 let duration = 300
 
 export default {
-  animateIn: el => {
+  animateIn: (el, options) => {
+    let translateX = '0px'
+    let translateY = '0px'
+
+    if (options.position === 'top-left') {
+      translateX = '10px'
+    } else if (options.position === 'top-center') {
+      translateY = '10px'
+    } else if (options.position === 'top-right') {
+      translateX = '-10px'
+    } else if (options.position === 'bottom-left') {
+      translateX = '10px'
+    } else if (options.position === 'bottom-center') {
+      translateY = '-10px'
+    } else if (options.position === 'bottom-right') {
+      translateX = '-10px'
+    }
+
     anime({
       targets: el,
-      translateY: '-35px',
       opacity: 1,
       duration: duration,
-      easing: 'easeOutCubic'
+      easing: 'easeOutCubic',
+      translateX,
+      translateY
     })
   },
   animateOut: (el, onComplete) => {
     anime({
       targets: el,
       opacity: 0,
-      marginTop: '-40px',
       duration: duration,
       easing: 'easeOutExpo',
       complete: onComplete
