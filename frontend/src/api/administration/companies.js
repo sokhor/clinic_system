@@ -47,11 +47,7 @@ export const uploadLogo = logo => {
     .catch(error => Promise.reject(error.response))
 }
 
-<<<<<<< HEAD
 export const downloadLogo = companyId => {
-=======
-export const downloadLogo = (companyId) => {
->>>>>>> cd9b25e499bce9332deb64599d7a1098f29665f1
   return apiClient
     .get(`/api/companies/${companyId}/logo`, {
       responseType: 'blob'
