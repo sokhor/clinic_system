@@ -21,7 +21,7 @@ class ImageResponse implements Responsable
         $extension = last(explode('.', $fileName));
 
         return response(Storage::get($this->filePath))
-                ->header('Content-Type', "image/$extension")
-                ->header('Content-Disposition', "inline; filename=\"$fileName\"");
+            ->header('Content-Type', "image/$extension")
+            ->header('Content-Disposition', "inline; filename=\"$fileName\"");
     }
 }

@@ -47,4 +47,15 @@ export const uploadLogo = logo => {
     .catch(error => Promise.reject(error.response))
 }
 
-export default { get, find, store, update, destroy, uploadLogo }
+export const downloadLogo = (companyId) => {
+  return apiClient
+    .get(`/api/companies/${companyId}/logo`, {
+      responseType: 'blob'
+    })
+    .then(response => {
+      return Promise.resolve(URL.createObjectURL(response.data))
+    })
+    .catch(error => Promise.reject(error.response))
+}
+
+export default { get, find, store, update, destroy, uploadLogo, downloadLogo }

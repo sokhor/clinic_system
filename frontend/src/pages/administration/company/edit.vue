@@ -184,6 +184,7 @@
 
 <script>
 import { Errors } from 'form-backend-validation'
+import { downloadLogo } from '@/api/administration/companies'
 
 export default {
   name: 'UserEdit',
@@ -214,22 +215,18 @@ export default {
       },
       saving: false,
       deleting: false,
-      errors: new Errors()
-    }
-  },
-  computed: {
-    companyPhoto() {
-      if (this.form.logo === null) {
-        return null
-      }
-
-      return `/api/companies/${this.companyProp.id}/logo`
+      errors: new Errors(),
+      companyPhoto: null
     }
   },
   created() {
     for (let key in this.form) {
       this.form[key] = this.companyProp[key]
     }
+
+    downloadLogo(this.companyProp.id).then(imageUrl => {
+      this.companyPhoto = imageUrl
+    })
   },
   methods: {
     async save() {
