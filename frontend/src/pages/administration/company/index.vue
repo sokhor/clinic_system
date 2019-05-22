@@ -3,7 +3,7 @@
     <div class="w-full flex flex-row items-end justify-between mb-6">
       <base-title>Companies</base-title>
       <base-button color="primary" @click="$router.push('/companies/create')">
-        New Company
+        New
       </base-button>
     </div>
     <base-card>
@@ -20,23 +20,16 @@
           <td>{{ company.website }}</td>
           <td class="flex">
             <base-button
-              flat
-              color="primary"
-              title="Show company"
-              @click="show(company)"
-            >
-              <i class="fas fa-eye"></i>
-            </base-button>
-            <base-button
-              flat
+              icon
               color="primary"
               title="Edit company"
+              class="mr-4"
               @click="edit(company)"
             >
               <i class="fas fa-edit"></i>
             </base-button>
             <base-button
-              flat
+              icon
               color="danger"
               title="Delete company"
               @click="destroy(company)"

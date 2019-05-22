@@ -33,20 +33,5 @@ export default [
       to.params.companyProp = response.data
       next()
     }
-  },
-  {
-    path: '/companies/:id',
-    name: 'companies-show',
-    meta: {
-      authRequired: true
-    },
-    component: () =>
-      import(/* webpackChunkName: "companies-show" */ '@/pages/administration/company/show.vue'),
-    props: route => ({ companyProp: route.params.companyProp }),
-    beforeEnter: async (to, from, next) => {
-      let response = await companies.find(to.params.id)
-      to.params.companyProp = response.data
-      next()
-    }
   }
 ]
