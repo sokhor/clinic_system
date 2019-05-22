@@ -19,7 +19,7 @@
       <form>
         <div class="flex">
           <div class="w-1/2">
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8">
                 Name (KH)
               </base-label>
@@ -27,7 +27,7 @@
                 <base-input v-model="form.company_name_kh" />
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Name (EN)
               </base-label>
@@ -38,7 +38,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8">
                 Type of Business
               </base-label>
@@ -60,13 +60,13 @@
           </div>
         </div>
         <h3
-          class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
+          class="text-gray-500 font-semibold mt-8 mb-5 border-b border-gray-200 text-xs uppercase"
         >
           Contact
         </h3>
         <div class="flex">
           <div class="w-1/2">
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Telephone
               </base-label>
@@ -77,7 +77,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8">
                 Mobile
               </base-label>
@@ -85,7 +85,7 @@
                 <base-input v-model="form.mobilephone" />
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8">
                 Email
               </base-label>
@@ -95,7 +95,7 @@
             </div>
           </div>
           <div class="w-1/2">
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8">
                 Website
               </base-label>
@@ -106,13 +106,13 @@
           </div>
         </div>
         <h3
-          class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
+          class="text-gray-500 font-semibold mt-8 mb-5 border-b border-gray-200 text-xs uppercase"
         >
           Address
         </h3>
         <div class="flex">
           <div class="w-1/2">
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Province
               </base-label>
@@ -123,7 +123,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 District
               </base-label>
@@ -134,7 +134,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Commune
               </base-label>
@@ -145,7 +145,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Village
               </base-label>
@@ -158,7 +158,7 @@
             </div>
           </div>
           <div class="w-1/2">
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Building
               </base-label>
@@ -169,7 +169,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8 required">
                 Street
               </base-label>
@@ -180,7 +180,7 @@
                 </base-validation-text>
               </div>
             </div>
-            <div class="flex items-baseline p-4">
+            <div class="flex items-baseline mb-5">
               <base-label class="w-2/5 text-right pr-8">
                 Postcode
               </base-label>
