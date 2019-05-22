@@ -3,6 +3,11 @@ Route::post('login', 'LoginController@login');
 Route::post('logout', 'LoginController@logout')->middleware('auth');
 Route::get('authenticated', 'LoginController@authenticated')->middleware('auth');
 
+Route::get('provinces', 'ProvinceController');
+Route::get('districts', 'DistrictController');
+Route::get('communes', 'CommuneController');
+Route::get('villages', 'VillageController');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::put('users/{user}/password/reset', 'UserPasswordResetController@update');
     Route::post('users/{user}/roles', 'UserAttachRoleController');
