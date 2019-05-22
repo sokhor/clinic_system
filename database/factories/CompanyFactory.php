@@ -16,9 +16,9 @@ $factory->define(Company::class, function (Faker $faker) {
         'postcode' => $faker->postcode,
         'building' => $faker->buildingNumber,
         'street' => $faker->streetName,
-        'village' => $faker->randomElement(['Phuom 1', 'Phuom 2', 'Phuom 3']),
-        'commune' => $faker->randomElement(['Commune 1', 'Commune 2', 'Commune 3']),
-        'district' => $faker->randomElement(['District 1', 'District 2', 'District 3']),
-        'province' => $faker->city,
+        'village' => $faker->randomElement([1, 2, 3]),
+        'commune' => $faker->randomElement([1, 2, 3]),
+        'district' => $faker->randomElement([1, 2, 3]),
+        'province' => $faker->randomElement(['PNP', 'BAT', 'SPE']),
     ];
 });

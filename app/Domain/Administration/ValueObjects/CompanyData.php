@@ -40,13 +40,13 @@ class CompanyData extends DataTransferObject
     /** @var string */
     public $street;
 
-    /** @var string */
+    /** @var int */
     public $village;
 
-    /** @var string */
+    /** @var int */
     public $commune;
 
-    /** @var string */
+    /** @var int */
     public $district;
 
     /** @var string */

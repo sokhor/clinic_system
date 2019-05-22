@@ -26,10 +26,10 @@ class CreateCompaniesTable extends Migration
             $table->string('postcode')->nullable();
             $table->string('building');
             $table->string('street');
-            $table->string('village');
-            $table->string('commune');
-            $table->string('district');
-            $table->string('province');
+            $table->integer('village');
+            $table->integer('commune');
+            $table->integer('district');
+            $table->char('province', 3);
             $table->timestamps();
             $table->softDeletes();
         });

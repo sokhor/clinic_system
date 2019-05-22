@@ -29,11 +29,19 @@ export const actions = {
       })
       .catch(error => Promise.reject(error.data))
   },
-  createCompany(context, data) {
-    return companies
-      .store(data)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error.data))
+  async createCompany(context, data) {
+    try {
+      if (data.logo instanceof File) {
+        let uploadResponse = await companies.uploadLogo(data.logo)
+        data.logo = uploadResponse.data
+      }
+
+      let response = companies.store(data)
+
+      return Promise.resolve(response)
+    } catch (error) {
+      return Promise.reject(error.data)
+    }
   },
   async editCompany(context, { id, ...data }) {
     try {

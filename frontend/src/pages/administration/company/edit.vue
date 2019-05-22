@@ -117,7 +117,7 @@
                 Province
               </base-label>
               <div class="w-3/5">
-                <base-input v-model="form.province" />
+                <base-select v-model="form.province" :options="provinces" />
                 <base-validation-text v-if="errors.has('province')">
                   {{ errors.first('province') }}
                 </base-validation-text>
@@ -128,7 +128,7 @@
                 District
               </base-label>
               <div class="w-3/5">
-                <base-input v-model="form.district" />
+                <base-select v-model="form.district" :options="districts" />
                 <base-validation-text v-if="errors.has('district')">
                   {{ errors.first('district') }}
                 </base-validation-text>
@@ -139,7 +139,7 @@
                 Commune
               </base-label>
               <div class="w-3/5">
-                <base-input v-model="form.commune" />
+                <base-select v-model="form.commune" :options="communes" />
                 <base-validation-text v-if="errors.has('commune')">
                   {{ errors.first('commune') }}
                 </base-validation-text>
@@ -150,7 +150,7 @@
                 Village
               </base-label>
               <div class="w-3/5">
-                <base-input v-model="form.village" />
+                <base-select v-model="form.village" :options="villages" />
                 <base-validation-text v-if="errors.has('village')">
                   {{ errors.first('village') }}
                 </base-validation-text>
@@ -240,6 +240,46 @@ export default {
       deleting: false,
       errors: new Errors(),
       companyPhoto: null
+    }
+  },
+  computed: {
+    provinces() {
+      return this.$store.state.provinces.map(province => {
+        return {
+          value: province.province_code,
+          text: province.province_en
+        }
+      })
+    },
+    districts() {
+      return this.$store.getters
+        .districtsByProvince(this.form.province)
+        .map(district => {
+          return {
+            value: district.id,
+            text: district.district_en
+          }
+        })
+    },
+    communes() {
+      return this.$store.getters
+        .communesByDistict(parseInt(this.form.district))
+        .map(commune => {
+          return {
+            value: commune.id,
+            text: commune.commune_en
+          }
+        })
+    },
+    villages() {
+      return this.$store.getters
+        .villagesByCommune(parseInt(this.form.commune))
+        .map(village => {
+          return {
+            value: village.id,
+            text: village.village_en
+          }
+        })
     }
   },
   created() {
