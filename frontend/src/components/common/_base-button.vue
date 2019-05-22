@@ -1,8 +1,18 @@
 <script>
-const classColor = ({ color, flat, outline }) => {
+const classColor = ({ color, flat, outline, icon }) => {
   let colorStyle = {}
 
-  if (flat) {
+  if (icon) {
+    colorStyle = Object.assign({}, colorStyle, {
+      'btn-icon-default': color === undefined,
+      'btn-icon-primary': color === 'primary',
+      'btn-icon-accent': color === 'accent',
+      'btn-icon-success': color === 'success',
+      'btn-icon-danger': color === 'danger',
+      'btn-icon-warning': color === 'warning',
+      'btn-icon-info': color === 'info'
+    })
+  } else if (flat) {
     colorStyle = Object.assign({}, colorStyle, {
       'btn-flat-default': color === undefined,
       'btn-flat-primary': color === 'primary',
@@ -37,7 +47,11 @@ const classColor = ({ color, flat, outline }) => {
   return colorStyle
 }
 
-const classSize = ({ size }) => {
+const classSize = ({ size, icon }) => {
+  if (icon) {
+    return
+  }
+
   if (size === 'sm') {
     return 'btn-sm'
   } else if (size === 'md') {
@@ -69,6 +83,10 @@ export default {
       default: false
     },
     outline: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
       type: Boolean,
       default: false
     },
