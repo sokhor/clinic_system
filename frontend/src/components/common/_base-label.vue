@@ -1,3 +1,4 @@
+<script>
 export default {
   name: 'BaseLabel',
   functional: true,
@@ -5,10 +6,8 @@ export default {
     return (
       <label
         {...{
-          class: [
-            'block text-gray-600 text-base font-semibold',
-            context.data.staticClass
-          ]
+          class: ['form-label', context.data.staticClass],
+          attrs: context.data.attrs
         }}
       >
         {context.children}
@@ -16,3 +15,4 @@ export default {
     )
   }
 }
+</script>
