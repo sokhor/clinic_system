@@ -8,156 +8,179 @@
         / Create Company
       </base-title>
     </div>
-    <base-card>
+    <base-card class="p-4">
       <form>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5">
-            Name (KH)
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.company_name_kh" />
+        <div class="flex">
+          <div class="w-1/2">
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8">
+                Name (KH)
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.company_name_kh" />
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Name (EN)
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.company_name_en" />
+                <base-validation-text v-if="errors.has('company_name_en')">
+                  {{ errors.first('company_name_en') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8">
+                Type of Business
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.type_of_business" />
+              </div>
+            </div>
+          </div>
+          <div class="w-1/2">
+            <div class="flex justify-center p-4">
+              <base-image-input
+                class="logo-input"
+                :file="companyPhoto"
+                width="100"
+                height="100"
+                @input="image => (form.logo = image)"
+              ></base-image-input>
+            </div>
           </div>
         </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Name (EN)
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.company_name_en" />
-            <base-validation-text v-if="errors.has('company_name_en')">
-              {{ errors.first('company_name_en') }}
-            </base-validation-text>
+        <h3
+          class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
+        >
+          Contact
+        </h3>
+        <div class="flex">
+          <div class="w-1/2">
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Telephone
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.telephone" />
+                <base-validation-text v-if="errors.has('telephone')">
+                  {{ errors.first('telephone') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8">
+                Mobile
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.mobilephone" />
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8">
+                Email
+              </base-label>
+              <div class="w-3/5">
+                <base-input type="email" v-model="form.email" />
+              </div>
+            </div>
+          </div>
+          <div class="w-1/2">
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8">
+                Website
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.website" />
+              </div>
+            </div>
           </div>
         </div>
-        <div class="flex items-start p-4">
-          <base-label class="w-1/5 required">
-            Logo
-          </base-label>
-          <div class="w-2/5">
-            <base-image-input
-              class="logo-input"
-              :file="companyPhoto"
-              width="100"
-              height="100"
-              @input="image => (form.logo = image)"
-            ></base-image-input>
+        <h3
+          class="text-gray-500 font-semibold py-2 mb-2 border-b border-gray-200 text-xs uppercase"
+        >
+          Address
+        </h3>
+        <div class="flex">
+          <div class="w-1/2">
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Province
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.province" />
+                <base-validation-text v-if="errors.has('province')">
+                  {{ errors.first('province') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                District
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.district" />
+                <base-validation-text v-if="errors.has('district')">
+                  {{ errors.first('district') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Commune
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.commune" />
+                <base-validation-text v-if="errors.has('commune')">
+                  {{ errors.first('commune') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Village
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.village" />
+                <base-validation-text v-if="errors.has('village')">
+                  {{ errors.first('village') }}
+                </base-validation-text>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5">
-            Type of Business
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.type_of_business" />
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Telephone
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.telephone" />
-            <base-validation-text v-if="errors.has('telephone')">
-              {{ errors.first('telephone') }}
-            </base-validation-text>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5">
-            Mobile
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.mobilephone" />
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5">
-            Email
-          </base-label>
-          <div class="w-2/5">
-            <base-input type="email" v-model="form.email" />
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5">
-            Website
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.website" />
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5">
-            Postcode
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.postcode" />
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Building
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.building" />
-            <base-validation-text v-if="errors.has('building')">
-              {{ errors.first('building') }}
-            </base-validation-text>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Street
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.street" />
-            <base-validation-text v-if="errors.has('street')">
-              {{ errors.first('street') }}
-            </base-validation-text>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Village
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.village" />
-            <base-validation-text v-if="errors.has('village')">
-              {{ errors.first('village') }}
-            </base-validation-text>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Commune
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.commune" />
-            <base-validation-text v-if="errors.has('commune')">
-              {{ errors.first('commune') }}
-            </base-validation-text>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            District
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.district" />
-            <base-validation-text v-if="errors.has('district')">
-              {{ errors.first('district') }}
-            </base-validation-text>
-          </div>
-        </div>
-        <div class="flex items-baseline p-4">
-          <base-label class="w-1/5 required">
-            Province
-          </base-label>
-          <div class="w-2/5">
-            <base-input v-model="form.province" />
-            <base-validation-text v-if="errors.has('province')">
-              {{ errors.first('province') }}
-            </base-validation-text>
+          <div class="w-1/2">
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Building
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.building" />
+                <base-validation-text v-if="errors.has('building')">
+                  {{ errors.first('building') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8 required">
+                Street
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.street" />
+                <base-validation-text v-if="errors.has('street')">
+                  {{ errors.first('street') }}
+                </base-validation-text>
+              </div>
+            </div>
+            <div class="flex items-baseline p-4">
+              <base-label class="w-2/5 text-right pr-8">
+                Postcode
+              </base-label>
+              <div class="w-3/5">
+                <base-input v-model="form.postcode" />
+              </div>
+            </div>
           </div>
         </div>
         <div class="flex items-center justify-end p-4">
