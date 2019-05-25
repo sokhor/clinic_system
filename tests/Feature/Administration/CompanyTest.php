@@ -35,13 +35,12 @@ class CompanyTest extends TestCase
                         'mobilephone',
                         'email',
                         'website',
-                        'postcode',
-                        'building',
                         'street',
                         'village',
                         'commune',
                         'district',
                         'province',
+                        'postcode',
                     ],
                 ],
             ]);
@@ -78,13 +77,12 @@ class CompanyTest extends TestCase
                     'mobilephone',
                     'email',
                     'website',
-                    'postcode',
-                    'building',
                     'street',
                     'village',
                     'commune',
                     'district',
                     'province',
+                    'postcode',
                 ],
             ]);
     }
@@ -122,13 +120,12 @@ class CompanyTest extends TestCase
                     'mobilephone',
                     'email',
                     'website',
-                    'postcode',
-                    'building',
                     'street',
                     'village',
                     'commune',
                     'district',
                     'province',
+                    'postcode',
                 ],
             ]);
 
@@ -145,7 +142,6 @@ class CompanyTest extends TestCase
             ->assertJsonValidationErrors([
                 'company_name_en',
                 'telephone',
-                'building',
                 'street',
                 'village',
                 'commune',
@@ -189,13 +185,12 @@ class CompanyTest extends TestCase
                     'mobilephone',
                     'email',
                     'website',
-                    'postcode',
-                    'building',
                     'street',
                     'village',
                     'commune',
                     'district',
                     'province',
+                    'postcode',
                 ],
             ]);
 
@@ -217,7 +212,6 @@ class CompanyTest extends TestCase
             ->assertJsonValidationErrors([
                 'company_name_en',
                 'telephone',
-                'building',
                 'street',
                 'village',
                 'commune',

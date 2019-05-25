@@ -25,7 +25,7 @@ class CompanyController extends Controller
         $companies = Company::when($request->search, function ($query) use ($request) {
             $query->where(function ($query) use ($request) {
                 $query->orWhere('company_name_en', 'LIKE', '%' . $request->search . '%')
-                        ->orWhere('company_name_kh', 'LIKE', '%' . $request->search . '%');
+                    ->orWhere('company_name_kh', 'LIKE', '%' . $request->search . '%');
             });
         })
             ->paginate($request->perPage);
@@ -46,7 +46,6 @@ class CompanyController extends Controller
         $request->validate([
             'company_name_en' => 'required',
             'telephone' => 'required',
-            'building' => 'required',
             'street' => 'required',
             'village' => 'required',
             'commune' => 'required',
@@ -88,7 +87,6 @@ class CompanyController extends Controller
         $request->validate([
             'company_name_en' => 'required',
             'telephone' => 'required',
-            'building' => 'required',
             'street' => 'required',
             'village' => 'required',
             'commune' => 'required',

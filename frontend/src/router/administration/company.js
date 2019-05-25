@@ -9,7 +9,11 @@ export default [
       authRequired: true
     },
     component: () =>
-      import(/* webpackChunkName: "companies" */ '@/pages/administration/company')
+      import(/* webpackChunkName: "companies" */ '@/pages/administration/company'),
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch('fetchLocations')
+      next()
+    }
   },
   {
     path: '/companies/create',

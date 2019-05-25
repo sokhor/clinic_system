@@ -13,12 +13,11 @@ $factory->define(Company::class, function (Faker $faker) {
         'mobilephone' => $faker->phoneNumber,
         'email' => $faker->companyEmail,
         'website' => $faker->url,
-        'postcode' => $faker->postcode,
-        'building' => $faker->buildingNumber,
         'street' => $faker->streetName,
         'village' => $faker->randomElement([1, 2, 3]),
         'commune' => $faker->randomElement([1, 2, 3]),
         'district' => $faker->randomElement([1, 2, 3]),
         'province' => $faker->randomElement(['PNP', 'BAT', 'SPE']),
+        'postcode' => $faker->postcode,
     ];
 });

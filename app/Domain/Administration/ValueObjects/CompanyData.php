@@ -31,12 +31,6 @@ class CompanyData extends DataTransferObject
     /** @var string|null */
     public $website;
 
-    /** @var string|null */
-    public $postcode;
-
-    /** @var string */
-    public $building;
-
     /** @var string */
     public $street;
 
@@ -51,6 +45,9 @@ class CompanyData extends DataTransferObject
 
     /** @var string */
     public $province;
+
+    /** @var string|null */
+    public $postcode;
 
     /**
      * Get data from request.
@@ -69,13 +66,12 @@ class CompanyData extends DataTransferObject
             'mobilephone',
             'email',
             'website',
-            'postcode',
-            'building',
             'street',
             'village',
             'commune',
             'district',
             'province',
+            'postcode',
         ]));
     }
 }

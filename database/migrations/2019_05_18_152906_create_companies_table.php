@@ -23,13 +23,12 @@ class CreateCompaniesTable extends Migration
             $table->string('mobilephone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
-            $table->string('postcode')->nullable();
-            $table->string('building');
             $table->string('street');
             $table->integer('village');
             $table->integer('commune');
             $table->integer('district');
             $table->char('province', 3);
+            $table->string('postcode')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
