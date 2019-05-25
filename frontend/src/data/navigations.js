@@ -107,20 +107,9 @@ export default [
     }
   },
   {
-    name: 'Authorization',
-    icon: 'fas fa-user',
-    children: [
-      {
-        name: 'Roles',
-        url: '/roles',
-        icon: 'fas fa-caret-right'
-      },
-      {
-        name: 'Users',
-        url: '/users',
-        icon: 'fas fa-caret-right'
-      }
-    ]
+    name: 'My Company',
+    url: '/companies',
+    icon: 'fas fa-building'
   },
   {
     name: 'Accomodation',
@@ -159,11 +148,6 @@ export default [
     ]
   },
   {
-    name: 'Company',
-    url: '/companies',
-    icon: 'fas fa-building'
-  },
-  {
     name: 'Queue Setup',
     url: '/queue-setup',
     icon: 'far fa-list-alt'
@@ -182,5 +166,24 @@ export default [
     name: 'Partner',
     url: '/partners',
     icon: 'fas fa-handshake'
+  },
+  {
+    name: 'User Management',
+    title: true,
+    class: '',
+    wrapper: {
+      element: '',
+      attributes: {}
+    }
+  },
+  {
+    name: 'Roles',
+    url: '/roles',
+    icon: 'fas fa-user-shield'
+  },
+  {
+    name: 'Users',
+    url: '/users',
+    icon: 'fas fa-user'
   }
 ]
