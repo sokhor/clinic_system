@@ -1,0 +1,47 @@
+.search-select
+  @apply relative
+
+.search-select-input
+  @apply .flex .items-center .border .rounded .appearance-none .text-left .cursor-pointer .select-none .w-full .py-2 .px-3 .bg-white .whitespace-no-wrap
+
+  &:focus
+    @apply .outline-none .shadow-outline
+
+
+.search-select-placeholder,
+.search-select-text
+  @apply .flex-1
+
+.search-select__arrow
+  transition: all 200ms ease-in-out
+
+  &::before
+    display: block
+    border-style: solid
+    border-width: 5px 5px 0
+    border-color: #999 transparent transparent
+    content: ''
+
+  &__open
+    transform: rotate(180deg)
+
+.search-select-dropdown
+	@apply .mt-1 .mb-1 .absolute .right-0 .left-0 .bg-white .p-2 .rounded .shadow .z-50 .border
+
+.search-select-search
+	@apply .block .mb-2 .w-full .py-2 .px-3 .border .rounded .bg-gray-100
+
+.search-select-options
+	@apply .list-none .p-0 .relative .overflow-y-auto
+	max-height: 14rem
+
+	.search-select-option
+		@apply .py-2 .px-3 .cursor-pointer .select-none
+
+		&:hover
+			@apply .bg-blue-500 .text-white
+
+		&.is-active,
+		&.is-active:hover
+			@apply .bg-blue-500 .text-white
+
