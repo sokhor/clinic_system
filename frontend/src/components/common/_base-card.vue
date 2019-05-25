@@ -1,3 +1,4 @@
+<script>
 export default {
   name: 'BaseCard',
   functional: true,
@@ -5,10 +6,7 @@ export default {
     return (
       <div
         {...{
-          class: [
-            'bg-white shadow-md rounded overflow-hidden',
-            context.data.staticClass
-          ]
+          class: ['card', context.data.staticClass]
         }}
       >
         {context.children}
@@ -16,3 +14,4 @@ export default {
     )
   }
 }
+</script>
