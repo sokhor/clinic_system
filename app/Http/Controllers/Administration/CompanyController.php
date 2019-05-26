@@ -98,11 +98,15 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Domain\Administration\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Company $company)
     {
-        //
+        $this->authorize('delete', $company);
+
+        $company->delete();
+
+        return response()->json(['message' => 'Company deleted']);
     }
 }

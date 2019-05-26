@@ -284,4 +284,37 @@ class CompanyTest extends TestCase
 
         Storage::disk()->assertMissing('companies/' . $logo->hashName());
     }
+
+    /** @test */
+    public function it_delete_a_company()
+    {
+        $company = factory(Company::class)->create();
+
+        $this->signIn()
+            ->allow('delete', $company)
+            ->deleteJson("api/companies/{$company->id}")
+            ->assertStatus(200);
+
+        $company = $company->fresh();
+        $this->assertNotNull($company->deleted_at);
+        $this->assertDatabaseHas('companies', [
+            'id' => $company->id,
+        ]);
+    }
+
+    /** @test */
+    public function it_not_allow_delete_a_company()
+    {
+        $company = factory(Company::class)->create();
+
+        $this->signIn()
+            ->deleteJson("api/companies/{$company->id}")
+            ->assertStatus(403);
+
+        $company = $company->fresh();
+        $this->assertNull($company->deleted_at);
+        $this->assertDatabaseHas('companies', [
+            'id' => $company->id,
+        ]);
+    }
 }
