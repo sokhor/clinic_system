@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, HasApiTokens, HasRolesAndAbilities;
 
-    protected $fillable = ['username', 'email', 'password', 'active'];
+    protected $fillable = ['username', 'email', 'password', 'active', 'user_id'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -28,10 +28,13 @@ class User extends Authenticatable
         return $this->where('username', $username)->first();
     }
 
-    /** Scopes */
     public function scopeWithoutSuperAdmin(Builder $builder)
     {
         return $builder->where('username', '!=', 'superadmin');
     }
-    /** End Scopes */
+
+    public function isSubscriber()
+    {
+        return is_null($this->user_id);
+    }
 }

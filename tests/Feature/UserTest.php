@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use Domain\Administration\Models\Company;
 use Bouncer;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,12 +14,12 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function authorized_user_can_create_a_user()
+    public function create_a_user()
     {
-        $this->withoutExceptionHandling();
-        $user = factory(User::class)->raw();
+        $subscriber = factory(User::class)->state('subscriber')->create();
+        $user = factory(User::class)->raw(['user_id' =>  null]);
 
-        $response = $this->signIn()
+        $response = $this->signIn($subscriber)
             ->allow('create-users')
             ->postJson('api/users', array_merge($user, [
                 'password' => 'secret',
@@ -31,10 +31,10 @@ class UserTest extends TestCase
             'username' => $user['username'],
             'email' => $user['email'],
             'active' => $user['active'],
+            'user_id' => $subscriber->id,
         ]);
-        $this->assertDatabaseHas('companies', [
-            'user_id' => json_decode($response->getContent())->data->id,
-        ]);
+        $this->assertCount(1, Company::get());
+        $this->assertEquals($subscriber->id, Company::first()->user_id);
     }
 
     /** @test */

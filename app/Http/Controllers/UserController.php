@@ -9,13 +9,14 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserDeleteRequest;
 use App\Http\Resources\UserResource;
 use App\Events\UserCreated;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
      * Get users.
      *
-     * @param  \App\Http\Requests\ViewUserRequest $request
+     * @param  \App\Http\Requests\UserViewRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -37,7 +38,7 @@ class UserController extends Controller
     /**
      * show user.
      *
-     * @param  \App\Http\Requests\ViewUserRequest $request
+     * @param  \App\Http\Requests\UserViewRequest $request
      * @param  uinteger           $id
      *
      * @return \Illuminate\Http\Response
@@ -50,17 +51,16 @@ class UserController extends Controller
     /**
      * Create a new user.
      *
-     * @param  \App\Http\Requests\CreateUserRequest $request
+     * @param  \App\Http\Requests\UserCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
     public function store(UserCreateRequest $request)
     {
         $user = User::create(array_merge($request->all(), [
-            'password' => bcrypt($request->password)
+            'password' => Hash::make($request->password),
+            'user_id' => $request->user()->id,
         ]));
-
-        event(new UserCreated($user));
 
         return (new UserResource($user))->additional(['message' => 'User was created']);
     }
@@ -68,7 +68,7 @@ class UserController extends Controller
     /**
      * Updage a user.
      *
-     * @param  \App\Http\Requests\UpdateUserRequest $request
+     * @param  \App\Http\Requests\UserUpdateRequest $request
      * @param  \App\User              $user
      *
      * @return \Illuminate\Http\Response
@@ -84,7 +84,7 @@ class UserController extends Controller
     /**
      * Delete a user.
      *
-     * @param  \App\Http\Requests\DeleteUserRequest $request
+     * @param  \App\Http\Requests\UserDeleteRequest $request
      * @param  \App\User              $user
      *
      * @return \Illuminate\Http\Response

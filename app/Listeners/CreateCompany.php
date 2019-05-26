@@ -2,9 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Events\UserCreated;
 use Domain\Administration\ValueObjects\CompanyData;
 use Domain\Administration\Actions\CompanyCreate;
+use Illuminate\Auth\Events\Registered;
 
 class CreateCompany
 {
@@ -21,10 +21,10 @@ class CreateCompany
     /**
      * Handle the event.
      *
-     * @param  UserCreated  $event
+     * @param  \Illuminate\Auth\Events\Registered  $event
      * @return void
      */
-    public function handle(UserCreated $event)
+    public function handle(Registered $event)
     {
         (new CompanyCreate)->execute(CompanyData::fromArray([
             'user_id' => $event->user->id

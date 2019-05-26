@@ -1,4 +1,5 @@
 <?php
+Route::post('register', 'Auth\RegisterController@store');
 Route::post('login', 'LoginController@login');
 Route::post('logout', 'LoginController@logout')->middleware('auth');
 Route::get('authenticated', 'LoginController@authenticated')->middleware('auth');
