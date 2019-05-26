@@ -15,19 +15,20 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->string('company_name_kh')->nullable();
-            $table->string('company_name_en');
+            $table->string('company_name_en')->nullable();
             $table->string('logo')->nullable();
             $table->string('type_of_business')->nullable();
-            $table->string('telephone');
+            $table->string('telephone')->nullable();
             $table->string('mobilephone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
-            $table->string('street');
-            $table->integer('village');
-            $table->integer('commune');
-            $table->integer('district');
-            $table->char('province', 3);
+            $table->string('street')->nullable();
+            $table->integer('village')->nullable();
+            $table->integer('commune')->nullable();
+            $table->integer('district')->nullable();
+            $table->char('province', 3)->nullable();
             $table->string('postcode')->nullable();
             $table->timestamps();
             $table->softDeletes();

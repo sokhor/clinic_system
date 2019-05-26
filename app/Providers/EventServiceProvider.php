@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Place\Events\BuildingDeleted' => [
             'App\Place\Listeners\BuildingWardsPivot',
         ],
+        \App\Events\UserCreated::class => [
+            \App\Listeners\CreateCompany::class,
+        ]
     ];
 
     /**

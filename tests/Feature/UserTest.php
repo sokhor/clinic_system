@@ -16,17 +16,25 @@ class UserTest extends TestCase
     /** @test */
     public function authorized_user_can_create_a_user()
     {
-        $user = factory(User::class)->make();
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->raw();
 
-        $this->signIn()
+        $response = $this->signIn()
             ->allow('create-users')
-            ->postJson('api/users', array_merge($user->toArray(), [
+            ->postJson('api/users', array_merge($user, [
                 'password' => 'secret',
                 'password_confirmation' => 'secret',
-            ]))
-            ->assertStatus(201);
+            ]));
 
-        $this->assertDatabaseHas('users', $user->toArray());
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('users', [
+            'username' => $user['username'],
+            'email' => $user['email'],
+            'active' => $user['active'],
+        ]);
+        $this->assertDatabaseHas('companies', [
+            'user_id' => json_decode($response->getContent())->data->id,
+        ]);
     }
 
     /** @test */

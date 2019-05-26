@@ -8,6 +8,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserDeleteRequest;
 use App\Http\Resources\UserResource;
+use App\Events\UserCreated;
 
 class UserController extends Controller
 {
@@ -58,6 +59,8 @@ class UserController extends Controller
         $user = User::create(array_merge($request->all(), [
             'password' => bcrypt($request->password)
         ]));
+
+        event(new UserCreated($user));
 
         return (new UserResource($user))->additional(['message' => 'User was created']);
     }
