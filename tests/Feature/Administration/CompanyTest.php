@@ -27,6 +27,7 @@ class CompanyTest extends TestCase
                 'data' => [
                     '*' => [
                         'id',
+                        'user_id',
                         'company_name_kh',
                         'company_name_en',
                         'logo',
@@ -35,10 +36,7 @@ class CompanyTest extends TestCase
                         'mobilephone',
                         'email',
                         'website',
-                        'street',
-                        'village',
-                        'commune',
-                        'district',
+                        'address',
                         'province',
                         'postcode',
                     ],
@@ -69,6 +67,7 @@ class CompanyTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'id',
+                    'user_id',
                     'company_name_kh',
                     'company_name_en',
                     'logo',
@@ -77,10 +76,7 @@ class CompanyTest extends TestCase
                     'mobilephone',
                     'email',
                     'website',
-                    'street',
-                    'village',
-                    'commune',
-                    'district',
+                    'address',
                     'province',
                     'postcode',
                 ],
@@ -104,7 +100,7 @@ class CompanyTest extends TestCase
     {
         $company = factory(Company::class)->make();
 
-        $response = $this->signIn()
+        $this->signIn()
             ->allow('create', Company::class)
             ->postJson('api/companies', $company->toArray())
             ->assertStatus(201)
@@ -112,6 +108,7 @@ class CompanyTest extends TestCase
                 'message',
                 'data' => [
                     'id',
+                    'user_id',
                     'company_name_kh',
                     'company_name_en',
                     'logo',
@@ -120,10 +117,7 @@ class CompanyTest extends TestCase
                     'mobilephone',
                     'email',
                     'website',
-                    'street',
-                    'village',
-                    'commune',
-                    'district',
+                    'address',
                     'province',
                     'postcode',
                 ],
@@ -142,10 +136,7 @@ class CompanyTest extends TestCase
             ->assertJsonValidationErrors([
                 'company_name_en',
                 'telephone',
-                'street',
-                'village',
-                'commune',
-                'district',
+                'address',
                 'province',
             ]);
     }
@@ -177,6 +168,7 @@ class CompanyTest extends TestCase
                 'message',
                 'data' => [
                     'id',
+                    'user_id',
                     'company_name_kh',
                     'company_name_en',
                     'logo',
@@ -185,10 +177,7 @@ class CompanyTest extends TestCase
                     'mobilephone',
                     'email',
                     'website',
-                    'street',
-                    'village',
-                    'commune',
-                    'district',
+                    'address',
                     'province',
                     'postcode',
                 ],
@@ -212,10 +201,7 @@ class CompanyTest extends TestCase
             ->assertJsonValidationErrors([
                 'company_name_en',
                 'telephone',
-                'street',
-                'village',
-                'commune',
-                'district',
+                'address',
                 'province',
             ]);
     }

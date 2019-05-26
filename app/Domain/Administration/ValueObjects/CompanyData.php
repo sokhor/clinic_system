@@ -32,16 +32,7 @@ class CompanyData extends DataTransferObject
     public $website;
 
     /** @var string|null */
-    public $street;
-
-    /** @var int|null */
-    public $village;
-
-    /** @var int|null */
-    public $commune;
-
-    /** @var int|null */
-    public $district;
+    public $address;
 
     /** @var string|null */
     public $province;
@@ -70,10 +61,7 @@ class CompanyData extends DataTransferObject
             'mobilephone',
             'email',
             'website',
-            'street',
-            'village',
-            'commune',
-            'district',
+            'address',
             'province',
             'postcode',
         ]));

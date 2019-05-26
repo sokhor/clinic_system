@@ -24,10 +24,7 @@ class CreateCompaniesTable extends Migration
             $table->string('mobilephone')->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
-            $table->string('street')->nullable();
-            $table->integer('village')->nullable();
-            $table->integer('commune')->nullable();
-            $table->integer('district')->nullable();
+            $table->string('address')->nullable();
             $table->char('province', 3)->nullable();
             $table->string('postcode')->nullable();
             $table->timestamps();

@@ -2,9 +2,13 @@
 
 use Domain\Administration\Models\Company;
 use Faker\Generator as Faker;
+use App\User;
 
 $factory->define(Company::class, function (Faker $faker) {
     return [
+        'user_id' => function () {
+            return factory(User::class)->create();
+        },
         'company_name_kh' => null,
         'company_name_en' => $faker->company,
         'logo' => null,
@@ -13,10 +17,7 @@ $factory->define(Company::class, function (Faker $faker) {
         'mobilephone' => $faker->phoneNumber,
         'email' => $faker->companyEmail,
         'website' => $faker->url,
-        'street' => $faker->streetName,
-        'village' => $faker->randomElement([1, 2, 3]),
-        'commune' => $faker->randomElement([1, 2, 3]),
-        'district' => $faker->randomElement([1, 2, 3]),
+        'address' => $faker->streetAddress,
         'province' => $faker->randomElement(['PNP', 'BAT', 'SPE']),
         'postcode' => $faker->postcode,
     ];

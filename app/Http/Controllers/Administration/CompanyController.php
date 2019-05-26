@@ -46,10 +46,7 @@ class CompanyController extends Controller
         $request->validate([
             'company_name_en' => 'required',
             'telephone' => 'required',
-            'street' => 'required',
-            'village' => 'required',
-            'commune' => 'required',
-            'district' => 'required',
+            'address' => 'required',
             'province' => 'required',
         ], [
             '*.required' => 'Required'
@@ -87,10 +84,7 @@ class CompanyController extends Controller
         $request->validate([
             'company_name_en' => 'required',
             'telephone' => 'required',
-            'street' => 'required',
-            'village' => 'required',
-            'commune' => 'required',
-            'district' => 'required',
+            'address' => 'required',
             'province' => 'required',
         ], [
             '*.required' => 'Required'
