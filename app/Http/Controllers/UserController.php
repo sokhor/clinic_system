@@ -75,7 +75,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, User $user)
     {
-        $user->update($request->except(['id', 'username', 'password']));
+        $user->update($request->except(['username', 'password']));
 
         return (new UserResource($user->fresh()))->additional(['message' => 'User was updated']);
         ;

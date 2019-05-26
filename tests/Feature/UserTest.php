@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
-use Domain\Administration\Models\Company;
 use Bouncer;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,8 +32,6 @@ class UserTest extends TestCase
             'active' => $user['active'],
             'user_id' => $subscriber->id,
         ]);
-        $this->assertCount(1, Company::get());
-        $this->assertEquals($subscriber->id, Company::first()->user_id);
     }
 
     /** @test */
@@ -357,7 +354,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function detach_user_roles()
+    public function it_detach_user_roles()
     {
         $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
@@ -369,7 +366,7 @@ class UserTest extends TestCase
 
         $this->signIn()
             ->allow('detach-roles-users')
-            ->putJson("api/users/$user->id/roles", [
+            ->deleteJson("api/users/$user->id/roles", [
                 'roles' => ['role-test-1']
             ])
             ->assertStatus(200);
@@ -378,7 +375,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function cannot_detach_user_roles()
+    public function it_cannot_detach_user_roles()
     {
         $user = factory(User::class)->create();
 
@@ -386,7 +383,7 @@ class UserTest extends TestCase
         Bouncer::assign('role-test-1')->to($user);
 
         $this->signIn()
-            ->putJson("api/users/$user->id/roles", [
+            ->deleteJson("api/users/$user->id/roles", [
                 'roles' => ['role-test-1']
             ])
             ->assertStatus(403);
