@@ -1,3 +1,22 @@
+.ui-checkbox
+  @apply relative block h-6 w-6 pl-6 flex items-center
+
+  .ui-checkbox-input
+    @apply absolute opacity-0
+
+  .box-checkbox
+    @apply absolute block w-4 h-4 rounded select-none left-0 border bg-gray-300
+
+    &:hover
+      @apply cursor-pointer
+
+    &::after
+      @apply absolute block w-4 h-4 bg-no-repeat bg-center bg-50%
+      content: ''
+
+  .ui-checkbox-input
+    @apply relative mb-0 whitespace-no-wrap
+
 input[type='checkbox'],
 input[type='radio']
   box-sizing: border-box
@@ -14,13 +33,3 @@ input[type='checkbox']:disabled ~ .box-checkbox
 
 input[type='checkbox']:disabled ~ .box-checkbox:hover
   @apply cursor-not-allowed
-
-.box-checkbox:hover
-  @apply cursor-pointer
-
-.box-checkbox:after
-  @apply absolute block w-4 h-4
-  content: ''
-
-.box-checkbox:after
-  @apply bg-no-repeat bg-center bg-50%

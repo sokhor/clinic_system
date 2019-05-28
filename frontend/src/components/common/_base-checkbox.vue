@@ -1,3 +1,27 @@
+<template>
+  <div
+    class="ui-checkbox"
+    :class="[{ checked: this.isChecked }, { disabled: this.disabled }]"
+  >
+    <input
+      type="checkbox"
+      class="ui-checkbox-input"
+      :checked="isChecked"
+      :disabled="disabled"
+      :value="value"
+      @change="event => onChange(event)"
+    />
+    <div
+      class="box-checkbox"
+      @click="event => event.target.previousSibling.click()"
+    />
+    <label class="ui-checkbox-input">
+      <slot />
+    </label>
+  </div>
+</template>
+
+<script>
 import { findIndex, isEqual, cloneDeep } from 'lodash'
 
 export default {
@@ -39,34 +63,6 @@ export default {
         this.$emit('change', event.target.checked)
       }
     }
-  },
-  render(h) {
-    return (
-      <div
-        {...{
-          class: [
-            'relative block h-6 w-6 pl-6 flex items-center',
-            { checked: this.isChecked },
-            { disabled: this.disabled }
-          ]
-        }}
-      >
-        <input
-          type="checkbox"
-          class="absolute z--1 opacity-0"
-          checked={this.isChecked}
-          disabled={this.disabled}
-          value={this.value}
-          vOn:change={event => this.onChange(event)}
-        />
-        <div
-          class="box-checkbox absolute block w-4 h-4 rounded select-none left-0 border bg-gray-300"
-          vOn:click={event => event.target.previousSibling.click()}
-        />
-        <label class="relative mb-0 whitespace-no-wrap">
-          {this.$slots.default[0]}
-        </label>
-      </div>
-    )
   }
 }
+</script>
