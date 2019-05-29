@@ -6,7 +6,11 @@
           <CheckableHead v-if="showCheckbox" />
           <ExpandableHead v-if="expandable" />
           <slot name="columns">
-            <th v-for="(column, key) in columns">
+            <th
+              v-for="(column, key) in columns"
+              :style="showColumnStyle(column)"
+              :class="showColumnClass(column)"
+            >
               {{ showColumnName(column) }}
             </th>
           </slot>
@@ -228,6 +232,11 @@ export default {
       }
 
       return {}
+    },
+    showColumnClass(column) {
+      if (column instanceof Object) {
+        return column.class
+      }
     },
     filterable(column) {
       return column instanceof Object && column.filter !== undefined
