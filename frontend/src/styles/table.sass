@@ -10,6 +10,27 @@
       &.ui-checkable
         @apply .w-10 .text-center
 
+    .table-data-loading
+      @apply p-0 bg-white
+
+      &__slider
+        @apply relative w-full overflow-x-hidden
+        height: 3px
+
+      &__line
+        @apply absolute opacity-25 w-full bg-blue-500
+        height: 3px
+
+      &__subline
+        @apply absolute bg-blue-500
+        height: 3px
+
+        &__inc
+          animation: table-loading-increase 2s infinite
+
+        &__dec
+          animation: table-loading-decrease 2s 0.5s infinite
+
   tbody
     tr
       @apply .border-t .border-gray-200
@@ -22,3 +43,32 @@
 
         &.ui-checkable
           @apply .w-10 .text-center
+
+        &.expandable-row
+          @apply .align-middle .text-center
+
+          .expandable-row__icon
+            @apply .relative .cursor-pointer .text-base .text-gray-600
+            transition: transform 0.2s ease-in-out
+
+          .expandable-row__expanded
+            transform: rotate(90deg)
+
+
+@keyframes table-loading-increase
+  from
+    left: -5%
+    width: 5%
+
+  to
+    left: 130%
+    width: 100%
+
+@keyframes table-loading-decrease
+  from
+    left: -80%
+    width: 80%
+
+  to
+    left: 110%
+    width: 10%

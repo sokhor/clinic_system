@@ -12,6 +12,8 @@
           </slot>
         </tr>
       </slot>
+
+      <TableProgressBar v-show="loading" />
     </thead>
     <tbody>
       <template v-for="(items, itemKey) in dataTable">
@@ -36,12 +38,13 @@
 
 <script>
 import { sortBy, debounce, transform, groupBy, reduce } from 'lodash'
-import CheckableHead from './CheckableHead.vue'
-import ExpandableHead from './ExpandableHead.vue'
-import CheckableColumn from './CheckableColumn.vue'
-import ExpandableColumn from './ExpandableColumn.vue'
-import ExpandableRow from './ExpandableRow.vue'
-import ShouldGroup from './ShouldGroup.vue'
+import CheckableHead from './CheckableHead'
+import ExpandableHead from './ExpandableHead'
+import CheckableColumn from './CheckableColumn'
+import ExpandableColumn from './ExpandableColumn'
+import ExpandableRow from './ExpandableRow'
+import ShouldGroup from './ShouldGroup'
+import TableProgressBar from './TableProgressBar'
 
 export default {
   name: 'BaseTable',
@@ -51,7 +54,8 @@ export default {
     CheckableColumn,
     ExpandableColumn,
     ExpandableRow,
-    ShouldGroup
+    ShouldGroup,
+    TableProgressBar
   },
   props: {
     columns: {
@@ -79,6 +83,10 @@ export default {
     },
     rowGroup: {
       type: Object
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
