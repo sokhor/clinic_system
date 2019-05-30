@@ -64,8 +64,8 @@ const classSize = ({ size, icon }) => {
 const isWaiting = waiting => waiting === true || waiting.state === true
 
 export default {
-  functional: true,
   name: 'BaseButton',
+  functional: true,
   props: {
     type: {
       type: String,
@@ -119,11 +119,7 @@ export default {
         }}
       >
         {(() => {
-          if (
-            typeof context.props.waiting === 'object' &&
-            context.props.waiting.state === true &&
-            context.props.waiting.hideText === true
-          ) {
+          if (context.props.waiting && context.props.icon) {
             return <Spin waiting={context.props.waiting} />
           } else {
             return [
