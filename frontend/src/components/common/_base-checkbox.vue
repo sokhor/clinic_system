@@ -15,7 +15,7 @@
       class="box-checkbox"
       @click="event => event.target.previousSibling.click()"
     />
-    <label class="ui-checkbox-input">
+    <label class="ui-checkbox-label">
       <slot />
     </label>
   </div>
