@@ -1,27 +1,20 @@
-import { camelCase } from 'lodash'
+import { mapKeys, camelCase } from 'lodash'
 
-function setPaging({
-  currentPage = 1,
-  from = null,
-  to = null,
-  lastPage = 0,
-  perPage = 15,
-  total = 0
-} = {}) {
-  return {
-    currentPage,
-    from,
-    to,
-    lastPage,
-    perPage,
-    total
+class Pagination {
+  constructor(paging = {}) {
+    this.currentPage = paging.currentPage ? parseInt(paging.currentPage) : 1
+    this.lastPage = paging.lastPage ? parseInt(paging.lastPage) : 0
+    this.perPage = paging.perPage ? parseInt(paging.perPage) : 15
+    this.total = paging.total ? parseInt(paging.total) : 0
+    this.from = this.perPage * (this.currentPage - 1) + 1
+    this.to = this.perPage * this.currentPage
   }
 }
 
 export const baseState = {
   resources: [],
   search: '',
-  pagination: {}
+  pagination: new Pagination()
 }
 
 export const baseMutations = {
@@ -31,7 +24,7 @@ export const baseMutations = {
       state.resources.push(Object.assign(resource, { _deleting: false }))
     })
 
-    state.pagination = setPaging(camelCase(meta))
+    state.pagination = new Pagination(mapKeys(meta, (v, k) => camelCase(k)))
   },
   DELETE_RESOURCE(state, resource) {
     state.resources.splice(state.resources.indexOf(resource), 1)

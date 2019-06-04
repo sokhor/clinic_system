@@ -1,0 +1,29 @@
+.paging
+  @apply flex items-center
+
+  .pagination
+    @apply flex list-none p-0 w-auto
+
+    .pagination-button
+      @apply block text-gray-700 border-t border-b border-r border-gray-400 px-4 py-2
+
+      &.previous
+        @apply border-l rounded-l-lg
+
+      &.next
+        @apply border-r rounded-r-lg
+
+      &:not(.disabled):not(.active):hover
+        @apply bg-gray-200 cursor-pointer
+
+      &.disabled > a
+        @apply cursor-not-allowed text-gray-500
+
+      &.active
+        @apply text-white bg-blue-500 border-blue-500
+
+  .perpage
+    @apply flex items-center mr-4
+
+    span
+      @apply whitespace-no-wrap font-normal
