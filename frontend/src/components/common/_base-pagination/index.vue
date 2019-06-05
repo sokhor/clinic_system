@@ -22,9 +22,6 @@ export default {
   props: {
     value: {
       required: true
-    },
-    params: {
-      type: Object
     }
   },
   data() {
@@ -50,16 +47,14 @@ export default {
     navigate(page) {
       this.$emit('navigate', {
         page,
-        perPage: this.perPage,
-        ...this.params
+        perPage: this.perPage
       })
     },
     onChangePerPage(perPage) {
       this.currentPage = 1
       this.$emit('navigate', {
         page: this.currentPage,
-        perPage,
-        params: this.params
+        perPage
       })
     },
     setData(paging) {
