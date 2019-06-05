@@ -30,7 +30,10 @@ export const baseMutations = {
     state.resources.splice(state.resources.indexOf(resource), 1)
   },
   SET_SEARCH(state, search) {
-    state.search = search
+    search = search.trim()
+
+    if (search === '') state.search = null
+    else state.search = search
   },
   RESET_CURRENT_PAGE(state) {
     state.pagination.currentPage = 1
